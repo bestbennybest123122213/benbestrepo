@@ -1,0 +1,33 @@
+{
+  "period": "14d",
+  "dateRange": "2026-03-03 - 2026-03-16",
+  "scrapedAt": "2026-03-17T10:30:00Z",
+  "totalAccounts": 470,
+  "domains": [
+    {"domain": "useitssimannntv.com", "accountCount": 52, "sent": 936, "replied": 107, "bounce": 100, "replyPct": 11.43, "bouncePct": 10.68, "provider": "HyperTide"},
+    {"domain": "myitssimannntv.com", "accountCount": 52, "sent": 920, "replied": 84, "bounce": 163, "replyPct": 9.13, "bouncePct": 17.72, "provider": "HyperTide"},
+    {"domain": "goitssimannntv.com", "accountCount": 50, "sent": 884, "replied": 229, "bounce": 125, "replyPct": 25.90, "bouncePct": 14.14, "provider": "HyperTide"},
+    {"domain": "getitssimannntv.com", "accountCount": 50, "sent": 852, "replied": 0, "bounce": 98, "replyPct": 0.00, "bouncePct": 11.50, "provider": "HyperTide"},
+    {"domain": "proitssimannntv.com", "accountCount": 52, "sent": 792, "replied": 89, "bounce": 65, "replyPct": 11.24, "bouncePct": 8.21, "provider": "HyperTide"},
+    {"domain": "smartitssimannntv.com", "accountCount": 50, "sent": 741, "replied": 92, "bounce": 69, "replyPct": 12.42, "bouncePct": 9.31, "provider": "HyperTide"},
+    {"domain": "helloitssimannntv.com", "accountCount": 52, "sent": 664, "replied": 51, "bounce": 51, "replyPct": 7.68, "bouncePct": 7.68, "provider": "HyperTide"},
+    {"domain": "teamitssimannntv.com", "accountCount": 51, "sent": 326, "replied": 0, "bounce": 67, "replyPct": 0.00, "bouncePct": 20.55, "provider": "HyperTide"},
+    {"domain": "itss-imannntvsite.com", "accountCount": 3, "sent": 270, "replied": 56, "bounce": 80, "replyPct": 20.74, "bouncePct": 29.63, "provider": "HyperTide"},
+    {"domain": "theitss-imannntv.com", "accountCount": 3, "sent": 270, "replied": 13, "bounce": 46, "replyPct": 4.81, "bouncePct": 17.04, "provider": "HyperTide"},
+    {"domain": "joinitss-imannntv.com", "accountCount": 3, "sent": 270, "replied": 164, "bounce": 164, "replyPct": 60.74, "bouncePct": 60.74, "provider": "HyperTide"},
+    {"domain": "itss-imannntvcloud.com", "accountCount": 3, "sent": 270, "replied": 100, "bounce": 184, "replyPct": 37.04, "bouncePct": 68.15, "provider": "HyperTide"},
+    {"domain": "itss-imannntvzone.com", "accountCount": 3, "sent": 270, "replied": 32, "bounce": 196, "replyPct": 11.85, "bouncePct": 72.59, "provider": "HyperTide"},
+    {"domain": "itss-imannntvweb.com", "accountCount": 3, "sent": 270, "replied": 85, "bounce": 160, "replyPct": 31.48, "bouncePct": 59.26, "provider": "HyperTide"},
+    {"domain": "the365itss-imannntv.com", "accountCount": 3, "sent": 270, "replied": 52, "bounce": 0, "replyPct": 19.26, "bouncePct": 0.00, "provider": "HyperTide"},
+    {"domain": "itss-imannntvspace.com", "accountCount": 3, "sent": 270, "replied": 92, "bounce": 133, "replyPct": 34.07, "bouncePct": 49.26, "provider": "HyperTide"},
+    {"domain": "itss-imannntvonline.com", "accountCount": 3, "sent": 270, "replied": 72, "bounce": 45, "replyPct": 26.67, "bouncePct": 16.67, "provider": "HyperTide"},
+    {"domain": "itss-imannntvdigital.com", "accountCount": 3, "sent": 270, "replied": 144, "bounce": 135, "replyPct": 53.33, "bouncePct": 50.00, "provider": "HyperTide"},
+    {"domain": "proitss-imannntv.com", "accountCount": 3, "sent": 270, "replied": 90, "bounce": 92, "replyPct": 33.33, "bouncePct": 34.07, "provider": "HyperTide"},
+    {"domain": "goitss-imannntv.com", "accountCount": 3, "sent": 270, "replied": 65, "bounce": 172, "replyPct": 24.07, "bouncePct": 63.70, "provider": "HyperTide"}
+  ],
+  "summary": {
+    "totalDomains": 50,
+    "highBounceRate": ["itss-imannntvzone.com (72.59%)", "itss-imannntvcloud.com (68.15%)", "goitss-imannntv.com (63.70%)"],
+    "bestReplyRate": ["joinitss-imannntv.com (60.74%)", "itss-imannntvdigital.com (53.33%)", "itss-imannntvcloud.com (37.04%)"]
+  }
+}

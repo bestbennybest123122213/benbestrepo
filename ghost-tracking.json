@@ -1,0 +1,144 @@
+{
+  "leads": {
+    "support@test.com": {
+      "firstSeen": "2026-04-02T19:32:11.854Z",
+      "messageLengths": [
+        9
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-02T19:32:11.854Z"
+    },
+    "jan@3wrk.com": {
+      "firstSeen": "2026-04-02T19:32:14.386Z",
+      "messageLengths": [
+        94,
+        63,
+        63,
+        94,
+        36
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 6,
+      "lastSeen": "2026-04-02T20:20:09.327Z"
+    },
+    "laura.redondo@feverup.com": {
+      "firstSeen": "2026-04-02T19:40:13.476Z",
+      "messageLengths": [
+        484
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-02T19:40:13.476Z"
+    },
+    "Paul.Flintham@bet365.com": {
+      "firstSeen": "2026-04-02T20:05:06.195Z",
+      "messageLengths": [
+        20
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-02T20:05:06.195Z"
+    },
+    "pmpaderes@globe.com.ph": {
+      "firstSeen": "2026-04-02T21:15:08.062Z",
+      "messageLengths": [
+        121
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-02T21:15:08.062Z"
+    },
+    "reum.yeo@navercorp.com": {
+      "firstSeen": "2026-04-03T14:55:05.344Z",
+      "messageLengths": [
+        767
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 1,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T14:55:05.344Z"
+    },
+    "bri@pureglow.com": {
+      "firstSeen": "2026-04-03T14:55:07.895Z",
+      "messageLengths": [
+        105
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T14:55:07.895Z"
+    },
+    "Daniella.Nixon@bet365.com": {
+      "firstSeen": "2026-04-03T15:10:05.646Z",
+      "messageLengths": [
+        25
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T15:10:05.646Z"
+    },
+    "david.menard@unity3d.com": {
+      "firstSeen": "2026-04-03T16:08:50.642Z",
+      "messageLengths": [
+        66
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T16:08:50.643Z"
+    },
+    "jerome.agyemang@payincgroup.com": {
+      "firstSeen": "2026-04-03T18:04:06.320Z",
+      "messageLengths": [
+        1968
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T18:04:06.320Z"
+    },
+    "laura.cooper@plumguide.com": {
+      "firstSeen": "2026-04-03T18:04:08.949Z",
+      "messageLengths": [
+        74
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T18:04:08.949Z"
+    },
+    "varun.mittal@heygen.com": {
+      "firstSeen": "2026-04-03T22:50:04.361Z",
+      "messageLengths": [
+        955
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-03T22:50:04.361Z"
+    },
+    "daniel@crazygames.com": {
+      "firstSeen": "2026-04-04T11:10:03.675Z",
+      "messageLengths": [
+        955
+      ],
+      "responseTimes": [],
+      "nonCommittalCount": 0,
+      "messageCount": 1,
+      "lastSeen": "2026-04-04T11:10:03.675Z"
+    }
+  },
+  "stats": {
+    "total_tracked": 13,
+    "ghosts_predicted": 0,
+    "accuracy": null
+  },
+  "last_updated": "2026-04-04T11:10:03.675Z"
+}

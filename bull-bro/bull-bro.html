@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐂 Bull BRO - Control Center</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --hot: #ffd700;
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 700; }
+    .logo-icon { font-size: 32px; }
+    .status { display: flex; gap: 16px; font-size: 14px; color: var(--text-muted); }
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 12px 24px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .tab {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .tab:hover { background: var(--bg-tertiary); color: var(--text); }
+    .tab.active { background: var(--accent); color: #000; font-weight: 600; }
+    .content { padding: 24px; max-width: 1400px; margin: 0 auto; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .card-header:hover { background: var(--bg-tertiary); }
+    .card-body { padding: 16px; display: none; }
+    .card.expanded .card-body { display: block; }
+    .email-list { max-height: 70vh; overflow-y: auto; }
+    .email-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .email-item:hover { background: var(--bg-tertiary); }
+    .email-item.hot { border-left: 3px solid var(--hot); }
+    .email-item.warm { border-left: 3px solid var(--success); }
+    .email-item.objection { border-left: 3px solid var(--danger); }
+    .email-header { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .email-sender { font-weight: 600; }
+    .email-date { font-size: 12px; color: var(--text-muted); }
+    .email-subject { font-size: 14px; margin-bottom: 4px; }
+    .email-preview { font-size: 13px; color: var(--text-muted); }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    .badge.hot { background: var(--hot); color: #000; }
+    .badge.warm { background: var(--success); color: #000; }
+    .badge.objection { background: var(--danger); color: #fff; }
+    .badge.neutral { background: var(--bg-tertiary); color: var(--text-muted); }
+    .btn {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-tertiary);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--border); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #000; }
+    .btn.success { background: var(--success); border-color: var(--success); color: #000; }
+    .response-box {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      margin: 12px 0;
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 32px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    .loading { text-align: center; padding: 40px; color: var(--text-muted); }
+    .empty { text-align: center; padding: 60px; color: var(--text-muted); }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--text-muted); }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-primary);
+      color: var(--text);
+      font-size: 14px;
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .header { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🐂</span>
+      <span>Bull BRO</span>
+    </div>
+    <div class="status">
+      <span id="reply-count">Loading...</span>
+      <span id="last-refresh">--</span>
+    </div>
+  </header>
+  
+  <nav class="tabs">
+    <button class="tab active" data-panel="inbox">📬 Inbox</button>
+    <button class="tab" data-panel="training">🎯 Training</button>
+    <button class="tab" data-panel="templates">📝 Templates</button>
+    <button class="tab" data-panel="memory">🧠 Memory</button>
+  </nav>
+  
+  <main class="content">
+    <!-- INBOX PANEL -->
+    <div id="inbox" class="panel active">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value" id="stat-total">-</div><div class="stat-label">Total Replies</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-hot" style="color: var(--hot)">-</div><div class="stat-label">🔥 Hot Leads</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-objections" style="color: var(--danger)">-</div><div class="stat-label">Objections</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-pending">-</div><div class="stat-label">Need Response</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-booked" style="color: var(--success)">-</div><div class="stat-label">🎯 Booked</div></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <!-- Left: Need Response -->
+        <div>
+          <h3 style="margin-bottom: 12px; color: var(--text-muted);">📬 Need Response</h3>
+          <div class="email-list" id="email-list" style="max-height: 60vh;">
+            <div class="loading">Loading SmartLead replies...</div>
+          </div>
+        </div>
+        <!-- Right: Booked Leads -->
+        <div>
+          <h3 style="margin-bottom: 12px; color: var(--success);">🎯 Booked Leads</h3>
+          <div class="email-list" id="booked-list" style="max-height: 60vh;">
+            <div class="loading">Loading booked leads...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TRAINING PANEL -->
+    <div id="training" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <h3>➕ Add Winning Reply</h3>
+        </div>
+        <div class="card-body" style="display: block;">
+          <div class="form-group">
+            <label>Intent</label>
+            <select id="winning-intent">
+              <option value="interested">Interested</option>
+              <option value="pricing">Pricing Question</option>
+              <option value="objection_overcome">Objection Overcome</option>
+              <option value="meeting_booked">Meeting Booked</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Reply that converted</label>
+            <textarea id="winning-reply" placeholder="Paste the reply that led to a booked call..."></textarea>
+          </div>
+          <button class="btn success" onclick="saveWinningReply()">💾 Save Winning Reply</button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>➕ Add Objection Handler</h3>
+        </div>
+        <div class="card-body" style="display: block;">
+          <div class="form-group">
+            <label>Objection phrases (comma separated)</label>
+            <input type="text" id="objection-phrases" placeholder="no budget, can't afford, too expensive">
+          </div>
+          <div class="form-group">
+            <label>Counter response</label>
+            <textarea id="objection-counter" placeholder="Hey {{first_name}},\n\nTotally get it — budgets are real..."></textarea>
+          </div>
+          <button class="btn success" onclick="saveObjection()">💾 Save Objection</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TEMPLATES PANEL -->
+    <div id="templates" class="panel">
+      <div id="templates-list">
+        <div class="loading">Loading templates...</div>
+      </div>
+    </div>
+    
+    <!-- MEMORY PANEL -->
+    <div id="memory" class="panel">
+      <div id="threads-list">
+        <div class="loading">Loading conversation threads...</div>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.panel).classList.add('active');
+      });
+    });
+    
+    // State
+    let emails = [];
+    let openDetailIdx = null;  // Track which email detail is open to pause auto-refresh
+    
+    // Load inbox from SmartLead API
+    async function loadInbox() {
+      try {
+        const res = await fetch('/api/smartlead/inbox?limit=200');
+        const data = await res.json();
+        
+        if (data.success && data.replies) {
+          emails = data.replies;
+          renderInbox();
+          document.getElementById('reply-count').textContent = `${emails.length} replies`;
+          document.getElementById('last-refresh').textContent = `Refreshed: ${new Date().toLocaleTimeString()}`;
+        } else {
+          document.getElementById('email-list').innerHTML = `<div class="empty">⚠️ ${data.message || 'No replies found'}</div>`;
+        }
+      } catch (e) {
+        document.getElementById('email-list').innerHTML = `<div class="empty">❌ Error loading: ${e.message}</div>`;
+      }
+    }
+    
+    function renderInbox() {
+      const list = document.getElementById('email-list');
+      const bookedList = document.getElementById('booked-list');
+      
+      // Split into booked vs need response
+      const booked = emails.filter(e => e.category?.includes('Booked') || e.intent === 'booked');
+      const needResponse = emails.filter(e => !e.category?.includes('Booked') && e.intent !== 'booked');
+      
+      // Stats
+      const hot = emails.filter(e => e.intent === 'hot' || e.category?.includes('Interest')).length;
+      const objections = emails.filter(e => e.intent === 'objection' || e.category?.includes('Not')).length;
+      document.getElementById('stat-total').textContent = emails.length;
+      document.getElementById('stat-hot').textContent = hot;
+      document.getElementById('stat-objections').textContent = objections;
+      document.getElementById('stat-pending').textContent = needResponse.length;
+      document.getElementById('stat-booked').textContent = booked.length;
+      
+      // Render booked list
+      if (booked.length === 0) {
+        bookedList.innerHTML = '<div class="empty" style="padding: 20px;">No booked leads yet</div>';
+      } else {
+        bookedList.innerHTML = booked.map((email, idx) => {
+          const key = 'booked-' + idx;
+          emailMap[key] = email;  // Store in map for lookup
+          return renderEmailItem(email, key, 'hot');
+        }).join('');
+      }
+      
+      // Render need response list
+      if (needResponse.length === 0) {
+        list.innerHTML = '<div class="empty">No replies yet</div>';
+        return;
+      }
+      
+      list.innerHTML = needResponse.map((email, idx) => {
+        emailMap[idx] = email;  // Store in map for lookup
+        return renderEmailItem(email, idx, email.intent || 'neutral');
+      }).join('');
+    }
+    
+    function renderEmailItem(email, idx, intentOverride) {
+      const intent = intentOverride || email.intent || 'neutral';
+      return `
+        <div class="email-item ${intent}" onclick="toggleEmail('${idx}')">
+          <div class="email-header">
+            <span class="email-sender">${email.firstName || email.from?.split('<')[0] || 'Unknown'} - ${email.company || ''}</span>
+            <span class="email-date">${formatDate(email.date)}</span>
+          </div>
+          <div class="email-subject">
+            ${email.subject || 'Re: Outreach'}
+            <span class="badge ${intent}">${email.category || intent}</span>
+          </div>
+          <div class="email-preview">${email.preview || email.body?.substring(0, 100) || ''}</div>
+          <div id="email-detail-${idx}" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+            <strong>Full Thread:</strong>
+            <div class="thread-container" id="thread-${idx}" style="margin: 12px 0; padding: 16px; background: var(--card-bg); border-radius: 8px;">
+              <div class="loading">Loading full thread...</div>
+            </div>
+            <strong>Bull BRO Suggested Response:</strong>
+            <div class="response-box" id="response-${idx}">Generating...</div>
+            <div style="margin-top: 12px; display: flex; gap: 8px;">
+              <button class="btn primary" onclick="copyResponse('${idx}')">📋 Copy</button>
+              <button class="btn success" onclick="markAsWon('${idx}')">🏆 Mark as Won</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Map to store emails by their unique key (email address)
+    let emailMap = {};
+    
+    function toggleEmail(idx) {
+      const detail = document.getElementById(`email-detail-${idx}`);
+      const isHidden = detail.style.display === 'none';
+      detail.style.display = isHidden ? 'block' : 'none';
+      
+      // Track open state to pause auto-refresh while reading
+      openDetailIdx = isHidden ? idx : null;
+      
+      if (isHidden) {
+        loadFullThread(idx);
+        generateResponse(idx);
+      }
+    }
+    
+    async function loadFullThread(idx) {
+      const email = emailMap[idx] || emails[idx];
+      const threadEl = document.getElementById(`thread-${idx}`);
+      
+      try {
+        const res = await fetch(`/api/threads/${encodeURIComponent(email.email)}`);
+        if (!res.ok) throw new Error('Thread not found');
+        
+        const data = await res.json();
+        
+        if (data.formattedThread && data.formattedThread.length > 0) {
+          // Skip first message if it's our cold email
+          const messages = data.formattedThread[0]?.isOurs ? data.formattedThread.slice(1) : data.formattedThread;
+          
+          threadEl.innerHTML = `
+            <div style="margin-bottom: 12px; font-weight: bold; color: var(--primary);">
+              📧 Thread: ${data.name || email.firstName} @ ${data.company || email.company}
+              <span class="badge ${data.category?.toLowerCase() || ''}">${data.category || 'Unknown'}</span>
+            </div>
+            ${messages.map(m => `
+              <div style="margin: 16px 0; padding: 12px; background: ${m.isOurs ? 'rgba(76, 175, 80, 0.1)' : 'rgba(33, 150, 243, 0.1)'}; border-radius: 8px; border-left: 3px solid ${m.isOurs ? '#4caf50' : '#2196f3'};">
+                <div style="font-weight: bold; margin-bottom: 8px;">
+                  ${m.icon} ${m.sender} — ${m.date}
+                </div>
+                <div style="white-space: pre-wrap; line-height: 1.6;">${m.body}</div>
+              </div>
+            `).join('')}
+            ${data.is_booked ? '<div style="margin-top: 16px; padding: 8px; background: rgba(76, 175, 80, 0.2); border-radius: 4px; text-align: center;">✅ BOOKED</div>' : ''}
+          `;
+        } else {
+          // Fallback to showing raw body
+          threadEl.innerHTML = `<div style="white-space: pre-wrap;">${email.body || email.preview || 'No content'}</div>`;
+        }
+      } catch (e) {
+        // Fallback to showing raw body
+        threadEl.innerHTML = `<div style="white-space: pre-wrap;">${email.body || email.preview || 'No content'}</div>`;
+      }
+    }
+    
+    async function generateResponse(idx) {
+      const email = emailMap[idx] || emails[idx];
+      const responseEl = document.getElementById(`response-${idx}`);
+      
+      try {
+        // Use SOP matcher
+        const res = await fetch('/api/templates/match', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: email.body || email.preview,
+            lead: email.leadData || { firstName: email.firstName, company: email.company }
+          })
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          responseEl.textContent = data.response || data.generatedResponse || 'No template match found';
+        } else {
+          // Fallback generic response
+          responseEl.textContent = `Hey ${email.firstName || 'there'},\n\nThanks for getting back to us!\n\nWould love to hop on a quick call to discuss further. I'm free Tuesday 2pm or Thursday 11am ET — either work?\n\nBest,\nImman`;
+        }
+      } catch (e) {
+        responseEl.textContent = `Hey ${email.firstName || 'there'},\n\nThanks for getting back to us!\n\nWorth a quick call to explore this? I'm free Tuesday 2pm or Thursday 11am ET.\n\nBest,\nImman`;
+      }
+    }
+    
+    function copyResponse(idx) {
+      const text = document.getElementById(`response-${idx}`).textContent;
+      navigator.clipboard.writeText(text);
+      alert('Copied to clipboard!');
+    }
+    
+    function markAsWon(idx) {
+      const email = emails[idx];
+      const response = document.getElementById(`response-${idx}`).textContent;
+      
+      // Save to winning replies
+      fetch('/api/training/winning', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          reply: response,
+          lead: email.leadData,
+          intent: email.intent || 'interested'
+        })
+      }).then(() => alert('Marked as winning reply!'));
+    }
+    
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      const now = new Date();
+      const diff = now - d;
+      if (diff < 3600000) return `${Math.floor(diff/60000)}m ago`;
+      if (diff < 86400000) return `${Math.floor(diff/3600000)}h ago`;
+      return d.toLocaleDateString();
+    }
+    
+    // Training functions
+    function saveWinningReply() {
+      const intent = document.getElementById('winning-intent').value;
+      const reply = document.getElementById('winning-reply').value;
+      
+      fetch('/api/training/winning', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ intent, reply })
+      }).then(() => {
+        alert('Saved!');
+        document.getElementById('winning-reply').value = '';
+      });
+    }
+    
+    function saveObjection() {
+      const phrases = document.getElementById('objection-phrases').value;
+      const counter = document.getElementById('objection-counter').value;
+      
+      fetch('/api/training/objection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phrases: phrases.split(',').map(p => p.trim()), counter })
+      }).then(() => {
+        alert('Saved!');
+        document.getElementById('objection-phrases').value = '';
+        document.getElementById('objection-counter').value = '';
+      });
+    }
+    
+    // Load templates
+    async function loadTemplates() {
+      try {
+        const res = await fetch('/api/templates');
+        const data = await res.json();
+        
+        const list = document.getElementById('templates-list');
+        if (data.templates && Object.keys(data.templates).length > 0) {
+          list.innerHTML = Object.entries(data.templates).map(([key, templates]) => `
+            <div class="card">
+              <div class="card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                <h3>📁 ${key}</h3>
+                <span>${Object.keys(templates).length} templates</span>
+              </div>
+              <div class="card-body">
+                ${Object.entries(templates).map(([name, tmpl]) => `
+                  <div style="margin-bottom: 16px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
+                    <strong>${name}</strong>
+                    <div class="response-box" style="margin-top: 8px;">${tmpl.script || JSON.stringify(tmpl)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('');
+        } else {
+          list.innerHTML = '<div class="empty">No templates found</div>';
+        }
+      } catch (e) {
+        document.getElementById('templates-list').innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+      }
+    }
+    
+    // Load threads
+    async function loadThreads() {
+      try {
+        const res = await fetch('/api/threads');
+        const data = await res.json();
+        
+        const list = document.getElementById('threads-list');
+        const threads = data.threads || {};
+        
+        if (Object.keys(threads).length > 0) {
+          list.innerHTML = Object.entries(threads).map(([key, thread]) => `
+            <div class="card">
+              <div class="card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                <div>
+                  <strong>${thread.lead?.firstName || key}</strong> - ${thread.lead?.company || ''}
+                  <span class="badge ${thread.status}">${thread.status}</span>
+                </div>
+                <span>${thread.messages?.length || 0} messages</span>
+              </div>
+              <div class="card-body">
+                <p>Objections: ${thread.objections?.join(', ') || 'None'}</p>
+                <p>Intents: ${thread.intents?.join(', ') || 'None'}</p>
+                <div style="margin-top: 12px;">
+                  <button class="btn success" onclick="markThreadWon('${key}')">🏆 Won</button>
+                  <button class="btn" onclick="markThreadLost('${key}')">❌ Lost</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          list.innerHTML = '<div class="empty">No conversation threads yet</div>';
+        }
+      } catch (e) {
+        document.getElementById('threads-list').innerHTML = `<div class="empty">Error: ${e.message}</div>`;
+      }
+    }
+    
+    function markThreadWon(key) {
+      fetch(`/api/threads/${encodeURIComponent(key)}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'won' })
+      }).then(() => loadThreads());
+    }
+    
+    function markThreadLost(key) {
+      fetch(`/api/threads/${encodeURIComponent(key)}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'lost' })
+      }).then(() => loadThreads());
+    }
+    
+    // Initial load
+    loadInbox();
+    loadTemplates();
+    loadThreads();
+    
+    // Auto-refresh inbox every 60s, but only if no detail is open
+    setInterval(() => {
+      if (openDetailIdx === null) {
+        loadInbox();
+      }
+    }, 60000);
+  </script>
+</body>
+</html>

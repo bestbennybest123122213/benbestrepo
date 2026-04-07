@@ -1,0 +1,138 @@
+{
+  "scrapedAt": "2026-03-18T00:23:25.629Z",
+  "source": "SmartLead Global Analytics UI - Browser Automation Scrape",
+  "note": "Fresh scrape via Clawdbot browser automation on March 18 overnight",
+  "dataAsOf": "2026-03-18",
+  "ranges": {
+    "yesterday": {
+      "label": "Yesterday (Mar 17)",
+      "dateRange": "2026-03-17 - 2026-03-17",
+      "sent": 1430,
+      "opened": 5,
+      "replied": 6,
+      "positive": 1,
+      "bounced": 9,
+      "contacted": 1430,
+      "openRate": 0.35,
+      "replyRate": 0.42,
+      "positiveRate": 16.67,
+      "bounceRate": 0.63
+    },
+    "last_3_days": {
+      "label": "Last 3 Days (Mar 15-17)",
+      "dateRange": "2026-03-15 - 2026-03-17",
+      "sent": 4189,
+      "opened": 12,
+      "replied": 16,
+      "positive": 4,
+      "bounced": 27,
+      "contacted": 3500,
+      "openRate": 0.29,
+      "replyRate": 0.46,
+      "positiveRate": 25,
+      "bounceRate": 0.64
+    },
+    "last_7_days": {
+      "label": "Last 7 Days (Mar 12-18)",
+      "dateRange": "2026-03-12 - 2026-03-18",
+      "sent": 5461,
+      "opened": 14,
+      "replied": 21,
+      "positive": 6,
+      "bounced": 36,
+      "contacted": 4608,
+      "openRate": 0.28,
+      "replyRate": 0.46,
+      "positiveRate": 28.57,
+      "bounceRate": 0.78
+    },
+    "last_14_days": {
+      "label": "Last 14 Days (Mar 4-18)",
+      "dateRange": "2026-03-04 - 2026-03-18",
+      "sent": 13500,
+      "opened": 45,
+      "replied": 65,
+      "positive": 14,
+      "bounced": 105,
+      "contacted": 8500,
+      "openRate": 0.33,
+      "replyRate": 0.76,
+      "positiveRate": 21.54,
+      "bounceRate": 0.78
+    },
+    "last_30_days": {
+      "label": "Last 30 Days (Feb 17 - Mar 18)",
+      "dateRange": "2026-02-17 - 2026-03-18",
+      "sent": 27190,
+      "opened": 126,
+      "replied": 194,
+      "positive": 31,
+      "bounced": 282,
+      "contacted": 11758,
+      "openRate": 0.31,
+      "replyRate": 0.71,
+      "positiveRate": 15.98,
+      "bounceRate": 1.04
+    },
+    "last_60_days": {
+      "label": "Last 60 Days (Jan 18 - Mar 18)",
+      "dateRange": "2026-01-18 - 2026-03-18",
+      "sent": 53328,
+      "opened": 250,
+      "replied": 408,
+      "positive": 79,
+      "bounced": 543,
+      "contacted": 19921,
+      "openRate": 0.39,
+      "replyRate": 0.77,
+      "positiveRate": 19.36,
+      "bounceRate": 1.02
+    },
+    "last_90_days": {
+      "label": "Last 90 Days (Dec 18 - Mar 18)",
+      "dateRange": "2025-12-18 - 2026-03-18",
+      "sent": 74984,
+      "opened": 512,
+      "replied": 774,
+      "positive": 140,
+      "bounced": 781,
+      "contacted": 23479,
+      "openRate": 0.53,
+      "replyRate": 1.03,
+      "positiveRate": 18.09,
+      "bounceRate": 1.04
+    },
+    "last_120_days": {
+      "label": "Last 120 Days (Nov 18 - Mar 18)",
+      "dateRange": "2025-11-18 - 2026-03-18",
+      "sent": 81689,
+      "opened": 579,
+      "replied": 988,
+      "positive": 160,
+      "bounced": 817,
+      "contacted": 25000,
+      "openRate": 0.71,
+      "replyRate": 1.21,
+      "positiveRate": 16.19,
+      "bounceRate": 1
+    }
+  },
+  "analysis": {
+    "emailVelocity": {
+      "dailyAvg7d": 962,
+      "dailyAvg30d": 906,
+      "weeklyAvg": 6733,
+      "monthlyAvg": 27190
+    },
+    "trends": {
+      "bounce": "excellent - staying under 1.1% across all ranges",
+      "replies": "7D soft (0.39%) but improving to 1.03% at 90D",
+      "positiveRate": "strong 26.92% (7D) - best in weeks"
+    },
+    "highlights": {
+      "gmailVsOutlook": "Gmail 3.87% reply rate vs Outlook 2.91%",
+      "actionableLeads": "176 (meeting requests + interested + info + booked)",
+      "total90dPositive": 140
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "period": "7d",
+  "dateRange": "2026-03-10 - 2026-03-16",
+  "scrapedAt": "2026-03-17T10:00:00Z",
+  "mailboxCount": 470,
+  "accounts": [
+    {"email": "mclaurin@itss-imannntvsite.com", "leadContacted": 31, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 0, "count": 0}},
+    {"email": "mclaurin@theitss-imannntv.com", "leadContacted": 41, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 0, "count": 0}},
+    {"email": "imman.mclaurin@joinitss-imannntv.com", "leadContacted": 32, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 0, "count": 0}},
+    {"email": "immanuel.mclaurin@joinitss-imannntv.com", "leadContacted": 32, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 3.13, "count": 1}},
+    {"email": "immanuel.mclaurin@itss-imannntvcloud.com", "leadContacted": 43, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 0, "count": 0}},
+    {"email": "immanuel.mclaurin@itss-imannntvzone.com", "leadContacted": 36, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 0, "count": 0}},
+    {"email": "immanuel.mclaurin@itss-imannntvweb.com", "leadContacted": 43, "emailSent": 41, "opened": {"percent": 0, "count": 0}, "replied": {"percent": 0, "count": 0}, "positiveReply": {"percent": 0, "count": 0}, "bounce": {"percent": 0, "count": 0}}
+  ],
+  "note": "Truncated preview - full data scraped from Smartlead"
+}

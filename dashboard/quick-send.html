@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Send - Hot Leads & Follow-ups</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { 
+      text-align: center; 
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .stat {
+      text-align: center;
+      background: rgba(255,255,255,0.1);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+    }
+    .stat-value { font-size: 2rem; font-weight: bold; color: #4ade80; }
+    .stat-label { font-size: 0.8rem; color: #888; }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.2s;
+    }
+    .card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #4ade80;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .priority {
+      background: #4ade80;
+      color: #000;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+    .priority.urgent { background: #ef4444; color: #fff; }
+    .priority.warning { background: #f59e0b; color: #000; }
+    .name { font-size: 1.2rem; font-weight: bold; }
+    .company { color: #888; }
+    .email { color: #4ade80; font-size: 0.9rem; }
+    .days { color: #888; font-size: 0.8rem; }
+    .send-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 1rem;
+      transition: all 0.2s;
+    }
+    .send-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(74, 222, 128, 0.4);
+    }
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #666;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📧 Quick Send</h1>
+    <p class="subtitle">Gaming Follow-ups Ready to Send</p>
+    
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">14</div>
+        <div class="stat-label">Emails Ready</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">$150K+</div>
+        <div class="stat-label">Potential Value</div>
+      </div>
+    </div>
+
+    
+    <div class="card hot">
+      <div class="card-header">
+        <div>
+          <span class="name">Nick Depalo</span>
+          <span class="company">@ Unity</span>
+          <span class="hot-badge">🔥 HOT</span>
+        </div>
+        <span class="priority urgent">#1</span>
+      </div>
+      <div class="email">nick.depalo@unity.com</div>
+      <div class="days">14 days waiting</div>
+      <a href="mailto:nick.depalo@unity.com?subject=RE%3A%20Meeting%20Request%20-%20ItssIMANNN%20Partnership&body=Hi%20Nick%2C%0A%0AApologies%20for%20the%20delay%20-%20following%20up%20on%20your%20meeting%20request.%0A%0AItssIMANNN%20would%20be%20perfect%20for%20Unity.%20His%20gaming-focused%20audience%20(10M%2B%20subs)%20loves%20seeing%20how%20games%20are%20made.%20A%20%22behind%20the%20scenes%20with%20Unity%22%20angle%20could%20be%20really%20compelling.%0A%0AAre%20you%20still%20available%20for%20a%20quick%20call%20this%20week%3F%20Happy%20to%20walk%20through%20some%20creative%20approaches.%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card hot">
+      <div class="card-header">
+        <div>
+          <span class="name">Sungkwan Kim</span>
+          <span class="company">@ Navercorp</span>
+          <span class="hot-badge">🔥 HOT</span>
+        </div>
+        <span class="priority urgent">#2</span>
+      </div>
+      <div class="email">sungkwan.kim@navercorp.com</div>
+      <div class="days">11 days waiting</div>
+      <a href="mailto:sungkwan.kim@navercorp.com?subject=RE%3A%20Meeting%20Request%20-%20ItssIMANNN&body=Hi%20Sungkwan%2C%0A%0AFollowing%20up%20on%20your%20meeting%20request%20-%20apologies%20for%20the%20delay.%0A%0AItssIMANNN%20has%2010M%2B%20subscribers%20and%20drives%20exceptional%20engagement.%20Our%20last%20campaign%20hit%2048M%20views.%20Would%20love%20to%20discuss%20what%20Naver%20is%20looking%20for.%0A%0ADo%20you%20have%2015%20minutes%20this%20week%20for%20a%20quick%20call%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card hot">
+      <div class="card-header">
+        <div>
+          <span class="name">Christina Hamilton</span>
+          <span class="company">@ Udemy</span>
+          <span class="hot-badge">🔥 HOT</span>
+        </div>
+        <span class="priority urgent">#3</span>
+      </div>
+      <div class="email">christina.hamilton@udemy.com</div>
+      <div class="days">17 days waiting</div>
+      <a href="mailto:christina.hamilton@udemy.com?subject=RE%3A%20Meeting%20Request%20-%20ItssIMANNN%20Partnership&body=Hi%20Christina%2C%0A%0AFollowing%20up%20on%20your%20meeting%20request%20-%20apologies%20for%20the%20delay.%0A%0AItssIMANNN%20would%20be%20a%20great%20fit%20for%20Udemy.%20His%20audience%20is%20young%20and%20eager%20to%20learn%20-%20perfect%20for%20educational%20content.%20His%20last%20campaign%20drove%2048M%20views.%0A%0AAre%20you%20still%20available%20for%20a%20quick%20call%3F%20Would%20love%20to%20discuss%20what%20Udemy%20is%20looking%20for.%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card hot">
+      <div class="card-header">
+        <div>
+          <span class="name">Replit Team</span>
+          <span class="company">@ Replit</span>
+          <span class="hot-badge">🔥 HOT</span>
+        </div>
+        <span class="priority urgent">#4</span>
+      </div>
+      <div class="email">partnerships@replit.com</div>
+      <div class="days">22 days waiting</div>
+      <a href="mailto:partnerships@replit.com?subject=RE%3A%20Meeting%20Request%20-%20ItssIMANNN%20x%20Replit&body=Hi%20there%2C%0A%0AFollowing%20up%20on%20your%20meeting%20request%20about%20ItssIMANNN.%0A%0AReplit%20would%20be%20amazing%20for%20his%20audience%20-%20young%20creators%20interested%20in%20coding%20and%20building.%20His%20storytelling%20style%20could%20make%20coding%20look%20exciting%20and%20accessible.%20Last%20campaign%3A%2048M%20views%2C%20100K%2B%20actions.%0A%0AWould%20love%20to%20discuss%20creative%20approaches.%20Free%20for%20a%20quick%20call%20this%20week%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card hot">
+      <div class="card-header">
+        <div>
+          <span class="name">Agnes Ahlquist</span>
+          <span class="company">@ Natural Cycles</span>
+          <span class="hot-badge">🔥 HOT</span>
+        </div>
+        <span class="priority urgent">#5</span>
+      </div>
+      <div class="email">partnerships@naturalcycles.com</div>
+      <div class="days">2 days waiting</div>
+      <a href="mailto:partnerships@naturalcycles.com?subject=Re%3A%20Partnership%20with%20ItssIMANNN&body=Hi%20Agnes%2C%0A%0AHappy%20to%20share%20more%20about%20ItssIMANNN.%0A%0AHe%20has%2010M%2B%20subscribers%20and%20creates%20story-driven%20content%20that%20really%20resonates.%20Our%20last%20campaign%20(Whiteout%20Survival)%20drove%2048M%20views%20and%20100K%2B%20new%20users.%0A%0AWould%20a%2015-minute%20call%20work%20to%20discuss%3F%20I%20can%20walk%20you%20through%20some%20examples%20that%20would%20be%20relevant%20for%20Natural%20Cycles.%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card hot">
+      <div class="card-header">
+        <div>
+          <span class="name">Sadia Azmal</span>
+          <span class="company">@ Agilebits (1Password)</span>
+          <span class="hot-badge">🔥 HOT</span>
+        </div>
+        <span class="priority urgent">#6</span>
+      </div>
+      <div class="email">sadia.azmal@agilebits.com</div>
+      <div class="days">2 days waiting</div>
+      <a href="mailto:sadia.azmal@agilebits.com?subject=Re%3A%20ItssIMANNN%20Partnership%20Info&body=Hi%20Sadia%2C%0A%0AThanks%20for%20your%20interest%20in%20ItssIMANNN.%0A%0AQuick%20overview%3A%2010M%2B%20subscribers%2C%20story-driven%20content%20that%20drives%20high%20engagement.%20Our%20Whiteout%20Survival%20campaign%20hit%2048M%20views%20and%20drove%20100K%2B%20downloads.%0A%0A1Password%20would%20be%20a%20great%20fit%20-%20security%20awareness%20content%20for%20a%20young%20audience.%20Would%20love%20to%20discuss%20what%20you're%20looking%20for.%20Free%20for%20a%20quick%20call%20this%20week%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Marina Andersson</span>
+          <span class="company">@ Stillfront</span>
+          
+        </div>
+        <span class="priority urgent">#7</span>
+      </div>
+      <div class="email">marina.andersson@stillfront.com</div>
+      <div class="days">3 days waiting</div>
+      <a href="mailto:marina.andersson@stillfront.com?subject=RE%3A%20Partnership%20with%20ItssIMANNN&body=Hi%20Marina%2C%0A%0AFollowing%20up%20on%20your%20interest%20-%20would%20love%20to%20discuss%20how%20we%20can%20work%20together.%0A%0AItssIMANNN%20has%20driven%20exceptional%20results%20for%20gaming%20brands.%20His%20last%20campaign%20(Whiteout%20Survival)%20hit%2048M%20views%20and%20100K%2B%20new%20users.%20His%20storytelling%20format%20works%20incredibly%20well%20for%20strategy%20and%20mobile%20games.%0A%0ADo%20you%20have%2015%20minutes%20this%20week%20for%20a%20quick%20call%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Tushar Jain</span>
+          <span class="company">@ Dream11</span>
+          
+        </div>
+        <span class="priority ">#8</span>
+      </div>
+      <div class="email">tushar.jain@dream11.com</div>
+      <div class="days">11 days waiting</div>
+      <a href="mailto:tushar.jain@dream11.com?subject=RE%3A%20Partnership%20with%20ItssIMANNN&body=Hi%20Tushar%2C%0A%0AApologies%20for%20the%20delayed%20response%20-%20wanted%20to%20follow%20up%20on%20your%20interest.%0A%0AItssIMANNN%20has%20driven%20strong%20results%20for%20gaming%20and%20fantasy%20sports%20apps.%20His%20last%20campaign%20(Whiteout%20Survival)%20drove%2048M%20views%20and%20100K%2B%20new%20users.%20The%20audience%20skews%20heavily%20toward%20young%20gamers%20who%20are%20exactly%20the%20fantasy%20sports%20demographic.%0A%0AWould%20you%20be%20open%20to%20a%20quick%20call%20this%20week%20to%20discuss%20what%20Dream11%20is%20looking%20for%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Marina Hallikainen</span>
+          <span class="company">@ Paradox</span>
+          
+        </div>
+        <span class="priority ">#9</span>
+      </div>
+      <div class="email">pr@paradoxinteractive.com</div>
+      <div class="days">11 days waiting</div>
+      <a href="mailto:pr@paradoxinteractive.com?subject=RE%3A%20ItssIMANNN%20x%20Paradox%20Partnership&body=Hi%20Marina%2C%0A%0AFollowing%20up%20on%20your%20interest%20-%20appreciate%20you%20getting%20back%20to%20us.%0A%0AItssIMANNN's%20storytelling%20format%20works%20incredibly%20well%20for%20strategy%20games.%20His%20content%20is%20narrative-driven%2C%20which%20aligns%20perfectly%20with%20Paradox%20titles.%20We've%20seen%20strong%20results%20with%20gaming%20campaigns%20-%20his%20last%20one%20hit%2048M%20views.%0A%0AWould%20love%20to%20explore%20what%20a%20Cities%3A%20Skylines%20II%20or%20EU4%20campaign%20could%20look%20like.%20Do%20you%20have%2015%20minutes%20this%20week%20for%20a%20quick%20chat%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Valeriya Kramp</span>
+          <span class="company">@ Owlcat</span>
+          
+        </div>
+        <span class="priority ">#10</span>
+      </div>
+      <div class="email">kramp@owlcat.games</div>
+      <div class="days">15 days waiting</div>
+      <a href="mailto:kramp@owlcat.games?subject=RE%3A%20ItssIMANNN%20Partnership&body=Hi%20Valeriya%2C%0A%0AApologies%20for%20the%20delayed%20follow-up.%20Wanted%20to%20reconnect%20on%20your%20interest.%0A%0AItssIMANNN's%20story-driven%20content%20style%20is%20a%20natural%20fit%20for%20RPGs%20like%20Pathfinder.%20His%20audience%20loves%20narrative-heavy%20gaming%20content.%20His%20last%20gaming%20campaign%20drove%2048M%20views%20and%20100K%2B%20new%20users.%0A%0AWould%20you%20be%20open%20to%20a%20quick%20call%20to%20discuss%20what%20Owlcat%20is%20looking%20for%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Evgeny Zvyagin</span>
+          <span class="company">@ Virtus.pro</span>
+          
+        </div>
+        <span class="priority ">#11</span>
+      </div>
+      <div class="email">e.zvyagin@virtus.pro</div>
+      <div class="days">15 days waiting</div>
+      <a href="mailto:e.zvyagin@virtus.pro?subject=RE%3A%20Virtus.pro%20x%20ItssIMANNN&body=Hi%20Evgeny%2C%0A%0AFollowing%20up%20on%20your%20interest%20in%20working%20with%20ItssIMANNN.%0A%0AHis%20gaming-focused%20audience%20(10M%2B%20subs)%20overlaps%20heavily%20with%20esports%20fans.%20We've%20run%20successful%20gaming%20campaigns%20that%20drove%2048M%2B%20views.%20Could%20be%20a%20strong%20fit%20for%20Virtus.pro%20visibility%20in%20the%20US%20market.%0A%0AHappy%20to%20discuss%20creative%20approaches.%20Do%20you%20have%20time%20for%20a%20quick%20call%20this%20week%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Ilya Agron</span>
+          <span class="company">@ Candivore</span>
+          
+        </div>
+        <span class="priority ">#12</span>
+      </div>
+      <div class="email">ilya@candivore.io</div>
+      <div class="days">17 days waiting</div>
+      <a href="mailto:ilya@candivore.io?subject=RE%3A%20ItssIMANNN%20x%20Candivore&body=Hi%20Ilya%2C%0A%0AFollowing%20up%20on%20your%20interest%20-%20apologies%20for%20the%20delay.%0A%0AItssIMANNN%20has%20driven%20exceptional%20results%20for%20mobile%20games.%20His%20last%20campaign%20(Whiteout%20Survival)%20hit%2048M%20views%20and%20100K%2B%20new%20users.%20The%20integration%20style%20works%20well%20for%20mobile%20-%20engaging%20storylines%20that%20keep%20viewers%20watching%20through%20the%20CTA.%0A%0AWould%20love%20to%20chat%20about%20what%20Candivore%20is%20working%20on.%20Free%20for%20a%20quick%20call%20this%20week%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Aurika Pociute</span>
+          <span class="company">@ Eneba</span>
+          
+        </div>
+        <span class="priority ">#13</span>
+      </div>
+      <div class="email">aurika.pociute@eneba.com</div>
+      <div class="days">17 days waiting</div>
+      <a href="mailto:aurika.pociute@eneba.com?subject=RE%3A%20Eneba%20x%20ItssIMANNN%20Partnership&body=Hi%20Aurika%2C%0A%0AFollowing%20up%20on%20your%20interest%20in%20ItssIMANNN.%0A%0AWith%2010M%2B%20gaming-focused%20subscribers%2C%20his%20audience%20is%20exactly%20Eneba's%20target%20market.%20His%20content%20style%20drives%20strong%20engagement%20-%20last%20gaming%20campaign%20hit%2048M%20views.%0A%0AWould%20love%20to%20explore%20what%20a%20partnership%20could%20look%20like.%20Do%20you%20have%2015%20minutes%20this%20week%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <div class="card ">
+      <div class="card-header">
+        <div>
+          <span class="name">Marcel Verboom</span>
+          <span class="company">@ Poki</span>
+          
+        </div>
+        <span class="priority ">#14</span>
+      </div>
+      <div class="email">marcel@poki.com</div>
+      <div class="days">18 days waiting</div>
+      <a href="mailto:marcel@poki.com?subject=RE%3A%20Poki%20x%20ItssIMANNN&body=Hi%20Marcel%2C%0A%0AWanted%20to%20follow%20up%20on%20your%20interest.%0A%0AItssIMANNN's%20younger%20audience%20aligns%20well%20with%20Poki's%20browser%20gaming%20platform.%20His%20content%20style%20drives%20high%20engagement%20-%20last%20gaming%20campaign%20hit%2048M%20views%20and%20100K%2B%20new%20users.%0A%0AHappy%20to%20discuss%20creative%20approaches%20for%20a%20Poki%20campaign.%20Free%20for%20a%20quick%20chat%20this%20week%3F%0A%0ABest%2C%0AJan" class="send-btn">📤 Send Email</a>
+    </div>
+
+    <p class="footer">Generated by GEX Quick Send • Click any button to open email client</p>
+  </div>
+</body>
+</html>

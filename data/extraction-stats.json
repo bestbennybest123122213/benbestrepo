@@ -1,0 +1,19 @@
+{
+  "totalThreads": 882,
+  "bookedLeads": 36,
+  "byCategory": {
+    "Interested": 21,
+    "Information Request": 23,
+    "Out Of Office": 375,
+    "Wrong Person": 81,
+    "Not Interested": 105,
+    "Do Not Contact": 86,
+    "Unknown": 82,
+    "Meeting Request": 75,
+    "Booked": 29,
+    "Uncategorizable": 2,
+    "Subsequence": 3
+  },
+  "extractionTime": "2026-04-02T00:26:10.133Z",
+  "durationMinutes": 17
+}

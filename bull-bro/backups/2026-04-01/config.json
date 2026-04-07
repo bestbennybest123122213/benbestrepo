@@ -1,0 +1,36 @@
+{
+  "name": "Bull BRO",
+  "version": "1.0.0",
+  "description": "SmartLead Auto-Reply Draft System",
+  "server": {
+    "port": 3847,
+    "host": "localhost"
+  },
+  "healthCheck": {
+    "intervalMinutes": 5,
+    "diskWarningGB": 5,
+    "diskErrorGB": 1
+  },
+  "backup": {
+    "retentionDays": 30,
+    "autoBackupHour": 3
+  },
+  "audit": {
+    "maxEntries": 1000,
+    "rotateEnabled": true
+  },
+  "drafts": {
+    "defaultStatus": "pending",
+    "autoApproveEnabled": false,
+    "requireReview": true
+  },
+  "smartlead": {
+    "apiUrl": "https://server.smartlead.ai/api/v1",
+    "pollIntervalSeconds": 60
+  },
+  "anthropic": {
+    "model": "claude-3-haiku-20240307",
+    "maxTokens": 1000,
+    "temperature": 0.7
+  }
+}

@@ -1,0 +1,986 @@
+{
+  "campaigns": [
+    {
+      "id": 2967325,
+      "user_id": 278695,
+      "created_at": "2026-02-24T19:06:15.189Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2967324,
+      "client_id": null
+    },
+    {
+      "id": 2967324,
+      "user_id": 278695,
+      "created_at": "2026-02-24T19:06:15.116Z",
+      "updated_at": "2026-03-09T01:02:33.637Z",
+      "status": "ACTIVE",
+      "name": "Imman - CRYPTO | 1M | 1-2Y | Google",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2953080,
+      "user_id": 278695,
+      "created_at": "2026-02-19T17:51:53.560Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "DRAFTED",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2953079,
+      "client_id": null
+    },
+    {
+      "id": 2953079,
+      "user_id": 278695,
+      "created_at": "2026-02-19T17:51:53.490Z",
+      "updated_at": "2026-03-08T23:02:14.212Z",
+      "status": "ACTIVE",
+      "name": "Imman - EDU | 1M | 1-2Y | Google",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2952747,
+      "user_id": 278695,
+      "created_at": "2026-02-19T16:16:58.694Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2952746,
+      "client_id": null
+    },
+    {
+      "id": 2952746,
+      "user_id": 278695,
+      "created_at": "2026-02-19T16:16:58.626Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Imman - Apps | 1M | 1-2Y | Google",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2912283,
+      "user_id": 278695,
+      "created_at": "2026-02-06T18:01:13.214Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "DRAFTED",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2912282,
+      "client_id": null
+    },
+    {
+      "id": 2912282,
+      "user_id": 278695,
+      "created_at": "2026-02-06T18:01:13.153Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Imman - COMBINED | GOOGLE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2909477,
+      "user_id": 278695,
+      "created_at": "2026-02-05T21:10:44.920Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2909476,
+      "client_id": null
+    },
+    {
+      "id": 2909476,
+      "user_id": 278695,
+      "created_at": "2026-02-05T21:10:44.849Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Imman - Vid Editing | 1M | 1-2Y | GOOGLE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2909433,
+      "user_id": 278695,
+      "created_at": "2026-02-05T20:59:01.492Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2909432,
+      "client_id": null
+    },
+    {
+      "id": 2909432,
+      "user_id": 278695,
+      "created_at": "2026-02-05T20:59:01.415Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Imman - Lifestyle | 1M | 1-2Y | GOOGLE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2909288,
+      "user_id": 278695,
+      "created_at": "2026-02-05T19:51:44.674Z",
+      "updated_at": "2026-03-09T00:03:36.507Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2909287,
+      "client_id": null
+    },
+    {
+      "id": 2909287,
+      "user_id": 278695,
+      "created_at": "2026-02-05T19:51:44.597Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Ben Campaign | GOOGLE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2901027,
+      "user_id": 278695,
+      "created_at": "2026-02-03T22:51:13.330Z",
+      "updated_at": "2026-03-09T01:02:34.104Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2901026,
+      "client_id": null
+    },
+    {
+      "id": 2901026,
+      "user_id": 278695,
+      "created_at": "2026-02-03T22:51:13.227Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Imman - Gaming | Tech | 1M | 3-5Y | BROAD GOOGLE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2841532,
+      "user_id": 278695,
+      "created_at": "2026-01-14T19:13:49.661Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "DRAFTED",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2841531,
+      "client_id": null
+    },
+    {
+      "id": 2841531,
+      "user_id": 278695,
+      "created_at": "2026-01-14T19:13:49.587Z",
+      "updated_at": "2026-03-08T20:04:24.843Z",
+      "status": "ACTIVE",
+      "name": "Imann 10th - Crunchbase | V. editing |all | 3m fund | last 2 y | B2C BROAD HYPERTIDE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2841422,
+      "user_id": 278695,
+      "created_at": "2026-01-14T18:42:52.464Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "COMPLETED",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2841421,
+      "client_id": null
+    },
+    {
+      "id": 2841421,
+      "user_id": 278695,
+      "created_at": "2026-01-14T18:42:52.318Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "COMPLETED",
+      "name": "Imann 9th - Crunchbase | apps |  all | 3m funding | last 2 y | B2C BROAD HYPERTIDE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2833388,
+      "user_id": 278695,
+      "created_at": "2026-01-12T20:11:45.943Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2833387,
+      "client_id": null
+    },
+    {
+      "id": 2833387,
+      "user_id": 278695,
+      "created_at": "2026-01-12T20:11:45.832Z",
+      "updated_at": "2026-03-08T19:02:34.536Z",
+      "status": "ACTIVE",
+      "name": "Imann 8th - Crunchbase | edu |  all | 3m funding | last 2 y | B2C BROAD HYPERTIDE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2828217,
+      "user_id": 278695,
+      "created_at": "2026-01-10T19:04:05.023Z",
+      "updated_at": "2026-03-08T20:04:28.286Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2828216,
+      "client_id": null
+    },
+    {
+      "id": 2828216,
+      "user_id": 278695,
+      "created_at": "2026-01-10T19:04:04.468Z",
+      "updated_at": "2026-03-09T01:02:35.728Z",
+      "status": "ACTIVE",
+      "name": "Imann gaming studios and more EXA",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2826966,
+      "user_id": 278695,
+      "created_at": "2026-01-09T18:39:22.526Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "COMPLETED",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2826965,
+      "client_id": null
+    },
+    {
+      "id": 2826965,
+      "user_id": 278695,
+      "created_at": "2026-01-09T18:39:22.414Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Reac 3rd | AL Positive Response | HYPERTIDE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2823875,
+      "user_id": 278695,
+      "created_at": "2026-01-08T17:28:53.946Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "COMPLETED",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2823874,
+      "client_id": null
+    },
+    {
+      "id": 2823874,
+      "user_id": 278695,
+      "created_at": "2026-01-08T17:28:53.820Z",
+      "updated_at": "2026-03-08T22:02:06.881Z",
+      "status": "ACTIVE",
+      "name": "Imann 7th - YCOMBINATOR | B2C BROAD MID HYPERTIDE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    },
+    {
+      "id": 2816286,
+      "user_id": 278695,
+      "created_at": "2026-01-06T18:03:44.186Z",
+      "updated_at": "2026-03-08T05:00:20.939Z",
+      "status": "ACTIVE",
+      "name": "Follow up",
+      "track_settings": [],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": 2816285,
+      "client_id": null
+    },
+    {
+      "id": 2816285,
+      "user_id": 278695,
+      "created_at": "2026-01-06T18:03:44.035Z",
+      "updated_at": "2026-03-09T00:03:38.294Z",
+      "status": "ACTIVE",
+      "name": "Imann 6th - Cb | comm. lifestyle|  all | 3m funding | last 2 y | B2C BROAD HYPERTIDE",
+      "track_settings": [
+        "DONT_EMAIL_OPEN",
+        "DONT_LINK_CLICK"
+      ],
+      "scheduler_cron_value": {
+        "tz": "America/New_York",
+        "days": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "endHour": "18:00",
+        "startHour": "09:00"
+      },
+      "min_time_btwn_emails": 60,
+      "max_leads_per_day": 99999,
+      "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+      "schedule_start_time": null,
+      "enable_ai_esp_matching": false,
+      "send_as_plain_text": false,
+      "follow_up_percentage": 100,
+      "unsubscribe_text": "",
+      "parent_campaign_id": null,
+      "client_id": null
+    }
+  ],
+  "totals": {
+    "sent": 0,
+    "opened": 0,
+    "replied": 0,
+    "bounced": 0,
+    "leads": 0
+  }
+}

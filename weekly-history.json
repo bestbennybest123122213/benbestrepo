@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2026-02-06T01:00:42.087Z",
+    "thisWeek": {
+      "total": 1,
+      "byCategory": {
+        "meetingRequest": 0,
+        "interested": 1,
+        "infoRequest": 0,
+        "booked": 0
+      },
+      "avgResponseTimeHours": 39.465833333333336,
+      "bookingRate": 0
+    },
+    "lastWeek": {
+      "total": 20,
+      "booked": 5,
+      "avgResponseTimeHours": 43.6082561728395,
+      "bookingRate": 25
+    }
+  }
+]

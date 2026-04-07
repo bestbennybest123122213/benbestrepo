@@ -1,0 +1,191 @@
+{
+  "lastUpdated": "2026-03-30T20:34:06.111Z",
+  "source": "smartlead-cli",
+  "scrapeDurationMs": 16755,
+  "ranges": {
+    "yesterday": {
+      "sent": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 0,
+      "opened": 0,
+      "dateRange": {
+        "start": "2026-03-29",
+        "end": "2026-03-29"
+      }
+    },
+    "last3d": {
+      "sent": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 0,
+      "opened": 0,
+      "dateRange": {
+        "start": "2026-03-28",
+        "end": "2026-03-30"
+      }
+    },
+    "last7d": {
+      "sent": 2523,
+      "replied": 20,
+      "positive": 3,
+      "bounced": 53,
+      "opened": 15,
+      "dateRange": {
+        "start": "2026-03-24",
+        "end": "2026-03-30"
+      },
+      "replyRate": "0.79",
+      "positiveRate": "0.12",
+      "bounceRate": "2.10"
+    },
+    "last14d": {
+      "sent": 6457,
+      "replied": 54,
+      "positive": 12,
+      "bounced": 101,
+      "opened": 30,
+      "dateRange": {
+        "start": "2026-03-17",
+        "end": "2026-03-30"
+      },
+      "replyRate": "0.84",
+      "positiveRate": "0.19",
+      "bounceRate": "1.56"
+    },
+    "last30d": {
+      "sent": 20724,
+      "replied": 147,
+      "positive": 20,
+      "bounced": 255,
+      "opened": 96,
+      "dateRange": {
+        "start": "2026-03-01",
+        "end": "2026-03-30"
+      },
+      "replyRate": "0.71",
+      "positiveRate": "0.10",
+      "bounceRate": "1.23"
+    },
+    "last60d": {
+      "sent": 47164,
+      "replied": 349,
+      "positive": 56,
+      "bounced": 578,
+      "opened": 201,
+      "dateRange": {
+        "start": "2026-01-30",
+        "end": "2026-03-30"
+      },
+      "replyRate": "0.74",
+      "positiveRate": "0.12",
+      "bounceRate": "1.23"
+    },
+    "last90d": {
+      "sent": 73134,
+      "replied": 683,
+      "positive": 123,
+      "bounced": 816,
+      "opened": 397,
+      "dateRange": {
+        "start": "2025-12-31",
+        "end": "2026-03-30"
+      },
+      "replyRate": "0.93",
+      "positiveRate": "0.17",
+      "bounceRate": "1.12"
+    },
+    "last120d": {
+      "sent": 87735,
+      "replied": 1012,
+      "positive": 163,
+      "bounced": 934,
+      "opened": 619,
+      "dateRange": {
+        "start": "2025-12-01",
+        "end": "2026-03-30"
+      },
+      "replyRate": "1.15",
+      "positiveRate": "0.19",
+      "bounceRate": "1.06"
+    }
+  },
+  "monthly": {
+    "2025-11": {
+      "sent": 1898,
+      "replied": 45,
+      "positive": 10,
+      "bounced": 22,
+      "opened": 1,
+      "dateRange": {
+        "start": "2025-11-01",
+        "end": "2025-11-30"
+      },
+      "replyRate": "2.37",
+      "positiveRate": "0.53",
+      "bounceRate": "1.16"
+    },
+    "2025-12": {
+      "sent": 15648,
+      "replied": 359,
+      "positive": 41,
+      "bounced": 133,
+      "opened": 232,
+      "dateRange": {
+        "start": "2025-12-01",
+        "end": "2025-12-31"
+      },
+      "replyRate": "2.29",
+      "positiveRate": "0.26",
+      "bounceRate": "0.85"
+    },
+    "2026-01": {
+      "sent": 26166,
+      "replied": 313,
+      "positive": 68,
+      "bounced": 242,
+      "opened": 189,
+      "dateRange": {
+        "start": "2026-01-01",
+        "end": "2026-01-31"
+      },
+      "replyRate": "1.20",
+      "positiveRate": "0.26",
+      "bounceRate": "0.92"
+    },
+    "2026-02": {
+      "sent": 25197,
+      "replied": 193,
+      "positive": 34,
+      "bounced": 304,
+      "opened": 102,
+      "dateRange": {
+        "start": "2026-02-01",
+        "end": "2026-02-28"
+      },
+      "replyRate": "0.77",
+      "positiveRate": "0.13",
+      "bounceRate": "1.21"
+    },
+    "2026-03": {
+      "sent": 20724,
+      "replied": 147,
+      "positive": 20,
+      "bounced": 255,
+      "opened": 96,
+      "dateRange": {
+        "start": "2026-03-01",
+        "end": "2026-03-31"
+      },
+      "replyRate": "0.71",
+      "positiveRate": "0.10",
+      "bounceRate": "1.23"
+    }
+  },
+  "allTime": {
+    "sent": 89633,
+    "replied": 1057,
+    "positive": 173,
+    "bounced": 956
+  }
+}

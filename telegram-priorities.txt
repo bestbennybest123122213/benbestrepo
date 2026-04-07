@@ -1,0 +1,18 @@
+🎯 *TOP PRIORITIES*
+
+🏢 *Enterprise Leads* (7)
+1. *Navercorp* - Sungkwan Kim
+   10d old
+2. *Paradoxinteractive* - Marina Hallikainen
+   10d old
+3. *Unity* - Nick Depalo
+   13d old
+4. *Udemy* - Christina Hamilton
+   16d old
+5. *Replit* - Haya Odeh
+   21d old
+
+⚡ *Quick Actions*
+`node gex.js action` - What to do now
+`node gex.js qwins` - Quick wins
+`node gex.js pdrafts` - Email drafts

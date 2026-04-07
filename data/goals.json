@@ -1,0 +1,42 @@
+{
+  "currentWeek": "2026-02-01",
+  "goals": {
+    "emails": {
+      "target": 30,
+      "unit": "emails",
+      "icon": "📧"
+    },
+    "meetings": {
+      "target": 5,
+      "unit": "meetings",
+      "icon": "📅"
+    },
+    "response_time": {
+      "target": 24,
+      "unit": "hours",
+      "icon": "⏱️",
+      "lowerIsBetter": true
+    },
+    "hot_leads": {
+      "target": 100,
+      "unit": "%",
+      "icon": "🔥"
+    }
+  },
+  "progress": {
+    "emails": 8,
+    "meetings": 2,
+    "response_time": 0,
+    "hot_leads": 0
+  },
+  "dailyLogs": {
+    "2026-02-06": {
+      "emails": 8,
+      "meetings": 2,
+      "hot_leads": 0
+    }
+  },
+  "streak": 0,
+  "lastActiveDate": "2026-02-06",
+  "history": []
+}

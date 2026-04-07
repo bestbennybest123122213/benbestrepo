@@ -1,0 +1,37 @@
+{
+  "scrapedAt": "2026-03-27T06:00:19.524Z",
+  "source": "SmartLead Global Analytics (New Version) - Automated UI Scrape",
+  "method": "THE GOLD STANDARD",
+  "months": {
+    "2025-11": {
+      "sent": 1898,
+      "replied": 45,
+      "positive": 13,
+      "bounced": 22
+    },
+    "2025-12": {
+      "sent": 15648,
+      "replied": 359,
+      "positive": 60,
+      "bounced": 133
+    },
+    "2026-01": {
+      "sent": 26166,
+      "replied": 313,
+      "positive": 73,
+      "bounced": 242
+    },
+    "2026-02": {
+      "sent": 25197,
+      "replied": 193,
+      "positive": 34,
+      "bounced": 301
+    },
+    "2026-03": {
+      "sent": 17591,
+      "replied": 111,
+      "positive": 0,
+      "bounced": 198
+    }
+  }
+}

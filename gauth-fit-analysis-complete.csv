@@ -1,0 +1,78 @@
+Name,Company,Email,Status,Industry,Tier,GAuth_Fit,Reason,Score,Reply_Date
+"Marina Andersson","Stillfront",marina.andersson@stillfront.com,Interested,"Gaming",enterprise,PERFECT,"Mobile gaming publisher - mass consumer auth",195,2026-02-04
+"Marina Hallikainen","Paradoxinteractive",pr@paradoxinteractive.com,Meeting Request,"Gaming",enterprise,PERFECT,"Gaming studio with online multiplayer",170,2026-01-26
+"Nick Depalo","Unity",nick.depalo@unity.com,Meeting Request,"Gaming/Technology",enterprise,PERFECT,"Gaming platform - developer tools for auth",170,2026-01-23
+"Ryann Sgriccia","Ign",ryann_sgriccia@ign.com,Meeting Request,"Gaming Media",enterprise,PERFECT,"Gaming media - large user base",155,2026-01-14
+"David Vuong","Weedmaps",dvuong@weedmaps.com,Interested,"Cannabis Tech",enterprise,PERFECT,"Cannabis marketplace - age verification critical",140,2026-01-26
+"Dominion Eromosele","Carry1st",dom@carry1st.com,Meeting Request,"Gaming",startup,PERFECT,"African gaming publisher - mobile auth",126,2026-01-20
+"Tehreem Waheed","Wahed",tehreem.waheed@wahed.com,Meeting Request,"FinTech",midmarket,PERFECT,"Islamic fintech - investment app auth",117,2025-12-22
+"Evgeny Zvyagin","Virtus",e.zvyagin@virtus.pro,Meeting Request,"Unknown",unknown,PERFECT,"Esports org - fan engagement app",110,2026-01-22
+"Valeriya Kramp","Owlcat",kramp@owlcat.games,Meeting Request,"Unknown",unknown,PERFECT,"Gaming studio - Pathfinder games",110,2026-01-22
+"Vipul Valupadash","Gyandhan",vipul.valupadash@gyandhan.com,Meeting Request,"EdTech/FinTech",startup,PERFECT,"Student loans fintech - KYC required",105,2026-01-20
+"Adriano Correia","Rainbet",marketing@rainbet.com,Meeting Request,"Gaming/Crypto",startup,PERFECT,"Crypto casino - KYC/verification critical",105,2026-01-19
+"Ishita Bhanot","Gyandhan",ishita.bhanot@gyandhan.com,Meeting Request,"EdTech/FinTech",startup,PERFECT,"Student loans fintech - KYC required",105,2026-01-16
+"Joe Schaeppi","Solsten",joe@solsten.io,Meeting Request,"Gaming Analytics",startup,PERFECT,"Gaming analytics - player insights",105,2026-01-16
+"Adriano Correia","Rainbet",adriano@rainbet.com,Meeting Request,"Gaming/Crypto",startup,PERFECT,"Crypto casino - KYC/verification critical",105,2026-01-09
+"Nikolai Petrossian","Virtus",n.petrossian@virtus.pro,Meeting Request,"Unknown",unknown,PERFECT,"Esports org - fan engagement app",100,2026-01-20
+"Marcel Verboom","Poki",marcel@poki.com,Meeting Request,"Unknown",unknown,PERFECT,"Browser gaming platform - user accounts",100,2026-01-19
+"Mariina Hallikainen","Colossalorder",mariina.hallikainen@colossalorder.fi,Meeting Request,"Unknown",unknown,PERFECT,"Cities Skylines dev - gaming studio",100,2026-01-15
+"Naim Hamdar","Payzli",naim@payzli.com,Meeting Request,"Unknown",unknown,PERFECT,"Payment processing - transaction auth",100,2026-01-13
+"Marek Fila","Kinguin",marek.fila@kinguin.net,Meeting Request,"Unknown",unknown,PERFECT,"Gaming marketplace - buyer/seller auth",100,2026-01-13
+"Sophie Ricaume","Crunchyroll",sophie.ricaume@crunchyroll.com,Meeting Request,"Unknown",unknown,PERFECT,"Anime streaming - millions of subscribers",100,2026-01-13
+"Dharin Nanavati","Jackpot",dharin@jackpot.com,Meeting Request,"Unknown",unknown,PERFECT,"Social casino app - age verification",100,2026-01-12
+"Ilya Agron","Candivore",ilya@candivore.io,Interested,"Gaming",startup,PERFECT,"Mobile gaming studio",95,2026-01-20
+"Aurika Pociute","Eneba",aurika.pociute@eneba.com,Interested,"Gaming Marketplace",midmarket,PERFECT,"Gaming marketplace - user verification",90,2026-01-20
+"Bryn Morrison-Elliott","Coatsink",bryn@coatsink.com,Meeting Request,"Unknown",unknown,PERFECT,"VR gaming studio",85,2026-01-02
+"Agnes Ahlquist","Naturalcycles",partnerships@naturalcycles.com,Interested,"Unknown",unknown,PERFECT,"Fertility app - healthcare + consumer",80,2026-01-23
+"Jeremy Hare","Puntaa",jeremy@puntaa.co,Interested,"Unknown",unknown,PERFECT,"Sports betting/social - user verification",80,2026-01-23
+"Agnes Ahlquist","Naturalcycles",agnes.ahlquist@naturalcycles.com,Interested,"Unknown",unknown,PERFECT,"Fertility app - healthcare + consumer",70,2026-01-20
+"Ines Kondic","Outfit7",ines.kondic@outfit7.com,Interested,"Unknown",unknown,PERFECT,"Talking Tom - billions of downloads",55,2025-12-04
+"Haya Odeh","Replit",haya@replit.com,Meeting Request,"Developer Tools",enterprise,GOOD,"Developer platform - user accounts",170,2026-01-15
+"Christina Hamilton","Udemy",christina.hamilton@udemy.com,Meeting Request,"EdTech",enterprise,GOOD,"EdTech platform - student auth",165,2026-01-20
+"Sungkwan Kim","Navercorp",sungkwan.kim@navercorp.com,Meeting Request,"Technology",enterprise,GOOD,"Korean tech giant - various services",160,2026-01-27
+"Joshua Kopeika","Complex",josh.kopeika@complex.com,Meeting Request,"Media",enterprise,GOOD,"Media/culture site - user engagement",125,2025-12-18
+"Christian Stein","Threedy",christian.stein@threedy.io,Meeting Request,"3D Technology",startup,GOOD,"3D tech - enterprise but has consumer tools",115,2026-01-23
+"Ana Pastoria","Imagen Ai",ana.p@imagen-ai.com,Meeting Request,"AI/Photo",startup,GOOD,"Photo AI for photographers - SaaS auth",106,2026-01-15
+"Chloe Palmer","Drink Trip",cpalmer@drink-trip.com,Meeting Request,"Unknown",unknown,GOOD,"Beverage discovery app",100,2026-01-19
+"Lorraine Finn","Preply",lorraine.finn@preply.com,Meeting Request,"Unknown",unknown,GOOD,"Language tutoring marketplace",100,2026-01-19
+"Vitalijus Majorovas","Pulsetto",vitalijus@pulsetto.tech,Meeting Request,"Unknown",unknown,GOOD,"Wellness device + app",100,2026-01-16
+"Sarujan Ranjan","Studystream",sarujan@studystream.live,Meeting Request,"Unknown",unknown,GOOD,"Study community app",100,2026-01-15
+"Judy Luo","Easeus",judy@easeus.com,Meeting Request,"Unknown",unknown,GOOD,"Software company - license/account mgmt",100,2026-01-14
+"David Kay","Thermalradar",david@thermalradar.com,Meeting Request,"Unknown",unknown,GOOD,"Travel tech - consumer bookings",100,2026-01-13
+"Waleed Nasir","Qult",waleed@qult.ai,Meeting Request,"Unknown",unknown,GOOD,"AI platform - user accounts",100,2026-01-13
+"Marc Alcaraz Fores","Rideyego",content@rideyego.com,Meeting Request,"Unknown",unknown,GOOD,"Mobility/scooter service",100,2026-01-12
+"Marc Alcaraz Fores","Rideyego",marc@rideyego.com,Meeting Request,"Unknown",unknown,GOOD,"Mobility/scooter service",100,2026-01-09
+"Karin Baranyai","Air Up",karin.baranyai@air-up.com,Meeting Request,"Unknown",unknown,GOOD,"D2C beverage - e-commerce auth",100,2026-01-09
+"Richard Evans","Beehiiv",richard.evans@beehiiv.com,Meeting Request,"Unknown",unknown,GOOD,"Newsletter platform - creator auth",100,2026-01-06
+"Gracyn Applegate","Livekindred",gapplegate@livekindred.com,Interested,"Unknown",unknown,GOOD,"Community/social platform",90,2026-01-29
+"Serena Grigolo","Omio",serena.grigolo@omio.com,Interested,"Unknown",unknown,GOOD,"Travel booking - consumer app",90,2026-01-28
+"Glen Gaudion","Thermal",glen@thermal.travel,Meeting Request,"Travel Tech",startup,GOOD,"Travel tech - consumer bookings",90,2025-12-30
+"Mervyn Yap","Daydream",mervyn@daydream.sg,Meeting Request,"AR/VR",startup,GOOD,"AR/VR experiences - consumer auth",90,2025-12-25
+"Wendell Phillips","Tokenwell",wendell@tokenwell.com,Meeting Request,"Unknown",unknown,GOOD,"Crypto/tokens - verification needed",85,2025-12-29
+"Chris Stevens","Spothero",chris.stevens@spothero.com,Meeting Request,"Unknown",unknown,GOOD,"Parking app - consumer bookings",85,2025-12-23
+"Reagan Peters","Joeandsephs",reagan@joeandsephs.com,Meeting Request,"Unknown",unknown,GOOD,"D2C gourmet food - e-commerce",85,2025-12-19
+"Amir Salihefendic","Doist",amix@doist.com,Meeting Request,"Unknown",unknown,GOOD,"Productivity apps (Todoist) - user accounts",85,2025-12-18
+"Samantha Gaspin","Mindtrip",sami@mindtrip.ai,Meeting Request,"Unknown",unknown,GOOD,"AI travel planner - consumer app",85,2025-12-17
+"Maelle Gurib","Go Electra",m.gurib@go-electra.com,Meeting Request,"Unknown",unknown,GOOD,"EV charging - consumer app",85,2025-12-08
+"Frank Lee","Antec",flee@antec.com,Meeting Request,"Unknown",unknown,GOOD,"PC hardware - e-commerce potential",85,2025-12-05
+"Tiphaine Turcan","Typology",tiphaine.simon-turcan@typology.com,Interested,"Unknown",unknown,GOOD,"D2C skincare - e-commerce",80,2026-01-27
+"Emma Lumley","Trustedhousesitters",emmalumley@trustedhousesitters.com,Interested,"Unknown",unknown,GOOD,"Peer marketplace - trust/verification",80,2026-01-26
+"Chloe Massiah","Gozney",chloe.massiah@gozney.com,Interested,"Consumer Products",midmarket,GOOD,"D2C pizza ovens - e-commerce",75,2025-12-12
+"Rodrigo Arevalo","Goodeggs",ar@goodeggs.com,Interested,"Unknown",unknown,GOOD,"Grocery delivery - consumer app",70,2026-01-06
+"Sara Sara","Circlesecurity",sara.duryea@circlesecurity.ai,Meeting Request,"Unknown",unknown,NOT_FIT,"B2B security - not consumer auth",120,2026-01-29
+"Magnus Ruben","Juicymarbles",magnus.ruben@juicymarbles.com,Meeting Request,"FoodTech",startup,NOT_FIT,"Food product company - D2C but tiny",105,2026-01-06
+"Gianna Calistro","Doublegood",gianna.calistro@doublegood.com,Meeting Request,"Food/Fundraising",midmarket,NOT_FIT,"Fundraising popcorn - niche",105,2025-12-23
+"Ivan Ivan","Sombreroresources",ivan@sombreroresources.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Unknown/likely B2B",100,2026-01-12
+"Jan Jan","Labradorcms",jan@labradorcms.com,Meeting Request,"Unknown",unknown,NOT_FIT,"B2B CMS - enterprise software",100,2026-01-12
+"Margarita Cardona","Coppernicometals",margarita@coppernicometals.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Mining company - industrial B2B",100,2026-01-12
+"Oscar Hernandez","Umiasalud",oscar@umiasalud.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Healthcare clinic - not SaaS",100,2026-01-11
+"Emily Ohara","Santamonica",eohara@santamonica.com,Meeting Request,"Unknown",unknown,NOT_FIT,"City govt - not commercial",100,2026-01-07
+"Nancy Serle","Urunn",nancy@urunn.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Unknown/B2B",100,2026-01-05
+"Jon ","Doingthingsmedia",jon@doingthingsmedia.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Meme media company - no auth needs",85,2026-01-01
+"Jerry Pratt","Personainc",jerry.pratt@personainc.ai,Meeting Request,"Unknown",unknown,NOT_FIT,"B2B AI - enterprise focus",85,2025-12-22
+"Raan Williams","Playingforchange",raan@playingforchange.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Music nonprofit - not SaaS",85,2025-12-17
+"Teri Marshall","Evergreenlodge",terim@evergreenlodge.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Single hotel - not SaaS",85,2025-12-12
+"Barbara Felt","Destinationcle",bfelt@destinationcle.org,Meeting Request,"Unknown",unknown,NOT_FIT,"Tourism org - not tech",85,2025-12-11
+"Adam Hascall","Doingthings",adam@doingthings.com,Meeting Request,"Unknown",unknown,NOT_FIT,"Meme media company - no auth needs",85,2025-12-08
+"Keith ","Trymartin",martin@trymartin.com,Interested,"Unknown",unknown,NOT_FIT,"Unknown small company",55,2025-12-31
+"Erika R.","Assemblyfestival",erika@assemblyfestival.com,Interested,"Unknown",unknown,NOT_FIT,"Festival - event, not platform",55,2025-12-12

@@ -1,0 +1,9 @@
+{
+  "leads": {},
+  "stats": {
+    "total_tracked": 0,
+    "ghosts_predicted": 0,
+    "accuracy": null
+  },
+  "last_updated": null
+}

@@ -1,0 +1,85 @@
+{
+  "never": [
+    "!",
+    "Great question",
+    "Thank you for your response",
+    "Thanks for getting back",
+    "Thanks for reaching out",
+    "I appreciate you reaching out",
+    "touch base",
+    "circle back",
+    "synergy",
+    "leverage",
+    "I hope this email finds you well",
+    "Just following up",
+    "Per my last email",
+    "As per our conversation",
+    "Please do not hesitate",
+    "At your earliest convenience",
+    "I wanted to reach out",
+    "I hope you're doing well",
+    "sounds cool",
+    "sounds interesting",
+    "sounds great",
+    "that's interesting",
+    "that's great",
+    "Looking forward to connecting"
+  ],
+  "never_patterns": [
+    "generic filler that doesn't move conversation forward",
+    "commenting on what they do without adding value"
+  ],
+  "always": [
+    "casual human tone",
+    "short sentences", 
+    "get to the point fast",
+    "specific day/time options (Mon 12pm or 3pm)",
+    "end scheduling with 'either works?'",
+    "calendly intro: 'Dropping my calendly here as well if you prefer a different time'"
+  ],
+  "variations": {
+    "opener": [
+      "Cool, {{firstName}}. Let's connect.",
+      "Cool, {{firstName}}.",
+      "Hey {{firstName}}, let's do it.",
+      "{{firstName}}, let's connect.",
+      "Down. Let's chat, {{firstName}}.",
+      "Works for me, {{firstName}}."
+    ],
+    "calendly_intro": [
+      "Dropping my calendly here as well if you prefer a different time.",
+      "My calendly is here too if none of those work.",
+      "Here's my calendly if easier.",
+      "Calendly link below if you want to pick a different slot.",
+      "Or just grab a time here.",
+      "Feel free to book directly here if that's easier.",
+      "Can also book here if those don't work.",
+      "Link below to grab a slot.",
+      "Calendar link if you prefer to pick.",
+      "Or pick any time here."
+    ],
+    "time_slots": [
+      "I'm free Mon 12pm or 3pm and Wed 1pm or 4pm EST next week, either works?",
+      "I'm free Tue 2pm or Thu 11am EST, either work?",
+      "How's Wed 1pm or Fri 11am EST?",
+      "Mon 3pm or Wed 2pm EST next week?",
+      "I can do Tue 11am or Thu 3pm EST, either work?",
+      "Free Thu 2pm or Fri 10am EST if that works.",
+      "I'm around Mon 11am or Wed 3pm EST, which works better?",
+      "Tue 1pm or Thu 2pm EST next week?"
+    ],
+    "closing": [
+      "Best,\nImman",
+      "Best,\nImman",
+      "-Imman",
+      "Imman"
+    ]
+  },
+  "style": {
+    "tone": "casual friend-to-friend",
+    "punctuation": "periods only, never exclamation marks",
+    "length": "short and direct",
+    "opener": "Cool, [name]. Let's connect."
+  },
+  "signature": "Best,\nImman"
+}

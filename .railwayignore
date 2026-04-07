@@ -1,0 +1,16 @@
+# Ignore sensitive files
+.env
+.env.*
+*.log
+logs/
+node_modules/
+.git/
+.DS_Store
+
+# Local exports and drafts
+exports/
+drafts/
+
+# Additional exclusions
+leads-research/
+fixes/

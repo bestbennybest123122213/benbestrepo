@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEX Pipeline Report - Wednesday, 4 February 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      line-height: 1.6;
+      padding: 40px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .date { color: #666; font-size: 14px; }
+    .section { margin-bottom: 32px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+    .stat-value.green { color: #22c55e; }
+    .stat-value.red { color: #ef4444; }
+    .stat-value.orange { color: #f97316; }
+    .stat-value.blue { color: #3b82f6; }
+    table {
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    th {
+      background: #f8f8f8;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #666;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-meeting { background: #dcfce7; color: #16a34a; }
+    .badge-interested { background: #dbeafe; color: #2563eb; }
+    .badge-info { background: #f3f4f6; color: #6b7280; }
+    .badge-enterprise { background: #fef3c7; color: #d97706; }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      color: #888;
+      font-size: 12px;
+    }
+    @media print {
+      body { background: white; padding: 20px; }
+      .stat-card { box-shadow: none; border: 1px solid #e0e0e0; }
+      table { box-shadow: none; border: 1px solid #e0e0e0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 GEX Pipeline Report</h1>
+      <div class="date">Wednesday, 4 February 2026</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📊 Pipeline Overview</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">118</div>
+          <div class="stat-label">Total Leads</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value green">21</div>
+          <div class="stat-label">Booked (17.8%)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value orange">61</div>
+          <div class="stat-label">Meeting Requests</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value blue">11</div>
+          <div class="stat-label">Enterprise</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">⏱️ Response Windows</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value red">1</div>
+          <div class="stat-label">Hot (0-3d)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value orange">5</div>
+          <div class="stat-label">Warm (4-7d)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">16</div>
+          <div class="stat-label">Cool (8-14d)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">75</div>
+          <div class="stat-label">Stale (15+d)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🏢 Enterprise Leads (11)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Category</th>
+            <th>Age</th>
+            <th>Funding</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>Marina Andersson</td>
+              <td>Stillfront Group</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>0d</td>
+              <td>Public</td>
+            </tr>
+          
+            <tr>
+              <td>Tushar Jain</td>
+              <td>Dream11</td>
+              <td><span class="badge badge-interested">Information Request</span></td>
+              <td>8d</td>
+              <td>$1.5B</td>
+            </tr>
+          
+            <tr>
+              <td>Sungkwan Kim</td>
+              <td>Naver Corporation</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>8d</td>
+              <td>-</td>
+            </tr>
+          
+            <tr>
+              <td>Marina Hallikainen</td>
+              <td>Paradox Interactive</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>8d</td>
+              <td>-</td>
+            </tr>
+          
+            <tr>
+              <td>David Vuong</td>
+              <td>Weedmaps</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>8d</td>
+              <td>Public</td>
+            </tr>
+          
+            <tr>
+              <td>Nick Depalo</td>
+              <td>Unity</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>11d</td>
+              <td>$1.3B</td>
+            </tr>
+          
+            <tr>
+              <td>Angela Garcia Mozos</td>
+              <td>Wallapop</td>
+              <td><span class="badge badge-interested">Information Request</span></td>
+              <td>14d</td>
+              <td>$191M</td>
+            </tr>
+          
+            <tr>
+              <td>Christina Hamilton</td>
+              <td>Udemy</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>14d</td>
+              <td>$310M</td>
+            </tr>
+          
+            <tr>
+              <td>Haya Odeh</td>
+              <td>Replit</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>19d</td>
+              <td>$400M</td>
+            </tr>
+          
+            <tr>
+              <td>Ryann Sgriccia</td>
+              <td>IGN Entertainment</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>20d</td>
+              <td>-</td>
+            </tr>
+          
+            <tr>
+              <td>Joshua Kopeika</td>
+              <td>Complex Networks</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>47d</td>
+              <td>-</td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📋 Recent Leads (Top 20)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Category</th>
+            <th>Age</th>
+            <th>Tier</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>Marina Andersson</td>
+              <td>Stillfront Group</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>0d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>Sara Sara</td>
+              <td>Circlesecurity</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>5d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Gracyn Applegate</td>
+              <td>Livekindred</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>5d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Ovidiu Apostu</td>
+              <td>Piercegroup</td>
+              <td><span class="badge badge-info">Information Request</span></td>
+              <td>7d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Serena Grigolo</td>
+              <td>Omio</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>7d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Tiphaine Turcan</td>
+              <td>Typology</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>7d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Shubham Mishra</td>
+              <td>Unstop</td>
+              <td><span class="badge badge-info">Information Request</span></td>
+              <td>8d</td>
+              <td>midmarket</td>
+            </tr>
+          
+            <tr>
+              <td>Tushar Jain</td>
+              <td>Dream11</td>
+              <td><span class="badge badge-info">Information Request</span></td>
+              <td>8d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>Sungkwan Kim</td>
+              <td>Naver Corporation</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>8d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>Marina Hallikainen</td>
+              <td>Paradox Interactive</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>8d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>David Vuong</td>
+              <td>Weedmaps</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>8d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>Emma Lumley</td>
+              <td>Trustedhousesitters</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>8d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Christian Stein</td>
+              <td>Threedy</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>11d</td>
+              <td>startup</td>
+            </tr>
+          
+            <tr>
+              <td>Nick Depalo</td>
+              <td>Unity</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>11d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>Agnes Ahlquist</td>
+              <td>Naturalcycles</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>12d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Jeremy Hare</td>
+              <td>Puntaa</td>
+              <td><span class="badge badge-interested">Interested</span></td>
+              <td>12d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Evgeny Zvyagin</td>
+              <td>Virtus</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>13d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Valeriya Kramp</td>
+              <td>Owlcat</td>
+              <td><span class="badge badge-meeting">Meeting Request</span></td>
+              <td>13d</td>
+              <td>unknown</td>
+            </tr>
+          
+            <tr>
+              <td>Angela Garcia Mozos</td>
+              <td>Wallapop</td>
+              <td><span class="badge badge-info">Information Request</span></td>
+              <td>14d</td>
+              <td><span class="badge badge-enterprise">Enterprise</span></td>
+            </tr>
+          
+            <tr>
+              <td>Hiep Nguyen</td>
+              <td>Coolmate</td>
+              <td><span class="badge badge-info">Information Request</span></td>
+              <td>14d</td>
+              <td>unknown</td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      Generated by GEX OS • 04/02/2026, 15:29:17
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "providers": {
+    "hypertide": {
+      "name": "Hypertide",
+      "color": "#06b6d4",
+      "status": "disconnected",
+      "statusNote": "Deleted by Provider (March 2026)",
+      "deletedAt": "2026-03-15"
+    },
+    "google": {
+      "name": "Google Workspace",
+      "color": "#a855f7",
+      "status": "active",
+      "statusNote": null
+    },
+    "zapmail": {
+      "name": "Zapmail",
+      "color": "#22c55e",
+      "status": "active",
+      "statusNote": "New provider - .info and .co domains"
+    }
+  },
+  "domains": {
+    "getitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "useitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "myitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "smartitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "goitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "proitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "helloitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" },
+    "teamitssimannntv.com": { "provider": "hypertide", "status": "disconnected", "deletedAt": "2026-03-15", "finalCheckNote": "Final check before deletion" }
+  },
+  "providerDetection": {
+    "rules": [
+      { "tld": ".info", "provider": "zapmail" },
+      { "tld": ".co", "provider": "zapmail" },
+      { "accountType": "GMAIL", "provider": "google" },
+      { "accountType": "SMTP", "minAccounts": 10, "provider": "hypertide" },
+      { "accountType": "SMTP", "provider": "zapmail" }
+    ]
+  },
+  "lastUpdated": "2026-03-23T20:00:00.000Z"
+}

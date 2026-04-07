@@ -1,0 +1,23 @@
+{
+  "deals": [
+    {
+      "id": 1,
+      "company": "Stillfront (Marina Andersson)",
+      "value": 25000,
+      "stage": "Contacted",
+      "nextAction": "Send follow-up email",
+      "nextActionDate": "2026-02-07",
+      "creator": "ItssIMANNN",
+      "createdAt": "2026-02-06T14:57:21.395Z",
+      "updatedAt": "2026-02-06T14:57:21.396Z",
+      "history": [
+        {
+          "date": "2026-02-06T14:57:21.396Z",
+          "action": "Created",
+          "stage": "Contacted"
+        }
+      ]
+    }
+  ],
+  "lastId": 1
+}

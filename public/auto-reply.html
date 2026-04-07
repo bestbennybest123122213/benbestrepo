@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-Reply Bot - Draft Review</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a; 
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1 { color: #00ff88; margin-bottom: 20px; }
+    .stats { 
+      display: flex; 
+      gap: 20px; 
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+      min-width: 150px;
+    }
+    .stat-card h3 { color: #888; font-size: 14px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 32px; font-weight: bold; }
+    .stat-card.review .value { color: #ffaa00; }
+    .stat-card.block .value { color: #ff4444; }
+    .stat-card.sent .value { color: #00ff88; }
+    
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab {
+      padding: 10px 20px;
+      background: #1a1a1a;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .tab.active { background: #00ff88; color: #000; }
+    
+    .drafts { display: flex; flex-direction: column; gap: 15px; }
+    .draft-card {
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid #00ff88;
+    }
+    .draft-card.block { border-left-color: #ff4444; }
+    .draft-card.neutral { border-left-color: #888; }
+    
+    .draft-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .lead-info h3 { color: #fff; margin-bottom: 4px; }
+    .lead-info .email { color: #888; font-size: 14px; }
+    .lead-info .company { color: #00ff88; font-size: 14px; }
+    .lead-info .intel { color: #666; font-size: 12px; margin-top: 4px; }
+    .urgency { 
+      padding: 2px 8px; 
+      border-radius: 10px; 
+      font-size: 11px; 
+      margin-left: 8px;
+    }
+    .urgency.high { background: #ff444433; color: #ff4444; }
+    .urgency.medium { background: #ffaa0033; color: #ffaa00; }
+    .urgency.low { background: #88888833; color: #888; }
+    .thread-badge {
+      background: #333;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      color: #888;
+      margin-left: 8px;
+    }
+    .duplicate-warning {
+      background: #ff880022;
+      border: 1px solid #ff8800;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      color: #ff8800;
+    }
+    
+    .category {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .category.positive { background: #00ff8833; color: #00ff88; }
+    .category.negative { background: #ff444433; color: #ff4444; }
+    .category.neutral { background: #88888833; color: #888; }
+    
+    .original-message {
+      background: #0a0a0a;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .original-message label { color: #888; display: block; margin-bottom: 8px; font-size: 12px; }
+    
+    .draft-response {
+      background: #002211;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .draft-response label { color: #00ff88; display: block; margin-bottom: 8px; font-size: 12px; }
+    
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-approve { background: #00ff88; color: #000; }
+    .btn-edit { background: #333; color: #fff; }
+    .btn-skip { background: #333; color: #888; }
+    .btn-block { background: #ff4444; color: #fff; }
+    
+    .empty { color: #888; text-align: center; padding: 40px; }
+    
+    .time { color: #666; font-size: 12px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🤖 Auto-Reply Bot - Draft Review</h1>
+  
+  <div class="stats" id="stats">
+    <div class="stat-card review">
+      <h3>Pending Review</h3>
+      <div class="value" id="stat-review">-</div>
+    </div>
+    <div class="stat-card block">
+      <h3>Pending Block</h3>
+      <div class="value" id="stat-block">-</div>
+    </div>
+    <div class="stat-card sent">
+      <h3>Approved Today</h3>
+      <div class="value" id="stat-approved">-</div>
+    </div>
+  </div>
+  
+  <div class="tabs">
+    <button class="tab active" data-status="pending_review">📝 Pending Review</button>
+    <button class="tab" data-status="pending_block">🚫 Pending Block</button>
+    <button class="tab" data-status="approved">✅ Approved</button>
+    <button class="tab" data-status="no_action">⏭️ Skipped</button>
+  </div>
+  
+  <div class="drafts" id="drafts">
+    <div class="empty">Loading...</div>
+  </div>
+  
+  <script>
+    let currentStatus = 'pending_review';
+    
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/drafts/summary');
+        const data = await res.json();
+        if (data.ok) {
+          document.getElementById('stat-review').textContent = data.summary.pending_review || 0;
+          document.getElementById('stat-block').textContent = data.summary.pending_block || 0;
+          document.getElementById('stat-approved').textContent = data.summary.approved || 0;
+        }
+      } catch (err) {
+        console.error('Error loading stats:', err);
+      }
+    }
+    
+    async function loadDrafts(status) {
+      currentStatus = status;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-status="${status}"]`).classList.add('active');
+      
+      const container = document.getElementById('drafts');
+      container.innerHTML = '<div class="empty">Loading...</div>';
+      
+      try {
+        const res = await fetch(`/api/drafts?status=${status}`);
+        const data = await res.json();
+        
+        if (!data.ok || !data.drafts || data.drafts.length === 0) {
+          container.innerHTML = '<div class="empty">No drafts in this category</div>';
+          return;
+        }
+        
+        container.innerHTML = data.drafts.map(d => renderDraft(d)).join('');
+      } catch (err) {
+        container.innerHTML = `<div class="empty">Error: ${err.message}</div>`;
+      }
+    }
+    
+    function renderDraft(d) {
+      const categoryClass = d.category === 'POSITIVE' ? 'positive' : 
+                           d.category === 'NEGATIVE' ? 'negative' : 'neutral';
+      const cardClass = d.should_block ? 'block' : (d.category === 'NEUTRAL' ? 'neutral' : '');
+      
+      const time = new Date(d.created_at).toLocaleString();
+      
+      // Urgency badge
+      const urgencyClass = d.urgency_score >= 50 ? 'high' : (d.urgency_score >= 30 ? 'medium' : 'low');
+      const urgencyBadge = d.urgency_score ? `<span class="urgency ${urgencyClass}">🔥 ${d.urgency_score}</span>` : '';
+      
+      // Thread badge
+      const threadBadge = d.thread_count > 1 ? `<span class="thread-badge">💬 Reply #${d.thread_count}</span>` : '';
+      
+      // Intelligence info
+      const intel = [
+        d.lead_industry && d.lead_industry !== 'other' ? d.lead_industry : null,
+        d.lead_timezone ? d.lead_timezone.split('/').pop() : null,
+        d.lead_company_size && d.lead_company_size !== 'unknown' ? d.lead_company_size : null
+      ].filter(Boolean).join(' • ');
+      
+      let actions = '';
+      if (d.status === 'pending_review') {
+        actions = `
+          <button class="btn btn-approve" onclick="updateStatus(${d.id}, 'approved')">✓ Approve Draft</button>
+          <button class="btn btn-edit" onclick="editDraft(${d.id})">✏️ Edit</button>
+          <button class="btn btn-skip" onclick="updateStatus(${d.id}, 'skipped')">Skip</button>
+        `;
+      } else if (d.status === 'pending_block') {
+        actions = `
+          <button class="btn btn-block" onclick="updateStatus(${d.id}, 'blocked')">🚫 Confirm Block</button>
+          <button class="btn btn-skip" onclick="updateStatus(${d.id}, 'skipped')">Skip</button>
+        `;
+      }
+      
+      return `
+        <div class="draft-card ${cardClass}">
+          <div class="draft-header">
+            <div class="lead-info">
+              <h3>${d.lead_name || 'Unknown'} ${urgencyBadge} ${threadBadge}</h3>
+              <div class="email">${d.lead_email}</div>
+              <div class="company">${d.lead_company || '-'}</div>
+              ${intel ? `<div class="intel">${intel}</div>` : ''}
+            </div>
+            <span class="category ${categoryClass}">${d.category}/${d.subcategory}</span>
+          </div>
+          
+          ${d.is_duplicate ? `
+          <div class="duplicate-warning">
+            ⚠️ Duplicate: Other leads from same company domain exist
+          </div>
+          ` : ''}
+          
+          <div class="original-message">
+            <label>THEIR MESSAGE:</label>
+            ${escapeHtml(d.original_message || '-')}
+          </div>
+          
+          ${d.draft_response ? `
+          <div class="draft-response">
+            <label>DRAFT RESPONSE:</label>
+            ${escapeHtml(d.draft_response)}
+          </div>
+          ` : ''}
+          
+          <div class="actions">${actions}</div>
+          <div class="time">Received: ${time}</div>
+        </div>
+      `;
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    async function updateStatus(id, status) {
+      try {
+        const res = await fetch(`/api/drafts/${id}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          loadStats();
+          loadDrafts(currentStatus);
+        } else {
+          alert('Error: ' + data.error);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+    
+    function editDraft(id) {
+      alert('Edit functionality coming soon. For now, manually edit in SmartLead.');
+    }
+    
+    // Tab click handlers
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => loadDrafts(tab.dataset.status));
+    });
+    
+    // Initial load
+    loadStats();
+    loadDrafts('pending_review');
+    
+    // Auto-refresh every 30 seconds
+    setInterval(() => {
+      loadStats();
+      loadDrafts(currentStatus);
+    }, 30000);
+  </script>
+</body>
+</html>

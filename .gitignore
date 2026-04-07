@@ -1,0 +1,11 @@
+node_modules/
+.env
+*.log
+*.backup
+*.backup-*
+inbox.db
+threads-cache.json
+server.log
+.smartlead-token
+*.token
+data/diag-2-credentials-entered.png

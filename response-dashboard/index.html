@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Response Time Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a; 
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1 { color: #fff; margin-bottom: 10px; }
+    h2 { color: #888; font-size: 14px; margin-bottom: 20px; }
+    h3 { color: #fff; margin: 30px 0 15px; font-size: 18px; }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #333;
+    }
+    .stat-card .label { color: #888; font-size: 12px; text-transform: uppercase; }
+    .stat-card .value { color: #fff; font-size: 28px; font-weight: 600; margin-top: 5px; }
+    .stat-card .sub { color: #666; font-size: 12px; margin-top: 5px; }
+    
+    .distribution-bar {
+      display: flex;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 10px 0 20px;
+    }
+    .distribution-bar .segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      min-width: 30px;
+    }
+    .seg-5m { background: #22c55e; }
+    .seg-15m { background: #84cc16; }
+    .seg-1h { background: #eab308; }
+    .seg-3h { background: #f97316; }
+    .seg-24h { background: #ef4444; }
+    .seg-over { background: #991b1b; }
+    
+    .distribution-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 12px;
+      margin-bottom: 30px;
+    }
+    .distribution-legend span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .distribution-legend .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #222;
+    }
+    th {
+      background: #1a1a1a;
+      color: #888;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    td { color: #e0e0e0; }
+    tr:hover td { background: #111; }
+    .hidden-row { display: none; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .highlight { color: #22c55e; font-weight: 600; }
+    
+    .month-header {
+      background: #252525 !important;
+      color: #fff !important;
+      font-weight: 600;
+    }
+    .week-row td:first-child { padding-left: 30px; color: #888; }
+    
+    .loading { text-align: center; padding: 50px; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>📊 Response Time Dashboard</h1>
+  <h2>Positive Reply Response Analysis</h2>
+  
+  <div id="loading" class="loading">Loading data...</div>
+  <div id="dashboard" style="display: none;">
+    
+    <h3>Overall Response Time</h3>
+    <div class="stats-grid" id="overall-stats"></div>
+    
+    <h3>Response Speed Distribution</h3>
+    <div class="distribution-bar" id="distribution-bar"></div>
+    <div class="distribution-legend" id="distribution-legend"></div>
+    
+    <h3>Monthly & Weekly Breakdown</h3>
+    <table id="breakdown-table">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th class="num">Unique Leads</th>
+          <th class="num">Messages</th>
+          <th class="num">Avg First Response</th>
+          <th class="num">Avg Follow-up</th>
+          <th class="num">Avg All</th>
+          <th class="num">Median All</th>
+        </tr>
+      </thead>
+      <tbody id="breakdown-body"></tbody>
+    </table>
+    
+  </div>
+
+  <script>
+    // Initialize Supabase
+    const SUPABASE_URL = localStorage.getItem('supabase_url') || prompt('Enter Supabase URL:');
+    const SUPABASE_KEY = localStorage.getItem('supabase_key') || prompt('Enter Supabase anon key:');
+    
+    if (SUPABASE_URL && SUPABASE_KEY) {
+      localStorage.setItem('supabase_url', SUPABASE_URL);
+      localStorage.setItem('supabase_key', SUPABASE_KEY);
+    }
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    
+    async function loadData() {
+      const { data, error } = await supabase
+        .from('positive_replies')
+        .select('*')
+        .order('replied_at', { ascending: true });
+      
+      if (error) {
+        document.getElementById('loading').textContent = 'Error: ' + error.message;
+        return;
+      }
+      
+      processData(data);
+    }
+    
+    function processData(replies) {
+      // Track first reply per lead
+      const leadFirstReply = {};
+      const processedReplies = replies.map(r => {
+        const isFirst = !leadFirstReply[r.lead_email];
+        if (isFirst) leadFirstReply[r.lead_email] = r.replied_at;
+        return { ...r, isFirstReply: isFirst };
+      });
+      
+      // Calculate overall stats
+      const withRT = processedReplies.filter(r => r.response_time_seconds != null);
+      const firstReplies = withRT.filter(r => r.isFirstReply);
+      const followUps = withRT.filter(r => !r.isFirstReply);
+      
+      const avgFirst = firstReplies.length ? avg(firstReplies.map(r => r.response_time_seconds)) : 0;
+      const avgFollowUp = followUps.length ? avg(followUps.map(r => r.response_time_seconds)) : 0;
+      const avgAll = withRT.length ? avg(withRT.map(r => r.response_time_seconds)) : 0;
+      const medianAll = withRT.length ? median(withRT.map(r => r.response_time_seconds)) : 0;
+      
+      // Render overall stats
+      document.getElementById('overall-stats').innerHTML = `
+        <div class="stat-card">
+          <div class="label">Avg First Response</div>
+          <div class="value">${formatTime(avgFirst)}</div>
+          <div class="sub">${firstReplies.length} first replies</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Avg Follow-up Response</div>
+          <div class="value">${formatTime(avgFollowUp)}</div>
+          <div class="sub">${followUps.length} follow-ups</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Avg All Responses</div>
+          <div class="value">${formatTime(avgAll)}</div>
+          <div class="sub">${withRT.length} total</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Median All Responses</div>
+          <div class="value">${formatTime(medianAll)}</div>
+          <div class="sub">50th percentile</div>
+        </div>
+      `;
+      
+      // Distribution
+      const dist = {
+        under5m: withRT.filter(r => r.response_time_seconds < 300).length,
+        under15m: withRT.filter(r => r.response_time_seconds >= 300 && r.response_time_seconds < 900).length,
+        under1h: withRT.filter(r => r.response_time_seconds >= 900 && r.response_time_seconds < 3600).length,
+        under3h: withRT.filter(r => r.response_time_seconds >= 3600 && r.response_time_seconds < 10800).length,
+        under24h: withRT.filter(r => r.response_time_seconds >= 10800 && r.response_time_seconds < 86400).length,
+        over24h: withRT.filter(r => r.response_time_seconds >= 86400).length
+      };
+      const total = withRT.length;
+      
+      const pct = k => ((dist[k] / total) * 100).toFixed(0);
+      
+      document.getElementById('distribution-bar').innerHTML = `
+        <div class="segment seg-5m" style="width: ${pct('under5m')}%">${pct('under5m')}%</div>
+        <div class="segment seg-15m" style="width: ${pct('under15m')}%">${pct('under15m')}%</div>
+        <div class="segment seg-1h" style="width: ${pct('under1h')}%">${pct('under1h')}%</div>
+        <div class="segment seg-3h" style="width: ${pct('under3h')}%">${pct('under3h')}%</div>
+        <div class="segment seg-24h" style="width: ${pct('under24h')}%">${pct('under24h')}%</div>
+        <div class="segment seg-over" style="width: ${pct('over24h')}%">${pct('over24h')}%</div>
+      `;
+      
+      document.getElementById('distribution-legend').innerHTML = `
+        <span><div class="dot seg-5m"></div> <5min: ${dist.under5m} (${pct('under5m')}%)</span>
+        <span><div class="dot seg-15m"></div> 5-15min: ${dist.under15m} (${pct('under15m')}%)</span>
+        <span><div class="dot seg-1h"></div> 15min-1h: ${dist.under1h} (${pct('under1h')}%)</span>
+        <span><div class="dot seg-3h"></div> 1-3h: ${dist.under3h} (${pct('under3h')}%)</span>
+        <span><div class="dot seg-24h"></div> 3-24h: ${dist.under24h} (${pct('under24h')}%)</span>
+        <span><div class="dot seg-over"></div> >24h: ${dist.over24h} (${pct('over24h')}%)</span>
+      `;
+      
+      // Monthly/Weekly breakdown
+      const breakdown = buildBreakdown(processedReplies);
+      renderBreakdown(breakdown);
+      
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+    }
+    
+    function buildBreakdown(replies) {
+      const result = [];
+      const months = [];
+      
+      // Generate months from Nov 2025 to Dec 2026
+      for (let y = 2025; y <= 2026; y++) {
+        const startM = y === 2025 ? 10 : 0; // Nov 2025 start
+        const endM = y === 2026 ? 11 : 11;
+        for (let m = startM; m <= endM; m++) {
+          months.push({ year: y, month: m });
+        }
+      }
+      
+      const leadFirstSeen = {};
+      
+      months.forEach(({ year, month }) => {
+        const monthStart = new Date(year, month, 1);
+        const monthEnd = new Date(year, month + 1, 0, 23, 59, 59);
+        const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
+        const monthName = monthStart.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        
+        // Hide future months (March 2026+)
+        const now = new Date();
+        const isFuture = year > now.getFullYear() || (year === now.getFullYear() && month > now.getMonth() + 1);
+        
+        const monthReplies = replies.filter(r => {
+          const d = new Date(r.replied_at);
+          return d >= monthStart && d <= monthEnd;
+        });
+        
+        // Track unique leads for this month
+        const monthLeadsSeen = new Set();
+        let monthUniqueLeads = 0;
+        monthReplies.forEach(r => {
+          if (!leadFirstSeen[r.lead_email]) {
+            leadFirstSeen[r.lead_email] = r.replied_at;
+            monthUniqueLeads++;
+          }
+          monthLeadsSeen.add(r.lead_email);
+        });
+        
+        const monthWithRT = monthReplies.filter(r => r.response_time_seconds != null);
+        const monthFirsts = monthWithRT.filter(r => r.isFirstReply);
+        const monthFollows = monthWithRT.filter(r => !r.isFirstReply);
+        
+        result.push({
+          type: 'month',
+          name: monthName,
+          hidden: isFuture,
+          uniqueLeads: monthUniqueLeads,
+          messages: monthReplies.length,
+          avgFirst: monthFirsts.length ? avg(monthFirsts.map(r => r.response_time_seconds)) : null,
+          avgFollowUp: monthFollows.length ? avg(monthFollows.map(r => r.response_time_seconds)) : null,
+          avgAll: monthWithRT.length ? avg(monthWithRT.map(r => r.response_time_seconds)) : null,
+          medianAll: monthWithRT.length ? median(monthWithRT.map(r => r.response_time_seconds)) : null
+        });
+        
+        // Weeks in this month
+        let weekStart = new Date(monthStart);
+        let weekNum = 1;
+        while (weekStart <= monthEnd) {
+          let weekEnd = new Date(weekStart);
+          weekEnd.setDate(weekEnd.getDate() + 6);
+          if (weekEnd > monthEnd) weekEnd = monthEnd;
+          
+          const weekReplies = replies.filter(r => {
+            const d = new Date(r.replied_at);
+            return d >= weekStart && d <= weekEnd;
+          });
+          
+          let weekUniqueLeads = 0;
+          weekReplies.forEach(r => {
+            const firstSeenDate = new Date(leadFirstSeen[r.lead_email]);
+            if (firstSeenDate >= weekStart && firstSeenDate <= weekEnd) {
+              weekUniqueLeads++;
+            }
+          });
+          // Dedupe: only count unique leads once per week
+          const weekLeadsSet = new Set();
+          weekReplies.forEach(r => {
+            const firstSeenDate = new Date(leadFirstSeen[r.lead_email]);
+            if (firstSeenDate >= weekStart && firstSeenDate <= weekEnd) {
+              weekLeadsSet.add(r.lead_email);
+            }
+          });
+          weekUniqueLeads = weekLeadsSet.size;
+          
+          const weekWithRT = weekReplies.filter(r => r.response_time_seconds != null);
+          const weekFirsts = weekWithRT.filter(r => r.isFirstReply);
+          const weekFollows = weekWithRT.filter(r => !r.isFirstReply);
+          
+          result.push({
+            type: 'week',
+            name: `Week ${weekNum} (${weekStart.getDate()}-${weekEnd.getDate()})`,
+            hidden: isFuture,
+            uniqueLeads: weekUniqueLeads,
+            messages: weekReplies.length,
+            avgFirst: weekFirsts.length ? avg(weekFirsts.map(r => r.response_time_seconds)) : null,
+            avgFollowUp: weekFollows.length ? avg(weekFollows.map(r => r.response_time_seconds)) : null,
+            avgAll: weekWithRT.length ? avg(weekWithRT.map(r => r.response_time_seconds)) : null,
+            medianAll: weekWithRT.length ? median(weekWithRT.map(r => r.response_time_seconds)) : null
+          });
+          
+          weekStart = new Date(weekEnd);
+          weekStart.setDate(weekStart.getDate() + 1);
+          weekNum++;
+        }
+      });
+      
+      return result;
+    }
+    
+    function renderBreakdown(breakdown) {
+      const tbody = document.getElementById('breakdown-body');
+      tbody.innerHTML = breakdown.map(row => {
+        const cls = row.type === 'month' ? 'month-header' : 'week-row';
+        const hidden = row.hidden ? 'hidden-row' : '';
+        return `
+          <tr class="${cls} ${hidden}">
+            <td>${row.name}</td>
+            <td class="num">${row.uniqueLeads || '-'}</td>
+            <td class="num">${row.messages || '-'}</td>
+            <td class="num">${row.avgFirst ? formatTime(row.avgFirst) : '-'}</td>
+            <td class="num">${row.avgFollowUp ? formatTime(row.avgFollowUp) : '-'}</td>
+            <td class="num">${row.avgAll ? formatTime(row.avgAll) : '-'}</td>
+            <td class="num">${row.medianAll ? formatTime(row.medianAll) : '-'}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+    
+    function avg(arr) {
+      return arr.reduce((a, b) => a + b, 0) / arr.length;
+    }
+    
+    function median(arr) {
+      const sorted = [...arr].sort((a, b) => a - b);
+      const mid = Math.floor(sorted.length / 2);
+      return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+    }
+    
+    function formatTime(seconds) {
+      if (seconds < 60) return `${Math.round(seconds)}s`;
+      if (seconds < 3600) return `${Math.round(seconds / 60)}m`;
+      if (seconds < 86400) return `${(seconds / 3600).toFixed(1)}h`;
+      return `${(seconds / 86400).toFixed(1)}d`;
+    }
+    
+    loadData();
+  </script>
+</body>
+</html>

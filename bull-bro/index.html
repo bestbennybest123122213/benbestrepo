@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bull BRO Control Center</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --border-color: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent-green: #3fb950;
+      --accent-yellow: #d29922;
+      --accent-red: #f85149;
+      --accent-blue: #58a6ff;
+      --accent-purple: #a371f7;
+      --accent-gold: #ffd700;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Header */
+    .header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon { font-size: 2rem; }
+
+    .logo-text h1 {
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, var(--accent-gold), #ffa500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-text span {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+    }
+
+    .status-dot {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-secondary);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .dot.green { background: var(--accent-green); }
+    .dot.yellow { background: var(--accent-yellow); }
+    .dot.red { background: var(--accent-red); }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 1rem;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab:hover { color: var(--text-primary); }
+    .tab.active {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+    }
+
+    .tab-badge {
+      background: var(--accent-red);
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .stat-card .label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .stat-card.blue .value { color: var(--accent-blue); }
+    .stat-card.gold .value { color: var(--accent-gold); }
+    .stat-card.green .value { color: var(--accent-green); }
+    .stat-card.purple .value { color: var(--accent-purple); }
+
+    /* Panel */
+    .panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel-header {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .panel-body {
+      padding: 1rem;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Inbox */
+    .inbox-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .inbox-item:hover {
+      border-color: var(--accent-blue);
+      background: var(--bg-tertiary);
+    }
+
+    .inbox-item.expanded {
+      background: var(--bg-tertiary);
+    }
+
+    .inbox-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .inbox-content {
+      overflow: hidden;
+    }
+
+    .inbox-from {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .inbox-subject {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .inbox-meta {
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .inbox-expanded {
+      display: none;
+      grid-column: 1 / -1;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .inbox-item.expanded .inbox-expanded { display: block; }
+
+    .inbox-body {
+      background: var(--bg-primary);
+      padding: 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      margin-bottom: 1rem;
+    }
+
+    .inbox-suggestion {
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid var(--accent-blue);
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .inbox-suggestion h4 {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .inbox-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-green);
+      color: white;
+    }
+    .btn-primary:hover { background: #2ea043; }
+
+    .btn-blue {
+      background: var(--accent-blue);
+      color: white;
+    }
+    .btn-blue:hover { background: #4393e6; }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover { background: var(--border-color); }
+
+    .btn-danger {
+      background: rgba(248, 81, 73, 0.2);
+      color: var(--accent-red);
+      border: 1px solid transparent;
+    }
+    .btn-danger:hover { border-color: var(--accent-red); }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* Objection Cards */
+    .objection-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .objection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .objection-key {
+      font-weight: 600;
+      color: var(--accent-yellow);
+    }
+
+    .objection-stats {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .objection-phrases {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .phrase-tag {
+      background: var(--bg-secondary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .objection-counter {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      padding: 0.75rem;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    /* Thread Cards */
+    .thread-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .thread-card:hover {
+      border-color: var(--accent-blue);
+    }
+
+    .thread-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .thread-email { font-weight: 600; }
+
+    .thread-status {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .thread-status.active { background: rgba(88, 166, 255, 0.2); color: var(--accent-blue); }
+    .thread-status.won { background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }
+    .thread-status.lost { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
+
+    .thread-meta {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Template Cards */
+    .template-category {
+      margin-bottom: 1.5rem;
+    }
+
+    .template-category h3 {
+      font-size: 0.9rem;
+      color: var(--accent-purple);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .template-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .template-trigger {
+      font-size: 0.75rem;
+      color: var(--accent-yellow);
+      margin-bottom: 0.5rem;
+    }
+
+    .template-script {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      max-height: 100px;
+      overflow-y: auto;
+      background: var(--bg-secondary);
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: var(--accent-green); }
+    .toast.error { border-color: var(--accent-red); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+    /* Search */
+    .search-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-bar input {
+      flex: 1;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 { font-size: 1rem; }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+
+    .modal-body { padding: 1rem; }
+
+    .modal-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    /* Win Rate Bar */
+    .win-rate-bar {
+      height: 4px;
+      background: var(--bg-secondary);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .win-rate-fill {
+      height: 100%;
+      background: var(--accent-green);
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🐂</span>
+      <div class="logo-text">
+        <h1>Bull BRO Control Center</h1>
+        <span>SmartLead Auto-Reply Command</span>
+      </div>
+    </div>
+    <div class="header-status">
+      <div class="status-dot">
+        <span class="dot green" id="apiStatus"></span>
+        <span>API</span>
+      </div>
+      <div class="status-dot">
+        <span class="dot green" id="slStatus"></span>
+        <span>SmartLead</span>
+      </div>
+      <span id="lastRefresh">--:--</span>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <div class="tab active" data-tab="inbox">📥 Inbox <span class="tab-badge" id="inboxBadge">0</span></div>
+    <div class="tab" data-tab="training">🎯 Training</div>
+    <div class="tab" data-tab="threads">💬 Threads</div>
+    <div class="tab" data-tab="templates">📋 Templates</div>
+    <div class="tab" data-tab="stats">📊 Stats</div>
+    <div class="tab" data-tab="drafts">📝 Drafts</div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- INBOX TAB -->
+    <div class="tab-content active" id="tab-inbox">
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="label">New Replies</div>
+          <div class="value" id="newReplies">-</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="label">Needs Response</div>
+          <div class="value" id="needsResponse">-</div>
+        </div>
+        <div class="stat-card green">
+          <div class="label">Sent Today</div>
+          <div class="value" id="sentToday">-</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="label">Win Rate</div>
+          <div class="value" id="winRate">-%</div>
+        </div>
+      </div>
+      
+      <div class="panel">
+        <div class="panel-header">
+          <h2>📥 SmartLead Inbox</h2>
+          <button class="btn btn-secondary" onclick="loadInbox()">🔄 Refresh</button>
+        </div>
+        <div class="panel-body" id="inboxList">
+          <div class="empty-state">Loading inbox...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAINING TAB -->
+    <div class="tab-content" id="tab-training">
+      <div class="grid-2">
+        <!-- Add Winning Reply -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>🏆 Add Winning Reply</h2>
+          </div>
+          <div class="panel-body">
+            <form id="winningForm">
+              <div class="form-group">
+                <label>Reply Text (what converted)</label>
+                <textarea class="form-control" id="winReply" placeholder="Paste the reply that led to a booked call..." required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Intent / Category</label>
+                <select class="form-control" id="winIntent">
+                  <option value="interested">Interested</option>
+                  <option value="pricing_question">Pricing Question</option>
+                  <option value="objection_overcome">Objection Overcome</option>
+                  <option value="follow_up">Follow-up</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Industry</label>
+                <select class="form-control" id="winIndustry">
+                  <option value="gaming">Gaming</option>
+                  <option value="tech">Tech</option>
+                  <option value="education">Education</option>
+                  <option value="consumer">Consumer</option>
+                  <option value="finance">Finance</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Company (optional)</label>
+                <input type="text" class="form-control" id="winCompany" placeholder="Company name">
+              </div>
+              <button type="submit" class="btn btn-primary">✓ Add Winning Reply</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Add Objection -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>🛡️ Add New Objection Handler</h2>
+          </div>
+          <div class="panel-body">
+            <form id="objectionForm">
+              <div class="form-group">
+                <label>Objection Key (e.g., "no_budget_q2")</label>
+                <input type="text" class="form-control" id="objKey" placeholder="snake_case_key" required>
+              </div>
+              <div class="form-group">
+                <label>Trigger Phrases (comma separated)</label>
+                <input type="text" class="form-control" id="objPhrases" placeholder="no budget, can't afford, too expensive" required>
+              </div>
+              <div class="form-group">
+                <label>Counter Response</label>
+                <textarea class="form-control" id="objCounter" placeholder="Hey {{first_name}},
+
+Totally get it — budgets are real..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">✓ Add Objection Handler</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing Objections -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>📚 Objection Playbook</h2>
+          <span id="objectionCount" style="color: var(--text-muted); font-size: 0.8rem;">0 objections</span>
+        </div>
+        <div class="panel-body" id="objectionsList">
+          <div class="empty-state">Loading objections...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREADS TAB -->
+    <div class="tab-content" id="tab-threads">
+      <div class="search-bar">
+        <input type="text" class="form-control" id="threadSearch" placeholder="Search by email or company...">
+        <button class="btn btn-blue" onclick="searchThreads()">🔍 Search</button>
+        <button class="btn btn-secondary" onclick="loadThreads()">🔄 Refresh</button>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="label">Total Threads</div>
+          <div class="value" id="totalThreads">-</div>
+        </div>
+        <div class="stat-card green">
+          <div class="label">Won</div>
+          <div class="value" id="threadsWon">-</div>
+        </div>
+        <div class="stat-card" style="--value-color: var(--accent-red);">
+          <div class="label">Lost</div>
+          <div class="value" id="threadsLost" style="color: var(--accent-red);">-</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="label">Active</div>
+          <div class="value" id="threadsActive">-</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>💬 Conversation Threads</h2>
+        </div>
+        <div class="panel-body" id="threadsList">
+          <div class="empty-state">Loading threads...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPLATES TAB -->
+    <div class="tab-content" id="tab-templates">
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>📋 SOP Templates</h2>
+            <button class="btn btn-secondary" onclick="loadTemplates()">🔄</button>
+          </div>
+          <div class="panel-body" id="templatesList">
+            <div class="empty-state">Loading templates...</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>🧪 Test Template</h2>
+          </div>
+          <div class="panel-body">
+            <form id="testTemplateForm">
+              <div class="form-group">
+                <label>Template Script</label>
+                <textarea class="form-control" id="testScript" placeholder="Hey {{first_name}},
+
+Thanks for reaching out from {{company_name}}..."></textarea>
+              </div>
+              <div class="form-group">
+                <label>Test Variables (JSON)</label>
+                <textarea class="form-control" id="testVars" style="min-height: 80px;">{
+  "first_name": "John",
+  "company_name": "Acme Corp"
+}</textarea>
+              </div>
+              <button type="submit" class="btn btn-blue">▶ Test</button>
+            </form>
+            <div id="testResult" style="margin-top: 1rem; display: none;">
+              <label style="font-size: 0.8rem; color: var(--text-secondary);">Result:</label>
+              <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; white-space: pre-wrap; font-size: 0.85rem; margin-top: 0.5rem;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS TAB -->
+    <div class="tab-content" id="tab-stats">
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="label">Total Replies Processed</div>
+          <div class="value" id="statsTotalReplies">-</div>
+        </div>
+        <div class="stat-card green">
+          <div class="label">Win Rate</div>
+          <div class="value" id="statsWinRate">-%</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="label">Winning Replies Saved</div>
+          <div class="value" id="statsWinningReplies">-</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="label">Templates</div>
+          <div class="value" id="statsTemplates">-</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>🔥 Top Objection Handlers</h2>
+          </div>
+          <div class="panel-body" id="topObjections">
+            <div class="empty-state">Loading...</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>📈 Wins by Category</h2>
+          </div>
+          <div class="panel-body" id="winsByCategory">
+            <div class="empty-state">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRAFTS TAB (Original) -->
+    <div class="tab-content" id="tab-drafts">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>📝 Draft Queue</h2>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-secondary sort-btn active" data-sort="urgency">Urgency</button>
+            <button class="btn btn-secondary sort-btn" data-sort="buyingSignals">Signals</button>
+            <button class="btn btn-secondary sort-btn" data-sort="timestamp">Time</button>
+          </div>
+        </div>
+        <div class="panel-body" id="draftList">
+          <div class="empty-state">Loading drafts...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Thread Detail Modal -->
+  <div class="modal-overlay" id="threadModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="threadModalTitle">Thread Details</h3>
+        <button class="modal-close" onclick="closeThreadModal()">×</button>
+      </div>
+      <div class="modal-body" id="threadModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="markThread('won')">✓ Mark Won</button>
+        <button class="btn btn-danger" onclick="markThread('lost')">✗ Mark Lost</button>
+        <button class="btn btn-secondary" onclick="closeThreadModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // State
+    let currentTab = 'inbox';
+    let inboxData = [];
+    let threadsData = [];
+    let currentThreadId = null;
+    let currentSort = 'urgency';
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        const tabId = tab.dataset.tab;
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+        currentTab = tabId;
+        
+        // Load data for tab
+        if (tabId === 'inbox') loadInbox();
+        else if (tabId === 'training') { loadObjections(); }
+        else if (tabId === 'threads') loadThreads();
+        else if (tabId === 'templates') loadTemplates();
+        else if (tabId === 'stats') loadFullStats();
+        else if (tabId === 'drafts') loadDrafts();
+      });
+    });
+
+    // API helper
+    async function api(endpoint, options = {}) {
+      try {
+        const res = await fetch(`/api${endpoint}`, {
+          headers: { 'Content-Type': 'application/json' },
+          ...options
+        });
+        return await res.json();
+      } catch (err) {
+        console.error('API Error:', err);
+        showToast('API Error: ' + err.message, 'error');
+        throw err;
+      }
+    }
+
+    // Toast
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Format time
+    function formatTime(isoString) {
+      if (!isoString) return '-';
+      const date = new Date(isoString);
+      const now = new Date();
+      const diff = now - date;
+      if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+      if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+      return date.toLocaleDateString();
+    }
+
+    // ============ INBOX ============
+    async function loadInbox() {
+      try {
+        const data = await api('/smartlead/inbox?limit=200');
+        inboxData = data.replies || [];
+        document.getElementById('inboxBadge').textContent = inboxData.length;
+        document.getElementById('newReplies').textContent = inboxData.length;
+        document.getElementById('needsResponse').textContent = inboxData.filter(r => r.status === 'new' || r.status === 'objection').length;
+        
+        renderInbox();
+        document.getElementById('slStatus').className = data.mock ? 'dot yellow' : 'dot green';
+        
+        // Load stats too
+        const stats = await api('/stats');
+        document.getElementById('sentToday').textContent = stats.sentToday || 0;
+      } catch (e) {
+        document.getElementById('slStatus').className = 'dot red';
+      }
+      document.getElementById('lastRefresh').textContent = new Date().toLocaleTimeString();
+    }
+
+    function renderInbox() {
+      const list = document.getElementById('inboxList');
+      if (inboxData.length === 0) {
+        list.innerHTML = '<div class="empty-state">No replies in inbox</div>';
+        return;
+      }
+
+      list.innerHTML = inboxData.map((item, idx) => {
+        const initials = (item.from || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        const fromName = item.from?.split('<')[0]?.trim() || item.from || 'Unknown';
+        const suggestedResponse = generateSuggestedResponse(item);
+        
+        return `
+          <div class="inbox-item" onclick="toggleInbox(${idx})">
+            <div class="inbox-avatar">${initials}</div>
+            <div class="inbox-content">
+              <div class="inbox-from">${fromName}</div>
+              <div class="inbox-subject">${item.subject || 'No subject'} — ${item.preview || ''}</div>
+            </div>
+            <div class="inbox-meta">
+              <div>${formatTime(item.date)}</div>
+              <div style="color: ${item.status === 'objection' ? 'var(--accent-yellow)' : 'var(--accent-blue)'}">${item.status || 'new'}</div>
+            </div>
+            <div class="inbox-expanded">
+              <div class="inbox-body">${item.preview || item.body || 'No content'}</div>
+              <div class="inbox-suggestion">
+                <h4>🐂 Bull BRO Suggested Response</h4>
+                <div style="white-space: pre-wrap; font-size: 0.85rem;">${suggestedResponse}</div>
+              </div>
+              <div class="inbox-actions">
+                <button class="btn btn-primary" onclick="approveResponse(${idx}, event)">✓ Approve</button>
+                <button class="btn btn-blue" onclick="editResponse(${idx}, event)">✏️ Edit</button>
+                <button class="btn btn-secondary" onclick="archiveInbox(${idx}, event)">📁 Archive</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function generateSuggestedResponse(item) {
+      // Simple intent detection
+      const text = (item.preview || item.body || '').toLowerCase();
+      
+      if (text.includes('not interested') || text.includes('no thanks')) {
+        return `Hey ${item.leadData?.firstName || 'there'},
+
+Totally understand — quick question though, what made it feel like a no?
+
+When I looked into your brand, I genuinely thought there was a strong fit.
+
+We had a similar response from Whiteout Survival at first, and after a short call we helped drive 50M views and 100k new signups.
+
+Worth a few mins to chat?
+
+Best,
+Imman`;
+      }
+      
+      if (text.includes('budget') || text.includes('expensive')) {
+        return `Hey ${item.leadData?.firstName || 'there'},
+
+Totally get it — budgets are real.
+
+Quick question: is it a matter of timing (budget frees up next quarter) or is influencer marketing just not in the cards for ${item.leadData?.company || 'your company'} right now?
+
+If it's timing, happy to reconnect when it makes sense. When would be a good time to circle back?
+
+Best,
+Imman`;
+      }
+      
+      if (text.includes('interested') || text.includes('tell me more')) {
+        return `Hey ${item.leadData?.firstName || 'there'},
+
+Awesome to hear you're interested.
+
+Let's jump on a quick call to discuss what would work best for ${item.leadData?.company || 'your company'}.
+
+I'm free Tuesday 2pm or Thursday 10am EST — either work?
+
+Best,
+Imman`;
+      }
+
+      return `Hey ${item.leadData?.firstName || 'there'},
+
+Thanks for getting back to me!
+
+Would love to hop on a quick call to discuss this further. I'm free Tuesday 2pm or Thursday 10am EST — either work?
+
+Best,
+Imman`;
+    }
+
+    function toggleInbox(idx) {
+      const items = document.querySelectorAll('.inbox-item');
+      items[idx].classList.toggle('expanded');
+    }
+
+    function approveResponse(idx, e) {
+      e.stopPropagation();
+      showToast('Response approved! (Would send via SmartLead API)');
+    }
+
+    function editResponse(idx, e) {
+      e.stopPropagation();
+      showToast('Edit mode would open here');
+    }
+
+    function archiveInbox(idx, e) {
+      e.stopPropagation();
+      inboxData.splice(idx, 1);
+      renderInbox();
+      showToast('Archived');
+    }
+
+    // ============ TRAINING ============
+    async function loadObjections() {
+      try {
+        const data = await api('/training/objections');
+        const objections = data.objections || {};
+        const count = Object.keys(objections).length;
+        document.getElementById('objectionCount').textContent = `${count} objections`;
+        
+        const list = document.getElementById('objectionsList');
+        if (count === 0) {
+          list.innerHTML = '<div class="empty-state">No objections in playbook yet</div>';
+          return;
+        }
+
+        list.innerHTML = Object.entries(objections).map(([key, obj]) => `
+          <div class="objection-card">
+            <div class="objection-header">
+              <span class="objection-key">${key.replace(/_/g, ' ')}</span>
+              <div class="objection-stats">
+                <span>Used: ${obj.times_used || 0}x</span>
+                <span>Win: ${obj.win_rate || 0}%</span>
+              </div>
+            </div>
+            <div class="objection-phrases">
+              ${(obj.phrases || []).map(p => `<span class="phrase-tag">"${p}"</span>`).join('')}
+            </div>
+            <div class="objection-counter">${obj.counter}</div>
+            <div class="win-rate-bar">
+              <div class="win-rate-fill" style="width: ${obj.win_rate || 0}%"></div>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Winning reply form
+    document.getElementById('winningForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await api('/training/winning', {
+          method: 'POST',
+          body: JSON.stringify({
+            reply: document.getElementById('winReply').value,
+            intent: document.getElementById('winIntent').value,
+            industry: document.getElementById('winIndustry').value,
+            company: document.getElementById('winCompany').value
+          })
+        });
+        showToast('Winning reply added!');
+        document.getElementById('winningForm').reset();
+      } catch (e) {
+        showToast('Failed to add', 'error');
+      }
+    });
+
+    // Objection form
+    document.getElementById('objectionForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await api('/training/objection', {
+          method: 'POST',
+          body: JSON.stringify({
+            key: document.getElementById('objKey').value,
+            phrases: document.getElementById('objPhrases').value.split(',').map(p => p.trim()),
+            counter: document.getElementById('objCounter').value
+          })
+        });
+        showToast('Objection handler added!');
+        document.getElementById('objectionForm').reset();
+        loadObjections();
+      } catch (e) {
+        showToast('Failed to add', 'error');
+      }
+    });
+
+    // ============ THREADS ============
+    async function loadThreads() {
+      try {
+        const data = await api('/threads');
+        threadsData = data.threads || [];
+        
+        document.getElementById('totalThreads').textContent = threadsData.length;
+        document.getElementById('threadsWon').textContent = threadsData.filter(t => t.status === 'won').length;
+        document.getElementById('threadsLost').textContent = threadsData.filter(t => t.status === 'lost').length;
+        document.getElementById('threadsActive').textContent = threadsData.filter(t => t.status === 'active' || !t.status).length;
+        
+        renderThreads(threadsData);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderThreads(threads) {
+      const list = document.getElementById('threadsList');
+      if (threads.length === 0) {
+        list.innerHTML = '<div class="empty-state">No conversation threads yet</div>';
+        return;
+      }
+
+      list.innerHTML = threads.map(t => `
+        <div class="thread-card" onclick="openThread('${t.id}')">
+          <div class="thread-header">
+            <span class="thread-email">${t.lead?.email || t.id}</span>
+            <span class="thread-status ${t.status || 'active'}">${t.status || 'active'}</span>
+          </div>
+          <div class="thread-meta">
+            ${t.lead?.company || 'Unknown'} • ${t.messageCount || 0} messages • Last: ${formatTime(t.updatedAt)}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function searchThreads() {
+      const query = document.getElementById('threadSearch').value;
+      if (!query) return loadThreads();
+      
+      try {
+        const data = await api(`/threads/search?q=${encodeURIComponent(query)}`);
+        renderThreads(data.results || []);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function openThread(id) {
+      currentThreadId = id;
+      try {
+        const thread = await api(`/threads/${encodeURIComponent(id)}`);
+        document.getElementById('threadModalTitle').textContent = thread.lead?.email || id;
+        
+        const body = document.getElementById('threadModalBody');
+        body.innerHTML = `
+          <div style="margin-bottom: 1rem;">
+            <strong>Company:</strong> ${thread.lead?.company || 'Unknown'}<br>
+            <strong>Status:</strong> ${thread.status || 'active'}<br>
+            <strong>Messages:</strong> ${thread.messages?.length || 0}
+          </div>
+          <div style="max-height: 300px; overflow-y: auto;">
+            ${(thread.messages || []).map(m => `
+              <div style="margin-bottom: 0.75rem; padding: 0.75rem; background: ${m.sender === 'lead' ? 'var(--bg-tertiary)' : 'rgba(88, 166, 255, 0.1)'}; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                  ${m.sender === 'lead' ? '📩 Lead' : '📤 Us'} • ${formatTime(m.timestamp)}
+                </div>
+                <div style="font-size: 0.85rem; white-space: pre-wrap;">${m.content}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        
+        document.getElementById('threadModal').classList.add('show');
+      } catch (e) {
+        showToast('Failed to load thread', 'error');
+      }
+    }
+
+    function closeThreadModal() {
+      document.getElementById('threadModal').classList.remove('show');
+      currentThreadId = null;
+    }
+
+    async function markThread(status) {
+      if (!currentThreadId) return;
+      try {
+        await api(`/threads/${encodeURIComponent(currentThreadId)}/status`, {
+          method: 'PUT',
+          body: JSON.stringify({ status })
+        });
+        showToast(`Thread marked as ${status}!`);
+        closeThreadModal();
+        loadThreads();
+      } catch (e) {
+        showToast('Failed to update', 'error');
+      }
+    }
+
+    // ============ TEMPLATES ============
+    async function loadTemplates() {
+      try {
+        const data = await api('/templates');
+        const templates = data.templates || {};
+        const list = document.getElementById('templatesList');
+        
+        let html = '';
+        for (const [category, items] of Object.entries(templates)) {
+          html += `<div class="template-category"><h3>${category.replace(/_/g, ' ')}</h3>`;
+          for (const [key, template] of Object.entries(items)) {
+            if (template.script || template.trigger) {
+              html += `
+                <div class="template-card">
+                  <div style="font-weight: 600; margin-bottom: 0.25rem;">${key.replace(/_/g, ' ')}</div>
+                  ${template.trigger ? `<div class="template-trigger">Trigger: ${template.trigger}</div>` : ''}
+                  ${template.script ? `<div class="template-script">${template.script.substring(0, 200)}...</div>` : ''}
+                </div>
+              `;
+            }
+          }
+          html += '</div>';
+        }
+        
+        list.innerHTML = html || '<div class="empty-state">No templates found</div>';
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Test template form
+    document.getElementById('testTemplateForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const result = await api('/templates/test', {
+          method: 'POST',
+          body: JSON.stringify({
+            script: document.getElementById('testScript').value,
+            data: JSON.parse(document.getElementById('testVars').value)
+          })
+        });
+        const resultDiv = document.getElementById('testResult');
+        resultDiv.style.display = 'block';
+        resultDiv.querySelector('div').textContent = result.result;
+      } catch (e) {
+        showToast('Failed to test template', 'error');
+      }
+    });
+
+    // ============ STATS ============
+    async function loadFullStats() {
+      try {
+        const stats = await api('/stats/full');
+        
+        document.getElementById('statsTotalReplies').textContent = stats.totalReplies || 0;
+        document.getElementById('statsWinRate').textContent = `${stats.winRate || 0}%`;
+        document.getElementById('statsWinningReplies').textContent = stats.totalWinningReplies || 0;
+        document.getElementById('statsTemplates').textContent = stats.templateCount || 0;
+        document.getElementById('winRate').textContent = `${stats.winRate || 0}%`;
+        
+        // Top objections
+        const topObj = document.getElementById('topObjections');
+        if (stats.topObjections?.length) {
+          topObj.innerHTML = stats.topObjections.map(o => `
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 6px; margin-bottom: 0.5rem;">
+              <span>${o.key.replace(/_/g, ' ')}</span>
+              <span style="color: var(--text-muted);">${o.timesUsed}x used • ${o.winRate}% win</span>
+            </div>
+          `).join('');
+        } else {
+          topObj.innerHTML = '<div class="empty-state">No objection data yet</div>';
+        }
+        
+        // Wins by category
+        const byCategory = document.getElementById('winsByCategory');
+        const intents = Object.entries(stats.byIntent || {});
+        const industries = Object.entries(stats.byIndustry || {});
+        
+        if (intents.length || industries.length) {
+          byCategory.innerHTML = `
+            <div style="margin-bottom: 1rem;">
+              <h4 style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">By Intent</h4>
+              ${intents.map(([k, v]) => `<div style="display: flex; justify-content: space-between;"><span>${k}</span><span>${v}</span></div>`).join('')}
+            </div>
+            <div>
+              <h4 style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">By Industry</h4>
+              ${industries.map(([k, v]) => `<div style="display: flex; justify-content: space-between;"><span>${k}</span><span>${v}</span></div>`).join('')}
+            </div>
+          `;
+        } else {
+          byCategory.innerHTML = '<div class="empty-state">No win data yet</div>';
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // ============ DRAFTS (Original) ============
+    let drafts = [];
+    
+    async function loadDrafts() {
+      try {
+        const data = await api('/drafts');
+        const allDrafts = Array.isArray(data) ? data : (data.drafts || []);
+        drafts = allDrafts.filter(d => d.status === 'pending');
+        renderDrafts();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderDrafts() {
+      const list = document.getElementById('draftList');
+      if (drafts.length === 0) {
+        list.innerHTML = '<div class="empty-state">No pending drafts 🎉</div>';
+        return;
+      }
+
+      const sorted = [...drafts].sort((a, b) => {
+        if (currentSort === 'urgency') {
+          const order = { high: 0, medium: 1, low: 2 };
+          return (order[a.urgency] || 2) - (order[b.urgency] || 2);
+        }
+        if (currentSort === 'buyingSignals') return (b.buyingSignals || 0) - (a.buyingSignals || 0);
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+
+      list.innerHTML = sorted.map(d => `
+        <div class="inbox-item" onclick="this.classList.toggle('expanded')">
+          <div class="inbox-avatar">${(d.leadName || 'U')[0]}</div>
+          <div class="inbox-content">
+            <div class="inbox-from">${d.leadName || 'Unknown'} @ ${d.company || 'Unknown'}</div>
+            <div class="inbox-subject">${d.intent || 'No intent'}</div>
+          </div>
+          <div class="inbox-meta">
+            <div style="color: ${d.urgency === 'high' ? 'var(--accent-red)' : d.urgency === 'medium' ? 'var(--accent-yellow)' : 'var(--accent-green)'}">${d.urgency || 'low'}</div>
+            <div>${formatTime(d.createdAt)}</div>
+          </div>
+          <div class="inbox-expanded">
+            <div class="inbox-body">${d.draftText || 'No draft text'}</div>
+            <div class="inbox-actions">
+              <button class="btn btn-primary" onclick="sendDraft('${d.id}', event)">✉️ Send</button>
+              <button class="btn btn-secondary">✏️ Edit</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function sendDraft(id, e) {
+      e.stopPropagation();
+      try {
+        await api(`/drafts/${id}/send`, { method: 'POST' });
+        showToast('Draft sent!');
+        loadDrafts();
+      } catch (e) {
+        showToast('Failed to send', 'error');
+      }
+    }
+
+    // Sort buttons
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSort = btn.dataset.sort;
+        renderDrafts();
+      });
+    });
+
+    // Search on enter
+    document.getElementById('threadSearch').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') searchThreads();
+    });
+
+    // Initial load
+    loadInbox();
+    setInterval(() => {
+      if (currentTab === 'inbox') loadInbox();
+    }, 60000);
+  </script>
+</body>
+</html>

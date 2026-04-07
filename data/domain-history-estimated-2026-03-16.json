@@ -1,0 +1,301 @@
+{
+  "capturedAt": "2026-03-16T19:01:07.128Z",
+  "method": "proportional-estimate",
+  "totals": {
+    "sent7d": 7507,
+    "sent14d": 13867,
+    "sent30d": 26635
+  },
+  "domains": [
+    {
+      "domain": "useitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 52,
+      "capacity": 104,
+      "proportion": 0.03912716328066215,
+      "sent7d": 294,
+      "sent14d": 543,
+      "sent30d": 1042
+    },
+    {
+      "domain": "myitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 52,
+      "capacity": 104,
+      "proportion": 0.03912716328066215,
+      "sent7d": 294,
+      "sent14d": 543,
+      "sent30d": 1042
+    },
+    {
+      "domain": "smartitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 52,
+      "capacity": 104,
+      "proportion": 0.03912716328066215,
+      "sent7d": 294,
+      "sent14d": 543,
+      "sent30d": 1042
+    },
+    {
+      "domain": "proitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 52,
+      "capacity": 104,
+      "proportion": 0.03912716328066215,
+      "sent7d": 294,
+      "sent14d": 543,
+      "sent30d": 1042
+    },
+    {
+      "domain": "helloitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 52,
+      "capacity": 104,
+      "proportion": 0.03912716328066215,
+      "sent7d": 294,
+      "sent14d": 543,
+      "sent30d": 1042
+    },
+    {
+      "domain": "teamitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 52,
+      "capacity": 104,
+      "proportion": 0.03912716328066215,
+      "sent7d": 294,
+      "sent14d": 543,
+      "sent30d": 1042
+    },
+    {
+      "domain": "getitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 51,
+      "capacity": 102,
+      "proportion": 0.03837471783295711,
+      "sent7d": 288,
+      "sent14d": 532,
+      "sent30d": 1022
+    },
+    {
+      "domain": "goitssimannntv.com",
+      "provider": "hypertide",
+      "accounts": 51,
+      "capacity": 102,
+      "proportion": 0.03837471783295711,
+      "sent7d": 288,
+      "sent14d": 532,
+      "sent30d": 1022
+    },
+    {
+      "domain": "itss-imannntv365.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvapp.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvcloud.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvspace.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvweb.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvdigital.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvsolutions.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvzone.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvonline.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "theitss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "getitss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "goitss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntv24.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "proitss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "joinitss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "the365itss-imannntv.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvpro.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvsite.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itss-imannntvstudio.com",
+      "provider": "google",
+      "accounts": 3,
+      "capacity": 90,
+      "proportion": 0.033860045146726865,
+      "sent7d": 254,
+      "sent14d": 470,
+      "sent30d": 902
+    },
+    {
+      "domain": "itssimannntv.com",
+      "provider": "google",
+      "accounts": 1,
+      "capacity": 30,
+      "proportion": 0.011286681715575621,
+      "sent7d": 85,
+      "sent14d": 157,
+      "sent30d": 301
+    }
+  ]
+}

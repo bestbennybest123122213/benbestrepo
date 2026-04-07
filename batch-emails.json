@@ -1,0 +1,102 @@
+[
+  {
+    "to": "guillaume@carry1st.com",
+    "name": "Guillaume Noe",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 12,
+    "template": "followup_day14",
+    "subject": "Case study you might find interesting",
+    "body": "Hi Guillaume,\n\nI thought you might find this interesting - we recently helped Whiteout Survival achieve some impressive results with short-form content.\n\nGiven what your company is doing, I think there could be a similar opportunity.\n\nWould you be open to exploring this? Happy to share more details.\n\nBest,\nJan"
+  },
+  {
+    "to": "anmol.m@emergent.sh",
+    "name": "Anmol Malhotra",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 13,
+    "template": "followup_day14",
+    "subject": "Case study you might find interesting",
+    "body": "Hi Anmol,\n\nI thought you might find this interesting - we recently helped Whiteout Survival achieve some impressive results with short-form content.\n\nGiven what your company is doing, I think there could be a similar opportunity.\n\nWould you be open to exploring this? Happy to share more details.\n\nBest,\nJan"
+  },
+  {
+    "to": "xin@savysoda.com",
+    "name": "Xin Zhao",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 18,
+    "template": "followup_day14",
+    "subject": "Case study you might find interesting",
+    "body": "Hi Xin,\n\nI thought you might find this interesting - we recently helped Whiteout Survival achieve some impressive results with short-form content.\n\nGiven what your company is doing, I think there could be a similar opportunity.\n\nWould you be open to exploring this? Happy to share more details.\n\nBest,\nJan"
+  },
+  {
+    "to": "oliver.jupp@getchip.uk",
+    "name": "Oliver Jupp",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 19,
+    "template": "last_chance",
+    "subject": "One last thing - Oliver",
+    "body": "Hi Oliver,\n\nI don't want to keep filling your inbox, so this will be my last reach-out for now.\n\nIf you ever want to explore how short-form content could work for your company, I'm just an email away.\n\nWishing you all the best!\n\nJan"
+  },
+  {
+    "to": "anmol.m@emergent.sh",
+    "name": "Anmol Malhotra",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 19,
+    "template": "last_chance",
+    "subject": "One last thing - Anmol",
+    "body": "Hi Anmol,\n\nI don't want to keep filling your inbox, so this will be my last reach-out for now.\n\nIf you ever want to explore how short-form content could work for your company, I'm just an email away.\n\nWishing you all the best!\n\nJan"
+  },
+  {
+    "to": "shawn@plexapp.com",
+    "name": "Shawn Eldridge",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 20,
+    "template": "last_chance",
+    "subject": "One last thing - Shawn",
+    "body": "Hi Shawn,\n\nI don't want to keep filling your inbox, so this will be my last reach-out for now.\n\nIf you ever want to explore how short-form content could work for your company, I'm just an email away.\n\nWishing you all the best!\n\nJan"
+  },
+  {
+    "to": "sandris@jeff-app.com",
+    "name": "Sandris Artemjevs",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 21,
+    "template": "last_chance",
+    "subject": "One last thing - Sandris",
+    "body": "Hi Sandris,\n\nI don't want to keep filling your inbox, so this will be my last reach-out for now.\n\nIf you ever want to explore how short-form content could work for your company, I'm just an email away.\n\nWishing you all the best!\n\nJan"
+  },
+  {
+    "to": "farhan.khan@super.com",
+    "name": "Farhan Khan",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 21,
+    "template": "last_chance",
+    "subject": "One last thing - Farhan",
+    "body": "Hi Farhan,\n\nI don't want to keep filling your inbox, so this will be my last reach-out for now.\n\nIf you ever want to explore how short-form content could work for your company, I'm just an email away.\n\nWishing you all the best!\n\nJan"
+  },
+  {
+    "to": "yang@episoden.com",
+    "name": "Hyeon-Mo Yang",
+    "company": null,
+    "category": "Interested",
+    "age": 18,
+    "template": "followup_day14",
+    "subject": "Case study you might find interesting",
+    "body": "Hi Hyeon-Mo,\n\nI thought you might find this interesting - we recently helped Whiteout Survival achieve some impressive results with short-form content.\n\nGiven what your company is doing, I think there could be a similar opportunity.\n\nWould you be open to exploring this? Happy to share more details.\n\nBest,\nJan"
+  },
+  {
+    "to": "anmol.m@emergent.sh",
+    "name": "Anmol Malhotra",
+    "company": null,
+    "category": "Meeting Request",
+    "age": 24,
+    "template": "last_chance",
+    "subject": "One last thing - Anmol",
+    "body": "Hi Anmol,\n\nI don't want to keep filling your inbox, so this will be my last reach-out for now.\n\nIf you ever want to explore how short-form content could work for your company, I'm just an email away.\n\nWishing you all the best!\n\nJan"
+  }
+]

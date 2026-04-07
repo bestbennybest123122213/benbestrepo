@@ -1,0 +1,13 @@
+{
+  "watched_companies": [],
+  "triggered_events": [],
+  "reactivation_templates": {
+    "funding": "Just saw {{company}} raised a round - congrats! With fresh momentum, this might be a good time to revisit the creator partnership we discussed. Brands often see 3-5x ROI on YouTube campaigns right after fundraising announcements.",
+    "new_hire": "Noticed {{company}} brought on a new {{role}} - exciting times! Sometimes fresh leadership means fresh marketing approaches. Happy to share what's working for brands like yours on YouTube.",
+    "product_launch": "Saw {{company}} just launched {{event}}! New products are perfect for creator content - audiences love seeing authentic reactions. Want to explore a campaign?",
+    "expansion": "Congrats on {{event}}! Growth mode is the perfect time for creator partnerships. Let me know if you want to chat about reaching new audiences.",
+    "partnership": "Saw {{company}} partnered with {{event}} - nice move! If you're looking to amplify that news, my audience would be a great fit.",
+    "default": "Hope you've been well! Wanted to circle back - {{event}}. Seemed like a good time to reconnect about potential creator partnerships."
+  },
+  "last_updated": null
+}

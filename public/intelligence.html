@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline Intelligence - GEX OS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: #262626;
+      --text: #ffffff;
+      --text-muted: #a3a3a3;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --orange: #f97316;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .subtitle { color: var(--text-muted); margin-bottom: 32px; }
+    
+    .grid { display: grid; gap: 24px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 1024px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+    
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    
+    /* Health Score */
+    .health-score {
+      text-align: center;
+      padding: 40px;
+    }
+    .score-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      position: relative;
+      background: conic-gradient(var(--score-color) calc(var(--score) * 3.6deg), #262626 0);
+    }
+    .score-inner {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .score-number {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .score-grade {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .score-label {
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+    
+    /* Metrics */
+    .metric {
+      text-align: center;
+      padding: 16px;
+    }
+    .metric-value {
+      font-size: 36px;
+      font-weight: 700;
+    }
+    .metric-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .metric-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+    
+    /* Revenue */
+    .revenue-bar {
+      height: 32px;
+      background: #262626;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      margin: 16px 0;
+    }
+    .revenue-current {
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      min-width: 60px;
+    }
+    .revenue-pipeline {
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #000;
+      min-width: 60px;
+    }
+    
+    /* Insights */
+    .insight {
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    .insight-warning { background: rgba(234, 179, 8, 0.15); border-left: 4px solid var(--yellow); }
+    .insight-critical { background: rgba(239, 68, 68, 0.15); border-left: 4px solid var(--red); }
+    .insight-opportunity { background: rgba(139, 92, 246, 0.15); border-left: 4px solid var(--purple); }
+    .insight-success { background: rgba(34, 197, 94, 0.15); border-left: 4px solid var(--green); }
+    .insight-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .insight-message { color: var(--text-muted); font-size: 14px; margin-bottom: 8px; }
+    .insight-action {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--blue);
+    }
+    
+    /* Actions */
+    .action-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .action-priority {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      background: var(--purple);
+    }
+    .action-text { flex: 1; }
+    .action-impact {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .impact-high { background: rgba(34, 197, 94, 0.2); color: var(--green); }
+    .impact-medium { background: rgba(234, 179, 8, 0.2); color: var(--yellow); }
+    
+    .loading { text-align: center; padding: 60px; color: var(--text-muted); }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+    .back-link:hover { color: var(--text); }
+    .refresh-time { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to Dashboard</a>
+    <h1>🧠 Pipeline Intelligence</h1>
+    <p class="subtitle">AI-powered insights to maximize your bookings</p>
+    
+    <div id="content">
+      <div class="loading">Loading intelligence data...</div>
+    </div>
+  </div>
+
+  <script>
+    async function loadIntelligence() {
+      try {
+        const res = await fetch('/api/intelligence');
+        const data = await res.json();
+        
+        if (data.error) throw new Error(data.error);
+        
+        const content = document.getElementById('content');
+        content.innerHTML = `
+          <div class="grid grid-3" style="margin-bottom: 24px;">
+            <!-- Health Score -->
+            <div class="card health-score">
+              <div class="score-circle" style="--score: ${data.healthScore}; --score-color: ${data.gradeColor};">
+                <div class="score-inner">
+                  <div class="score-number" style="color: ${data.gradeColor};">${data.healthScore}</div>
+                  <div class="score-grade" style="color: ${data.gradeColor};">Grade ${data.grade}</div>
+                </div>
+              </div>
+              <div style="font-weight: 600; font-size: 18px;">Pipeline Health Score</div>
+              <div class="score-label">Based on conversion, velocity & engagement</div>
+            </div>
+            
+            <!-- Key Metrics -->
+            <div class="card">
+              <div class="card-title">📊 Pipeline Metrics</div>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                <div class="metric">
+                  <div class="metric-value" style="color: var(--text);">${data.metrics.total}</div>
+                  <div class="metric-label">Total Leads</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value" style="color: var(--green);">${data.metrics.booked}</div>
+                  <div class="metric-label">Booked</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value" style="color: var(--yellow);">${data.metrics.scheduling}</div>
+                  <div class="metric-label">Scheduling</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-value" style="color: var(--red);">${data.metrics.stale}</div>
+                  <div class="metric-label">Stale (>14d)</div>
+                </div>
+              </div>
+              <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-around;">
+                <div style="text-align: center;">
+                  <div style="font-size: 24px; font-weight: 700; color: var(--green);">${data.metrics.bookingRate}%</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Booking Rate</div>
+                </div>
+                <div style="text-align: center;">
+                  <div style="font-size: 24px; font-weight: 700; color: var(--blue);">${data.metrics.fastResponseRate}%</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Fast Response</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Revenue -->
+            <div class="card">
+              <div class="card-title">💰 Revenue Projection</div>
+              <div style="text-align: center; margin-bottom: 24px;">
+                <div style="font-size: 48px; font-weight: 800; color: var(--green);">$${data.revenue.projected.toLocaleString()}</div>
+                <div style="color: var(--text-muted);">Projected Revenue</div>
+              </div>
+              <div class="revenue-bar">
+                <div class="revenue-current" style="width: ${(data.revenue.current / data.revenue.projected) * 100}%;">
+                  $${(data.revenue.current / 1000).toFixed(1)}k
+                </div>
+                <div class="revenue-pipeline" style="width: ${(data.revenue.pipeline / data.revenue.projected) * 100}%;">
+                  +$${(data.revenue.pipeline / 1000).toFixed(1)}k
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted);">
+                <span>🟢 Booked: $${data.revenue.current.toLocaleString()}</span>
+                <span>🟡 Pipeline: $${data.revenue.pipeline.toLocaleString()}</span>
+              </div>
+              <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center;">
+                <div style="font-size: 13px; color: var(--text-muted);">$${data.revenue.perBooking} per booking × ${data.metrics.booked} booked + 40% of pipeline</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-2">
+            <!-- AI Insights -->
+            <div class="card">
+              <div class="card-title">🤖 AI Insights</div>
+              ${data.insights.length > 0 ? data.insights.map(i => `
+                <div class="insight insight-${i.type}">
+                  <div class="insight-header">${i.icon} ${i.title}</div>
+                  <div class="insight-message">${i.message}</div>
+                  <div class="insight-action">→ ${i.action}</div>
+                </div>
+              `).join('') : '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No critical insights right now. Keep up the good work! 🎉</p>'}
+            </div>
+            
+            <!-- Today's Actions -->
+            <div class="card">
+              <div class="card-title">🎯 Today's Priority Actions</div>
+              ${data.todayActions.map(a => `
+                <div class="action-item">
+                  <div class="action-priority">${a.priority}</div>
+                  <div class="action-text">${a.action}</div>
+                  <div class="action-impact impact-${a.impact.toLowerCase()}">${a.impact}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div class="refresh-time">Last updated: ${new Date(data.lastUpdated).toLocaleString()}</div>
+        `;
+      } catch (err) {
+        document.getElementById('content').innerHTML = `
+          <div class="card" style="background: rgba(239, 68, 68, 0.1); border-color: var(--red);">
+            <p style="color: var(--red);">Error loading intelligence data: ${err.message}</p>
+          </div>
+        `;
+      }
+    }
+    
+    loadIntelligence();
+    setInterval(loadIntelligence, 60000); // Refresh every minute
+  </script>
+</body>
+</html>

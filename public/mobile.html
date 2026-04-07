@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>GEX OS - Mobile</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --card: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #fff;
+      --muted: #888;
+      --accent: #f97316;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #eab308;
+      --blue: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 16px;
+      padding-bottom: 100px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .logo-text {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .refresh-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .refresh-btn:active { background: var(--border); }
+
+    /* Pulse - Quick Stats */
+    .pulse {
+      background: linear-gradient(135deg, var(--accent) 0%, #ea580c 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .pulse-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .pulse-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .pulse-value {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .pulse-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .pulse-sub {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 8px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .stat-card.urgent {
+      border-color: var(--red);
+      background: rgba(239, 68, 68, 0.1);
+    }
+    .stat-card.success {
+      border-color: var(--green);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .stat-card.warning {
+      border-color: var(--yellow);
+      background: rgba(234, 179, 8, 0.1);
+    }
+    .stat-emoji {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-badge {
+      background: var(--accent);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Lead Cards */
+    .lead-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .lead-card.hot {
+      border-left: 4px solid var(--red);
+    }
+    .lead-card.enterprise {
+      border-left: 4px solid var(--accent);
+    }
+    .lead-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .lead-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .lead-company {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .lead-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-meeting { background: rgba(34, 197, 94, 0.2); color: var(--green); }
+    .badge-interested { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
+    .badge-info { background: rgba(136, 136, 136, 0.2); color: var(--muted); }
+    .lead-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .lead-age {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .lead-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .action-btn {
+      background: var(--border);
+      border: none;
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .action-btn:active { background: var(--muted); }
+    .action-btn.primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 10px;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+    .nav-item.active {
+      color: var(--accent);
+      background: rgba(249, 115, 22, 0.1);
+    }
+    .nav-item span:first-child {
+      font-size: 20px;
+    }
+
+    /* Pull to Refresh Indicator */
+    .pull-indicator {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      display: none;
+    }
+    .pull-indicator.visible { display: block; }
+
+    /* Loading */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      display: none;
+    }
+    .toast.show { display: block; animation: fadeIn 0.3s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+    }
+    .empty-emoji { font-size: 48px; margin-bottom: 16px; }
+
+    /* Swipe Actions */
+    .swipe-hint {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="toast" id="toast"></div>
+  <div class="pull-indicator" id="pullIndicator">↓ Pull to refresh</div>
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">GX</div>
+      <span class="logo-text">GEX OS</span>
+    </div>
+    <button class="refresh-btn" onclick="loadData(true)">
+      <span>↻</span> Refresh
+    </button>
+  </header>
+
+  <main id="content">
+    <div class="loading"><div class="spinner"></div></div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a class="nav-item active" data-view="home" onclick="switchView('home')">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a class="nav-item" data-view="hot" onclick="switchView('hot')">
+      <span>🔥</span>
+      <span>Hot</span>
+    </a>
+    <a class="nav-item" data-view="meetings" onclick="switchView('meetings')">
+      <span>📅</span>
+      <span>Meetings</span>
+    </a>
+    <a class="nav-item" data-view="enterprise" onclick="switchView('enterprise')">
+      <span>🏢</span>
+      <span>Enterprise</span>
+    </a>
+  </nav>
+
+  <script>
+    let leads = [];
+    let currentView = 'home';
+
+    // Company enrichment (simplified)
+    const ENTERPRISE_DOMAINS = [
+      'unity.com', 'udemy.com', 'navercorp.com', 'paradoxinteractive.com',
+      'replit.com', 'dream11.com', 'weedmaps.com', 'wallapop.com', 
+      'ign.com', 'complex.com', 'stillfront.com'
+    ];
+
+    function getCompanyFromEmail(email) {
+      const domain = email.split('@')[1];
+      return domain?.replace(/\.(com|io|net|org|co)$/, '')
+        .split('.').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+    }
+
+    function isEnterprise(email) {
+      const domain = email.split('@')[1];
+      return ENTERPRISE_DOMAINS.some(d => domain?.includes(d.split('.')[0]));
+    }
+
+    function getAge(repliedAt) {
+      if (!repliedAt) return 999;
+      return Math.floor((Date.now() - new Date(repliedAt).getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+    function getBadgeClass(category) {
+      if (category === 'Meeting Request') return 'badge-meeting';
+      if (category === 'Interested') return 'badge-interested';
+      return 'badge-info';
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    async function loadData(force = false) {
+      try {
+        const res = await fetch('/api/positive-replies');
+        const data = await res.json();
+        leads = data.data || [];
+        render();
+        if (force) showToast('✓ Refreshed');
+      } catch (err) {
+        console.error(err);
+        showToast('Error loading data');
+      }
+    }
+
+    function switchView(view) {
+      currentView = view;
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.view === view);
+      });
+      render();
+    }
+
+    function render() {
+      const content = document.getElementById('content');
+      
+      const booked = leads.filter(l => l.reply_category === 'Booked');
+      const meetings = leads.filter(l => l.reply_category === 'Meeting Request');
+      const hot = leads.filter(l => getAge(l.replied_at) <= 3 && l.reply_category !== 'Booked');
+      const enterprise = leads.filter(l => isEnterprise(l.lead_email) && l.reply_category !== 'Booked');
+      const stale = leads.filter(l => getAge(l.replied_at) > 14 && l.reply_category !== 'Booked');
+
+      switch(currentView) {
+        case 'home':
+          content.innerHTML = renderHome(leads, booked, meetings, hot, enterprise, stale);
+          break;
+        case 'hot':
+          content.innerHTML = renderLeadList('🔥 Hot Leads', hot, 'Respond within 24h for 9x conversion');
+          break;
+        case 'meetings':
+          content.innerHTML = renderLeadList('📅 Meeting Requests', meetings, 'Book these ASAP');
+          break;
+        case 'enterprise':
+          content.innerHTML = renderLeadList('🏢 Enterprise', enterprise, 'High-value accounts');
+          break;
+      }
+    }
+
+    function renderHome(all, booked, meetings, hot, enterprise, stale) {
+      const bookingRate = ((booked.length / all.length) * 100).toFixed(1);
+      
+      return \`
+        <div class="pulse">
+          <div class="pulse-title">📊 Pipeline Status</div>
+          <div class="pulse-main">
+            <div>
+              <div class="pulse-value">\${all.length}</div>
+              <div class="pulse-label">Total Leads</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="pulse-value" style="font-size: 28px;">\${booked.length}</div>
+              <div class="pulse-label">\${bookingRate}% Booked</div>
+            </div>
+          </div>
+          <div class="pulse-sub">
+            \${hot.length > 0 ? '🔥 ' + hot.length + ' hot leads need response' : '✅ No urgent leads'}
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card \${meetings.length > 50 ? 'urgent' : ''}">
+            <div class="stat-emoji">🤝</div>
+            <div class="stat-value">\${meetings.length}</div>
+            <div class="stat-label">Meeting Requests</div>
+          </div>
+          <div class="stat-card \${hot.length > 0 ? 'warning' : 'success'}">
+            <div class="stat-emoji">🔥</div>
+            <div class="stat-value">\${hot.length}</div>
+            <div class="stat-label">Hot Leads (0-3d)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-emoji">🏢</div>
+            <div class="stat-value">\${enterprise.length}</div>
+            <div class="stat-label">Enterprise</div>
+          </div>
+          <div class="stat-card \${stale.length > 50 ? 'urgent' : ''}">
+            <div class="stat-emoji">⚠️</div>
+            <div class="stat-value">\${stale.length}</div>
+            <div class="stat-label">Stale (14d+)</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">🚨 Priority Actions</span>
+          </div>
+          \${hot.slice(0, 3).map(l => renderLeadCard(l, true)).join('') || 
+            '<div class="empty-state"><div class="empty-emoji">✅</div>No urgent actions</div>'}
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <span class="section-title">🏢 Enterprise Accounts</span>
+            <span class="section-badge">\${enterprise.length}</span>
+          </div>
+          \${enterprise.slice(0, 5).map(l => renderLeadCard(l, false, true)).join('') ||
+            '<div class="empty-state"><div class="empty-emoji">🏢</div>No enterprise leads</div>'}
+        </div>
+      \`;
+    }
+
+    function renderLeadList(title, list, subtitle) {
+      if (list.length === 0) {
+        return \`
+          <div class="section">
+            <h2 style="font-size: 20px; margin-bottom: 8px;">\${title}</h2>
+            <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">\${subtitle}</p>
+            <div class="empty-state">
+              <div class="empty-emoji">✨</div>
+              <p>No leads in this category</p>
+            </div>
+          </div>
+        \`;
+      }
+
+      return \`
+        <div class="section">
+          <h2 style="font-size: 20px; margin-bottom: 8px;">\${title}</h2>
+          <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px;">\${subtitle}</p>
+          \${list.map(l => renderLeadCard(l)).join('')}
+        </div>
+      \`;
+    }
+
+    function renderLeadCard(lead, isHot = false, isEnterprise = false) {
+      const age = getAge(lead.replied_at);
+      const company = getCompanyFromEmail(lead.lead_email);
+      
+      return \`
+        <div class="lead-card \${isHot ? 'hot' : ''} \${isEnterprise ? 'enterprise' : ''}">
+          <div class="lead-header">
+            <div>
+              <div class="lead-name">\${lead.lead_name || 'N/A'}</div>
+              <div class="lead-company">\${company}</div>
+            </div>
+            <span class="lead-badge \${getBadgeClass(lead.reply_category)}">\${lead.reply_category}</span>
+          </div>
+          <div class="lead-meta">
+            <span class="lead-age">\${age === 0 ? 'Today' : age + 'd ago'}</span>
+            <div class="lead-actions">
+              <a class="action-btn" href="mailto:\${lead.lead_email}">📧 Email</a>
+              <button class="action-btn primary" onclick="copyEmail('\${lead.lead_email}')">📋 Copy</button>
+            </div>
+          </div>
+        </div>
+      \`;
+    }
+
+    function copyEmail(email) {
+      navigator.clipboard.writeText(email).then(() => {
+        showToast('📋 Copied: ' + email);
+      });
+    }
+
+    // Pull to refresh
+    let startY = 0;
+    let pulling = false;
+    
+    document.addEventListener('touchstart', e => {
+      if (window.scrollY === 0) {
+        startY = e.touches[0].clientY;
+        pulling = true;
+      }
+    });
+
+    document.addEventListener('touchmove', e => {
+      if (!pulling) return;
+      const diff = e.touches[0].clientY - startY;
+      if (diff > 50) {
+        document.getElementById('pullIndicator').classList.add('visible');
+      }
+    });
+
+    document.addEventListener('touchend', e => {
+      if (document.getElementById('pullIndicator').classList.contains('visible')) {
+        loadData(true);
+      }
+      document.getElementById('pullIndicator').classList.remove('visible');
+      pulling = false;
+    });
+
+    // Auto-refresh every 60s
+    setInterval(() => loadData(), 60000);
+
+    // Initial load
+    loadData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "generated": "2026-02-04T14:09:51.692Z",
+  "period": {
+    "start": "2026-01-28T14:09:51.692Z",
+    "end": "2026-02-04T14:09:51.692Z"
+  },
+  "totals": {
+    "leads": 118,
+    "booked": 21,
+    "meeting_request": 61,
+    "interested": 16,
+    "stale": 74
+  },
+  "thisWeek": {
+    "leads": 4,
+    "booked": 1,
+    "meetings": 1
+  },
+  "changes": {
+    "leads": -17,
+    "booked": -4,
+    "meetings": -5
+  },
+  "metrics": {
+    "bookingRate": "25.6%"
+  }
+}

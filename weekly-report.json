@@ -1,0 +1,81 @@
+{
+  "generated": "2026-02-03T23:36:16.661Z",
+  "period": {
+    "start": "2026-01-27T23:36:16.661Z",
+    "end": "2026-02-03T23:36:16.661Z"
+  },
+  "pipeline": {
+    "total": 126,
+    "booked": 44,
+    "scheduling": 71,
+    "notBooked": 10,
+    "conversionRate": "34.9"
+  },
+  "thisWeek": {
+    "newReplies": 1,
+    "booked": 1
+  },
+  "lastWeek": {
+    "newReplies": 3,
+    "booked": 3
+  },
+  "staleLeads": 69,
+  "upcomingMeetings": 6,
+  "notableInPipeline": [
+    {
+      "name": "Olli Laamanen",
+      "company": "Rovio",
+      "email": "olli.laamanen@rovio.com"
+    },
+    {
+      "name": "Simon Roberts",
+      "company": "Sega of America",
+      "email": "simon.roberts@sega.co.uk"
+    },
+    {
+      "name": "Sankar Patel",
+      "company": "Osmo",
+      "email": "sankar@playosmo.com"
+    },
+    {
+      "name": "Jerry Pratt",
+      "company": "Figure",
+      "email": "jerry.pratt@personainc.ai"
+    },
+    {
+      "name": "Brianny Chamorro",
+      "company": "Doist",
+      "email": "brianny@doist.com"
+    },
+    {
+      "name": "Joshua Kopeika",
+      "company": "Complex",
+      "email": "josh.kopeika@complex.com"
+    },
+    {
+      "name": "Ivy Houde",
+      "company": "Jackpot",
+      "email": "ivy@jackpot.com"
+    },
+    {
+      "name": "Tala",
+      "company": "Replit",
+      "email": "tala@repl.it"
+    },
+    {
+      "name": "Ryann Sgriccia",
+      "company": "IGN Entertainment",
+      "email": "rsgriccia@ign.com"
+    },
+    {
+      "name": "Nick Depalo",
+      "company": "Unity",
+      "email": "nick.depalo@unity3d.com"
+    },
+    {
+      "name": "Christina Hamilton",
+      "company": "Udemy",
+      "email": "christina.hamilton@udemy.com"
+    }
+  ]
+}

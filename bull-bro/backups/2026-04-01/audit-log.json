@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "id": "audit_1775068129524_4b6j5o",
+      "timestamp": "2026-04-01T18:28:49.524Z",
+      "action": "system_start",
+      "user": "cli_test",
+      "details": {
+        "test": true
+      }
+    }
+  ],
+  "lastRotation": "2026-04-01T18:28:49.521Z"
+}

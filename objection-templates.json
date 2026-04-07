@@ -1,0 +1,96 @@
+{
+  "meeting_request": {
+    "intent": "meeting_request",
+    "keywords": ["schedule", "call", "meet", "hop on", "calendar", "book", "availability"],
+    "templates": [
+      "Hey {{first_name}}, sounds good. How about one of these times?\n\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nLet me know what works.\n\nBest,\nImann",
+      "{{first_name}} - perfect, let's do it.\n\nAny of these work for you?\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nImann"
+    ]
+  },
+  "interested": {
+    "intent": "interested",
+    "keywords": ["interested", "sounds good", "tell me more", "curious", "want to learn"],
+    "templates": [
+      "Hey {{first_name}}, glad this caught your attention.\n\nRates depend on the format - integrations run $15-25K, dedicated videos $30-45K. Happy to walk through what would work best for {{company}}.\n\nHow about a quick call? Any of these work?\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nImann",
+      "{{first_name}} - appreciate the interest.\n\nFor {{company}}, I'm thinking either an integration in one of my story videos or a dedicated piece. Let's jump on a call and I can share some ideas.\n\nTimes that work:\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nBest,\nImann"
+    ]
+  },
+  "info_request": {
+    "intent": "info_request",
+    "keywords": ["send info", "more details", "case study", "portfolio", "examples"],
+    "templates": [
+      "Hey {{first_name}}, happy to share more.\n\nI can send over a media kit with stats and case studies. But honestly, easier to walk through it on a quick call.\n\nAny of these work?\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nImann",
+      "{{first_name}} - sure thing.\n\nQuick overview: 10M subs, story-driven content, up to 361M monthly views. Past wins: Whiteout Survival (48M views, 100K users), Gauth AI (15M+ views).\n\nWant to hop on a call and I can share specific examples that might work for {{company}}?\n\nBest,\nImann"
+    ]
+  },
+  "no_budget": {
+    "intent": "no_budget",
+    "keywords": ["no budget", "budget constraints", "can't afford", "too expensive", "budget is tight", "allocated budget", "no marketing budget"],
+    "templates": [
+      "Hey {{first_name}}, totally get it - budget timing is everything.\n\nHappy to put together something flexible or revisit when timing is better. When does your next budget cycle start?\n\nBest,\nImann",
+      "{{first_name}} - appreciate you being upfront.\n\nWe've done creative deals before (rev share, deferred payment, etc). If there's interest down the line, I'm happy to work something out. When should I follow up?\n\nImann",
+      "Hey {{first_name}}, no worries at all.\n\nWould it help if I sent over a case study to share with your team for future planning? Our Whiteout Survival campaign drove 100K+ users.\n\nBest,\nImann"
+    ]
+  },
+  "bad_timing": {
+    "intent": "bad_timing",
+    "keywords": ["bad timing", "not right now", "maybe later", "next quarter", "next year", "busy season", "end of quarter", "planning phase", "revisit later"],
+    "templates": [
+      "Hey {{first_name}}, totally understand - timing is key.\n\nWhen would be better to reconnect? Happy to reach back out in Q{{next_quarter}} or whenever works.\n\nBest,\nImann",
+      "{{first_name}} - no problem at all.\n\nI'll set a reminder to follow up in a few months. Unless there's a specific date that works better?\n\nImann",
+      "Hey {{first_name}}, appreciate you letting me know.\n\nI'll circle back when timing is better. Any idea when your next campaign planning kicks off?\n\nBest,\nImann"
+    ]
+  },
+  "wrong_person": {
+    "intent": "wrong_person",
+    "keywords": ["wrong person", "not my department", "not me", "don't handle", "someone else", "talk to", "reach out to", "contact instead", "forward this"],
+    "templates": [
+      "Thanks for letting me know. Could you point me to the right person who handles influencer partnerships or marketing at {{company}}?\n\nBest,\nImann",
+      "Hey {{first_name}}, appreciate the heads up.\n\nWho would be the best person to connect with about creator partnerships on your team?\n\nImann",
+      "{{first_name}} - thanks for the redirect.\n\nDo you have a name or email for whoever handles influencer/creator marketing? Happy to reach out directly.\n\nBest,\nImann"
+    ]
+  },
+  "not_interested": {
+    "intent": "not_interested", 
+    "keywords": ["not interested", "no thanks", "pass", "decline", "not for us", "don't need", "not looking"],
+    "templates": [
+      "Hey {{first_name}}, totally understand - not every partnership is the right fit.\n\nIf anything changes down the line, feel free to reach out. Wishing {{company}} all the best.\n\nImann",
+      "{{first_name}} - appreciate you letting me know.\n\nNo hard feelings. If you ever explore YouTube creators in the future, I'm around.\n\nBest,\nImann"
+    ],
+    "note": "These are soft closes - only use if they seem salvageable. Hard 'not interested' should not get a reply."
+  },
+  "already_working_with_someone": {
+    "intent": "competitor",
+    "keywords": ["already working with", "have a partner", "using another", "agency handles", "existing relationship", "current partner", "already have"],
+    "templates": [
+      "Hey {{first_name}}, makes sense - always good to have partnerships in place.\n\nIf you ever want to compare or add another creator to the mix, happy to chat. My audience is pretty unique (10M subs, story-driven content).\n\nBest,\nImann",
+      "{{first_name}} - totally understand.\n\nA lot of brands work with multiple creators. If you're ever looking to expand or test a different audience, let me know. My Whiteout Survival campaign hit 48M views.\n\nImann",
+      "Hey {{first_name}}, appreciate you sharing that.\n\nNot trying to replace anyone - just adding another channel might make sense. Happy to share some case studies if you want to compare.\n\nBest,\nImann"
+    ]
+  },
+  "need_to_check_with_team": {
+    "intent": "internal_review",
+    "keywords": ["check with team", "run it by", "need approval", "talk to my", "discuss internally", "get back to you", "need to check", "let me ask", "sync with"],
+    "templates": [
+      "Hey {{first_name}}, totally understand - take your time.\n\nWant me to send over a one-pager you can share with your team? Makes the conversation easier.\n\nBest,\nImann",
+      "{{first_name}} - makes sense.\n\nAnything I can provide to help make the case? Happy to put together some stats or case studies for your team.\n\nImann",
+      "Hey {{first_name}}, sounds good.\n\nI can hop on a quick call with your team too if that helps. Let me know what would be most useful.\n\nBest,\nImann"
+    ]
+  },
+  "pricing_question": {
+    "intent": "pricing_question",
+    "keywords": ["how much", "pricing", "rates", "cost", "budget required", "investment", "price range", "what do you charge", "fee"],
+    "templates": [
+      "Hey {{first_name}}, good question.\n\nRates depend on the format - integrations run $15-25K, dedicated videos $30-45K. Happy to walk through what would work best for {{company}}.\n\nQuick call to discuss?\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nImann",
+      "{{first_name}} - integrations start around $15K, dedicated pieces around $30K.\n\nBut it really depends on what {{company}} is trying to achieve. Easier to tailor something on a quick call.\n\nAny of these work?\n- {{slot1}}\n- {{slot2}}\n- {{slot3}}\n\nBest,\nImann"
+    ]
+  },
+  "who_are_you": {
+    "intent": "who_are_you",
+    "keywords": ["who are you", "what channel", "what content", "tell me about", "what do you do", "your channel", "more about you", "subscriber count"],
+    "templates": [
+      "Hey {{first_name}}, great question.\n\nI'm Imann - I run ItssIMANNN on YouTube (10M+ subs). I make story-driven moral skits that regularly hit 20-50M views. Past brand work includes Whiteout Survival (48M views, 100K+ users) and Gauth AI (15M+ views).\n\nHappy to share more on a quick call.\n\nImann",
+      "{{first_name}} - I run a YouTube channel called ItssIMANNN.\n\n10M subscribers, story-driven content. Up to 361M views per month. Big wins include Whiteout Survival and Gauth AI.\n\nWant to hop on a call and I can walk you through some examples?\n\nBest,\nImann"
+    ]
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "generated": "2026-02-04T14:12:43.743Z",
+  "totals": {
+    "mild": 35,
+    "moderate": 34,
+    "severe": 5
+  },
+  "emails": [
+    {
+      "to": "haya@replit.com",
+      "subject": "Still interested?",
+      "body": "Hi Haya,\n\nI wanted to check in - I know things get busy and our previous conversation may have slipped through the cracks.\n\nIs Replit still on your radar? If so, I'd love to pick up where we left off.\n\nIf the timing isn't right, no worries at all - just let me know and I'll close your file.\n\nBest,\nImann",
+      "segment": "mild",
+      "days": 19
+    },
+    {
+      "to": "ryann_sgriccia@ign.com",
+      "subject": "Still interested?",
+      "body": "Hi Ryann,\n\nI wanted to check in - I know things get busy and our previous conversation may have slipped through the cracks.\n\nIs IGN Entertainment still on your radar? If so, I'd love to pick up where we left off.\n\nIf the timing isn't right, no worries at all - just let me know and I'll close your file.\n\nBest,\nImann",
+      "segment": "mild",
+      "days": 20
+    },
+    {
+      "to": "cpalmer@drink-trip.com",
+      "subject": "Still interested?",
+      "body": "Hi Chloe,\n\nI wanted to check in - I know things get busy and our previous conversation may have slipped through the cracks.\n\nIs Drink Trip still on your radar? If so, I'd love to pick up where we left off.\n\nIf the timing isn't right, no worries at all - just let me know and I'll close your file.\n\nBest,\nImann",
+      "segment": "mild",
+      "days": 15
+    },
+    {
+      "to": "marcel@poki.com",
+      "subject": "Still interested?",
+      "body": "Hi Marcel,\n\nI wanted to check in - I know things get busy and our previous conversation may have slipped through the cracks.\n\nIs Poki still on your radar? If so, I'd love to pick up where we left off.\n\nIf the timing isn't right, no worries at all - just let me know and I'll close your file.\n\nBest,\nImann",
+      "segment": "mild",
+      "days": 15
+    },
+    {
+      "to": "ilya@candivore.io",
+      "subject": "Still interested?",
+      "body": "Hi Ilya,\n\nI wanted to check in - I know things get busy and our previous conversation may have slipped through the cracks.\n\nIs Candivore still on your radar? If so, I'd love to pick up where we left off.\n\nIf the timing isn't right, no worries at all - just let me know and I'll close your file.\n\nBest,\nImann",
+      "segment": "mild",
+      "days": 15
+    },
+    {
+      "to": "josh.kopeika@complex.com",
+      "subject": "Quick update + new case study",
+      "body": "Hi Joshua,\n\nWanted to share a quick update - we just wrapped up a campaign with a company similar to Complex Networks and got some impressive results:\n\n• [X% increase in metric]\n• [Y new customers/users]\n• [Z% ROI]\n\nWould love to explore if we could achieve something similar for you. Worth a quick chat?\n\nBest,\nImann",
+      "segment": "moderate",
+      "days": 47
+    },
+    {
+      "to": "hugo.nyberg@piercegroup.com",
+      "subject": "Quick update + new case study",
+      "body": "Hi Hugo,\n\nWanted to share a quick update - we just wrapped up a campaign with a company similar to Piercegroup and got some impressive results:\n\n• [X% increase in metric]\n• [Y new customers/users]\n• [Z% ROI]\n\nWould love to explore if we could achieve something similar for you. Worth a quick chat?\n\nBest,\nImann",
+      "segment": "moderate",
+      "days": 30
+    },
+    {
+      "to": "nancy@urunn.com",
+      "subject": "Quick update + new case study",
+      "body": "Hi Nancy,\n\nWanted to share a quick update - we just wrapped up a campaign with a company similar to Urunn and got some impressive results:\n\n• [X% increase in metric]\n• [Y new customers/users]\n• [Z% ROI]\n\nWould love to explore if we could achieve something similar for you. Worth a quick chat?\n\nBest,\nImann",
+      "segment": "moderate",
+      "days": 30
+    },
+    {
+      "to": "bryn@coatsink.com",
+      "subject": "Quick update + new case study",
+      "body": "Hi Bryn,\n\nWanted to share a quick update - we just wrapped up a campaign with a company similar to Coatsink and got some impressive results:\n\n• [X% increase in metric]\n• [Y new customers/users]\n• [Z% ROI]\n\nWould love to explore if we could achieve something similar for you. Worth a quick chat?\n\nBest,\nImann",
+      "segment": "moderate",
+      "days": 32
+    },
+    {
+      "to": "chuong@1ai.tech",
+      "subject": "Quick update + new case study",
+      "body": "Hi Chuong,\n\nWanted to share a quick update - we just wrapped up a campaign with a company similar to 1AI and got some impressive results:\n\n• [X% increase in metric]\n• [Y new customers/users]\n• [Z% ROI]\n\nWould love to explore if we could achieve something similar for you. Worth a quick chat?\n\nBest,\nImann",
+      "segment": "moderate",
+      "days": 32
+    },
+    {
+      "to": "liene@atgames.net",
+      "subject": "Closing your file",
+      "body": "Hi Liene,\n\nI've reached out a few times without hearing back, so I'm going to close your file to keep my CRM tidy.\n\nIf you'd like to reconnect in the future, feel free to reach out anytime. I'll be here!\n\nWishing you all the best with Atgames.\n\nBest,\nImann",
+      "segment": "severe",
+      "days": 61
+    },
+    {
+      "to": "flee@antec.com",
+      "subject": "Closing your file",
+      "body": "Hi Frank,\n\nI've reached out a few times without hearing back, so I'm going to close your file to keep my CRM tidy.\n\nIf you'd like to reconnect in the future, feel free to reach out anytime. I'll be here!\n\nWishing you all the best with Antec.\n\nBest,\nImann",
+      "segment": "severe",
+      "days": 61
+    },
+    {
+      "to": "coborn@visitseattle.org",
+      "subject": "Closing your file",
+      "body": "Hi Cory,\n\nI've reached out a few times without hearing back, so I'm going to close your file to keep my CRM tidy.\n\nIf you'd like to reconnect in the future, feel free to reach out anytime. I'll be here!\n\nWishing you all the best with Visitseattle.\n\nBest,\nImann",
+      "segment": "severe",
+      "days": 62
+    },
+    {
+      "to": "sara@polarsteps.com",
+      "subject": "Closing your file",
+      "body": "Hi Sara,\n\nI've reached out a few times without hearing back, so I'm going to close your file to keep my CRM tidy.\n\nIf you'd like to reconnect in the future, feel free to reach out anytime. I'll be here!\n\nWishing you all the best with Polarsteps.\n\nBest,\nImann",
+      "segment": "severe",
+      "days": 62
+    },
+    {
+      "to": "ines.kondic@outfit7.com",
+      "subject": "Closing your file",
+      "body": "Hi Ines,\n\nI've reached out a few times without hearing back, so I'm going to close your file to keep my CRM tidy.\n\nIf you'd like to reconnect in the future, feel free to reach out anytime. I'll be here!\n\nWishing you all the best with Outfit7.\n\nBest,\nImann",
+      "segment": "severe",
+      "days": 62
+    }
+  ]
+}

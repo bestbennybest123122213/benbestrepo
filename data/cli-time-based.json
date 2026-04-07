@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-04-04T05:09:00.944Z",
+  "source": "smartlead-cli",
+  "windows": [
+    {
+      "label": "Last Business Day",
+      "dateRange": {
+        "start": "2026-04-03",
+        "end": "2026-04-03"
+      },
+      "current": {
+        "sent": 610,
+        "replied": 3,
+        "bounced": 4,
+        "positive": 0,
+        "contacted": 610,
+        "replyRate": "0.49",
+        "positiveRate": "0.00",
+        "bounceRate": "0.66"
+      },
+      "previous": {
+        "sent": 640,
+        "replied": 6,
+        "bounced": 6,
+        "positive": 0,
+        "contacted": 640
+      },
+      "trends": {
+        "sent": "-4.7",
+        "replied": "-50.0",
+        "positive": "0.0",
+        "bounced": "-33.3",
+        "contacted": "-4.7"
+      }
+    },
+    {
+      "label": "Last 3 Days",
+      "dateRange": {
+        "start": "2026-04-02",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 1250,
+        "replied": 9,
+        "bounced": 10,
+        "positive": 0,
+        "contacted": 1249,
+        "replyRate": "0.72",
+        "positiveRate": "0.00",
+        "bounceRate": "0.80"
+      },
+      "previous": {
+        "sent": 2005,
+        "replied": 15,
+        "bounced": 16,
+        "positive": 3,
+        "contacted": 1900
+      },
+      "trends": {
+        "sent": "-37.7",
+        "replied": "-40.0",
+        "positive": "-100.0",
+        "bounced": "-37.5",
+        "contacted": "-34.3"
+      }
+    },
+    {
+      "label": "Last 7 Days",
+      "dateRange": {
+        "start": "2026-03-29",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 3255,
+        "replied": 24,
+        "bounced": 26,
+        "positive": 3,
+        "contacted": 2559,
+        "replyRate": "0.94",
+        "positiveRate": "12.50",
+        "bounceRate": "0.80"
+      },
+      "previous": {
+        "sent": 3133,
+        "replied": 38,
+        "bounced": 57,
+        "positive": 5,
+        "contacted": 2453
+      },
+      "trends": {
+        "sent": "3.9",
+        "replied": "-36.8",
+        "positive": "-40.0",
+        "bounced": "-54.4",
+        "contacted": "4.3"
+      }
+    },
+    {
+      "label": "Last 14 Days",
+      "dateRange": {
+        "start": "2026-03-22",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 6388,
+        "replied": 62,
+        "bounced": 83,
+        "positive": 8,
+        "contacted": 3527,
+        "replyRate": "1.76",
+        "positiveRate": "12.90",
+        "bounceRate": "1.30"
+      },
+      "previous": {
+        "sent": 11231,
+        "replied": 78,
+        "bounced": 105,
+        "positive": 16,
+        "contacted": 6845
+      },
+      "trends": {
+        "sent": "-43.1",
+        "replied": "-20.5",
+        "positive": "-50.0",
+        "bounced": "-21.0",
+        "contacted": "-48.5"
+      }
+    },
+    {
+      "label": "Last 30 Days",
+      "dateRange": {
+        "start": "2026-03-06",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 18891,
+        "replied": 153,
+        "bounced": 213,
+        "positive": 26,
+        "contacted": 9398,
+        "replyRate": "1.63",
+        "positiveRate": "16.99",
+        "bounceRate": "1.13"
+      },
+      "previous": {
+        "sent": 27803,
+        "replied": 217,
+        "bounced": 355,
+        "positive": 37,
+        "contacted": 12452
+      },
+      "trends": {
+        "sent": "-32.1",
+        "replied": "-29.5",
+        "positive": "-29.7",
+        "bounced": "-40.0",
+        "contacted": "-24.5"
+      }
+    },
+    {
+      "label": "Last 60 Days",
+      "dateRange": {
+        "start": "2026-02-04",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 46694,
+        "replied": 370,
+        "bounced": 568,
+        "positive": 63,
+        "contacted": 17129,
+        "replyRate": "2.16",
+        "positiveRate": "17.03",
+        "bounceRate": "1.22"
+      },
+      "previous": {
+        "sent": 40557,
+        "replied": 589,
+        "bounced": 379,
+        "positive": 116,
+        "contacted": 13751
+      },
+      "trends": {
+        "sent": "15.1",
+        "replied": "-37.2",
+        "positive": "-45.7",
+        "bounced": "49.9",
+        "contacted": "24.6"
+      }
+    },
+    {
+      "label": "Last 90 Days",
+      "dateRange": {
+        "start": "2026-01-05",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 73248,
+        "replied": 659,
+        "bounced": 802,
+        "positive": 138,
+        "contacted": 23070,
+        "replyRate": "2.86",
+        "positiveRate": "20.94",
+        "bounceRate": "1.09"
+      },
+      "previous": {
+        "sent": 19640,
+        "replied": 446,
+        "bounced": 183,
+        "positive": 84,
+        "contacted": 7204
+      },
+      "trends": {
+        "sent": "273.0",
+        "replied": "47.8",
+        "positive": "64.3",
+        "bounced": "338.3",
+        "contacted": "220.2"
+      }
+    },
+    {
+      "label": "Last 120 Days",
+      "dateRange": {
+        "start": "2025-12-06",
+        "end": "2026-04-04"
+      },
+      "current": {
+        "sent": 87251,
+        "replied": 959,
+        "bounced": 947,
+        "positive": 179,
+        "contacted": 26383,
+        "replyRate": "3.63",
+        "positiveRate": "18.67",
+        "bounceRate": "1.09"
+      },
+      "previous": {
+        "sent": 5637,
+        "replied": 146,
+        "bounced": 38,
+        "positive": 43,
+        "contacted": 2358
+      },
+      "trends": {
+        "sent": "1447.8",
+        "replied": "556.8",
+        "positive": "316.3",
+        "bounced": "2392.1",
+        "contacted": "1018.9"
+      }
+    }
+  ]
+}

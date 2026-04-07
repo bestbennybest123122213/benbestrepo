@@ -1,0 +1,10 @@
+{
+  "description": "Replies that converted to booked calls - learn from what works",
+  "lastUpdated": "2026-04-01",
+  "stats": {
+    "totalWins": 0,
+    "byIntent": {},
+    "byIndustry": {}
+  },
+  "replies": []
+}

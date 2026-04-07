@@ -1,0 +1,959 @@
+{
+  "capturedAt": "2026-03-16T19:24:25.723Z",
+  "methodology": {
+    "lifetime": "EXACT from campaign mailbox-statistics API",
+    "timePeriods": "Proportional estimate using domain capacity ratio applied to day-wise totals"
+  },
+  "overallTotals": {
+    "d7": {
+      "sent": 7507,
+      "replied": 36,
+      "bounced": 37
+    },
+    "d14": {
+      "sent": 13867,
+      "replied": 84,
+      "bounced": 118
+    },
+    "d30": {
+      "sent": 26635,
+      "replied": 205,
+      "bounced": 275
+    },
+    "lifetime": {
+      "sent": 19666,
+      "replied": 344,
+      "bounced": 164
+    }
+  },
+  "domains": [
+    {
+      "domain": "itss-imannntv24.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1671,
+        "replied": 22,
+        "bounced": 18,
+        "replyRate": "1.32",
+        "bounceRate": "1.08"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 13,
+        "bounced": 30,
+        "replyRate": "1.44",
+        "bounceRate": "3.33"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 5,
+        "bounced": 13,
+        "replyRate": "1.06",
+        "bounceRate": "2.77"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 2,
+        "bounced": 4,
+        "replyRate": "0.79",
+        "bounceRate": "1.57"
+      }
+    },
+    {
+      "domain": "proitss-imannntv.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1593,
+        "replied": 23,
+        "bounced": 22,
+        "replyRate": "1.44",
+        "bounceRate": "1.38"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 14,
+        "bounced": 37,
+        "replyRate": "1.55",
+        "bounceRate": "4.10"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 6,
+        "bounced": 16,
+        "replyRate": "1.28",
+        "bounceRate": "3.40"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 2,
+        "bounced": 5,
+        "replyRate": "0.79",
+        "bounceRate": "1.97"
+      }
+    },
+    {
+      "domain": "joinitss-imannntv.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1547,
+        "replied": 21,
+        "bounced": 11,
+        "replyRate": "1.36",
+        "bounceRate": "0.71"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 13,
+        "bounced": 18,
+        "replyRate": "1.44",
+        "bounceRate": "2.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 5,
+        "bounced": 8,
+        "replyRate": "1.06",
+        "bounceRate": "1.70"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 2,
+        "bounced": 2,
+        "replyRate": "0.79",
+        "bounceRate": "0.79"
+      }
+    },
+    {
+      "domain": "getitss-imannntv.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1468,
+        "replied": 35,
+        "bounced": 14,
+        "replyRate": "2.38",
+        "bounceRate": "0.95"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 21,
+        "bounced": 23,
+        "replyRate": "2.33",
+        "bounceRate": "2.55"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 9,
+        "bounced": 10,
+        "replyRate": "1.91",
+        "bounceRate": "2.13"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 4,
+        "bounced": 3,
+        "replyRate": "1.57",
+        "bounceRate": "1.18"
+      }
+    },
+    {
+      "domain": "goitss-imannntv.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1465,
+        "replied": 31,
+        "bounced": 12,
+        "replyRate": "2.12",
+        "bounceRate": "0.82"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 18,
+        "bounced": 20,
+        "replyRate": "2.00",
+        "bounceRate": "2.22"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 8,
+        "bounced": 9,
+        "replyRate": "1.70",
+        "bounceRate": "1.91"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 3,
+        "bounced": 3,
+        "replyRate": "1.18",
+        "bounceRate": "1.18"
+      }
+    },
+    {
+      "domain": "theitss-imannntv.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1439,
+        "replied": 37,
+        "bounced": 10,
+        "replyRate": "2.57",
+        "bounceRate": "0.69"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 22,
+        "bounced": 17,
+        "replyRate": "2.44",
+        "bounceRate": "1.88"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 9,
+        "bounced": 7,
+        "replyRate": "1.91",
+        "bounceRate": "1.49"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 4,
+        "bounced": 2,
+        "replyRate": "1.57",
+        "bounceRate": "0.79"
+      }
+    },
+    {
+      "domain": "itss-imannntvpro.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1368,
+        "replied": 11,
+        "bounced": 7,
+        "replyRate": "0.80",
+        "bounceRate": "0.51"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 7,
+        "bounced": 12,
+        "replyRate": "0.78",
+        "bounceRate": "1.33"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 3,
+        "bounced": 5,
+        "replyRate": "0.64",
+        "bounceRate": "1.06"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 1,
+        "bounced": 2,
+        "replyRate": "0.39",
+        "bounceRate": "0.79"
+      }
+    },
+    {
+      "domain": "the365itss-imannntv.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1367,
+        "replied": 32,
+        "bounced": 6,
+        "replyRate": "2.34",
+        "bounceRate": "0.44"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 19,
+        "bounced": 10,
+        "replyRate": "2.11",
+        "bounceRate": "1.11"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 8,
+        "bounced": 4,
+        "replyRate": "1.70",
+        "bounceRate": "0.85"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 3,
+        "bounced": 1,
+        "replyRate": "1.18",
+        "bounceRate": "0.39"
+      }
+    },
+    {
+      "domain": "itss-imannntvstudio.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1365,
+        "replied": 10,
+        "bounced": 7,
+        "replyRate": "0.73",
+        "bounceRate": "0.51"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 6,
+        "bounced": 12,
+        "replyRate": "0.67",
+        "bounceRate": "1.33"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 2,
+        "bounced": 5,
+        "replyRate": "0.43",
+        "bounceRate": "1.06"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 1,
+        "bounced": 2,
+        "replyRate": "0.39",
+        "bounceRate": "0.79"
+      }
+    },
+    {
+      "domain": "itss-imannntvsite.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 1365,
+        "replied": 10,
+        "bounced": 11,
+        "replyRate": "0.73",
+        "bounceRate": "0.81"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 6,
+        "bounced": 18,
+        "replyRate": "0.67",
+        "bounceRate": "2.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 2,
+        "bounced": 8,
+        "replyRate": "0.43",
+        "bounceRate": "1.70"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 1,
+        "bounced": 2,
+        "replyRate": "0.39",
+        "bounceRate": "0.79"
+      }
+    },
+    {
+      "domain": "itss-imannntvonline.com",
+      "senderCount": 2,
+      "lifetime": {
+        "sent": 964,
+        "replied": 20,
+        "bounced": 8,
+        "replyRate": "2.07",
+        "bounceRate": "0.83"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 12,
+        "bounced": 13,
+        "replyRate": "1.33",
+        "bounceRate": "1.44"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 5,
+        "bounced": 6,
+        "replyRate": "1.06",
+        "bounceRate": "1.28"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 2,
+        "bounced": 2,
+        "replyRate": "0.79",
+        "bounceRate": "0.79"
+      }
+    },
+    {
+      "domain": "helloitssimannntv.com",
+      "senderCount": 15,
+      "lifetime": {
+        "sent": 891,
+        "replied": 15,
+        "bounced": 10,
+        "replyRate": "1.68",
+        "bounceRate": "1.12"
+      },
+      "d30": {
+        "sent": 1042,
+        "replied": 9,
+        "bounced": 17,
+        "replyRate": "0.86",
+        "bounceRate": "1.63"
+      },
+      "d14": {
+        "sent": 543,
+        "replied": 4,
+        "bounced": 7,
+        "replyRate": "0.74",
+        "bounceRate": "1.29"
+      },
+      "d7": {
+        "sent": 294,
+        "replied": 2,
+        "bounced": 2,
+        "replyRate": "0.68",
+        "bounceRate": "0.68"
+      }
+    },
+    {
+      "domain": "smartitssimannntv.com",
+      "senderCount": 15,
+      "lifetime": {
+        "sent": 770,
+        "replied": 11,
+        "bounced": 4,
+        "replyRate": "1.43",
+        "bounceRate": "0.52"
+      },
+      "d30": {
+        "sent": 1042,
+        "replied": 7,
+        "bounced": 7,
+        "replyRate": "0.67",
+        "bounceRate": "0.67"
+      },
+      "d14": {
+        "sent": 543,
+        "replied": 3,
+        "bounced": 3,
+        "replyRate": "0.55",
+        "bounceRate": "0.55"
+      },
+      "d7": {
+        "sent": 294,
+        "replied": 1,
+        "bounced": 1,
+        "replyRate": "0.34",
+        "bounceRate": "0.34"
+      }
+    },
+    {
+      "domain": "proitssimannntv.com",
+      "senderCount": 16,
+      "lifetime": {
+        "sent": 756,
+        "replied": 17,
+        "bounced": 11,
+        "replyRate": "2.25",
+        "bounceRate": "1.46"
+      },
+      "d30": {
+        "sent": 1042,
+        "replied": 10,
+        "bounced": 18,
+        "replyRate": "0.96",
+        "bounceRate": "1.73"
+      },
+      "d14": {
+        "sent": 543,
+        "replied": 4,
+        "bounced": 8,
+        "replyRate": "0.74",
+        "bounceRate": "1.47"
+      },
+      "d7": {
+        "sent": 294,
+        "replied": 2,
+        "bounced": 2,
+        "replyRate": "0.68",
+        "bounceRate": "0.68"
+      }
+    },
+    {
+      "domain": "myitssimannntv.com",
+      "senderCount": 12,
+      "lifetime": {
+        "sent": 492,
+        "replied": 9,
+        "bounced": 4,
+        "replyRate": "1.83",
+        "bounceRate": "0.81"
+      },
+      "d30": {
+        "sent": 1042,
+        "replied": 5,
+        "bounced": 7,
+        "replyRate": "0.48",
+        "bounceRate": "0.67"
+      },
+      "d14": {
+        "sent": 543,
+        "replied": 2,
+        "bounced": 3,
+        "replyRate": "0.37",
+        "bounceRate": "0.55"
+      },
+      "d7": {
+        "sent": 294,
+        "replied": 1,
+        "bounced": 1,
+        "replyRate": "0.34",
+        "bounceRate": "0.34"
+      }
+    },
+    {
+      "domain": "itssimannntv.com",
+      "senderCount": 1,
+      "lifetime": {
+        "sent": 456,
+        "replied": 3,
+        "bounced": 2,
+        "replyRate": "0.66",
+        "bounceRate": "0.44"
+      },
+      "d30": {
+        "sent": 301,
+        "replied": 2,
+        "bounced": 3,
+        "replyRate": "0.66",
+        "bounceRate": "1.00"
+      },
+      "d14": {
+        "sent": 157,
+        "replied": 1,
+        "bounced": 1,
+        "replyRate": "0.64",
+        "bounceRate": "0.64"
+      },
+      "d7": {
+        "sent": 85,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "teamitssimannntv.com",
+      "senderCount": 7,
+      "lifetime": {
+        "sent": 456,
+        "replied": 6,
+        "bounced": 7,
+        "replyRate": "1.32",
+        "bounceRate": "1.54"
+      },
+      "d30": {
+        "sent": 1042,
+        "replied": 4,
+        "bounced": 12,
+        "replyRate": "0.38",
+        "bounceRate": "1.15"
+      },
+      "d14": {
+        "sent": 543,
+        "replied": 1,
+        "bounced": 5,
+        "replyRate": "0.18",
+        "bounceRate": "0.92"
+      },
+      "d7": {
+        "sent": 294,
+        "replied": 1,
+        "bounced": 2,
+        "replyRate": "0.34",
+        "bounceRate": "0.68"
+      }
+    },
+    {
+      "domain": "goitssimannntv.com",
+      "senderCount": 10,
+      "lifetime": {
+        "sent": 53,
+        "replied": 6,
+        "bounced": 0,
+        "replyRate": "11.32",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 1022,
+        "replied": 4,
+        "bounced": 0,
+        "replyRate": "0.39",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 532,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.19",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 288,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.35",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvweb.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 28,
+        "replied": 6,
+        "bounced": 0,
+        "replyRate": "21.43",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 4,
+        "bounced": 0,
+        "replyRate": "0.44",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.21",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.39",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "useitssimannntv.com",
+      "senderCount": 4,
+      "lifetime": {
+        "sent": 27,
+        "replied": 4,
+        "bounced": 0,
+        "replyRate": "14.81",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 1042,
+        "replied": 2,
+        "bounced": 0,
+        "replyRate": "0.19",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 543,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.18",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 294,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvsolutions.com",
+      "senderCount": 2,
+      "lifetime": {
+        "sent": 26,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "3.85",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.11",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvdigital.com",
+      "senderCount": 1,
+      "lifetime": {
+        "sent": 19,
+        "replied": 4,
+        "bounced": 0,
+        "replyRate": "21.05",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 2,
+        "bounced": 0,
+        "replyRate": "0.22",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.21",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvcloud.com",
+      "senderCount": 2,
+      "lifetime": {
+        "sent": 17,
+        "replied": 2,
+        "bounced": 0,
+        "replyRate": "11.76",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.11",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvzone.com",
+      "senderCount": 3,
+      "lifetime": {
+        "sent": 17,
+        "replied": 2,
+        "bounced": 0,
+        "replyRate": "11.76",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.11",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvspace.com",
+      "senderCount": 2,
+      "lifetime": {
+        "sent": 12,
+        "replied": 2,
+        "bounced": 0,
+        "replyRate": "16.67",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.11",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntv.com",
+      "senderCount": 2,
+      "lifetime": {
+        "sent": 11,
+        "replied": 2,
+        "bounced": 0,
+        "replyRate": "18.18",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.11",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntv365.com",
+      "senderCount": 1,
+      "lifetime": {
+        "sent": 9,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "11.11",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.11",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "itss-imannntvapp.com",
+      "senderCount": 1,
+      "lifetime": {
+        "sent": 7,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 902,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 470,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 254,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    },
+    {
+      "domain": "getitssimannntv.com",
+      "senderCount": 1,
+      "lifetime": {
+        "sent": 7,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "14.29",
+        "bounceRate": "0.00"
+      },
+      "d30": {
+        "sent": 1022,
+        "replied": 1,
+        "bounced": 0,
+        "replyRate": "0.10",
+        "bounceRate": "0.00"
+      },
+      "d14": {
+        "sent": 532,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      },
+      "d7": {
+        "sent": 288,
+        "replied": 0,
+        "bounced": 0,
+        "replyRate": "0.00",
+        "bounceRate": "0.00"
+      }
+    }
+  ]
+}

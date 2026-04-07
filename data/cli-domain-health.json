@@ -1,0 +1,1216 @@
+{
+  "generatedAt": "2026-03-30T21:01:38.639Z",
+  "dateRange": {
+    "from": "2025-12-30",
+    "to": "2026-03-30"
+  },
+  "summary": {
+    "totalMailboxes": 622,
+    "totalDomains": 78,
+    "byProvider": {
+      "GMAIL": 70,
+      "OUTLOOK": 8,
+      "OTHER": 0
+    },
+    "byStatus": {
+      "healthy": 78,
+      "warning": 0,
+      "replace": 0,
+      "unknown": 0
+    }
+  },
+  "providers": {
+    "GMAIL": {
+      "sent": 30762,
+      "replied": 350,
+      "bounced": 247,
+      "opened": 188,
+      "clicked": 14,
+      "bounceRate": "0.80%",
+      "replyRate": "1.14%",
+      "status": "healthy"
+    },
+    "OUTLOOK": {
+      "sent": 36962,
+      "replied": 288,
+      "bounced": 476,
+      "opened": 190,
+      "clicked": 19,
+      "bounceRate": "1.29%",
+      "replyRate": "0.78%",
+      "status": "healthy"
+    }
+  },
+  "domains": [
+    {
+      "domain": "useitssimannntv.com",
+      "mailboxes": 52,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 52
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 52
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "myitssimannntv.com",
+      "mailboxes": 52,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 52
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 52
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "smartitssimannntv.com",
+      "mailboxes": 52,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 52
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 52
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "proitssimannntv.com",
+      "mailboxes": 52,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 52
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 52
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "helloitssimannntv.com",
+      "mailboxes": 52,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 52
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 52
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "teamitssimannntv.com",
+      "mailboxes": 52,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 52
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 52
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "getitssimannntv.com",
+      "mailboxes": 51,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 51
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 51
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "goitssimannntv.com",
+      "mailboxes": 51,
+      "provider": "OUTLOOK",
+      "providers": {
+        "OUTLOOK": 51
+      },
+      "warmup": {
+        "active": 0,
+        "paused": 0,
+        "disabled": 51
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceai.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceflow.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencelabs.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "startbyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencehub.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "withbyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "growbyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "getbyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceapp.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "runbyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencecloud.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencehq.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "usebyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceapp.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencetech.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencepro.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencegroup.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencecentral.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceplus.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencepro.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceagency.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencer.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencelabs.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "trybyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "joinbyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencehq.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceteam.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceonline.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluence.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencezone.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceconnect.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceworks.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceworks.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceedge.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencegroup.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencepoint.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "gobyinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencemedia.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencehub.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceteam.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencecrew.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "scaleinfluence.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceops.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluenceplatform.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencenetwork.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencenetwork.co",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencefocus.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "byinfluencechain.info",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntv365.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvapp.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvcloud.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvspace.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvweb.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvdigital.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvsolutions.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvzone.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvonline.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "theitss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "getitss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "goitss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntv24.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "proitss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "joinitss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "the365itss-imannntv.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvpro.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvsite.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itss-imannntvstudio.com",
+      "mailboxes": 3,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 3
+      },
+      "warmup": {
+        "active": 3,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    },
+    {
+      "domain": "itssimannntv.com",
+      "mailboxes": 1,
+      "provider": "GMAIL",
+      "providers": {
+        "GMAIL": 1
+      },
+      "warmup": {
+        "active": 1,
+        "paused": 0,
+        "disabled": 0
+      },
+      "status": "healthy",
+      "statusEmoji": "✅"
+    }
+  ]
+}

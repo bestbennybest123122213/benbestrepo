@@ -1,0 +1,804 @@
+{
+  "generated": "2026-02-04T01:10:53.041Z",
+  "summary": {
+    "total_scheduling": 98,
+    "total_stale": 82,
+    "by_category": {
+      "Interested": 82
+    }
+  },
+  "top_20_priority": [
+    {
+      "name": "Olli Laamanen",
+      "email": "olli.laamanen@rovio.com",
+      "company": "Rovio",
+      "category": "Interested",
+      "days_stale": 72,
+      "conversation_date": "2025-11-24"
+    },
+    {
+      "name": "Simon Roberts",
+      "email": "simon.roberts@sega.co.uk",
+      "company": "Sega of America",
+      "category": "Interested",
+      "days_stale": 72,
+      "conversation_date": "2025-11-24"
+    },
+    {
+      "name": "Aleksey Sigabatulin",
+      "email": "a.sigabatulin@pixonic.com",
+      "company": "Pixonic",
+      "category": "Interested",
+      "days_stale": 72,
+      "conversation_date": "2025-11-24"
+    },
+    {
+      "name": "Milica Mijailovic",
+      "email": "milicad@twodesperados.com",
+      "company": "Two Desperados",
+      "category": "Interested",
+      "days_stale": 72,
+      "conversation_date": "2025-11-24"
+    },
+    {
+      "name": "Greg Lee",
+      "email": "greg@teamterriblegames.com",
+      "company": "Team Terrible",
+      "category": "Interested",
+      "days_stale": 70,
+      "conversation_date": "2025-11-26"
+    },
+    {
+      "name": "David Dahlgren",
+      "email": "david@resolutiongames.com",
+      "company": "Resolution Games",
+      "category": "Interested",
+      "days_stale": 70,
+      "conversation_date": "2025-11-26"
+    },
+    {
+      "name": "Andrei Lopata",
+      "email": "alopata@atypicalgames.com",
+      "company": "Atypical Games s.r.l.",
+      "category": "Interested",
+      "days_stale": 70,
+      "conversation_date": "2025-11-26"
+    },
+    {
+      "name": "Sean Yi",
+      "email": "seany@snailgamesusa.com",
+      "company": "Snail Games USA",
+      "category": "Interested",
+      "days_stale": 65,
+      "conversation_date": "2025-12-01"
+    },
+    {
+      "name": "William Marie",
+      "email": "wmarie@oldskullgames.com",
+      "company": "Old Skull Games",
+      "category": "Interested",
+      "days_stale": 64,
+      "conversation_date": "2025-12-02"
+    },
+    {
+      "name": "Janell Craig",
+      "email": "jcraig@destinationcle.org",
+      "company": "Destination Cleveland",
+      "category": "Interested",
+      "days_stale": 64,
+      "conversation_date": "2025-12-02"
+    },
+    {
+      "name": "Madeline Richards",
+      "email": "madeline@afandco.com",
+      "company": "Evergreen Lodge at Yosemite",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Kari Gibson",
+      "email": "kari.g@littlemoons.co.uk",
+      "company": "Little Moons",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Cory O'Born",
+      "email": "coborn@visitseattle.org",
+      "company": "Visit Seattle",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Erika R.",
+      "email": "erika@assemblyfestival.com",
+      "company": "Assembly Festival",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Maelle Gurib",
+      "email": "m.gurib@go-electra.com",
+      "company": "Electra",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Sergei Konstantinov",
+      "email": "sk@ddream.games",
+      "company": "D.Dream Games",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Sankar Patel",
+      "email": "sankar@playosmo.com",
+      "company": "Osmo",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Jeremy Flynn",
+      "email": "jeremy.flynn@allelitewrestling.com",
+      "company": "All Elite Wrestling",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Vladimir Mickovic",
+      "email": "vladimir.mickovic@juicymarbles.com",
+      "company": "Juicy Marbles",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    },
+    {
+      "name": "Colby Draper",
+      "email": "colby.draper@empowerly.com",
+      "company": "Empowerly",
+      "category": "Interested",
+      "days_stale": 63,
+      "conversation_date": "2025-12-03"
+    }
+  ],
+  "notable_companies": [
+    {
+      "name": "Sankar Patel",
+      "email": "sankar@playosmo.com",
+      "company": "Osmo",
+      "days_stale": 63
+    },
+    {
+      "name": "Joshua Kopeika",
+      "email": "josh.kopeika@complex.com",
+      "company": "Complex",
+      "days_stale": 63
+    },
+    {
+      "name": "Jerry Pratt",
+      "email": "jerry.pratt@personainc.ai",
+      "company": "Figure",
+      "days_stale": 49
+    },
+    {
+      "name": "Brianny Chamorro",
+      "email": "brianny@doist.com",
+      "company": "Doist",
+      "days_stale": 48
+    },
+    {
+      "name": "Ivy Houde",
+      "email": "ivy@jackpot.com",
+      "company": "Jackpot",
+      "days_stale": 29
+    },
+    {
+      "name": "Tala",
+      "email": "tala@repl.it",
+      "company": "Replit",
+      "days_stale": 26
+    },
+    {
+      "name": "Ryann Sgriccia",
+      "email": "rsgriccia@ign.com",
+      "company": "IGN Entertainment",
+      "days_stale": 23
+    },
+    {
+      "name": "Christina Hamilton",
+      "email": "christina.hamilton@udemy.com",
+      "company": "Udemy",
+      "days_stale": 23
+    },
+    {
+      "name": "Evgeny Zvyagin",
+      "email": "e.zvyagin@virtus.pro",
+      "company": "virtus.pro",
+      "days_stale": 23
+    }
+  ],
+  "all_stale": [
+    {
+      "name": "Olli Laamanen",
+      "email": "olli.laamanen@rovio.com",
+      "company": "Rovio",
+      "category": "Interested",
+      "days_stale": 72
+    },
+    {
+      "name": "Simon Roberts",
+      "email": "simon.roberts@sega.co.uk",
+      "company": "Sega of America",
+      "category": "Interested",
+      "days_stale": 72
+    },
+    {
+      "name": "Aleksey Sigabatulin",
+      "email": "a.sigabatulin@pixonic.com",
+      "company": "Pixonic",
+      "category": "Interested",
+      "days_stale": 72
+    },
+    {
+      "name": "Milica Mijailovic",
+      "email": "milicad@twodesperados.com",
+      "company": "Two Desperados",
+      "category": "Interested",
+      "days_stale": 72
+    },
+    {
+      "name": "Greg Lee",
+      "email": "greg@teamterriblegames.com",
+      "company": "Team Terrible",
+      "category": "Interested",
+      "days_stale": 70
+    },
+    {
+      "name": "David Dahlgren",
+      "email": "david@resolutiongames.com",
+      "company": "Resolution Games",
+      "category": "Interested",
+      "days_stale": 70
+    },
+    {
+      "name": "Andrei Lopata",
+      "email": "alopata@atypicalgames.com",
+      "company": "Atypical Games s.r.l.",
+      "category": "Interested",
+      "days_stale": 70
+    },
+    {
+      "name": "Sean Yi",
+      "email": "seany@snailgamesusa.com",
+      "company": "Snail Games USA",
+      "category": "Interested",
+      "days_stale": 65
+    },
+    {
+      "name": "William Marie",
+      "email": "wmarie@oldskullgames.com",
+      "company": "Old Skull Games",
+      "category": "Interested",
+      "days_stale": 64
+    },
+    {
+      "name": "Janell Craig",
+      "email": "jcraig@destinationcle.org",
+      "company": "Destination Cleveland",
+      "category": "Interested",
+      "days_stale": 64
+    },
+    {
+      "name": "Madeline Richards",
+      "email": "madeline@afandco.com",
+      "company": "Evergreen Lodge at Yosemite",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Kari Gibson",
+      "email": "kari.g@littlemoons.co.uk",
+      "company": "Little Moons",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Cory O'Born",
+      "email": "coborn@visitseattle.org",
+      "company": "Visit Seattle",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Erika R.",
+      "email": "erika@assemblyfestival.com",
+      "company": "Assembly Festival",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Maelle Gurib",
+      "email": "m.gurib@go-electra.com",
+      "company": "Electra",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Sergei Konstantinov",
+      "email": "sk@ddream.games",
+      "company": "D.Dream Games",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Sankar Patel",
+      "email": "sankar@playosmo.com",
+      "company": "Osmo",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Jeremy Flynn",
+      "email": "jeremy.flynn@allelitewrestling.com",
+      "company": "All Elite Wrestling",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Vladimir Mickovic",
+      "email": "vladimir.mickovic@juicymarbles.com",
+      "company": "Juicy Marbles",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Colby Draper",
+      "email": "colby.draper@empowerly.com",
+      "company": "Empowerly",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Joshua Kopeika",
+      "email": "josh.kopeika@complex.com",
+      "company": "Complex",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Ines Kondic",
+      "email": "ines.kondic@outfit7.com",
+      "company": "Outfit 7",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Tamika Curtis-Holloway",
+      "email": "tholloway@jhchc.org",
+      "company": "Jackson Hinds Comprehensive Health Center",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Jesse Padilla",
+      "email": "jessep@fitbod.me",
+      "company": "Fitbod",
+      "category": "Interested",
+      "days_stale": 63
+    },
+    {
+      "name": "Chloe Massiah",
+      "email": "chloe.massiah@gozney.com",
+      "company": "Gozney",
+      "category": "Interested",
+      "days_stale": 62
+    },
+    {
+      "name": "Jon",
+      "email": "jon@doingthingsmedia.com",
+      "company": "Doing Things Media",
+      "category": "Interested",
+      "days_stale": 62
+    },
+    {
+      "name": "Angelo Materlik",
+      "email": "angelo.materlik@atari.com",
+      "company": "Atari",
+      "category": "Interested",
+      "days_stale": 50
+    },
+    {
+      "name": "Pepper Raper",
+      "email": "pepper.raper@rockcityenterprises.com",
+      "company": "See Rock City",
+      "category": "Interested",
+      "days_stale": 49
+    },
+    {
+      "name": "Mervyn Yap",
+      "email": "mervyn@daydream.sg",
+      "company": "Daydream",
+      "category": "Interested",
+      "days_stale": 49
+    },
+    {
+      "name": "Glen Gaudion",
+      "email": "glen@thermal.travel",
+      "company": "Thermal",
+      "category": "Interested",
+      "days_stale": 49
+    },
+    {
+      "name": "Jerry Pratt",
+      "email": "jerry.pratt@personainc.ai",
+      "company": "Figure",
+      "category": "Interested",
+      "days_stale": 49
+    },
+    {
+      "name": "Ugo Voisin",
+      "email": "ugo.voisin@fastned.nl",
+      "company": "Fastned",
+      "category": "Interested",
+      "days_stale": 49
+    },
+    {
+      "name": "Divakshu Taneja",
+      "email": "divakshu.taneja@wahed.com",
+      "company": "Wahed",
+      "category": "Interested",
+      "days_stale": 49
+    },
+    {
+      "name": "Gianna Calistro",
+      "email": "gianna.calistro@doublegood.com",
+      "company": "Double Good",
+      "category": "Interested",
+      "days_stale": 48
+    },
+    {
+      "name": "Brianny Chamorro",
+      "email": "brianny@doist.com",
+      "company": "Doist",
+      "category": "Interested",
+      "days_stale": 48
+    },
+    {
+      "name": "Oscar Hernandez",
+      "email": "oscar@umiasalud.com",
+      "company": "El Dorado",
+      "category": "Interested",
+      "days_stale": 48
+    },
+    {
+      "name": "Jessica Gilliand",
+      "email": "jessica@coatsink.com",
+      "company": "Coatsink",
+      "category": "Interested",
+      "days_stale": 47
+    },
+    {
+      "name": "Chris Stevens",
+      "email": "chris.stevens@spothero.com",
+      "company": "Spot Hero",
+      "category": "Interested",
+      "days_stale": 47
+    },
+    {
+      "name": "Franck",
+      "email": "franck@devialet.com",
+      "company": "Devialet",
+      "category": "Interested",
+      "days_stale": 44
+    },
+    {
+      "name": "Brian Tan",
+      "email": "brian@myfirst.tech",
+      "company": "myFirst",
+      "category": "Interested",
+      "days_stale": 42
+    },
+    {
+      "name": "Keith",
+      "email": "martin@trymartin.com",
+      "company": "Martin",
+      "category": "Interested",
+      "days_stale": 35
+    },
+    {
+      "name": "Richard Evans",
+      "email": "richard.evans@beehiiv.com",
+      "company": "Beehiiv",
+      "category": "Interested",
+      "days_stale": 34
+    },
+    {
+      "name": "Dimple Patel",
+      "email": "dimple.patel@wizeacademy.com",
+      "company": "Wize Computing Academy",
+      "category": "Interested",
+      "days_stale": 34
+    },
+    {
+      "name": "Emma Lumley",
+      "email": "emmalumley@trustedhousesitters.com",
+      "company": "trustedhousesitters",
+      "category": "Interested",
+      "days_stale": 33
+    },
+    {
+      "name": "Tiphaine Turcan",
+      "email": "tiphaine.simon-turcan@typology.com",
+      "company": "Typology",
+      "category": "Interested",
+      "days_stale": 29
+    },
+    {
+      "name": "Ivy Houde",
+      "email": "ivy@jackpot.com",
+      "company": "Jackpot",
+      "category": "Interested",
+      "days_stale": 29
+    },
+    {
+      "name": "Hiep Nguyen",
+      "email": "hiep@coolmate.me",
+      "company": "coolmate",
+      "category": "Interested",
+      "days_stale": 28
+    },
+    {
+      "name": "Chuks Aylor",
+      "email": "chuksaylor@dreamworksdirect.com",
+      "company": "Dreamworks Direct",
+      "category": "Interested",
+      "days_stale": 28
+    },
+    {
+      "name": "Karin Baranyai",
+      "email": "karin.baranyai@air-up.com",
+      "company": "Air Up",
+      "category": "Interested",
+      "days_stale": 27
+    },
+    {
+      "name": "David Vuong",
+      "email": "dvuong@weedmaps.com",
+      "company": "weedmaps",
+      "category": "Interested",
+      "days_stale": 26
+    },
+    {
+      "name": "Tala",
+      "email": "tala@repl.it",
+      "company": "Replit",
+      "category": "Interested",
+      "days_stale": 26
+    },
+    {
+      "name": "Adriano Correia",
+      "email": "marketing@rainbet.com",
+      "company": "Rainbet",
+      "category": "Interested",
+      "days_stale": 26
+    },
+    {
+      "name": "Ivan Ivan",
+      "email": "Ivan@coppernicometals.com",
+      "company": "Coppernico Metals",
+      "category": "Interested",
+      "days_stale": 24
+    },
+    {
+      "name": "Ryann Sgriccia",
+      "email": "rsgriccia@ign.com",
+      "company": "IGN Entertainment",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Christina Hamilton",
+      "email": "christina.hamilton@udemy.com",
+      "company": "Udemy",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Joe Schaeppi",
+      "email": "joe@solsten.io",
+      "company": "Solsten",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Elena Rodriguez",
+      "email": "elena.rodriguez@preply.com",
+      "company": "Preply",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Sophie Ricaume",
+      "email": "sophie.ricaume@crunchyroll.com",
+      "company": "Crunchyroll",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Aurika Pociute",
+      "email": "aurika.pociute@eneba.com",
+      "company": "eneba",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Evgeny Zvyagin",
+      "email": "e.zvyagin@virtus.pro",
+      "company": "virtus.pro",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Marek Fila",
+      "email": "marek.fila@kinguin.net",
+      "company": "Kinguin",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Jan Jan",
+      "email": "jan@publishlab.com",
+      "company": "Labrador CMS",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Ana Pastoria",
+      "email": "ana.p@imagen-ai.com",
+      "company": "Imagen",
+      "category": "Interested",
+      "days_stale": 23
+    },
+    {
+      "name": "Waleed Nasir",
+      "email": "waleed@qult.ai",
+      "company": "Qult",
+      "category": "Interested",
+      "days_stale": 22
+    },
+    {
+      "name": "Miya",
+      "email": "miya@easeus.com",
+      "company": "EaseUS",
+      "category": "Interested",
+      "days_stale": 22
+    },
+    {
+      "name": "David Kay",
+      "email": "david@thermalradar.com",
+      "company": "Thermal Imaging Radar",
+      "category": "Interested",
+      "days_stale": 22
+    },
+    {
+      "name": "Naim Hamdar",
+      "email": "naim@payzli.com",
+      "company": "Payzli",
+      "category": "Interested",
+      "days_stale": 22
+    },
+    {
+      "name": "Tushar Jain",
+      "email": "tushar.jain@dream11.com",
+      "company": "dream11",
+      "category": "Interested",
+      "days_stale": 22
+    },
+    {
+      "name": "Rahul srivastava",
+      "email": "Rahul.srivastava@gyandhan.com",
+      "company": "GyanDhan",
+      "category": "Interested",
+      "days_stale": 21
+    },
+    {
+      "name": "Sara Sara",
+      "email": "sara.duryea@circlesecurity.ai",
+      "company": "Circle Security",
+      "category": "Interested",
+      "days_stale": 21
+    },
+    {
+      "name": "Marina Hallikainen",
+      "email": "pr@paradoxinteractive.com",
+      "company": "Colossal Order",
+      "category": "Interested",
+      "days_stale": 21
+    },
+    {
+      "name": "Ilya Agron",
+      "email": "ilya@candivore.io",
+      "company": "Candivore",
+      "category": "Interested",
+      "days_stale": 21
+    },
+    {
+      "name": "Sarujan Ranjan",
+      "email": "sarujan@studystream.live",
+      "company": "StudyStream",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Angela Garcia Mozos",
+      "email": "angela.garcia@wallapop.com",
+      "company": "wallapop",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Rahul srivastava",
+      "email": "rahul.srivastava@gyandhan.com",
+      "company": "GyanDhan",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Jeremy Hare",
+      "email": "jeremy@puntaa.co",
+      "company": "puntaa",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Agnes Ahlquist",
+      "email": "agnes.ahlquist@naturalcycles.com",
+      "company": "Natural Cycles",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Dominion Eromosele",
+      "email": "dom@carry1st.com",
+      "company": "Carry1st",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Nabil Ouazzani",
+      "email": "izzi@zoop.club",
+      "company": "Zoop",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Ishita Bhanot",
+      "email": "ishita.bhanot@gyandhan.com",
+      "company": "GyanDhan",
+      "category": "Interested",
+      "days_stale": 20
+    },
+    {
+      "name": "Shubham",
+      "email": "partner@unstop.com",
+      "company": "Unstop",
+      "category": "Interested",
+      "days_stale": 19
+    },
+    {
+      "name": "Laurynas Mazeliauskas",
+      "email": "laurynas.mazeliauskas@kiloverse.com",
+      "company": "Pulsetto",
+      "category": "Interested",
+      "days_stale": 19
+    }
+  ]
+}

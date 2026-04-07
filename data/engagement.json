@@ -1,0 +1,27 @@
+{
+  "days": {
+    "2026-03-16": {
+      "briefingSent": true,
+      "briefingSentAt": "2026-03-16T07:30:36.393Z",
+      "actions": [
+        {
+          "description": "Removed Inbound Advantage card from dashboard",
+          "time": "2026-03-16T15:49:08.860Z"
+        },
+        {
+          "description": "Fixed Hypertide vs Google loading issue",
+          "time": "2026-03-16T15:55:35.163Z"
+        }
+      ],
+      "emails": [],
+      "engaged": true
+    }
+  },
+  "totals": {
+    "briefingsSent": 4,
+    "actionsLogged": 2,
+    "emailsSent": 0,
+    "engagedDays": 1,
+    "zeroEngagementDays": 0
+  }
+}

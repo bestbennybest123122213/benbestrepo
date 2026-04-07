@@ -1,0 +1,11 @@
+{
+  "scraped_at": "2026-03-14T17:29:33+01:00",
+  "period": "last30d",
+  "source": "smartlead_ui",
+  "data": {
+    "sent": 25548,
+    "replied": 193,
+    "positive": 28,
+    "bounced": 268
+  }
+}

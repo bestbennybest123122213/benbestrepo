@@ -1,0 +1,28 @@
+{
+  "scraped_at": "2026-03-14T19:35:00+01:00",
+  "source": "smartlead_ui_v2",
+  "verified": true,
+  "data": {
+    "last_14_days": {
+      "dates": "2026-03-01 to 2026-03-14",
+      "sent": 12780,
+      "replied": 78,
+      "positive": 9,
+      "bounced": 121
+    },
+    "last_30_days": {
+      "dates": "2026-02-13 to 2026-03-14",
+      "sent": 26826,
+      "replied": 204,
+      "positive": 27,
+      "bounced": 299
+    },
+    "last_60_days": {
+      "dates": "2026-01-14 to 2026-03-14",
+      "sent": 54141,
+      "replied": 439,
+      "positive": 87,
+      "bounced": 544
+    }
+  }
+}

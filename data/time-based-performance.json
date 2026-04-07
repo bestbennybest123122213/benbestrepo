@@ -1,0 +1,107 @@
+{
+  "scrapedAt": "2026-03-18T00:45:00Z",
+  "source": "SmartLead Global Analytics UI",
+  "note": "Data is as of March 16, 2026 (scraped night of March 17-18)",
+  "periods": {
+    "1day": {
+      "label": "Yesterday (Mar 16)",
+      "dateRange": "2026-03-16 - 2026-03-16",
+      "days": 1,
+      "sent": 1487,
+      "opened": 7,
+      "replied": 5,
+      "positive": 3,
+      "bounced": 8,
+      "openRate": 0.47,
+      "replyRate": 0.34,
+      "positiveReplyRate": 60.0,
+      "bounceRate": 0.54
+    },
+    "7days": {
+      "label": "Last 7 Days (Mar 10-16)",
+      "dateRange": "2026-03-10 - 2026-03-16",
+      "days": 7,
+      "sent": 6635,
+      "opened": 20,
+      "replied": 27,
+      "positive": 5,
+      "bounced": 40,
+      "openRate": 0.27,
+      "replyRate": 0.55,
+      "positiveReplyRate": 18.52,
+      "bounceRate": 0.82,
+      "avgSentPerDay": 948
+    },
+    "14days": {
+      "label": "Last 14 Days (Mar 3-16)",
+      "dateRange": "2026-03-03 - 2026-03-16",
+      "days": 14,
+      "sent": 12995,
+      "opened": 54,
+      "replied": 76,
+      "positive": 12,
+      "bounced": 118,
+      "openRate": 0.34,
+      "replyRate": 1.02,
+      "positiveReplyRate": 15.79,
+      "bounceRate": 1.58,
+      "avgSentPerDay": 928
+    },
+    "30days": {
+      "label": "Last 30 Days (Feb 15 - Mar 16)",
+      "dateRange": "2026-02-15 - 2026-03-16",
+      "days": 30,
+      "sent": 27035,
+      "opened": 131,
+      "replied": 201,
+      "positive": 30,
+      "bounced": 287,
+      "openRate": 0.31,
+      "replyRate": 1.68,
+      "positiveReplyRate": 14.93,
+      "bounceRate": 2.40,
+      "avgSentPerDay": 901
+    },
+    "60days": {
+      "label": "Last 60 Days (Jan 16 - Mar 16)",
+      "dateRange": "2026-01-16 - 2026-03-16",
+      "days": 60,
+      "sent": 53141,
+      "opened": 260,
+      "replied": 417,
+      "positive": 82,
+      "bounced": 541,
+      "openRate": 0.49,
+      "replyRate": 0.78,
+      "positiveReplyRate": 19.66,
+      "bounceRate": 1.02,
+      "avgSentPerDay": 886
+    }
+  },
+  "analysis": {
+    "emailVelocity": {
+      "daily": 886,
+      "weekly": 6200,
+      "monthly": 26600
+    },
+    "replyTrends": {
+      "total60d": 417,
+      "avgPerDay": 6.95,
+      "positiveRate": 19.66
+    },
+    "bounceTrends": {
+      "total60d": 541,
+      "bounceRate60d": 1.02,
+      "bounceRate30d": 2.40,
+      "bounceRate7d": 0.82,
+      "trend": "bounce rate improving over recent 7 days"
+    },
+    "insights": [
+      "Sending ~886 emails/day average over 60 days",
+      "Reply rate improving: 1.68% (30d) vs 1.02% (14d) vs 0.55% (7d) - recent dip likely noise",
+      "Positive reply rate stable at ~15-20%",
+      "Bounce rate spiked in 30-day window (2.40%) but improved recently (0.82% in 7d)",
+      "Open tracking appears unreliable (very low rates suggest tracking pixel issues)"
+    ]
+  }
+}

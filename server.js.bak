@@ -1,0 +1,2586 @@
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const compression = require('compression');
+
+// Catch uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('[FATAL] Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[FATAL] Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+// Graceful shutdown handler
+process.on('SIGTERM', () => {
+  console.log('[SHUTDOWN] Received SIGTERM, shutting down gracefully...');
+  process.exit(0);
+});
+process.on('SIGINT', () => {
+  console.log('[SHUTDOWN] Received SIGINT, shutting down gracefully...');
+  process.exit(0);
+});
+
+const app = express();
+const PORT = 3456;
+const BIND_HOST = process.env.BIND_HOST || '127.0.0.1'; // Security: default to localhost only
+const DASHBOARD_API_KEY = process.env.DASHBOARD_API_KEY; // Optional API key protection
+const API_KEY = process.env.SMARTLEAD_API_KEY;
+const BASE_URL = 'https://server.smartlead.ai/api/v1';
+const {
+  getDomainHistory,
+  getAggregateHistory,
+  getAllDomainsTrend,
+  getAllCampaignsTrend
+} = require('./lib/supabase');
+
+// Security: Restrict CORS to localhost in production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['http://localhost:3456', 'http://127.0.0.1:3456']
+    : true,
+  credentials: true
+};
+app.use(cors(corsOptions));
+
+// Compression for better performance
+try {
+  app.use(compression());
+} catch (e) {
+  console.log('[WARN] compression module not installed, skipping');
+}
+
+// Optional API key authentication middleware
+const apiKeyAuth = (req, res, next) => {
+  // Skip auth for static files and if no API key configured
+  if (!DASHBOARD_API_KEY || req.path.endsWith('.html') || req.path.endsWith('.css') || req.path.endsWith('.js') || req.path === '/') {
+    return next();
+  }
+  
+  const providedKey = req.headers['x-api-key'] || req.query.api_key;
+  if (providedKey !== DASHBOARD_API_KEY) {
+    console.log(`[AUTH] Unauthorized access attempt to ${req.path}`);
+    return res.status(401).json({ error: 'Unauthorized - API key required' });
+  }
+  next();
+};
+
+// Rate limiting (simple in-memory)
+const rateLimit = {};
+const rateLimitMiddleware = (req, res, next) => {
+  const ip = req.ip || req.connection.remoteAddress;
+  const now = Date.now();
+  const windowMs = 60 * 1000; // 1 minute window
+  const maxRequests = 100; // 100 requests per minute
+  
+  if (!rateLimit[ip]) {
+    rateLimit[ip] = { count: 1, resetAt: now + windowMs };
+  } else if (now > rateLimit[ip].resetAt) {
+    rateLimit[ip] = { count: 1, resetAt: now + windowMs };
+  } else {
+    rateLimit[ip].count++;
+  }
+  
+  if (rateLimit[ip].count > maxRequests) {
+    return res.status(429).json({ error: 'Too many requests, please slow down' });
+  }
+  next();
+};
+
+// Clean up rate limit cache every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const ip of Object.keys(rateLimit)) {
+    if (now > rateLimit[ip].resetAt) delete rateLimit[ip];
+  }
+}, 5 * 60 * 1000);
+
+app.use(require('./request-logger'));
+app.use(express.json());
+app.use(rateLimitMiddleware);
+app.use('/api', apiKeyAuth); // Protect API routes
+app.use(express.static('public', {
+  maxAge: '1h', // Cache static files for 1 hour
+  etag: true
+}));
+
+// ===========================================
+// CACHING LAYER (5-10 min TTL)
+// ===========================================
+const cache = {
+  data: {},
+  set(key, value, ttlMs = 5 * 60 * 1000) {
+    this.data[key] = {
+      value,
+      expiresAt: Date.now() + ttlMs,
+      cachedAt: Date.now()
+    };
+    console.log(`[CACHE] SET ${key} (TTL: ${ttlMs/1000}s)`);
+  },
+  get(key) {
+    const entry = this.data[key];
+    if (!entry) return null;
+    if (Date.now() > entry.expiresAt) {
+      console.log(`[CACHE] EXPIRED ${key}`);
+      delete this.data[key];
+      return null;
+    }
+    console.log(`[CACHE] HIT ${key} (age: ${Math.round((Date.now() - entry.cachedAt)/1000)}s)`);
+    return entry.value;
+  },
+  clear() {
+    this.data = {};
+    console.log('[CACHE] CLEARED');
+  },
+  stats() {
+    const keys = Object.keys(this.data);
+    const valid = keys.filter(k => Date.now() < this.data[k].expiresAt);
+    return { total: keys.length, valid: valid.length, keys: valid };
+  }
+};
+
+// Helper: format date as YYYY-MM-DD
+function formatDate(date) {
+  return date.toISOString().split('T')[0];
+}
+
+// Helper: get date ranges
+function getDateRanges() {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  return {
+    today: {
+      start: formatDate(today),
+      end: formatDate(today)
+    },
+    yesterday: {
+      start: formatDate(new Date(today - 24 * 60 * 60 * 1000)),
+      end: formatDate(new Date(today - 24 * 60 * 60 * 1000))
+    },
+    thisWeek: {
+      start: formatDate(new Date(today - 6 * 24 * 60 * 60 * 1000)),
+      end: formatDate(today)
+    },
+    lastWeek: {
+      start: formatDate(new Date(today - 13 * 24 * 60 * 60 * 1000)),
+      end: formatDate(new Date(today - 7 * 24 * 60 * 60 * 1000))
+    },
+    thisMonth: {
+      start: formatDate(new Date(today - 29 * 24 * 60 * 60 * 1000)),
+      end: formatDate(today)
+    },
+    lastMonth: {
+      start: formatDate(new Date(today - 59 * 24 * 60 * 60 * 1000)),
+      end: formatDate(new Date(today - 30 * 24 * 60 * 60 * 1000))
+    }
+  };
+}
+
+// API request helper with retry
+async function apiRequest(endpoint, retries = 3) {
+  const url = `${BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}`;
+  
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url);
+      if (res.status === 502 || res.status === 503 || res.status === 429) {
+        console.log(`API ${res.status}, retry ${attempt}/${retries}...`);
+        await new Promise(r => setTimeout(r, 2000 * attempt));
+        continue;
+      }
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`API ${res.status}: ${text.substring(0, 100)}`);
+      }
+      return res.json();
+    } catch (e) {
+      if (attempt === retries) throw e;
+      console.log(`Request failed, retry ${attempt}/${retries}:`, e.message);
+      await new Promise(r => setTimeout(r, 2000 * attempt));
+    }
+  }
+}
+
+// CORE: Get overall stats from SmartLead analytics API (with cache)
+async function getOverallStats(startDate, endDate) {
+  const cacheKey = `overall_${startDate}_${endDate}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  const data = await apiRequest(`/analytics/overall-stats-v2?start_date=${startDate}&end_date=${endDate}`);
+  if (!data.success || !data.data?.overall_stats) {
+    throw new Error('Invalid response from overall-stats-v2');
+  }
+  
+  cache.set(cacheKey, data.data.overall_stats, 5 * 60 * 1000); // 5 min
+  return data.data.overall_stats;
+}
+
+// CORE: Get day-wise stats for trends (with cache)
+async function getDayWiseStats(startDate, endDate) {
+  const cacheKey = `daywise_${startDate}_${endDate}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  const data = await apiRequest(`/analytics/day-wise-overall-stats?start_date=${startDate}&end_date=${endDate}`);
+  // Extract the array from nested response
+  const result = data?.data?.day_wise_stats || data?.day_wise_stats || data || [];
+  cache.set(cacheKey, result, 5 * 60 * 1000);
+  return result;
+}
+
+// CORE: Get day-wise POSITIVE reply stats (with cache)
+async function getDayWisePositiveReplyStats(startDate, endDate) {
+  const cacheKey = `daywise_positive_${startDate}_${endDate}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  try {
+    const response = await apiRequest(`/analytics/day-wise-positive-reply-stats?start_date=${startDate}&end_date=${endDate}`);
+    // SmartLead returns { data: { day_wise_stats: [...] } }
+    const dayWiseStats = response?.data?.day_wise_stats || response?.day_wise_stats || response || [];
+    // Normalize to array with date and positive_reply_count
+    const normalized = Array.isArray(dayWiseStats) ? dayWiseStats.map(day => ({
+      date: day.date,
+      positive_reply_count: parseInt(day.email_engagement_metrics?.positive_replied) || 0
+    })) : [];
+    cache.set(cacheKey, normalized, 5 * 60 * 1000);
+    return normalized;
+  } catch (e) {
+    console.log('Day-wise positive reply stats failed:', e.message);
+    return [];
+  }
+}
+
+// Get all campaigns (with cache)
+async function getAllCampaigns() {
+  const cacheKey = 'campaigns_all';
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  const campaigns = await apiRequest('/campaigns/');
+  const filtered = campaigns.filter(c => c.status === 'ACTIVE' && !c.parent_campaign_id);
+  cache.set(cacheKey, filtered, 10 * 60 * 1000); // 10 min
+  return filtered;
+}
+
+// Get campaign analytics (with cache)
+async function getCampaignAnalytics(campaignId) {
+  const cacheKey = `campaign_analytics_${campaignId}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  try {
+    const data = await apiRequest(`/campaigns/${campaignId}/analytics`);
+    const leadStats = data.campaign_lead_stats || {};
+    
+    // CRITICAL: Use campaign_lead_stats.total for leads, NOT total_count!
+    // total_count includes all email records, campaign_lead_stats.total is actual leads
+    const leads = parseInt(leadStats.total) || 0;
+    const sent = parseInt(data.sent_count) || 0;
+    const uniqueSent = parseInt(data.unique_sent_count) || 0;
+    const replied = parseInt(data.reply_count) || 0;
+    const interested = parseInt(leadStats.interested) || 0;
+    const bounced = parseInt(data.bounce_count) || 0;
+    const sequenceCount = parseInt(data.sequence_count) || 1;
+    
+    // Lead status counts from campaign_lead_stats (correct source!)
+    const completed = parseInt(leadStats.completed) || 0;
+    const inProgress = parseInt(leadStats.inprogress) || 0;
+    const notStarted = parseInt(leadStats.notStarted) || 0;
+    const blocked = parseInt(leadStats.blocked) || 0;
+    const paused = parseInt(leadStats.paused) || 0;
+    const stopped = parseInt(leadStats.stopped) || 0;
+    
+    // FIXED: Completion rate = emails sent / (sequence_count × total_leads)
+    // This matches SmartLead's UI calculation
+    const maxPossibleEmails = sequenceCount * leads;
+    const completionRate = maxPossibleEmails > 0 ? (sent / maxPossibleEmails * 100) : 0;
+    const pendingRate = leads > 0 ? (inProgress / leads * 100) : 0;
+    
+    // FIXED: Reply rate = replies / unique_sent (leads actually contacted)
+    // This matches SmartLead's displayed reply rate
+    const replyRate = uniqueSent > 0 ? (replied / uniqueSent * 100) : 0;
+    
+    const result = {
+      sent,
+      uniqueSent,
+      opened: parseInt(data.open_count) || 0,
+      uniqueOpened: parseInt(data.unique_open_count) || 0,
+      replied,
+      bounced,
+      totalLeads: leads,
+      sequenceCount,
+      // Lead status breakdown (from campaign_lead_stats)
+      completed,
+      inProgress,
+      notStarted,
+      blocked,
+      paused,
+      stopped,
+      // Reply categories
+      interested,
+      notInterested: parseInt(leadStats.not_interested) || 0,
+      outOfOffice: parseInt(leadStats.out_of_office) || 0,
+      wrongPerson: parseInt(leadStats.wrong_person) || 0,
+      // COMPLETION & PENDING RATES (FIXED!)
+      completionRate,
+      pendingRate,
+      // Pre-calculated rates (FIXED!)
+      replyRate,
+      positiveReplyRate: replied > 0 ? (interested / replied * 100) : 0,
+      bounceRate: uniqueSent > 0 ? (bounced / uniqueSent * 100) : 0,
+      // Raw data for verification
+      _raw: data
+    };
+    
+    cache.set(cacheKey, result, 5 * 60 * 1000);
+    return result;
+  } catch (e) {
+    console.log(`Analytics failed for campaign ${campaignId}:`, e.message);
+    return null;
+  }
+}
+
+// Get email accounts for warmup stats (with cache)
+async function getEmailAccounts() {
+  const cacheKey = 'email_accounts';
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  let allAccounts = [];
+  let offset = 0;
+  while (true) {
+    const accounts = await apiRequest(`/email-accounts/?offset=${offset}&limit=100`);
+    if (!accounts || accounts.length === 0) break;
+    allAccounts = allAccounts.concat(accounts);
+    if (accounts.length < 100) break;
+    offset += 100;
+  }
+  
+  cache.set(cacheKey, allAccounts, 10 * 60 * 1000); // 10 min
+  return allAccounts;
+}
+
+// Get mailbox statistics for a campaign (with cache)
+async function getCampaignMailboxStats(campaignId) {
+  const cacheKey = `mailbox_stats_${campaignId}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  try {
+    const response = await apiRequest(`/campaigns/${campaignId}/mailbox-statistics`);
+    // API returns {ok: true, data: [...]} format
+    const data = response?.data || response || [];
+    cache.set(cacheKey, data, 10 * 60 * 1000); // 10 min
+    return data;
+  } catch (e) {
+    console.log(`Mailbox stats failed for campaign ${campaignId}:`, e.message);
+    return [];
+  }
+}
+
+// Get all mailbox statistics across all active campaigns, aggregated by domain
+async function getAggregatedMailboxStats() {
+  const cacheKey = 'aggregated_mailbox_stats';
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  console.log('[MAILBOX-STATS] Fetching mailbox statistics for all campaigns...');
+  const campaigns = await getAllCampaigns();
+  
+  // Aggregate by domain
+  const domainStats = {};
+  // Also track per-email performance
+  const emailStats = {};
+  
+  // Fetch mailbox stats for each campaign (with rate limiting)
+  for (let i = 0; i < campaigns.length; i++) {
+    const campaign = campaigns[i];
+    console.log(`[MAILBOX-STATS] Processing ${i + 1}/${campaigns.length}: ${campaign.name}`);
+    
+    const stats = await getCampaignMailboxStats(campaign.id);
+    
+    for (const stat of stats) {
+      const email = stat.from_email;
+      if (!email) continue;
+      
+      const domain = email.split('@')[1] || 'unknown';
+      
+      // Initialize domain if needed
+      if (!domainStats[domain]) {
+        domainStats[domain] = {
+          domain,
+          sent: 0,
+          replies: 0,
+          bounced: 0,
+          opened: 0,
+          clicked: 0,
+          unsubscribed: 0
+        };
+      }
+      
+      // Initialize email if needed
+      if (!emailStats[email]) {
+        emailStats[email] = {
+          email,
+          domain,
+          sent: 0,
+          replies: 0,
+          bounced: 0,
+          opened: 0,
+          clicked: 0,
+          unsubscribed: 0,
+          campaigns: []
+        };
+      }
+      
+      // Aggregate domain stats
+      domainStats[domain].sent += parseInt(stat.sent_count) || 0;
+      domainStats[domain].replies += parseInt(stat.reply_count) || 0;
+      domainStats[domain].bounced += parseInt(stat.bounce_count) || 0;
+      domainStats[domain].opened += parseInt(stat.open_count) || 0;
+      domainStats[domain].clicked += parseInt(stat.click_count) || 0;
+      domainStats[domain].unsubscribed += parseInt(stat.unsubscribed_count) || 0;
+      
+      // Aggregate email stats
+      emailStats[email].sent += parseInt(stat.sent_count) || 0;
+      emailStats[email].replies += parseInt(stat.reply_count) || 0;
+      emailStats[email].bounced += parseInt(stat.bounce_count) || 0;
+      emailStats[email].opened += parseInt(stat.open_count) || 0;
+      emailStats[email].clicked += parseInt(stat.click_count) || 0;
+      emailStats[email].unsubscribed += parseInt(stat.unsubscribed_count) || 0;
+      emailStats[email].campaigns.push({
+        id: campaign.id,
+        name: campaign.name,
+        sent: parseInt(stat.sent_count) || 0,
+        replies: parseInt(stat.reply_count) || 0,
+        bounced: parseInt(stat.bounce_count) || 0
+      });
+    }
+    
+    // Small delay between campaigns to avoid rate limiting
+    if (i < campaigns.length - 1) {
+      await new Promise(r => setTimeout(r, 100));
+    }
+  }
+  
+  // Calculate rates for domains
+  for (const domain of Object.keys(domainStats)) {
+    const d = domainStats[domain];
+    d.replyRate = d.sent > 0 ? (d.replies / d.sent * 100) : 0;
+    d.bounceRate = d.sent > 0 ? (d.bounced / d.sent * 100) : 0;
+    d.openRate = d.sent > 0 ? (d.opened / d.sent * 100) : 0;
+  }
+  
+  // Calculate rates for emails
+  for (const email of Object.keys(emailStats)) {
+    const e = emailStats[email];
+    e.replyRate = e.sent > 0 ? (e.replies / e.sent * 100) : 0;
+    e.bounceRate = e.sent > 0 ? (e.bounced / e.sent * 100) : 0;
+    e.openRate = e.sent > 0 ? (e.opened / e.sent * 100) : 0;
+  }
+  
+  const result = { domainStats, emailStats };
+  cache.set(cacheKey, result, 10 * 60 * 1000); // 10 min
+  console.log(`[MAILBOX-STATS] Aggregated ${Object.keys(domainStats).length} domains, ${Object.keys(emailStats).length} email accounts`);
+  return result;
+}
+
+// ===========================================
+// API ROUTES
+// ===========================================
+
+// Main dashboard data - with caching
+app.get('/api/dashboard', async (req, res) => {
+  const startTime = Date.now();
+  const forceRefresh = req.query.force === 'true';
+  
+  if (forceRefresh) {
+    cache.clear();
+    console.log('[DASHBOARD] Force refresh requested');
+  }
+  
+  // Check if we have cached dashboard
+  const cachedDashboard = cache.get('dashboard_full');
+  if (cachedDashboard && !forceRefresh) {
+    console.log(`[DASHBOARD] Served from cache in ${Date.now() - startTime}ms`);
+    return res.json({
+      ...cachedDashboard,
+      _fromCache: true,
+      _cacheAge: Math.round((Date.now() - cache.data['dashboard_full'].cachedAt) / 1000)
+    });
+  }
+  
+  try {
+    const ranges = getDateRanges();
+    console.log('[DASHBOARD] Fetching fresh data...');
+    
+    const emptyStats = { sent: 0, opened: 0, replied: 0, bounced: 0 };
+    
+    // Fetch all period stats in parallel where possible
+    const [
+      todayStats,
+      yesterdayStats,
+      thisWeekStats,
+      lastWeekStats,
+      thisMonthStats,
+      lastMonthStats,
+      campaigns
+    ] = await Promise.all([
+      getOverallStats(ranges.today.start, ranges.today.end).catch(() => emptyStats),
+      getOverallStats(ranges.yesterday.start, ranges.yesterday.end).catch(() => emptyStats),
+      getOverallStats(ranges.thisWeek.start, ranges.thisWeek.end).catch(() => emptyStats),
+      getOverallStats(ranges.lastWeek.start, ranges.lastWeek.end).catch(() => emptyStats),
+      getOverallStats(ranges.thisMonth.start, ranges.thisMonth.end).catch(() => emptyStats),
+      getOverallStats(ranges.lastMonth.start, ranges.lastMonth.end).catch(() => emptyStats),
+      getAllCampaigns()
+    ]);
+    
+    // Fetch day-wise positive reply stats
+    const positiveReplyStats = await getDayWisePositiveReplyStats(
+      ranges.thisMonth.start, 
+      ranges.thisMonth.end
+    ).catch(() => []);
+    
+    // Aggregate positive reply stats by period
+    const aggregatePositiveStats = (stats, startDate, endDate) => {
+      if (!Array.isArray(stats)) return { interested: 0, total: 0 };
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      return stats
+        .filter(s => {
+          const d = new Date(s.date);
+          return d >= start && d <= end;
+        })
+        .reduce((acc, s) => ({
+          interested: acc.interested + (parseInt(s.positive_reply_count) || 0),
+          total: acc.total + 1
+        }), { interested: 0, total: 0 });
+    };
+    
+    // Fetch campaign details
+    const campaignDetails = [];
+    console.log(`[DASHBOARD] Fetching details for ${campaigns.length} campaigns...`);
+    
+    // Fetch campaigns in batches of 5 with delay
+    for (let i = 0; i < campaigns.length; i += 5) {
+      const batch = campaigns.slice(i, i + 5);
+      const batchResults = await Promise.all(
+        batch.map(c => getCampaignAnalytics(c.id))
+      );
+      
+      for (let j = 0; j < batch.length; j++) {
+        const campaign = batch[j];
+        const analytics = batchResults[j];
+        
+        if (analytics) {
+          const leads = analytics.totalLeads;
+          const uniqueSent = analytics.uniqueSent;
+          const replied = analytics.replied;
+          const interested = analytics.interested;
+          const bounced = analytics.bounced;
+          
+          // Calculate rates using uniqueSent (contacted leads) for accuracy
+          const replyRate = uniqueSent > 0 ? (replied / uniqueSent * 100) : 0;
+          const bounceRate = uniqueSent > 0 ? (bounced / uniqueSent * 100) : 0;
+          const positiveReplyRate = replied > 0 ? (interested / replied * 100) : 0;
+          
+          // Warning flag for high bounce (>2.5%)
+          const hasHighBounce = bounceRate > 2.5;
+          
+          // Color coding for positive rate: green >20%, yellow 10-20%, red <10%
+          const positiveRateColor = positiveReplyRate >= 20 ? 'green' : 
+                                    positiveReplyRate >= 10 ? 'yellow' : 'red';
+          
+          campaignDetails.push({
+            id: campaign.id,
+            name: campaign.name,
+            status: campaign.status,
+            createdAt: campaign.created_at || null, // Add created date
+            leads,
+            sent: analytics.sent,
+            uniqueSent,
+            replied,
+            bounced,
+            // Lead status breakdown
+            completed: analytics.completed,
+            inProgress: analytics.inProgress,
+            notStarted: analytics.notStarted,
+            blocked: analytics.blocked,
+            paused: analytics.paused,
+            stopped: analytics.stopped,
+            // COMPLETION RATE (FIXED: sent / (seqCount × leads))
+            completionRate: analytics.completionRate?.toFixed(1) || '0.0',
+            pendingRate: analytics.pendingRate?.toFixed(1) || '0.0',
+            // Reply categories
+            interested,
+            notInterested: analytics.notInterested,
+            outOfOffice: analytics.outOfOffice,
+            wrongPerson: analytics.wrongPerson,
+            // Rates (FIXED: using uniqueSent)
+            replyRate: replyRate.toFixed(2),
+            positiveReplyRate: positiveReplyRate.toFixed(2),
+            bounceRate: bounceRate.toFixed(2),
+            // UI flags
+            hasHighBounce,
+            positiveRateColor
+          });
+        }
+      }
+      
+      if (i + 5 < campaigns.length) {
+        await new Promise(r => setTimeout(r, 200));
+      }
+    }
+
+    // Calculate totals from campaigns
+    const totalLeads = campaignDetails.reduce((sum, c) => sum + c.leads, 0);
+    const totalReplies = campaignDetails.reduce((sum, c) => sum + c.replied, 0);
+    const totalInterested = campaignDetails.reduce((sum, c) => sum + c.interested, 0);
+    const totalNotInterested = campaignDetails.reduce((sum, c) => sum + c.notInterested, 0);
+    const totalOutOfOffice = campaignDetails.reduce((sum, c) => sum + c.outOfOffice, 0);
+    const totalWrongPerson = campaignDetails.reduce((sum, c) => sum + c.wrongPerson, 0);
+    const totalSent = campaignDetails.reduce((sum, c) => sum + c.sent, 0);
+    const totalBounced = campaignDetails.reduce((sum, c) => sum + c.bounced, 0);
+
+    // Sort campaigns by different criteria
+    const bestByPositiveRate = [...campaignDetails]
+      .filter(c => c.leads >= 10) // Minimum leads for meaningful rate
+      .sort((a, b) => parseFloat(b.positiveReplyRate) - parseFloat(a.positiveReplyRate));
+    
+    const worstByPositiveRate = [...campaignDetails]
+      .filter(c => c.leads >= 10)
+      .sort((a, b) => parseFloat(a.positiveReplyRate) - parseFloat(b.positiveReplyRate));
+    
+    const highestBounce = [...campaignDetails]
+      .filter(c => c.sent >= 100)
+      .sort((a, b) => parseFloat(b.bounceRate) - parseFloat(a.bounceRate));
+
+    const calcChange = (current, previous) => {
+      if (previous === 0) return current > 0 ? 100 : 0;
+      return ((current - previous) / previous * 100).toFixed(1);
+    };
+
+    const response = {
+      fetchedAt: new Date().toISOString(),
+      loadTimeMs: Date.now() - startTime,
+      ranges,
+      
+      // Daily comparison
+      daily: {
+        today: { ...todayStats, label: 'Today' },
+        yesterday: { ...yesterdayStats, label: 'Yesterday' },
+        change: {
+          sent: todayStats.sent - yesterdayStats.sent,
+          replied: todayStats.replied - yesterdayStats.replied,
+          sentPct: calcChange(todayStats.sent, yesterdayStats.sent),
+          repliedPct: calcChange(todayStats.replied, yesterdayStats.replied)
+        }
+      },
+      
+      // Weekly comparison
+      weekly: {
+        thisWeek: { ...thisWeekStats, label: 'This Week (7d)' },
+        lastWeek: { ...lastWeekStats, label: 'Last Week' },
+        change: {
+          sent: thisWeekStats.sent - lastWeekStats.sent,
+          replied: thisWeekStats.replied - lastWeekStats.replied,
+          sentPct: calcChange(thisWeekStats.sent, lastWeekStats.sent),
+          repliedPct: calcChange(thisWeekStats.replied, lastWeekStats.replied)
+        }
+      },
+      
+      // Monthly comparison  
+      monthly: {
+        thisMonth: { ...thisMonthStats, label: 'This Month (30d)' },
+        lastMonth: { ...lastMonthStats, label: 'Last Month' },
+        change: {
+          sent: thisMonthStats.sent - lastMonthStats.sent,
+          replied: thisMonthStats.replied - lastMonthStats.replied,
+          sentPct: calcChange(thisMonthStats.sent, lastMonthStats.sent),
+          repliedPct: calcChange(thisMonthStats.replied, lastMonthStats.replied)
+        }
+      },
+      
+      // Lead-based metrics (THE CORRECT WAY)
+      leadMetrics: {
+        totalLeads,
+        totalCampaigns: campaigns.length,
+        totalReplies,
+        totalInterested,
+        totalSent,
+        totalBounced,
+        // FIXED rates:
+        // Reply Rate = replies / leads
+        replyRate: totalLeads > 0 ? (totalReplies / totalLeads * 100).toFixed(2) : '0.00',
+        // Positive Reply Rate = interested / replies (NOT interested / leads!)
+        positiveReplyRate: totalReplies > 0 ? (totalInterested / totalReplies * 100).toFixed(2) : '0.00',
+        // Bounce Rate = bounced / leads
+        bounceRate: totalLeads > 0 ? (totalBounced / totalLeads * 100).toFixed(2) : '0.00',
+        emailsPerLead: totalLeads > 0 ? (totalSent / totalLeads).toFixed(1) : '0'
+      },
+      
+      // Reply breakdown by category (from SmartLead campaign stats - limited)
+      // NOTE: SmartLead only provides "interested" count, not full breakdown
+      // For accurate breakdown, use /api/replies/summary which queries Supabase
+      replyBreakdown: {
+        interested: totalInterested,
+        notInterested: totalNotInterested,
+        outOfOffice: totalOutOfOffice,
+        wrongPerson: totalWrongPerson,
+        total: totalReplies,
+        _note: "SmartLead API only provides 'interested' count. Use /api/replies/summary for full breakdown."
+      },
+      
+      // Best/worst performers
+      insights: {
+        bestCampaigns: bestByPositiveRate.slice(0, 5).map(c => ({
+          name: c.name,
+          leads: c.leads,
+          interested: c.interested,
+          positiveReplyRate: c.positiveReplyRate
+        })),
+        worstCampaigns: worstByPositiveRate.slice(0, 5).map(c => ({
+          name: c.name,
+          leads: c.leads,
+          interested: c.interested,
+          positiveReplyRate: c.positiveReplyRate,
+          issue: parseFloat(c.bounceRate) > 5 ? 'High bounce rate' : 
+                 c.replied === 0 ? 'Zero replies' : 'Low positive rate'
+        })),
+        highBounce: highestBounce.slice(0, 3).map(c => ({
+          name: c.name,
+          sent: c.sent,
+          bounced: c.bounced,
+          bounceRate: c.bounceRate
+        }))
+      },
+      
+      // All campaigns: sorted by created_at (newest first) - matches SmartLead UI
+      campaigns: campaignDetails.sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateB - dateA;
+      })
+    };
+    
+    // Cache the full response for 5 minutes
+    cache.set('dashboard_full', response, 5 * 60 * 1000);
+    
+    console.log(`[DASHBOARD] Built in ${Date.now() - startTime}ms`);
+    res.json(response);
+    
+  } catch (error) {
+    console.error('Dashboard error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ===========================================
+// DASHBOARD SUMMARY (Quick cached version)
+// ===========================================
+app.get('/api/dashboard-summary', async (req, res) => {
+  try {
+    // Return cached dashboard if available
+    const cachedDashboard = cache.get('dashboard_full');
+    if (cachedDashboard) {
+      return res.json({
+        totalLeads: cachedDashboard.leadMetrics?.totalLeads || 0,
+        totalReplies: cachedDashboard.leadMetrics?.totalReplies || 0,
+        totalInterested: cachedDashboard.leadMetrics?.totalInterested || 0,
+        replyRate: cachedDashboard.leadMetrics?.replyRate || '0',
+        positiveReplyRate: cachedDashboard.leadMetrics?.positiveReplyRate || '0',
+        campaigns: cachedDashboard.campaigns?.length || 0,
+        daily: cachedDashboard.daily || {},
+        weekly: cachedDashboard.weekly || {},
+        _fromCache: true,
+        _cacheAge: Math.round((Date.now() - cache.data['dashboard_full'].cachedAt) / 1000)
+      });
+    }
+    
+    // If no cache, return minimal data
+    res.json({
+      totalLeads: 0,
+      totalReplies: 0,
+      totalInterested: 0,
+      replyRate: '0',
+      positiveReplyRate: '0',
+      campaigns: 0,
+      _fromCache: false,
+      _note: 'Load /api/dashboard first to populate cache'
+    });
+  } catch (error) {
+    console.error('Dashboard summary error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ===========================================
+// VERIFICATION ENDPOINT
+// ===========================================
+app.get('/api/verify', async (req, res) => {
+  try {
+    console.log('[VERIFY] Starting verification against SmartLead raw API...');
+    const ranges = getDateRanges();
+    const discrepancies = [];
+    
+    // 1. Get fresh data from SmartLead (bypass cache)
+    const freshMonthStats = await apiRequest(
+      `/analytics/overall-stats-v2?start_date=${ranges.thisMonth.start}&end_date=${ranges.thisMonth.end}`
+    );
+    
+    // 2. Get our cached/computed values
+    const dashboardData = cache.get('dashboard_full');
+    
+    if (!dashboardData) {
+      return res.json({
+        status: 'no_cache',
+        message: 'Dashboard not loaded yet. Load it first, then verify.',
+        verifiedAt: new Date().toISOString()
+      });
+    }
+    
+    // 3. Compare
+    const smartleadMonthly = freshMonthStats.data?.overall_stats || {};
+    const ourMonthly = dashboardData.monthly?.thisMonth || {};
+    
+    const checks = [
+      { metric: 'Monthly Sent', smartlead: smartleadMonthly.sent, ours: ourMonthly.sent },
+      { metric: 'Monthly Opened', smartlead: smartleadMonthly.opened, ours: ourMonthly.opened },
+      { metric: 'Monthly Replied', smartlead: smartleadMonthly.replied, ours: ourMonthly.replied },
+      { metric: 'Monthly Bounced', smartlead: smartleadMonthly.bounced, ours: ourMonthly.bounced }
+    ];
+    
+    for (const check of checks) {
+      const match = check.smartlead === check.ours;
+      if (!match) {
+        discrepancies.push({
+          metric: check.metric,
+          smartlead: check.smartlead,
+          dashboard: check.ours,
+          diff: check.smartlead - check.ours
+        });
+      }
+    }
+    
+    // 4. Verify a sample campaign
+    const campaigns = await getAllCampaigns();
+    if (campaigns.length > 0) {
+      const sampleCampaign = campaigns[0];
+      const freshCampaignData = await apiRequest(`/campaigns/${sampleCampaign.id}/analytics`);
+      const ourCampaignData = dashboardData.campaigns?.find(c => c.id === sampleCampaign.id);
+      
+      if (ourCampaignData && freshCampaignData) {
+        const campaignChecks = [
+          { 
+            metric: `Campaign "${sampleCampaign.name}" - Sent`, 
+            smartlead: parseInt(freshCampaignData.sent_count) || 0, 
+            ours: ourCampaignData.sent 
+          },
+          { 
+            metric: `Campaign "${sampleCampaign.name}" - Replies`, 
+            smartlead: parseInt(freshCampaignData.reply_count) || 0, 
+            ours: ourCampaignData.replied 
+          },
+          { 
+            metric: `Campaign "${sampleCampaign.name}" - Leads`, 
+            // FIXED: Use campaign_lead_stats.total for leads, NOT total_count!
+            smartlead: parseInt(freshCampaignData.campaign_lead_stats?.total) || 0, 
+            ours: ourCampaignData.leads 
+          },
+          { 
+            metric: `Campaign "${sampleCampaign.name}" - Interested`, 
+            smartlead: parseInt(freshCampaignData.campaign_lead_stats?.interested) || 0, 
+            ours: ourCampaignData.interested 
+          },
+          { 
+            metric: `Campaign "${sampleCampaign.name}" - Bounced`, 
+            smartlead: parseInt(freshCampaignData.bounce_count) || 0, 
+            ours: ourCampaignData.bounced 
+          }
+        ];
+        
+        for (const check of campaignChecks) {
+          const match = check.smartlead === check.ours;
+          if (!match) {
+            discrepancies.push({
+              metric: check.metric,
+              smartlead: check.smartlead,
+              dashboard: check.ours,
+              diff: check.smartlead - check.ours
+            });
+          }
+        }
+      }
+    }
+    
+    const verified = discrepancies.length === 0;
+    
+    res.json({
+      status: verified ? 'verified' : 'discrepancies_found',
+      verified,
+      verifiedAt: new Date().toISOString(),
+      checksPerformed: checks.length + 4, // 4 campaign checks
+      discrepancies,
+      rawComparison: {
+        smartleadMonthly,
+        dashboardMonthly: ourMonthly
+      },
+      notes: verified ? 
+        'All numbers match SmartLead API exactly.' : 
+        'Some numbers differ. This could be due to cache timing - try force refresh.'
+    });
+    
+  } catch (error) {
+    console.error('Verify error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Day-wise trends
+app.get('/api/trends', async (req, res) => {
+  try {
+    const { days = 30 } = req.query;
+    const endDate = formatDate(new Date());
+    const startDate = formatDate(new Date(Date.now() - (parseInt(days) - 1) * 24 * 60 * 60 * 1000));
+    
+    console.log(`[TRENDS] Fetching ${days}-day trends`);
+    const [dayWise, positiveReply] = await Promise.all([
+      getDayWiseStats(startDate, endDate),
+      getDayWisePositiveReplyStats(startDate, endDate)
+    ]);
+    
+    // Build positive reply lookup
+    const positiveByDate = {};
+    if (Array.isArray(positiveReply)) {
+      for (const day of positiveReply) {
+        positiveByDate[day.date] = parseInt(day.positive_reply_count) || 0;
+      }
+    }
+    
+    // dayWise should now be an array directly from getDayWiseStats
+    const dayWiseArray = Array.isArray(dayWise) ? dayWise : [];
+    
+    // Transform to consistent format
+    const trends = dayWiseArray.map(day => ({
+      date: day.date, // Format like "27 Jan" from SmartLead
+      dayName: day.day_name,
+      sent: day.email_engagement_metrics?.sent || day.sent || 0,
+      opened: day.email_engagement_metrics?.opened || day.opened || 0,
+      replied: day.email_engagement_metrics?.replied || day.replied || 0,
+      bounced: day.email_engagement_metrics?.bounced || day.bounced || 0,
+      positiveReplies: positiveByDate[day.date] || 0
+    }));
+    
+    res.json({
+      period: { start: startDate, end: endDate, days: parseInt(days) },
+      data: trends,
+      _rawLength: dayWiseArray.length
+    });
+    
+  } catch (error) {
+    console.error('Trends error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Supabase historical trends
+app.get('/api/history/domains', async (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 30;
+    const result = await getAllDomainsTrend(days);
+    if (result.error) throw new Error(result.error);
+    res.json({ days, data: result.data || {} });
+  } catch (error) {
+    console.error('History domains error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/history/domain/:domain', async (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 30;
+    const domain = req.params.domain;
+    const result = await getDomainHistory(domain, days);
+    if (result.error) throw new Error(result.error);
+    res.json({ domain, days, data: result.data || [] });
+  } catch (error) {
+    console.error('History domain error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/history/aggregate', async (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 30;
+    const result = await getAggregateHistory(days);
+    if (result.error) throw new Error(result.error);
+    res.json({ days, data: result.data || [] });
+  } catch (error) {
+    console.error('History aggregate error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/history/campaigns', async (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 30;
+    const result = await getAllCampaignsTrend(days);
+    if (result.error) throw new Error(result.error);
+    res.json({ days, data: result.data || {} });
+  } catch (error) {
+    console.error('History campaigns error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Warmup stats with domain health - now merged with campaign mailbox statistics
+app.get('/api/warmup', async (req, res) => {
+  try {
+    const forceRefresh = req.query.force === 'true';
+    if (forceRefresh) {
+      cache.clear();
+      console.log('[WARMUP] Force refresh requested');
+    }
+    
+    // Fetch both warmup data AND mailbox statistics in parallel
+    const [allAccounts, mailboxStats] = await Promise.all([
+      getEmailAccounts(),
+      getAggregatedMailboxStats()
+    ]);
+    
+    const { domainStats, emailStats } = mailboxStats;
+    
+    // CAPACITY METRICS
+    const totalDailyCapacity = allAccounts.reduce((sum, a) => sum + (parseInt(a.message_per_day) || 0), 0);
+    const totalDailySent = allAccounts.reduce((sum, a) => sum + (parseInt(a.daily_sent_count) || 0), 0);
+    const dailyUtilization = totalDailyCapacity > 0 ? (totalDailySent / totalDailyCapacity * 100) : 0;
+    
+    // Summarize warmup health
+    const warmupSummary = {
+      totalAccounts: allAccounts.length,
+      active: allAccounts.filter(a => a.warmup_details?.status === 'ACTIVE').length,
+      paused: allAccounts.filter(a => a.warmup_details?.status === 'PAUSED').length,
+      disabled: allAccounts.filter(a => !a.warmup_details?.status || a.warmup_details?.status === 'DISABLED').length,
+      
+      // CAPACITY & UTILIZATION (NEW!)
+      capacity: {
+        dailyCapacity: totalDailyCapacity,
+        dailySent: totalDailySent,
+        dailyUtilization: dailyUtilization,
+        weeklyCapacity: totalDailyCapacity * 7,
+        monthlyCapacity: totalDailyCapacity * 30,
+        // Estimated based on typical 6-day work week
+        weeklyEstimate: Math.round(totalDailySent * 6),
+        monthlyEstimate: Math.round(totalDailySent * 26)
+      },
+      
+      byReputation: {
+        excellent: allAccounts.filter(a => parseInt(a.warmup_details?.warmup_reputation) >= 90).length,
+        good: allAccounts.filter(a => {
+          const rep = parseInt(a.warmup_details?.warmup_reputation);
+          return rep >= 70 && rep < 90;
+        }).length,
+        fair: allAccounts.filter(a => {
+          const rep = parseInt(a.warmup_details?.warmup_reputation);
+          return rep >= 50 && rep < 70;
+        }).length,
+        poor: allAccounts.filter(a => {
+          const rep = parseInt(a.warmup_details?.warmup_reputation);
+          return rep > 0 && rep < 50;
+        }).length,
+        unknown: allAccounts.filter(a => !a.warmup_details?.warmup_reputation).length
+      },
+      
+      // WARMUP HEALTH by reply_rate (NEW! - this is the REAL warmup metric)
+      byWarmupReplyRate: {
+        excellent: allAccounts.filter(a => parseInt(a.warmup_details?.reply_rate) >= 90).length,
+        good: allAccounts.filter(a => {
+          const rate = parseInt(a.warmup_details?.reply_rate);
+          return rate >= 70 && rate < 90;
+        }).length,
+        fair: allAccounts.filter(a => {
+          const rate = parseInt(a.warmup_details?.reply_rate);
+          return rate >= 50 && rate < 70;
+        }).length,
+        poor: allAccounts.filter(a => {
+          const rate = parseInt(a.warmup_details?.reply_rate);
+          return rate > 0 && rate < 50;
+        }).length,
+        unknown: allAccounts.filter(a => !a.warmup_details?.reply_rate && a.warmup_details?.reply_rate !== 0).length
+      },
+      
+      domains: {},
+      accountsByDomain: {}
+    };
+    
+    // Aggregate by domain and build account details
+    for (const acc of allAccounts) {
+      const email = acc.from_email;
+      const domain = email?.split('@')[1] || 'unknown';
+      if (!warmupSummary.domains[domain]) {
+        warmupSummary.domains[domain] = {
+          accounts: 0,
+          activeWarmup: 0,
+          avgReputation: 0,
+          reputations: [],
+          warmupReplyRates: [], // NEW: collect warmup reply rates
+          issues: [],
+          dailyCapacity: 0,
+          dailySent: 0
+        };
+        warmupSummary.accountsByDomain[domain] = [];
+      }
+      
+      warmupSummary.domains[domain].accounts++;
+      if (acc.warmup_details?.status === 'ACTIVE') {
+        warmupSummary.domains[domain].activeWarmup++;
+      }
+      
+      // Extract warmup stats - USE reply_rate, not total_sent_count!
+      const warmupRep = parseInt(acc.warmup_details?.warmup_reputation) || 0;
+      const warmupReplyRate = parseInt(acc.warmup_details?.reply_rate) || 0; // THIS is the real warmup metric
+      const dailyCapacity = parseInt(acc.message_per_day) || 0;
+      const dailySent = parseInt(acc.daily_sent_count) || 0;
+      
+      warmupSummary.domains[domain].dailyCapacity += dailyCapacity;
+      warmupSummary.domains[domain].dailySent += dailySent;
+      
+      if (warmupRep > 0) {
+        warmupSummary.domains[domain].reputations.push(warmupRep);
+        if (warmupRep < 50) {
+          warmupSummary.domains[domain].issues.push(`${acc.from_email}: low reputation (${warmupRep}%)`);
+        }
+      }
+      
+      // Collect warmup reply rates for averaging
+      if (warmupReplyRate > 0 || acc.warmup_details?.reply_rate === 0) {
+        warmupSummary.domains[domain].warmupReplyRates.push(warmupReplyRate);
+        if (warmupReplyRate < 50) {
+          warmupSummary.domains[domain].issues.push(`${acc.from_email}: low warmup reply rate (${warmupReplyRate}%)`);
+        }
+      }
+      
+      // Get campaign performance from mailbox stats
+      const emailPerf = emailStats[email] || { sent: 0, replies: 0, bounced: 0, replyRate: 0 };
+      
+      // Store individual account details for expandable rows
+      warmupSummary.accountsByDomain[domain].push({
+        email: acc.from_email,
+        warmupStatus: acc.warmup_details?.status || 'DISABLED',
+        warmupReputation: warmupRep,
+        warmupReplyRate: warmupReplyRate, // FIXED: actual warmup health metric
+        // Capacity & Utilization (NEW!)
+        dailyCapacity: dailyCapacity,
+        dailySent: dailySent,
+        utilization: dailyCapacity > 0 ? (dailySent / dailyCapacity * 100) : 0,
+        // Campaign stats from mailbox-statistics
+        sent: emailPerf.sent,
+        replies: emailPerf.replies,
+        bounced: emailPerf.bounced,
+        replyRate: emailPerf.replyRate,
+        bounceRate: emailPerf.bounceRate,
+        // campaigns breakdown for deep-dive
+        campaigns: emailPerf.campaigns || []
+      });
+    }
+    
+    // Calculate avg reputation per domain and merge with campaign stats
+    const domainHealth = [];
+    const dataIssues = []; // Track data anomalies for sanity checking
+    
+    for (const domain of Object.keys(warmupSummary.domains)) {
+      const domainData = warmupSummary.domains[domain];
+      const reps = domainData.reputations;
+      const warmupRates = domainData.warmupReplyRates;
+      
+      const avgRep = reps.length > 0 ? 
+        Math.round(reps.reduce((a, b) => a + b, 0) / reps.length) : 0;
+      const avgWarmupReplyRate = warmupRates.length > 0 ?
+        Math.round(warmupRates.reduce((a, b) => a + b, 0) / warmupRates.length) : 0;
+      
+      domainData.avgReputation = avgRep;
+      domainData.avgWarmupReplyRate = avgWarmupReplyRate;
+      
+      // Get campaign performance from aggregated mailbox stats
+      const domainPerf = domainStats[domain] || { sent: 0, replies: 0, bounced: 0, replyRate: 0, bounceRate: 0 };
+      
+      // Calculate utilization for this domain
+      const domainUtilization = domainData.dailyCapacity > 0 ? 
+        (domainData.dailySent / domainData.dailyCapacity * 100) : 0;
+      
+      // SANITY CHECKS - flag suspicious data
+      const flags = [];
+      
+      // Flag: Active accounts with high capacity but 0 total sent (might be unused)
+      if (domainData.activeWarmup > 0 && domainData.dailyCapacity > 100 && domainPerf.sent === 0) {
+        flags.push('NO_SENDS_BUT_ACTIVE');
+        dataIssues.push({
+          domain,
+          issue: 'Domain has active warmup accounts but 0 campaign sends',
+          severity: 'warning',
+          suggestion: 'Check if this domain is assigned to campaigns'
+        });
+      }
+      
+      // Flag: Has sends but zero replies (statistically unlikely if sent > 500)
+      if (domainPerf.sent > 500 && domainPerf.replies === 0) {
+        flags.push('ZERO_REPLIES_HIGH_VOLUME');
+        dataIssues.push({
+          domain,
+          issue: `Domain sent ${domainPerf.sent} emails but has 0 replies`,
+          severity: 'high',
+          suggestion: 'Verify reply tracking is working or check deliverability'
+        });
+      }
+      
+      // Flag: Very high bounce rate
+      if (domainPerf.sent > 100 && domainPerf.bounceRate > 5) {
+        flags.push('HIGH_BOUNCE_RATE');
+      }
+      
+      // Flag: Low warmup reply rate (warmup not working well)
+      if (avgWarmupReplyRate > 0 && avgWarmupReplyRate < 70) {
+        flags.push('LOW_WARMUP_RATE');
+        dataIssues.push({
+          domain,
+          issue: `Warmup reply rate is low (${avgWarmupReplyRate}%)`,
+          severity: 'medium',
+          suggestion: 'Warmup emails may be going to spam'
+        });
+      }
+      
+      domainHealth.push({
+        domain,
+        accounts: domainData.accounts,
+        activeWarmup: domainData.activeWarmup,
+        avgReputation: avgRep,
+        avgWarmupReplyRate: avgWarmupReplyRate, // FIXED: actual warmup metric
+        // Capacity & Utilization (NEW!)
+        dailyCapacity: domainData.dailyCapacity,
+        dailySent: domainData.dailySent,
+        utilization: domainUtilization,
+        weeklyCapacity: domainData.dailyCapacity * 7,
+        monthlyCapacity: domainData.dailyCapacity * 30,
+        // Issues & Flags
+        issues: domainData.issues.slice(0, 5),
+        flags: flags,
+        status: avgRep >= 70 ? 'healthy' : avgRep >= 50 ? 'warning' : avgRep > 0 ? 'critical' : 'unknown',
+        // Campaign stats from mailbox-statistics aggregated by domain
+        sent: domainPerf.sent,
+        replies: domainPerf.replies,
+        bounced: domainPerf.bounced,
+        replyRate: domainPerf.replyRate,
+        bounceRate: domainPerf.bounceRate,
+        opened: domainPerf.opened,
+        openRate: domainPerf.openRate
+      });
+      
+      delete domainData.reputations;
+      delete domainData.warmupReplyRates;
+    }
+    
+    // Sort by sent count (most active domains first), then by reputation
+    domainHealth.sort((a, b) => {
+      // Primary: sort by sent (most active first)
+      if (b.sent !== a.sent) return b.sent - a.sent;
+      // Secondary: sort by reputation (lowest first to highlight problems)
+      if (a.avgReputation === 0) return 1;
+      if (b.avgReputation === 0) return -1;
+      return a.avgReputation - b.avgReputation;
+    });
+    
+    warmupSummary.domainHealth = domainHealth;
+    
+    // Calculate totals from mailbox stats
+    const totalSent = domainHealth.reduce((sum, d) => sum + d.sent, 0);
+    const totalReplies = domainHealth.reduce((sum, d) => sum + d.replies, 0);
+    const totalBounced = domainHealth.reduce((sum, d) => sum + d.bounced, 0);
+    warmupSummary.campaignStats = {
+      totalSent,
+      totalReplies,
+      totalBounced,
+      overallReplyRate: totalSent > 0 ? (totalReplies / totalSent * 100) : 0,
+      overallBounceRate: totalSent > 0 ? (totalBounced / totalSent * 100) : 0
+    };
+    
+    // Identify bottlenecks
+    warmupSummary.bottlenecks = [];
+    if (warmupSummary.byReputation.poor > 0) {
+      warmupSummary.bottlenecks.push({
+        issue: `${warmupSummary.byReputation.poor} accounts with poor reputation (<50%)`,
+        severity: 'high',
+        action: 'Pause sending from these accounts until reputation improves'
+      });
+    }
+    if (warmupSummary.disabled > warmupSummary.active) {
+      warmupSummary.bottlenecks.push({
+        issue: 'More disabled than active warmup accounts',
+        severity: 'medium',
+        action: 'Enable warmup on more accounts to build sender reputation'
+      });
+    }
+    const criticalDomains = domainHealth.filter(d => d.status === 'critical');
+    if (criticalDomains.length > 0) {
+      warmupSummary.bottlenecks.push({
+        issue: `${criticalDomains.length} domains with critical reputation`,
+        severity: 'high',
+        domains: criticalDomains.map(d => d.domain),
+        action: 'These domains may be hurting deliverability'
+      });
+    }
+    // Identify high bounce rate domains
+    const highBounceDomains = domainHealth.filter(d => d.sent > 50 && d.bounceRate > 5);
+    if (highBounceDomains.length > 0) {
+      warmupSummary.bottlenecks.push({
+        issue: `${highBounceDomains.length} domains with high bounce rate (>5%)`,
+        severity: 'high',
+        domains: highBounceDomains.map(d => `${d.domain} (${d.bounceRate.toFixed(1)}%)`),
+        action: 'Check email list quality and sender authentication'
+      });
+    }
+    // NEW: Low utilization warning
+    if (dailyUtilization < 30) {
+      warmupSummary.bottlenecks.push({
+        issue: `Low capacity utilization (${dailyUtilization.toFixed(1)}%)`,
+        severity: 'medium',
+        action: `You have capacity for ${totalDailyCapacity} emails/day but only sending ${totalDailySent}. Consider scaling up campaigns.`
+      });
+    }
+    // NEW: Domains with zero replies but high volume
+    const zeroReplyDomains = domainHealth.filter(d => d.sent > 500 && d.replies === 0);
+    if (zeroReplyDomains.length > 0) {
+      warmupSummary.bottlenecks.push({
+        issue: `${zeroReplyDomains.length} high-volume domains with ZERO replies`,
+        severity: 'critical',
+        domains: zeroReplyDomains.map(d => `${d.domain} (${d.sent} sent, 0 replies)`),
+        action: 'URGENT: Verify reply tracking. This is statistically impossible for valid sends.'
+      });
+    }
+    
+    // Add data issues for transparency
+    warmupSummary.dataIssues = dataIssues;
+    
+    // Clean up temporary domain data
+    delete warmupSummary.domains;
+    
+    res.json(warmupSummary);
+    
+  } catch (error) {
+    console.error('Warmup error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Cache stats
+app.get('/api/cache', (req, res) => {
+  res.json(cache.stats());
+});
+
+// Clear cache
+app.post('/api/cache/clear', (req, res) => {
+  cache.clear();
+  res.json({ status: 'cleared' });
+});
+
+// ===========================================
+// SEQUENCE ANALYSIS ENDPOINT
+// ===========================================
+async function getCampaignStatistics(campaignId, offset = 0, limit = 100) {
+  const cacheKey = `statistics_${campaignId}_${offset}_${limit}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+  
+  try {
+    const response = await apiRequest(`/campaigns/${campaignId}/statistics?offset=${offset}&limit=${limit}`);
+    // API returns { data: [...], total_stats: "N", offset, limit }
+    const result = response?.data || [];
+    if (result.length > 0) {
+      cache.set(cacheKey, result, 10 * 60 * 1000); // Cache for 10 min
+    }
+    return result;
+  } catch (e) {
+    console.log(`Statistics failed for campaign ${campaignId}:`, e.message);
+    return [];
+  }
+}
+
+// Get all statistics for a campaign (handles pagination)
+async function getAllCampaignStatistics(campaignId) {
+  let allStats = [];
+  let offset = 0;
+  const limit = 100;
+  let page = 1;
+  
+  while (true) {
+    console.log(`[SEQUENCE]   - Fetching page ${page} (offset ${offset})...`);
+    const batch = await getCampaignStatistics(campaignId, offset, limit);
+    if (!batch || batch.length === 0) {
+      console.log(`[SEQUENCE]   - Page ${page}: empty, done`);
+      break;
+    }
+    allStats = allStats.concat(batch);
+    console.log(`[SEQUENCE]   - Page ${page}: got ${batch.length} records (total: ${allStats.length})`);
+    if (batch.length < limit) break;
+    offset += limit;
+    page++;
+    // Small delay to avoid rate limiting
+    await new Promise(r => setTimeout(r, 100));
+  }
+  
+  return allStats;
+}
+
+// Analyze sequence performance for a single campaign
+function analyzeSequencePerformance(statistics, sequenceCount) {
+  const sequences = {};
+  
+  // Initialize all sequences up to sequenceCount
+  for (let i = 1; i <= Math.max(sequenceCount, 4); i++) {
+    sequences[i] = {
+      sequenceNumber: i,
+      sent: 0,
+      replied: 0,
+      interested: 0,
+      notInterested: 0,
+      outOfOffice: 0,
+      wrongPerson: 0,
+      other: 0
+    };
+  }
+  
+  // Count leads at each sequence step and their replies
+  for (const lead of statistics) {
+    const seqNum = parseInt(lead.sequence_number) || 1;
+    
+    // Ensure sequence exists
+    if (!sequences[seqNum]) {
+      sequences[seqNum] = {
+        sequenceNumber: seqNum,
+        sent: 0,
+        replied: 0,
+        interested: 0,
+        notInterested: 0,
+        outOfOffice: 0,
+        wrongPerson: 0,
+        other: 0
+      };
+    }
+    
+    // Count as "sent" for this sequence step
+    sequences[seqNum].sent++;
+    
+    // Check if they replied (reply_time is not null)
+    if (lead.reply_time) {
+      sequences[seqNum].replied++;
+      
+      // Categorize the reply
+      const category = (lead.lead_category || '').toLowerCase();
+      if (category === 'interested') {
+        sequences[seqNum].interested++;
+      } else if (category === 'not interested' || category === 'not_interested') {
+        sequences[seqNum].notInterested++;
+      } else if (category === 'out of office' || category === 'out_of_office') {
+        sequences[seqNum].outOfOffice++;
+      } else if (category === 'wrong person' || category === 'wrong_person') {
+        sequences[seqNum].wrongPerson++;
+      } else if (lead.lead_category) {
+        sequences[seqNum].other++;
+      }
+    }
+  }
+  
+  // Calculate rates and convert to array
+  const result = Object.values(sequences)
+    .filter(s => s.sent > 0)
+    .map(s => ({
+      ...s,
+      replyRate: s.sent > 0 ? (s.replied / s.sent * 100) : 0,
+      positiveRate: s.replied > 0 ? (s.interested / s.replied * 100) : 0
+    }))
+    .sort((a, b) => a.sequenceNumber - b.sequenceNumber);
+  
+  return result;
+}
+
+// Generate AI analysis for sequence data
+function generateSequenceAnalysis(sequenceData, campaignName = 'All Campaigns') {
+  if (!sequenceData || sequenceData.length === 0) {
+    return {
+      bestPerformer: null,
+      underperformer: null,
+      insights: ['No sequence data available for analysis']
+    };
+  }
+  
+  // Find best and worst performers by reply rate (minimum 10 sent to be meaningful)
+  const validSequences = sequenceData.filter(s => s.sent >= 10);
+  
+  if (validSequences.length === 0) {
+    return {
+      bestPerformer: null,
+      underperformer: null,
+      insights: ['Not enough data for meaningful analysis (need at least 10 sends per sequence)']
+    };
+  }
+  
+  const sortedByReplyRate = [...validSequences].sort((a, b) => b.replyRate - a.replyRate);
+  const bestByReply = sortedByReplyRate[0];
+  const worstByReply = sortedByReplyRate[sortedByReplyRate.length - 1];
+  
+  // Find best by positive rate (among those with replies)
+  const withReplies = validSequences.filter(s => s.replied > 0);
+  const sortedByPositiveRate = [...withReplies].sort((a, b) => b.positiveRate - a.positiveRate);
+  const bestByPositive = sortedByPositiveRate[0];
+  
+  const insights = [];
+  
+  // Compare Email 1 vs follow-ups
+  const email1 = sequenceData.find(s => s.sequenceNumber === 1);
+  const followups = sequenceData.filter(s => s.sequenceNumber > 1 && s.sent >= 10);
+  
+  if (email1 && followups.length > 0) {
+    const avgFollowupRate = followups.reduce((sum, s) => sum + s.replyRate, 0) / followups.length;
+    
+    if (avgFollowupRate > email1.replyRate) {
+      const improvement = ((avgFollowupRate - email1.replyRate) / email1.replyRate * 100).toFixed(0);
+      insights.push(`Follow-up emails outperform the opener by ${improvement}%. Your persistence pays off!`);
+    } else if (email1.replyRate > avgFollowupRate * 1.5) {
+      insights.push(`Email 1 significantly outperforms follow-ups. Consider shortening your sequence or improving follow-up copy.`);
+    }
+  }
+  
+  // Check for underperforming sequences
+  if (bestByReply && worstByReply && bestByReply.sequenceNumber !== worstByReply.sequenceNumber) {
+    const diff = bestByReply.replyRate - worstByReply.replyRate;
+    if (diff > 0.5) {
+      insights.push(`Email ${worstByReply.sequenceNumber} has ${worstByReply.replyRate.toFixed(2)}% reply rate vs Email ${bestByReply.sequenceNumber}'s ${bestByReply.replyRate.toFixed(2)}% - consider revising the copy.`);
+    }
+  }
+  
+  // Check positive rate patterns
+  if (bestByPositive && bestByPositive.sequenceNumber > 1) {
+    insights.push(`Email ${bestByPositive.sequenceNumber} has the highest positive rate (${bestByPositive.positiveRate.toFixed(0)}%) - leads who reply later may be more qualified.`);
+  }
+  
+  // Total replies analysis
+  const totalReplies = sequenceData.reduce((sum, s) => sum + s.replied, 0);
+  const mostRepliesSeq = [...sequenceData].sort((a, b) => b.replied - a.replied)[0];
+  if (mostRepliesSeq && totalReplies > 0) {
+    const pct = (mostRepliesSeq.replied / totalReplies * 100).toFixed(0);
+    insights.push(`${pct}% of all replies come from Email ${mostRepliesSeq.sequenceNumber}.`);
+  }
+  
+  return {
+    bestPerformer: bestByReply ? {
+      sequenceNumber: bestByReply.sequenceNumber,
+      replyRate: bestByReply.replyRate.toFixed(2),
+      positiveRate: bestByReply.positiveRate.toFixed(2)
+    } : null,
+    underperformer: worstByReply && worstByReply.sequenceNumber !== bestByReply?.sequenceNumber ? {
+      sequenceNumber: worstByReply.sequenceNumber,
+      replyRate: worstByReply.replyRate.toFixed(2),
+      positiveRate: worstByReply.positiveRate.toFixed(2)
+    } : null,
+    bestByPositive: bestByPositive ? {
+      sequenceNumber: bestByPositive.sequenceNumber,
+      positiveRate: bestByPositive.positiveRate.toFixed(2)
+    } : null,
+    insights
+  };
+}
+
+app.get('/api/sequence-analysis', async (req, res) => {
+  const startTime = Date.now();
+  const forceRefresh = req.query.force === 'true';
+  
+  // Check cache
+  const cacheKey = 'sequence_analysis';
+  if (!forceRefresh) {
+    const cached = cache.get(cacheKey);
+    if (cached) {
+      console.log(`[SEQUENCE] Served from cache in ${Date.now() - startTime}ms`);
+      return res.json({
+        ...cached,
+        _fromCache: true,
+        _cacheAge: Math.round((Date.now() - cache.data[cacheKey].cachedAt) / 1000)
+      });
+    }
+  }
+  
+  try {
+    console.log('[SEQUENCE] Fetching sequence analysis data...');
+    
+    // Get all campaigns
+    const campaigns = await getAllCampaigns();
+    console.log(`[SEQUENCE] Found ${campaigns.length} campaigns`);
+    
+    // Fetch statistics for each campaign
+    const campaignResults = [];
+    const aggregateSequences = {};
+    
+    for (let i = 0; i < campaigns.length; i++) {
+      const campaign = campaigns[i];
+      console.log(`[SEQUENCE] Processing ${i + 1}/${campaigns.length}: ${campaign.name}`);
+      
+      // Get campaign analytics for sequence_count
+      const analytics = await getCampaignAnalytics(campaign.id);
+      const sequenceCount = analytics?.sequenceCount || 4;
+      
+      // Get all lead statistics for this campaign
+      const statistics = await getAllCampaignStatistics(campaign.id);
+      
+      if (statistics.length > 0) {
+        // Analyze sequence performance
+        const sequenceData = analyzeSequencePerformance(statistics, sequenceCount);
+        
+        // Aggregate into global totals
+        for (const seq of sequenceData) {
+          if (!aggregateSequences[seq.sequenceNumber]) {
+            aggregateSequences[seq.sequenceNumber] = {
+              sequenceNumber: seq.sequenceNumber,
+              sent: 0,
+              replied: 0,
+              interested: 0,
+              notInterested: 0,
+              outOfOffice: 0,
+              wrongPerson: 0,
+              other: 0
+            };
+          }
+          aggregateSequences[seq.sequenceNumber].sent += seq.sent;
+          aggregateSequences[seq.sequenceNumber].replied += seq.replied;
+          aggregateSequences[seq.sequenceNumber].interested += seq.interested;
+          aggregateSequences[seq.sequenceNumber].notInterested += seq.notInterested;
+          aggregateSequences[seq.sequenceNumber].outOfOffice += seq.outOfOffice;
+          aggregateSequences[seq.sequenceNumber].wrongPerson += seq.wrongPerson;
+          aggregateSequences[seq.sequenceNumber].other += seq.other;
+        }
+        
+        // Generate analysis for this campaign
+        const analysis = generateSequenceAnalysis(sequenceData, campaign.name);
+        
+        // Verify totals
+        const totalReplies = sequenceData.reduce((sum, s) => sum + s.replied, 0);
+        const expectedReplies = analytics?.replied || 0;
+        
+        campaignResults.push({
+          id: campaign.id,
+          name: campaign.name,
+          totalLeads: statistics.length,
+          expectedLeads: analytics?.totalLeads || 0,
+          sequenceCount,
+          sequences: sequenceData,
+          analysis,
+          // Verification
+          verification: {
+            totalRepliesFromSequences: totalReplies,
+            expectedReplies,
+            match: Math.abs(totalReplies - expectedReplies) <= 2 // Allow small variance
+          }
+        });
+      }
+      
+      // Small delay between campaigns
+      if (i < campaigns.length - 1) {
+        await new Promise(r => setTimeout(r, 200));
+      }
+    }
+    
+    // Calculate aggregate rates
+    const aggregateData = Object.values(aggregateSequences)
+      .map(s => ({
+        ...s,
+        replyRate: s.sent > 0 ? (s.replied / s.sent * 100) : 0,
+        positiveRate: s.replied > 0 ? (s.interested / s.replied * 100) : 0
+      }))
+      .sort((a, b) => a.sequenceNumber - b.sequenceNumber);
+    
+    // Split campaigns by type
+    const hypertideCampaigns = campaignResults.filter(c => 
+      c.name.toUpperCase().includes('HYPERTIDE')
+    );
+    const googleCampaigns = campaignResults.filter(c => 
+      !c.name.toUpperCase().includes('HYPERTIDE')
+    );
+    
+    // Calculate type-specific aggregates
+    const calcTypeAggregate = (campaigns) => {
+      const seqs = {};
+      for (const campaign of campaigns) {
+        for (const seq of campaign.sequences) {
+          if (!seqs[seq.sequenceNumber]) {
+            seqs[seq.sequenceNumber] = {
+              sequenceNumber: seq.sequenceNumber,
+              sent: 0,
+              replied: 0,
+              interested: 0
+            };
+          }
+          seqs[seq.sequenceNumber].sent += seq.sent;
+          seqs[seq.sequenceNumber].replied += seq.replied;
+          seqs[seq.sequenceNumber].interested += seq.interested;
+        }
+      }
+      return Object.values(seqs)
+        .map(s => ({
+          ...s,
+          replyRate: s.sent > 0 ? (s.replied / s.sent * 100) : 0,
+          positiveRate: s.replied > 0 ? (s.interested / s.replied * 100) : 0
+        }))
+        .sort((a, b) => a.sequenceNumber - b.sequenceNumber);
+    };
+    
+    const hypertideAggregate = calcTypeAggregate(hypertideCampaigns);
+    const googleAggregate = calcTypeAggregate(googleCampaigns);
+    
+    // Generate overall analysis
+    const overallAnalysis = generateSequenceAnalysis(aggregateData);
+    const hypertideAnalysis = generateSequenceAnalysis(hypertideAggregate, 'HyperTide');
+    const googleAnalysis = generateSequenceAnalysis(googleAggregate, 'Google');
+    
+    const response = {
+      fetchedAt: new Date().toISOString(),
+      loadTimeMs: Date.now() - startTime,
+      
+      // Aggregate data across all campaigns
+      aggregate: {
+        sequences: aggregateData,
+        analysis: overallAnalysis,
+        totalCampaigns: campaignResults.length,
+        totalLeads: aggregateData.reduce((sum, s) => sum + s.sent, 0)
+      },
+      
+      // Split by type
+      byType: {
+        hypertide: {
+          campaigns: hypertideCampaigns.length,
+          sequences: hypertideAggregate,
+          analysis: hypertideAnalysis
+        },
+        google: {
+          campaigns: googleCampaigns.length,
+          sequences: googleAggregate,
+          analysis: googleAnalysis
+        }
+      },
+      
+      // Per-campaign breakdown
+      campaigns: campaignResults.sort((a, b) => b.totalLeads - a.totalLeads)
+    };
+    
+    // Cache for 10 minutes (this is expensive to compute)
+    cache.set(cacheKey, response, 10 * 60 * 1000);
+    
+    console.log(`[SEQUENCE] Completed in ${Date.now() - startTime}ms`);
+    res.json(response);
+    
+  } catch (error) {
+    console.error('Sequence analysis error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    time: new Date().toISOString(),
+    apiConfigured: !!API_KEY,
+    cacheStats: cache.stats()
+  });
+});
+
+// ===========================================
+// UPCOMING MEETINGS API
+// ===========================================
+
+app.get('/api/upcoming-meetings', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.json({ summary: { total: 0, upcoming: 0, past: 0 }, upcoming: [], past: [], byDate: {} });
+    
+    const { data: leads, error } = await client
+      .from('imann_positive_replies')
+      .select('name, company, email, meeting_date, status, category, notes')
+      .not('meeting_date', 'is', null)
+      .order('meeting_date', { ascending: true });
+    
+    if (error) throw error;
+    
+    const now = new Date();
+    const upcoming = leads.filter(l => new Date(l.meeting_date) >= now);
+    const past = leads.filter(l => new Date(l.meeting_date) < now).reverse();
+    
+    // Group upcoming by date
+    const byDate = {};
+    upcoming.forEach(l => {
+      const date = new Date(l.meeting_date).toISOString().split('T')[0];
+      if (!byDate[date]) byDate[date] = [];
+      byDate[date].push(l);
+    });
+    
+    // Next meeting
+    const nextMeeting = upcoming.length > 0 ? upcoming[0] : null;
+    const daysUntilNext = nextMeeting 
+      ? Math.ceil((new Date(nextMeeting.meeting_date) - now) / (1000 * 60 * 60 * 24))
+      : null;
+    
+    res.json({
+      summary: {
+        total: leads.length,
+        upcoming: upcoming.length,
+        past: past.length,
+        nextMeeting,
+        daysUntilNext
+      },
+      upcoming,
+      past: past.slice(0, 20), // Last 20 past meetings
+      byDate
+    });
+  } catch (err) {
+    console.error('Upcoming meetings error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+// Analytics API for visualizations
+
+// Quick Actions API
+const { QuickActions } = require('./lib/quick-actions');
+const quickActions = new QuickActions();
+
+app.post('/api/actions', async (req, res) => {
+  try {
+    const { action, email, ...params } = req.body;
+    
+    if (!action || !email) {
+      return res.status(400).json({ success: false, error: 'Missing action or email' });
+    }
+
+    let result;
+    switch (action) {
+      case 'mark_booked':
+        result = await quickActions.markBooked(email, params.meetingDate);
+        break;
+      case 'mark_not_interested':
+        result = await quickActions.markNotInterested(email, params.reason);
+        break;
+      case 'snooze':
+        result = await quickActions.snooze(email, params.days);
+        break;
+      case 'add_note':
+        result = await quickActions.addNote(email, params.note);
+        break;
+      case 'update_category':
+        result = await quickActions.updateCategory(email, params.category);
+        break;
+      default:
+        return res.status(400).json({ success: false, error: 'Unknown action' });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.error('Action error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/actions/bulk', async (req, res) => {
+  try {
+    const { emails, action, ...params } = req.body;
+    
+    if (!emails || !Array.isArray(emails) || !action) {
+      return res.status(400).json({ success: false, error: 'Missing emails array or action' });
+    }
+
+    const result = await quickActions.bulkAction(emails, action, params);
+    res.json(result);
+  } catch (err) {
+    console.error('Bulk action error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/lead/:email', async (req, res) => {
+  try {
+    const context = await quickActions.getLeadContext(req.params.email);
+    res.json(context);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+const { getPipelineAnalytics } = require('./analytics-api');
+
+app.get('/api/analytics', async (req, res) => {
+  try {
+    const analytics = await getPipelineAnalytics();
+    res.json(analytics);
+  } catch (err) {
+    console.error('Analytics error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ===========================================
+// STUB ENDPOINTS (for missing features)
+// ===========================================
+
+// Interested Leads (from Supabase positive_replies table)
+app.get('/api/interested-leads', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    
+    const emptyStats = { 
+      total: 0, booked: 0, scheduling: 0, notBooked: 0,
+      by_source: { cold_email: 0, inbound: 0, reactivation: 0 },
+      by_status: { interested: 0, meeting_request: 0, information_request: 0 },
+      by_booking: { booked: 0, scheduling: 0, not_booked: 0, no_data: 0 },
+      funnel: { positive_replies: 0, in_scheduling: 0, booked: 0, conversion_rate: 0 }
+    };
+    
+    if (!client) return res.json({ stats: emptyStats, leads: [], message: 'Database not configured' });
+    
+    const source = req.query.source;
+    let query = client.from('imann_positive_replies').select('*').order('created_at', { ascending: false });
+    if (source && source !== 'all') {
+      query = query.ilike('notes', `%[${source}]%`);
+    }
+    
+    const { data, error } = await query;
+    if (error) throw error;
+    
+    const leads = (data || []).map(l => ({
+      ...l,
+      source: l.notes?.includes('[cold_email]') ? 'cold_email' : 
+              l.notes?.includes('[inbound]') ? 'inbound' : 
+              l.notes?.includes('[reactivation]') ? 'reactivation' : 'cold_email'
+    }));
+    
+    const booked = leads.filter(l => l.status === 'Booked').length;
+    const scheduling = leads.filter(l => l.status === 'Scheduling' || l.status === 'Meeting Request').length;
+    const notBooked = leads.filter(l => l.status === 'Not Booked' || l.status === 'Not booked').length;
+    const noData = leads.filter(l => !l.status).length;
+    
+    const stats = {
+      total: leads.length,
+      booked,
+      scheduling,
+      notBooked,
+      by_source: {
+        cold_email: leads.filter(l => l.source === 'cold_email').length,
+        inbound: leads.filter(l => l.source === 'inbound').length,
+        reactivation: leads.filter(l => l.source === 'reactivation').length
+      },
+      by_status: {
+        interested: leads.filter(l => l.category === 'Interested').length,
+        meeting_request: leads.filter(l => l.status === 'Meeting Request' || l.status === 'Scheduling').length,
+        information_request: leads.filter(l => l.category === 'Information Request').length
+      },
+      by_booking: {
+        booked,
+        scheduling,
+        not_booked: notBooked,
+        no_data: noData
+      },
+      funnel: {
+        positive_replies: leads.length,
+        in_scheduling: scheduling,
+        booked,
+        conversion_rate: leads.length > 0 ? Math.round((booked / leads.length) * 100) : 0
+      }
+    };
+    
+    res.json({ stats, leads });
+  } catch (err) {
+    console.error('Interested leads error:', err);
+    res.json({ 
+      stats: { 
+        total: 0, booked: 0, scheduling: 0, notBooked: 0,
+        by_source: { cold_email: 0, inbound: 0, reactivation: 0 },
+        by_status: { interested: 0, meeting_request: 0, information_request: 0 },
+        by_booking: { booked: 0, scheduling: 0, not_booked: 0, no_data: 0 },
+        funnel: { positive_replies: 0, in_scheduling: 0, booked: 0, conversion_rate: 0 }
+      },
+      leads: [],
+      error: err.message 
+    });
+  }
+});
+
+app.put('/api/interested-leads/:id', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.status(500).json({ error: 'Database not configured' });
+    
+    const { id } = req.params;
+    const updates = req.body;
+    
+    const { data, error } = await client
+      .from('imann_positive_replies')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    res.json(data);
+  } catch (err) {
+    console.error('Update lead error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/api/interested-leads/:id', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.status(500).json({ error: 'Database not configured' });
+    
+    const { id } = req.params;
+    const { error } = await client.from('imann_positive_replies').delete().eq('id', id);
+    
+    if (error) throw error;
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Delete lead error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Stale Leads
+app.get('/api/stale-leads', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.json({ leads: [], total: 0, summary: { critical: 0, warm: 0, recent: 0 } });
+    
+    const { data } = await client
+      .from('imann_positive_replies')
+      .select('*')
+      .not('status', 'eq', 'Booked')
+      .order('created_at', { ascending: true });
+    
+    // Calculate staleness
+    const now = Date.now();
+    const leads = (data || []).map(l => {
+      const age = l.created_at ? Math.floor((now - new Date(l.created_at).getTime()) / (1000 * 60 * 60 * 24)) : 0;
+      return { ...l, ageDays: age, urgency: age > 60 ? 'critical' : age > 30 ? 'warm' : 'recent' };
+    }).filter(l => l.ageDays >= 15);
+    
+    const summary = {
+      critical: leads.filter(l => l.urgency === 'critical').length,
+      warm: leads.filter(l => l.urgency === 'warm').length,
+      recent: leads.filter(l => l.urgency === 'recent').length
+    };
+    
+    res.json({ leads, total: leads.length, summary });
+  } catch (err) {
+    console.error('Stale leads error:', err);
+    res.json({ leads: [], total: 0, summary: { critical: 0, warm: 0, recent: 0 }, error: err.message });
+  }
+});
+
+// Generate followup email
+app.get('/api/generate-followup/:email', async (req, res) => {
+  const { email } = req.params;
+  res.json({
+    subject: `Quick follow-up - partnership opportunity`,
+    body: `Hi there,\n\nJust wanted to circle back on my previous email about potential collaboration.\n\nWould love to find a time to chat if you're interested.\n\nBest`
+  });
+});
+
+// Replies endpoints
+app.get('/api/replies/summary', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.json({ total: 0, categories: {} });
+    
+    const { data } = await client.from('imann_positive_replies').select('status');
+    
+    const summary = {
+      total: data?.length || 0,
+      booked: data?.filter(d => d.status === 'Booked').length || 0,
+      scheduling: data?.filter(d => d.status === 'Scheduling' || d.status === 'Meeting Request').length || 0,
+      notBooked: data?.filter(d => !d.status || d.status === 'Not Booked' || d.status === 'Not booked').length || 0
+    };
+    
+    res.json(summary);
+  } catch (err) {
+    res.json({ total: 0, categories: {}, error: err.message });
+  }
+});
+
+app.get('/api/replies/funnel', async (req, res) => {
+  res.json({ pending: 0, contacted: 0, meeting_scheduled: 0, closed: 0, lost: 0 });
+});
+
+app.get('/api/replies/positive', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.json({ data: [] });
+    
+    const { data } = await client.from('imann_positive_replies').select('*').order('created_at', { ascending: false }).limit(100);
+    res.json({ data: data || [] });
+  } catch (err) {
+    res.json({ data: [], error: err.message });
+  }
+});
+
+app.put('/api/replies/positive/:id/status', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.status(500).json({ error: 'Database not configured' });
+    
+    const { id } = req.params;
+    const { status, snoozeUntil } = req.body;
+    
+    const updates = { status: status };
+    if (snoozeUntil) updates.snoozed_until = snoozeUntil;
+    
+    const { data, error } = await client.from('imann_positive_replies').update(updates).eq('id', id).select().single();
+    if (error) throw error;
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Analytics campaigns
+app.get('/api/analytics/campaigns', async (req, res) => {
+  // Return cached dashboard data if available
+  const cached = cache.get('dashboard_full');
+  if (cached && cached.campaigns) {
+    return res.json({ data: cached.campaigns });
+  }
+  res.json({ data: [] });
+});
+
+// Research endpoints
+app.get('/api/research', async (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  const researchDir = path.join(__dirname, 'research');
+  
+  try {
+    if (!fs.existsSync(researchDir)) return res.json({ files: [] });
+    
+    const files = fs.readdirSync(researchDir)
+      .filter(f => f.endsWith('.md'))
+      .map(f => ({ name: f.replace('.md', ''), path: f }));
+    
+    res.json({ files });
+  } catch (err) {
+    res.json({ files: [], error: err.message });
+  }
+});
+
+app.get('/api/research/:company', async (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  const { company } = req.params;
+  const filePath = path.join(__dirname, 'research', `${company}.md`);
+  
+  try {
+    if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Not found' });
+    const content = fs.readFileSync(filePath, 'utf8');
+    res.json({ company, content });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Response times (use data from imann_positive_replies if available)
+app.get('/api/response-times/stats', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    
+    if (!client) {
+      return res.json({ 
+        daily: [], weekly: {}, monthly: [], 
+        first_response: {}, follow_up_response: {}, overall_response: {},
+        all_time_distribution: {}, alerts: { inboxes: [] }, per_campaign: []
+      });
+    }
+    
+    // Get response time data from leads
+    const { data } = await client.from('imann_positive_replies').select('*').not('response_time_seconds', 'is', null);
+    const leads = data || [];
+    
+    // Calculate distribution
+    const dist = { under_5min: 0, under_15min: 0, under_1hr: 0, under_3hr: 0, under_6hr: 0, under_12hr: 0, under_24hr: 0, over_24hr: 0 };
+    let totalSeconds = 0;
+    
+    for (const l of leads) {
+      const s = l.response_time_seconds || 0;
+      totalSeconds += s;
+      if (s < 300) dist.under_5min++;
+      else if (s < 900) dist.under_15min++;
+      else if (s < 3600) dist.under_1hr++;
+      else if (s < 10800) dist.under_3hr++;
+      else if (s < 21600) dist.under_6hr++;
+      else if (s < 43200) dist.under_12hr++;
+      else if (s < 86400) dist.under_24hr++;
+      else dist.over_24hr++;
+    }
+    
+    const avgSeconds = leads.length > 0 ? Math.round(totalSeconds / leads.length) : 0;
+    
+    res.json({
+      daily: [],
+      weekly: {},
+      monthly: [],
+      first_response: { avg_seconds: avgSeconds, total: leads.length },
+      follow_up_response: {},
+      overall_response: { avg_seconds: avgSeconds, total: leads.length, ...dist },
+      all_time_distribution: dist,
+      alerts: { inboxes: [] },
+      per_campaign: []
+    });
+  } catch (err) {
+    res.json({ 
+      daily: [], weekly: {}, monthly: [], 
+      first_response: {}, follow_up_response: {}, overall_response: {},
+      all_time_distribution: {}, alerts: { inboxes: [] }, per_campaign: [],
+      error: err.message
+    });
+  }
+});
+
+app.get('/api/response-times/threads', async (req, res) => {
+  res.json({ data: [] });
+});
+
+// Imann bookings
+app.get('/api/imann/bookings', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    const emptyResponse = { 
+      leads: [], 
+      summary: { total: 0, booked: 0, scheduling: 0, notBooked: 0, bookingRate: 0 },
+      responseTimeCorrelation: [],
+      monthlyBreakdown: [],
+      weeklyBreakdown: []
+    };
+    if (!client) return res.json(emptyResponse);
+    
+    const { data } = await client.from('imann_positive_replies').select('*').order('created_at', { ascending: false });
+    const leads = data || [];
+    
+    const booked = leads.filter(l => l.status === 'Booked').length;
+    const scheduling = leads.filter(l => l.status === 'Scheduling' || l.status === 'Meeting Request').length;
+    const notBooked = leads.filter(l => !l.status || l.status === 'Not Booked' || l.status === 'Not booked').length;
+    const total = leads.length;
+    const bookingRate = total > 0 ? Math.round((booked / total) * 100) : 0;
+    
+    // Calculate response time correlation with booking rate
+    const buckets = [
+      { bucket: '< 5 min', min: 0, max: 300 },
+      { bucket: '5-15 min', min: 300, max: 900 },
+      { bucket: '15-30 min', min: 900, max: 1800 },
+      { bucket: '30-60 min', min: 1800, max: 3600 },
+      { bucket: '1-3 hours', min: 3600, max: 10800 },
+      { bucket: '3-6 hours', min: 10800, max: 21600 },
+      { bucket: '6-12 hours', min: 21600, max: 43200 },
+      { bucket: '12-24 hours', min: 43200, max: 86400 },
+      { bucket: '1-2 days', min: 86400, max: 172800 },
+      { bucket: '> 2 days', min: 172800, max: Infinity }
+    ];
+    
+    const responseTimeCorrelation = buckets.map(b => {
+      const inBucket = leads.filter(l => {
+        const rt = l.response_time_seconds || 0;
+        return rt >= b.min && rt < b.max;
+      });
+      const bookedInBucket = inBucket.filter(l => l.status === 'Booked').length;
+      return {
+        bucket: b.bucket,
+        total: inBucket.length,
+        booked: bookedInBucket,
+        rate: inBucket.length > 0 ? Math.round((bookedInBucket / inBucket.length) * 100) : 0
+      };
+    });
+    
+    // Monthly breakdown
+    const monthlyMap = {};
+    leads.forEach(l => {
+      const month = l.conversation_month || 'Unknown';
+      const year = l.conversation_year || 2026;
+      const key = `${month} ${year}`;
+      if (!monthlyMap[key]) monthlyMap[key] = { month: key, booked: 0, total: 0 };
+      monthlyMap[key].total++;
+      if (l.status === 'Booked') monthlyMap[key].booked++;
+    });
+    const monthlyBreakdown = Object.values(monthlyMap).map(m => ({
+      ...m,
+      rate: m.total > 0 ? Math.round((m.booked / m.total) * 100) : 0
+    }));
+    
+    // Weekly breakdown (last 4 weeks)
+    const weeklyBreakdown = [];
+    const now = new Date();
+    for (let i = 0; i < 4; i++) {
+      const weekStart = new Date(now - (i + 1) * 7 * 24 * 60 * 60 * 1000);
+      const weekEnd = new Date(now - i * 7 * 24 * 60 * 60 * 1000);
+      const weekLeads = leads.filter(l => {
+        const d = new Date(l.created_at);
+        return d >= weekStart && d < weekEnd;
+      });
+      const weekBooked = weekLeads.filter(l => l.status === 'Booked').length;
+      weeklyBreakdown.push({
+        week: `Week ${4 - i}`,
+        booked: weekBooked,
+        total: weekLeads.length,
+        rate: weekLeads.length > 0 ? Math.round((weekBooked / weekLeads.length) * 100) : 0
+      });
+    }
+    
+    res.json({ 
+      leads,
+      summary: { total, booked, scheduling, notBooked, bookingRate },
+      responseTimeCorrelation,
+      monthlyBreakdown,
+      weeklyBreakdown
+    });
+  } catch (err) {
+    res.json({ 
+      leads: [], 
+      summary: { total: 0, booked: 0, scheduling: 0, notBooked: 0, bookingRate: 0 },
+      responseTimeCorrelation: [],
+      monthlyBreakdown: [],
+      weeklyBreakdown: [],
+      error: err.message 
+    });
+  }
+});
+
+// Deliverability endpoints
+app.get('/api/deliverability/health', async (req, res) => {
+  const cached = cache.get('dashboard_full');
+  const domains = cached?.domains || [];
+  
+  // Build comprehensive deliverability data
+  const summary = {
+    totalDomains: domains.length,
+    healthyDomains: domains.filter(d => d.reputation === 'High' || d.reputation === 'Good').length,
+    warningDomains: domains.filter(d => d.reputation === 'Medium').length,
+    criticalDomains: domains.filter(d => d.reputation === 'Low' || d.reputation === 'Bad').length,
+    totalInboxes: domains.reduce((sum, d) => sum + (d.totalAccounts || 0), 0),
+    activeInboxes: domains.reduce((sum, d) => sum + (d.activeAccounts || 0), 0),
+    dailyCapacity: domains.reduce((sum, d) => sum + (d.dailyCapacity || 0), 0),
+    inboxesBelow98: 0
+  };
+  
+  const alerts = {
+    inboxes: [],
+    domainsToKill: [],
+    bottom10Domains: []
+  };
+  
+  const capacity = {
+    current: summary.dailyCapacity,
+    target: 1000,
+    issues: [],
+    inboxesNeeded: 0
+  };
+  
+  const benchmarks = {
+    replyRate: { target: 1, current: 0 },
+    bounceRate: { target: 3, current: 0 },
+    openRate: { target: 50, current: 0 }
+  };
+  
+  res.json({ 
+    summary,
+    alerts,
+    capacity,
+    benchmarks,
+    domains: domains.map(d => ({
+      domain: d.domain,
+      reputation: d.reputation || 'Unknown',
+      replyRate: d.warmupReplyRate || 0,
+      inboxes: d.totalAccounts || 0,
+      activeInboxes: d.activeAccounts || 0,
+      dailyCapacity: d.dailyCapacity || 0
+    }))
+  });
+});
+
+app.get('/api/deliverability/provider-split', async (req, res) => {
+  res.json({ hypertide: 0, google: 0 });
+});
+
+app.get('/api/deliverability/campaign-health', async (req, res) => {
+  const cached = cache.get('dashboard_full');
+  res.json({ campaigns: cached?.campaigns || [] });
+});
+
+app.get('/api/deliverability/insurance-pool', async (req, res) => {
+  res.json({ domains: [], total: 0 });
+});
+
+app.get('/api/deliverability/volume-tracker', async (req, res) => {
+  res.json({ daily: [], weekly: [], monthly: [] });
+});
+
+app.get('/api/deliverability/warmup-calendar', async (req, res) => {
+  res.json({ events: [] });
+});
+
+app.listen(PORT, BIND_HOST, () => {
+  console.log(`Server running on http://${BIND_HOST}:${PORT}`);
+});
+
+// ============================================
+// PIPELINE INTELLIGENCE API
+// ============================================
+app.get('/api/intelligence', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.json({ error: 'Database not configured' });
+    
+    const { data: leads } = await client.from('imann_positive_replies').select('*');
+    const allLeads = leads || [];
+    
+    // Pipeline metrics
+    const total = allLeads.length;
+    const booked = allLeads.filter(l => l.status === 'Booked').length;
+    const scheduling = allLeads.filter(l => l.status === 'Scheduling' || l.status === 'Meeting Request').length;
+    const bookingRate = total > 0 ? (booked / total) * 100 : 0;
+    
+    // Response time analysis
+    const withResponseTime = allLeads.filter(l => l.response_time_seconds > 0);
+    const avgResponseTime = withResponseTime.length > 0 
+      ? withResponseTime.reduce((sum, l) => sum + l.response_time_seconds, 0) / withResponseTime.length 
+      : 0;
+    const fastResponses = withResponseTime.filter(l => l.response_time_seconds < 3600).length;
+    const fastResponseRate = withResponseTime.length > 0 ? (fastResponses / withResponseTime.length) * 100 : 0;
+    
+    // Stale analysis
+    const now = Date.now();
+    const stale = allLeads.filter(l => {
+      if (l.status === 'Booked') return false;
+      const age = l.created_at ? (now - new Date(l.created_at).getTime()) / (1000 * 60 * 60 * 24) : 0;
+      return age > 14;
+    }).length;
+    const staleRate = (total - booked) > 0 ? (stale / (total - booked)) * 100 : 0;
+    
+    // Revenue projections (assuming $500 per booking)
+    const revenuePerBooking = 500;
+    const currentRevenue = booked * revenuePerBooking;
+    const pipelineValue = scheduling * revenuePerBooking * 0.4; // 40% expected conversion
+    const projectedRevenue = currentRevenue + pipelineValue;
+    
+    // Calculate Pipeline Health Score (0-100)
+    let healthScore = 50; // Base
+    healthScore += Math.min(20, bookingRate * 0.7); // Up to +20 for booking rate
+    healthScore += Math.min(15, fastResponseRate * 0.15); // Up to +15 for fast responses
+    healthScore -= Math.min(25, staleRate * 0.3); // Penalty for stale leads
+    healthScore += Math.min(10, (scheduling / 20) * 10); // Bonus for pipeline volume
+    healthScore = Math.max(0, Math.min(100, Math.round(healthScore)));
+    
+    // Health grade
+    const grade = healthScore >= 80 ? 'A' : healthScore >= 65 ? 'B' : healthScore >= 50 ? 'C' : healthScore >= 35 ? 'D' : 'F';
+    const gradeColor = healthScore >= 80 ? '#22c55e' : healthScore >= 65 ? '#84cc16' : healthScore >= 50 ? '#eab308' : healthScore >= 35 ? '#f97316' : '#ef4444';
+    
+    // AI Insights
+    const insights = [];
+    
+    if (fastResponseRate < 50) {
+      insights.push({
+        type: 'warning',
+        icon: '⚡',
+        title: 'Response Speed Alert',
+        message: `Only ${fastResponseRate.toFixed(0)}% of leads get replies within 1 hour. Fast responders book 37% more meetings.`,
+        action: 'Focus on <1hr response times'
+      });
+    }
+    
+    if (staleRate > 50) {
+      insights.push({
+        type: 'critical',
+        icon: '🔥',
+        title: 'Stale Pipeline',
+        message: `${staleRate.toFixed(0)}% of your pipeline is stale (>14 days). These leads are going cold.`,
+        action: `Reach out to ${stale} stale leads today`
+      });
+    }
+    
+    if (scheduling > booked * 2) {
+      insights.push({
+        type: 'opportunity',
+        icon: '💰',
+        title: 'Conversion Opportunity',
+        message: `${scheduling} leads in scheduling vs ${booked} booked. You're leaving $${(scheduling * revenuePerBooking * 0.4).toLocaleString()} on the table.`,
+        action: 'Send calendar links to all "scheduling" leads'
+      });
+    }
+    
+    if (bookingRate >= 25) {
+      insights.push({
+        type: 'success',
+        icon: '🎯',
+        title: 'Strong Conversion',
+        message: `${bookingRate.toFixed(1)}% booking rate is excellent! Industry average is 15-20%.`,
+        action: 'Document what\'s working and scale it'
+      });
+    }
+    
+    // Top actions for today
+    const todayActions = [];
+    const hotLeads = allLeads.filter(l => {
+      const age = l.created_at ? (now - new Date(l.created_at).getTime()) / (1000 * 60 * 60 * 24) : 999;
+      return age <= 3 && l.status !== 'Booked';
+    });
+    
+    if (hotLeads.length > 0) {
+      todayActions.push({ priority: 1, action: `🔥 Follow up with ${hotLeads.length} hot leads (< 3 days old)`, impact: 'High' });
+    }
+    if (scheduling > 10) {
+      todayActions.push({ priority: 2, action: `📅 Send calendar links to ${Math.min(10, scheduling)} scheduling leads`, impact: 'High' });
+    }
+    if (stale > 20) {
+      todayActions.push({ priority: 3, action: `💀 Reactivate ${Math.min(10, stale)} stale leads with fresh angle`, impact: 'Medium' });
+    }
+    todayActions.push({ priority: 4, action: '📊 Review top 5 enterprise leads for personalized outreach', impact: 'High' });
+    
+    res.json({
+      healthScore,
+      grade,
+      gradeColor,
+      metrics: {
+        total,
+        booked,
+        scheduling,
+        stale,
+        bookingRate: bookingRate.toFixed(1),
+        avgResponseTime: Math.round(avgResponseTime),
+        fastResponseRate: fastResponseRate.toFixed(1)
+      },
+      revenue: {
+        current: currentRevenue,
+        pipeline: Math.round(pipelineValue),
+        projected: Math.round(projectedRevenue),
+        perBooking: revenuePerBooking
+      },
+      insights,
+      todayActions,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (err) {
+    console.error('Intelligence API error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});

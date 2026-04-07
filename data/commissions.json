@@ -1,0 +1,49 @@
+{
+  "commissions": [
+    {
+      "id": 1,
+      "company": "Whiteout Survival",
+      "dealValue": 48000,
+      "rate": 0.3,
+      "ratePercent": "30%",
+      "commission": 14400,
+      "creator": "ItssIMANNN",
+      "date": "2025-10-15",
+      "createdAt": "2026-02-06T14:59:06.505Z"
+    },
+    {
+      "id": 2,
+      "company": "Gauth AI",
+      "dealValue": 35000,
+      "rate": 0.3,
+      "ratePercent": "30%",
+      "commission": 10500,
+      "creator": "ItssIMANNN",
+      "date": "2025-11-20",
+      "createdAt": "2026-02-06T14:59:06.553Z"
+    },
+    {
+      "id": 3,
+      "company": "Valeo",
+      "dealValue": 30906,
+      "rate": 0.25,
+      "ratePercent": "25%",
+      "commission": 7726.5,
+      "creator": "ItssIMANNN",
+      "date": "2025-12-10",
+      "createdAt": "2026-02-06T14:59:06.599Z"
+    },
+    {
+      "id": 4,
+      "company": "Allison AI",
+      "dealValue": 24045,
+      "rate": 0.35,
+      "ratePercent": "35%",
+      "commission": 8415.75,
+      "creator": "ItssIMANNN",
+      "date": "2026-01-15",
+      "createdAt": "2026-02-06T14:59:06.645Z"
+    }
+  ],
+  "lastId": 4
+}

@@ -1,0 +1,875 @@
+[
+  {
+    "email": "marina.andersson@stillfront.com",
+    "name": "Marina Andersson",
+    "company": "Stillfront Group",
+    "tier": "enterprise",
+    "priority": 100,
+    "scheduledTime": "2026-02-05T09:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "sungkwan.kim@navercorp.com",
+    "name": "Sungkwan Kim",
+    "company": "Naver Corporation",
+    "tier": "enterprise",
+    "priority": 100,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "pr@paradoxinteractive.com",
+    "name": "Marina Hallikainen",
+    "company": "Paradox Interactive",
+    "tier": "enterprise",
+    "priority": 100,
+    "scheduledTime": "2026-02-05T09:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "nick.depalo@unity.com",
+    "name": "Nick Depalo",
+    "company": "Unity",
+    "tier": "enterprise",
+    "priority": 100,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "christina.hamilton@udemy.com",
+    "name": "Christina Hamilton",
+    "company": "Udemy",
+    "tier": "enterprise",
+    "priority": 100,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "haya@replit.com",
+    "name": "Haya Odeh",
+    "company": "Replit",
+    "tier": "enterprise",
+    "priority": 90,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "ryann_sgriccia@ign.com",
+    "name": "Ryann Sgriccia",
+    "company": "IGN Entertainment",
+    "tier": "enterprise",
+    "priority": 90,
+    "scheduledTime": "2026-02-05T09:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "josh.kopeika@complex.com",
+    "name": "Joshua Kopeika",
+    "company": "Complex Networks",
+    "tier": "enterprise",
+    "priority": 90,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "dvuong@weedmaps.com",
+    "name": "David Vuong",
+    "company": "Weedmaps",
+    "tier": "enterprise",
+    "priority": 80,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "sara.duryea@circlesecurity.ai",
+    "name": "Sara Sara",
+    "company": "Circlesecurity",
+    "tier": "unknown",
+    "priority": 60,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "tushar.jain@dream11.com",
+    "name": "Tushar Jain",
+    "company": "Dream11",
+    "tier": "enterprise",
+    "priority": 60,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "angela.garcia@wallapop.com",
+    "name": "Angela Garcia Mozos",
+    "company": "Wallapop",
+    "tier": "enterprise",
+    "priority": 60,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "christian.stein@threedy.io",
+    "name": "Christian Stein",
+    "company": "Threedy",
+    "tier": "startup",
+    "priority": 50,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "e.zvyagin@virtus.pro",
+    "name": "Evgeny Zvyagin",
+    "company": "Virtus",
+    "tier": "unknown",
+    "priority": 50,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "kramp@owlcat.games",
+    "name": "Valeriya Kramp",
+    "company": "Owlcat",
+    "tier": "unknown",
+    "priority": 50,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "n.petrossian@virtus.pro",
+    "name": "Nikolai Petrossian",
+    "company": "Virtus",
+    "tier": "unknown",
+    "priority": 50,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "gapplegate@livekindred.com",
+    "name": "Gracyn Applegate",
+    "company": "Livekindred",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "serena.grigolo@omio.com",
+    "name": "Serena Grigolo",
+    "company": "Omio",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "tiphaine.simon-turcan@typology.com",
+    "name": "Tiphaine Turcan",
+    "company": "Typology",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "dom@carry1st.com",
+    "name": "Dominion Eromosele",
+    "company": "Carry1st",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "vipul.valupadash@gyandhan.com",
+    "name": "Vipul Valupadash",
+    "company": "GyanDhan",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "marcel@poki.com",
+    "name": "Marcel Verboom",
+    "company": "Poki",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "cpalmer@drink-trip.com",
+    "name": "Chloe Palmer",
+    "company": "Drink Trip",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "marketing@rainbet.com",
+    "name": "Adriano Correia",
+    "company": "Rainbet",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "lorraine.finn@preply.com",
+    "name": "Lorraine Finn",
+    "company": "Preply",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "vitalijus@pulsetto.tech",
+    "name": "Vitalijus Majorovas",
+    "company": "Pulsetto",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "ishita.bhanot@gyandhan.com",
+    "name": "Ishita Bhanot",
+    "company": "GyanDhan",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "joe@solsten.io",
+    "name": "Joe Schaeppi",
+    "company": "Solsten",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "sarujan@studystream.live",
+    "name": "Sarujan Ranjan",
+    "company": "Studystream",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "ana.p@imagen-ai.com",
+    "name": "Ana Pastoria",
+    "company": "Imagen",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "mariina.hallikainen@colossalorder.fi",
+    "name": "Mariina Hallikainen",
+    "company": "Colossalorder",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "judy@easeus.com",
+    "name": "Judy Luo",
+    "company": "Easeus",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "david@thermalradar.com",
+    "name": "David Kay",
+    "company": "Thermalradar",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "naim@payzli.com",
+    "name": "Naim Hamdar",
+    "company": "Payzli",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "waleed@qult.ai",
+    "name": "Waleed Nasir",
+    "company": "Qult",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "marek.fila@kinguin.net",
+    "name": "Marek Fila",
+    "company": "Kinguin",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "sophie.ricaume@crunchyroll.com",
+    "name": "Sophie Ricaume",
+    "company": "Crunchyroll",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "ivan@sombreroresources.com",
+    "name": "Ivan Ivan",
+    "company": "Sombreroresources",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "content@rideyego.com",
+    "name": "Marc Alcaraz Fores",
+    "company": "Rideyego",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "dharin@jackpot.com",
+    "name": "Dharin Nanavati",
+    "company": "Jackpot",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "jan@labradorcms.com",
+    "name": "Jan Jan",
+    "company": "Labradorcms",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "margarita@coppernicometals.com",
+    "name": "Margarita Cardona",
+    "company": "Coppernicometals",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "oscar@umiasalud.com",
+    "name": "Oscar Hernandez",
+    "company": "Umiasalud",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "marc@rideyego.com",
+    "name": "Marc Alcaraz Fores",
+    "company": "Rideyego",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "adriano@rainbet.com",
+    "name": "Adriano Correia",
+    "company": "Rainbet",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "karin.baranyai@air-up.com",
+    "name": "Karin Baranyai",
+    "company": "Air Up",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "eohara@santamonica.com",
+    "name": "Emily Ohara",
+    "company": "Santamonica",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "richard.evans@beehiiv.com",
+    "name": "Richard Evans",
+    "company": "Beehiiv",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "magnus.ruben@juicymarbles.com",
+    "name": "Magnus Ruben",
+    "company": "Juicy Marbles",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "nancy@urunn.com",
+    "name": "Nancy Serle",
+    "company": "Urunn",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "bryn@coatsink.com",
+    "name": "Bryn Morrison-Elliott",
+    "company": "Coatsink",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "jon@doingthingsmedia.com",
+    "name": "Jon ",
+    "company": "Doingthingsmedia",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "glen@thermal.travel",
+    "name": "Glen Gaudion",
+    "company": "Thermal",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "wendell@tokenwell.com",
+    "name": "Wendell Phillips",
+    "company": "Tokenwell",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "mervyn@daydream.sg",
+    "name": "Mervyn Yap",
+    "company": "Daydream",
+    "tier": "startup",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "gianna.calistro@doublegood.com",
+    "name": "Gianna Calistro",
+    "company": "Double Good",
+    "tier": "midmarket",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "chris.stevens@spothero.com",
+    "name": "Chris Stevens",
+    "company": "Spothero",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "tehreem.waheed@wahed.com",
+    "name": "Tehreem Waheed",
+    "company": "Wahed Invest",
+    "tier": "midmarket",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "jerry.pratt@personainc.ai",
+    "name": "Jerry Pratt",
+    "company": "Personainc",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "reagan@joeandsephs.com",
+    "name": "Reagan Peters",
+    "company": "Joeandsephs",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "amix@doist.com",
+    "name": "Amir Salihefendic",
+    "company": "Doist",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "sami@mindtrip.ai",
+    "name": "Samantha Gaspin",
+    "company": "Mindtrip",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "raan@playingforchange.com",
+    "name": "Raan Williams",
+    "company": "Playingforchange",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "terim@evergreenlodge.com",
+    "name": "Teri Marshall",
+    "company": "Evergreenlodge",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "bfelt@destinationcle.org",
+    "name": "Barbara Felt",
+    "company": "Destinationcle",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "adam@doingthings.com",
+    "name": "Adam Hascall",
+    "company": "Doingthings",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "m.gurib@go-electra.com",
+    "name": "Maelle Gurib",
+    "company": "Go Electra",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "flee@antec.com",
+    "name": "Frank Lee",
+    "company": "Antec",
+    "tier": "unknown",
+    "priority": 40,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Meeting Request"
+  },
+  {
+    "email": "emmalumley@trustedhousesitters.com",
+    "name": "Emma Lumley",
+    "company": "Trustedhousesitters",
+    "tier": "unknown",
+    "priority": 30,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "partnerships@naturalcycles.com",
+    "name": "Agnes Ahlquist",
+    "company": "Naturalcycles",
+    "tier": "unknown",
+    "priority": 30,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "jeremy@puntaa.co",
+    "name": "Jeremy Hare",
+    "company": "Puntaa",
+    "tier": "unknown",
+    "priority": 30,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "Ovidiu.Apostu@piercegroup.com",
+    "name": "Ovidiu Apostu",
+    "company": "Piercegroup",
+    "tier": "unknown",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "agnes.ahlquist@naturalcycles.com",
+    "name": "Agnes Ahlquist",
+    "company": "Naturalcycles",
+    "tier": "unknown",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "aurika.pociute@eneba.com",
+    "name": "Aurika Pociute",
+    "company": "Eneba",
+    "tier": "midmarket",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "ilya@candivore.io",
+    "name": "Ilya Agron",
+    "company": "Candivore",
+    "tier": "startup",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "ar@goodeggs.com",
+    "name": "Rodrigo Arevalo",
+    "company": "Goodeggs",
+    "tier": "unknown",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "martin@trymartin.com",
+    "name": "Keith ",
+    "company": "Trymartin",
+    "tier": "unknown",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "erika@assemblyfestival.com",
+    "name": "Erika R.",
+    "company": "Assemblyfestival",
+    "tier": "unknown",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "chloe.massiah@gozney.com",
+    "name": "Chloe Massiah",
+    "company": "Gozney",
+    "tier": "midmarket",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "ines.kondic@outfit7.com",
+    "name": "Ines Kondic",
+    "company": "Outfit7",
+    "tier": "unknown",
+    "priority": 20,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Interested"
+  },
+  {
+    "email": "shubham@unstop.com",
+    "name": "Shubham Mishra",
+    "company": "Unstop",
+    "tier": "midmarket",
+    "priority": 10,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "hiep@coolmate.me",
+    "name": "Hiep Nguyen",
+    "company": "Coolmate",
+    "tier": "unknown",
+    "priority": 10,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "hugo.nyberg@piercegroup.com",
+    "name": "Hugo ",
+    "company": "Piercegroup",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "chuong@1ai.tech",
+    "name": "Chuong Nguyen",
+    "company": "1AI",
+    "tier": "startup",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "marketing@polarsteps.com",
+    "name": "Sara Van  Geloven ",
+    "company": "Polarsteps",
+    "tier": "startup",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "julia.belak@kickresume.com",
+    "name": "Julia Belak",
+    "company": "Kickresume",
+    "tier": "startup",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "francoise@hybridmovementcompany.com",
+    "name": "Francoise Voranger",
+    "company": "Hybridmovementcompany",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "pepper.raper@rockcityenterprises.com",
+    "name": "Pepper Raper",
+    "company": "Rockcityenterprises",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "ugo.voisin@fastned.nl",
+    "name": "Ugo Voisin",
+    "company": "Fastned",
+    "tier": "midmarket",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "franck@devialet.com",
+    "name": "Franck ",
+    "company": "Devialet",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "angelo.materlik@atari.com",
+    "name": "Angelo Materlik",
+    "company": "Atari",
+    "tier": "midmarket",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "colby.draper@empowerly.com",
+    "name": "Colby Draper",
+    "company": "Empowerly",
+    "tier": "startup",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "tholloway@jhchc.org",
+    "name": "Tamika Curtis-Holloway",
+    "company": "Jhchc",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "jessep@fitbod.me",
+    "name": "Jesse Padilla",
+    "company": "Fitbod",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "liene@atgames.net",
+    "name": "Liene Cunska",
+    "company": "Atgames",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "sara@polarsteps.com",
+    "name": "Sara Van Geloven",
+    "company": "Polarsteps",
+    "tier": "startup",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T13:00:00.000Z",
+    "category": "Information Request"
+  },
+  {
+    "email": "coborn@visitseattle.org",
+    "name": "Cory O'Born",
+    "company": "Visitseattle",
+    "tier": "unknown",
+    "priority": 0,
+    "scheduledTime": "2026-02-05T08:00:00.000Z",
+    "category": "Information Request"
+  }
+]

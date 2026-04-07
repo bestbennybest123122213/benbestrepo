@@ -1,0 +1,109 @@
+{
+  "forecasts": [
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    },
+    {
+      "date": "2026-02-08",
+      "weighted": 726375,
+      "conservative": 342000,
+      "realistic": 570000,
+      "optimistic": 798000,
+      "dealCount": 152
+    }
+  ],
+  "accuracy": [
+    {
+      "month": "Feb 2026",
+      "forecast": 726375,
+      "actual": 18000,
+      "accuracy": 2.47805885389778,
+      "recordedAt": "2026-02-08T04:05:45.451Z"
+    }
+  ]
+}

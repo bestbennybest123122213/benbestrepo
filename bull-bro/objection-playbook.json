@@ -1,0 +1,80 @@
+{
+  "description": "Every objection with proven counter-response",
+  "lastUpdated": "2026-04-01",
+  "golden_rule": "Always push for call at the end",
+  
+  "objections": {
+    "not_interested": {
+      "phrases": ["not interested", "no thanks", "pass", "not for us"],
+      "counter": "Hey {{first_name}},\n\nTotally understand — quick question though, what made it feel like a no?\n\nWhen I looked into your brand, I genuinely thought there was a strong fit.\n\nWe had a similar response from Whiteout Survival at first, and after a short call we helped drive 50M views and 100k new signups.\n\nWorth a few mins to chat?\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "not_a_fit": {
+      "phrases": ["not a fit", "wrong fit", "doesn't fit", "not right for us"],
+      "counter": "Hey {{first_name}},\n\nMay I know the reason you think it's not a fit? When I was on the page I thought completely opposite.\n\nWhiteout Survival also thought we might not be a right fit — after that we generated for them 50M views and 100k new signups.\n\nWorth a few mins to chat?\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "no_budget": {
+      "phrases": ["no budget", "can't afford", "too expensive", "out of budget", "budget is tight"],
+      "counter": "Hey {{first_name}},\n\nTotally get it — budgets are real.\n\nQuick question: is it a matter of timing (budget frees up next quarter) or is influencer marketing just not in the cards for {{company_name}} right now?\n\nIf it's timing, happy to reconnect when it makes sense. When would be a good time to circle back?\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "bad_timing": {
+      "phrases": ["bad timing", "not right now", "maybe later", "reach out later", "next quarter", "next year"],
+      "counter": "Hey {{first_name}},\n\nTotally get it! Understand things are stretched atm.\n\nAre you against me booking it first week of {{suggested_month}}? That way, it won't get lost.\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "need_to_check": {
+      "phrases": ["need to check", "let me ask", "run it by", "check with my team", "get back to you"],
+      "counter": "Hey {{first_name}},\n\nTotally understand — quick thought: would it help if we did a quick call together so you have all the info when you bring it to the team?\n\nThat way you can answer any questions they might have on the spot.\n\nI'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "already_working_with_someone": {
+      "phrases": ["already working with", "have an agency", "current partner", "existing relationship"],
+      "counter": "Hey {{first_name}},\n\nTotally respect that. Out of curiosity — are they hitting the kind of numbers you're looking for?\n\nWe recently did 49M views for Whiteout Survival and 15M+ for Gauth AI. Always happy to be a second option if things change.\n\nWorth a quick chat just to have us on your radar?\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "send_more_info": {
+      "phrases": ["send more info", "send details", "email me info", "send a deck", "send proposal"],
+      "counter": "Hey {{first_name}},\n\nHappy to send over info — but honestly, a 10-min call would be way more valuable.\n\nI can walk you through exactly what we've done for brands like {{company_name}} and answer any questions live.\n\nI'm free {{provide_2_time_slots_with_dates_and_timezone}} — either work?\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "too_expensive": {
+      "phrases": ["too expensive", "cost too high", "over budget", "can't justify"],
+      "counter": "Hey {{first_name}},\n\nHeard. Quick question — what would make it a no-brainer investment for {{company_name}}?\n\nWe've structured deals in different ways depending on what brands need. Worth a quick chat to see if we can make something work?\n\nI'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "what_makes_you_different": {
+      "phrases": ["what makes you different", "why you", "why should we", "what's special"],
+      "counter": "Hey {{first_name}},\n\nFair question. Three things:\n\n1. We don't just post — we make brands go viral. Whiteout Survival hit 49M views and 100k new users.\n\n2. 79% of our viewers are non-subscribers chosen by the algorithm. You're reaching new people, not just our existing fans.\n\n3. We're picky. If we don't think we can deliver, we'll tell you upfront.\n\nWorth 10 mins to see if there's a fit?\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "need_guaranteed_results": {
+      "phrases": ["guarantee", "guaranteed results", "promise results", "what if it doesn't work"],
+      "counter": "Hey {{first_name}},\n\nHonestly? No one can guarantee virality — anyone who does is lying.\n\nWhat I can tell you is our track record: 49M views for Whiteout, 15M+ for Gauth, consistent results across campaigns.\n\nWe only take on brands we genuinely believe we can deliver for. Happy to walk you through our process and you can judge for yourself.\n\nQuick call? I'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "demographics_concern": {
+      "phrases": ["demographics", "audience different", "wrong audience", "target market"],
+      "counter": "Hi {{first_name}},\n\nWe have a unique way of reaching specific audiences. 79% of people watching our videos are non-subscribers—these are viewers chosen by the platform's algorithm based on their interests.\n\nSo when we promote your content, the majority watching will be people the algorithm identifies as interested in your niche based on their viewing history.\n\nWorth a quick call to dig into this more? I'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    },
+    "commission_only": {
+      "phrases": ["commission only", "affiliate", "performance based", "rev share", "pay per result"],
+      "counter": "Hey {{first_name}},\n\nWe don't do pure commission/affiliate deals — here's why:\n\nThe creative work is actually the bulk of what we do. Coming up with viral concepts takes weeks. We can't invest that without knowing there's commitment on both sides.\n\nThat said, we've done hybrid structures for the right brands. Worth a quick call to explore what might work?\n\nI'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+      "win_rate": 0,
+      "times_used": 0
+    }
+  }
+}

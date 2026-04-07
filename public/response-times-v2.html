@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Response Time Dashboard</title>
+  <!-- Data fetched from local API -->
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a; 
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1 { color: #fff; margin-bottom: 10px; }
+    h2 { color: #888; font-size: 14px; margin-bottom: 20px; }
+    h3 { color: #fff; margin: 30px 0 15px; font-size: 18px; }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #333;
+    }
+    .stat-card .label { color: #888; font-size: 12px; text-transform: uppercase; }
+    .stat-card .value { color: #fff; font-size: 28px; font-weight: 600; margin-top: 5px; }
+    .stat-card .sub { color: #666; font-size: 12px; margin-top: 5px; }
+    
+    .distribution-bar {
+      display: flex;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 10px 0 20px;
+    }
+    .distribution-bar .segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      min-width: 30px;
+    }
+    .seg-5m { background: #22c55e; }
+    .seg-15m { background: #84cc16; }
+    .seg-1h { background: #eab308; }
+    .seg-3h { background: #f97316; }
+    .seg-24h { background: #ef4444; }
+    .seg-over { background: #991b1b; }
+    
+    .distribution-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 12px;
+      margin-bottom: 30px;
+    }
+    .distribution-legend span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .distribution-legend .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #222;
+    }
+    th {
+      background: #1a1a1a;
+      color: #888;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    td { color: #e0e0e0; }
+    tr:hover td { background: #111; }
+    .hidden-row { display: none; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .highlight { color: #22c55e; font-weight: 600; }
+    
+    .month-header {
+      background: #252525 !important;
+      color: #fff !important;
+      font-weight: 600;
+    }
+    .week-row td:first-child { padding-left: 30px; color: #888; }
+    
+    .loading { text-align: center; padding: 50px; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>📊 Response Time Dashboard</h1>
+  <h2>Positive Reply Response Analysis</h2>
+  
+  <div id="loading" class="loading">Loading data...</div>
+  <div id="dashboard" style="display: none;">
+    
+    <h3>Overall Response Time</h3>
+    <div class="stats-grid" id="overall-stats"></div>
+    
+    <h3>Response Speed Distribution</h3>
+    <div class="distribution-bar" id="distribution-bar"></div>
+    <div class="distribution-legend" id="distribution-legend"></div>
+    
+    <h3>Monthly & Weekly Breakdown</h3>
+    <table id="breakdown-table">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th class="num">Unique Leads</th>
+          <th class="num">Messages</th>
+          <th class="num">Avg First Response</th>
+          <th class="num">Avg Follow-up</th>
+          <th class="num">Avg All</th>
+          <th class="num">Median All</th>
+        </tr>
+      </thead>
+      <tbody id="breakdown-body"></tbody>
+    </table>
+    
+  </div>
+
+  <script>
+    async function loadData() {
+      try {
+        const res = await fetch('/api/v2/response-times/analytics');
+        if (!res.ok) throw new Error('Failed to load data');
+        const data = await res.json();
+        renderDashboard(data);
+      } catch (err) {
+        document.getElementById('loading').textContent = 'Error: ' + err.message;
+      }
+    }
+    
+    function renderDashboard(apiData) {
+      const { overall, distribution, breakdown } = apiData;
+      
+      // Render overall stats
+      document.getElementById('overall-stats').innerHTML = `
+        <div class="stat-card">
+          <div class="label">Avg First Response</div>
+          <div class="value">${formatTime(overall.avgFirst)}</div>
+          <div class="sub">${overall.firstCount} first replies</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Avg Follow-up Response</div>
+          <div class="value">${formatTime(overall.avgFollowUp)}</div>
+          <div class="sub">${overall.followUpCount} follow-ups</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Avg All Responses</div>
+          <div class="value">${formatTime(overall.avgAll)}</div>
+          <div class="sub">${overall.withResponseTime} total</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Median All Responses</div>
+          <div class="value">${formatTime(overall.medianAll)}</div>
+          <div class="sub">50th percentile</div>
+        </div>
+      `;
+      
+      // Distribution
+      const dist = distribution;
+      const total = overall.withResponseTime;
+      const pct = k => total ? ((dist[k] / total) * 100).toFixed(0) : 0;
+      
+      document.getElementById('distribution-bar').innerHTML = `
+        <div class="segment seg-5m" style="width: ${pct('under5m')}%">${pct('under5m')}%</div>
+        <div class="segment seg-15m" style="width: ${pct('under15m')}%">${pct('under15m')}%</div>
+        <div class="segment seg-1h" style="width: ${pct('under1h')}%">${pct('under1h')}%</div>
+        <div class="segment seg-3h" style="width: ${pct('under3h')}%">${pct('under3h')}%</div>
+        <div class="segment seg-24h" style="width: ${pct('under24h')}%">${pct('under24h')}%</div>
+        <div class="segment seg-over" style="width: ${pct('over24h')}%">${pct('over24h')}%</div>
+      `;
+      
+      document.getElementById('distribution-legend').innerHTML = `
+        <span><div class="dot seg-5m"></div> <5min: ${dist.under5m} (${pct('under5m')}%)</span>
+        <span><div class="dot seg-15m"></div> 5-15min: ${dist.under15m} (${pct('under15m')}%)</span>
+        <span><div class="dot seg-1h"></div> 15min-1h: ${dist.under1h} (${pct('under1h')}%)</span>
+        <span><div class="dot seg-3h"></div> 1-3h: ${dist.under3h} (${pct('under3h')}%)</span>
+        <span><div class="dot seg-24h"></div> 3-24h: ${dist.under24h} (${pct('under24h')}%)</span>
+        <span><div class="dot seg-over"></div> >24h: ${dist.over24h} (${pct('over24h')}%)</span>
+      `;
+      
+      // Breakdown table
+      const tbody = document.getElementById('breakdown-body');
+      tbody.innerHTML = breakdown.map(row => {
+        const cls = row.type === 'month' ? 'month-header' : 'week-row';
+        const hidden = row.hidden ? 'hidden-row' : '';
+        return \`
+          <tr class="\${cls} \${hidden}">
+            <td>\${row.name}</td>
+            <td class="num">\${row.uniqueLeads || '-'}</td>
+            <td class="num">\${row.messages || '-'}</td>
+            <td class="num">\${row.avgFirst ? formatTime(row.avgFirst) : '-'}</td>
+            <td class="num">\${row.avgFollowUp ? formatTime(row.avgFollowUp) : '-'}</td>
+            <td class="num">\${row.avgAll ? formatTime(row.avgAll) : '-'}</td>
+            <td class="num">\${row.medianAll ? formatTime(row.medianAll) : '-'}</td>
+          </tr>
+        \`;
+      }).join('');
+      
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+    }
+    
+    function formatTime(seconds) {
+      if (seconds < 60) return `${Math.round(seconds)}s`;
+      if (seconds < 3600) return `${Math.round(seconds / 60)}m`;
+      if (seconds < 86400) return `${(seconds / 3600).toFixed(1)}h`;
+      return `${(seconds / 86400).toFixed(1)}d`;
+    }
+    
+    loadData();
+  </script>
+</body>
+</html>

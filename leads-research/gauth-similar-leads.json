@@ -1,0 +1,192 @@
+[
+  {
+    "company_name": "MagicSchool",
+    "website": "magicschool.ai",
+    "funding": "$62.4M (Series B)",
+    "headquarters": "USA",
+    "business_type": "B2B",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI tools for educators - lesson planning, content creation, assessment. 5M+ educators, 160 countries.",
+    "why_good_fit": "Perfect size, US-based, AI education, recently funded"
+  },
+  {
+    "company_name": "SchoolAI",
+    "website": "schoolai.com",
+    "funding": "$25M (Series A - April 2025)",
+    "headquarters": "USA (Utah)",
+    "business_type": "B2B",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI platform for teaching and learning in K-12 schools.",
+    "why_good_fit": "Fresh funding, perfect size, US-based, AI education"
+  },
+  {
+    "company_name": "Knowunity",
+    "website": "knowunity.com",
+    "funding": "€45M (~$50M, Series B)",
+    "headquarters": "Germany (Berlin)",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI learning companion for students. 20M users across 15 countries. Founded by 4 students.",
+    "why_good_fit": "Perfect size, Germany (good geography), expanding to US, direct Gauth competitor"
+  },
+  {
+    "company_name": "Amira Learning",
+    "website": "amiralearning.com",
+    "funding": "$40.3M",
+    "headquarters": "USA",
+    "business_type": "B2B",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI reading assistant that listens to students read aloud and provides tutoring. 2M students, 3000+ schools.",
+    "why_good_fit": "Perfect size, US-based, proven traction in schools"
+  },
+  {
+    "company_name": "Speak",
+    "website": "speak.com",
+    "funding": "$160M",
+    "headquarters": "USA",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI language learning focused on speaking practice. Backed by Khosla, Accel, OpenAI Startup Fund.",
+    "why_good_fit": "AI-first, competing with Duolingo, OpenAI-backed, strong tech"
+  },
+  {
+    "company_name": "Sana Labs",
+    "website": "sanalabs.com",
+    "funding": "$250M valuation",
+    "headquarters": "Sweden (Stockholm)",
+    "business_type": "B2B",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI-powered personalized learning for enterprises and educational institutions.",
+    "why_good_fit": "Scandinavia (good geography), strong B2B focus"
+  },
+  {
+    "company_name": "Riiid",
+    "website": "riiid.com",
+    "funding": "$256.7M",
+    "headquarters": "South Korea",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI-powered SAT/ACT test prep with Santa AI tutor. 1M+ users globally.",
+    "why_good_fit": "Borderline on size but Korea can work, strong AI tutoring tech"
+  },
+  {
+    "company_name": "QANDA (Mathpresso)",
+    "website": "qanda.ai",
+    "funding": "$130M",
+    "headquarters": "South Korea",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI homework helper app - take photo, get solution. Google-backed, 50M+ downloads.",
+    "why_good_fit": "Direct Gauth competitor, strong in Asia, Google invested"
+  },
+  {
+    "company_name": "Osmo",
+    "website": "playosmo.com",
+    "funding": "$32.5M",
+    "headquarters": "USA",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI-powered educational games combining physical and digital play. 31,000+ classrooms.",
+    "why_good_fit": "Perfect size, US-based, unique hardware+software approach"
+  },
+  {
+    "company_name": "HowNow",
+    "website": "gethownow.com",
+    "funding": "$9.3M",
+    "headquarters": "UK (London)",
+    "business_type": "B2B",
+    "tier": "ADJACENT",
+    "seo_description": "AI-driven corporate learning platform connecting experts and learners.",
+    "why_good_fit": "UK geography, B2B corporate learning, good size"
+  },
+  {
+    "company_name": "Nectir AI",
+    "website": "nectir.io",
+    "funding": "$6.3M",
+    "headquarters": "USA",
+    "business_type": "B2B",
+    "tier": "ADJACENT",
+    "seo_description": "FERPA-compliant AI assistants for educators, integrates with LMS.",
+    "why_good_fit": "Privacy-focused, US education market, smaller but growing"
+  },
+  {
+    "company_name": "Blue Canoe",
+    "website": "bluecanoelearning.com",
+    "funding": "$4.4M",
+    "headquarters": "USA",
+    "business_type": "B2B",
+    "tier": "ADJACENT",
+    "seo_description": "AI pronunciation coach for non-native English speakers in workplace.",
+    "why_good_fit": "Niche but valuable, US-based, B2B focus"
+  },
+  {
+    "company_name": "Question AI",
+    "website": "questionai.com",
+    "funding": "Unknown (10M+ users)",
+    "headquarters": "Singapore",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI homework helper by D3 Dimension. Free core features, direct Gauth competitor.",
+    "why_good_fit": "Singapore (good geography), direct competitor to Gauth"
+  },
+  {
+    "company_name": "Mathos AI (MathGPT Pro)",
+    "website": "mathgptpro.com",
+    "funding": "Unknown (startup)",
+    "headquarters": "Unknown",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI math solver outperforming DeepSeek R1 in benchmarks. Step-by-step solutions.",
+    "why_good_fit": "Independent startup, not owned by giant, direct Gauth alternative"
+  },
+  {
+    "company_name": "UpStudy",
+    "website": "upstudy.ai",
+    "funding": "Unknown",
+    "headquarters": "Unknown",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI homework helper covering math and science with 24/7 AI tutor chat.",
+    "why_good_fit": "Gauth alternative, needs more research on funding"
+  },
+  {
+    "company_name": "Solvely",
+    "website": "solvely.ai",
+    "funding": "Unknown",
+    "headquarters": "Unknown",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI homework helper similar to Gauth.",
+    "why_good_fit": "Gauth alternative, needs funding research"
+  },
+  {
+    "company_name": "Edubrain.ai",
+    "website": "edubrain.ai",
+    "funding": "Unknown",
+    "headquarters": "Unknown",
+    "business_type": "B2C",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "AI-powered homework helper with detailed solutions and explanations.",
+    "why_good_fit": "Gauth alternative, needs funding research"
+  },
+  {
+    "company_name": "RevisionDojo",
+    "website": "revisiondojo.com",
+    "funding": "Unknown",
+    "headquarters": "International",
+    "business_type": "B2C",
+    "tier": "ADJACENT",
+    "seo_description": "AI-powered exam prep for IB, GCSE, IGCSE, AP curricula.",
+    "why_good_fit": "Exam prep niche, needs funding research"
+  },
+  {
+    "company_name": "Flint K12",
+    "website": "flintk12.com",
+    "funding": "Unknown",
+    "headquarters": "USA",
+    "business_type": "B2B",
+    "tier": "WHITEOUT SIMILAR",
+    "seo_description": "Personalized AI learning platform built for schools. Math accuracy focus.",
+    "why_good_fit": "US K-12 market, B2B school sales"
+  }
+]

@@ -1,0 +1,721 @@
+{
+  "generated": "2026-02-03T23:30:12.121Z",
+  "summary": {
+    "total": 71,
+    "critical": 15,
+    "high": 43,
+    "medium": 13,
+    "low": 0
+  },
+  "top15": [
+    {
+      "name": "Joshua Kopeika",
+      "email": "josh.kopeika@complex.com",
+      "company": "Complex",
+      "score": 100,
+      "daysStale": 63,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 30,
+        "category": 20,
+        "responseTime": 10
+      }
+    },
+    {
+      "name": "Olli Laamanen",
+      "email": "olli.laamanen@rovio.com",
+      "company": "Rovio",
+      "score": 90,
+      "daysStale": 72,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 30,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Simon Roberts",
+      "email": "simon.roberts@sega.co.uk",
+      "company": "Sega of America",
+      "score": 90,
+      "daysStale": 72,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 30,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Sankar Patel",
+      "email": "sankar@playosmo.com",
+      "company": "Osmo",
+      "score": 90,
+      "daysStale": 63,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 30,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Jerry Pratt",
+      "email": "jerry.pratt@personainc.ai",
+      "company": "Figure",
+      "score": 90,
+      "daysStale": 49,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 30,
+        "company": 30,
+        "category": 20,
+        "responseTime": 10
+      }
+    },
+    {
+      "name": "Brianny Chamorro",
+      "email": "brianny@doist.com",
+      "company": "Doist",
+      "score": 90,
+      "daysStale": 48,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 30,
+        "company": 30,
+        "category": 20,
+        "responseTime": 10
+      }
+    },
+    {
+      "name": "David Dahlgren",
+      "email": "david@resolutiongames.com",
+      "company": "Resolution Games",
+      "score": 85,
+      "daysStale": 70,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 20,
+        "category": 20,
+        "responseTime": 5
+      }
+    },
+    {
+      "name": "Sean Yi",
+      "email": "seany@snailgamesusa.com",
+      "company": "Snail Games USA",
+      "score": 80,
+      "daysStale": 64,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 20,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Aleksey Sigabatulin",
+      "email": "a.sigabatulin@pixonic.com",
+      "company": "Pixonic",
+      "score": 80,
+      "daysStale": 72,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 20,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Jeremy Flynn",
+      "email": "jeremy.flynn@allelitewrestling.com",
+      "company": "All Elite Wrestling",
+      "score": 80,
+      "daysStale": 63,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 20,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Ivy Houde",
+      "email": "ivy@jackpot.com",
+      "company": "Jackpot",
+      "score": 77,
+      "daysStale": 29,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 20,
+        "company": 30,
+        "category": 20,
+        "responseTime": 7
+      }
+    },
+    {
+      "name": "Colby Draper",
+      "email": "colby.draper@empowerly.com",
+      "company": "Empowerly",
+      "score": 70,
+      "daysStale": 63,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 40,
+        "company": 0,
+        "category": 20,
+        "responseTime": 10
+      }
+    },
+    {
+      "name": "Tala",
+      "email": "tala@repl.it",
+      "company": "Replit",
+      "score": 70,
+      "daysStale": 26,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 20,
+        "company": 30,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Ryann Sgriccia",
+      "email": "rsgriccia@ign.com",
+      "company": "IGN Entertainment",
+      "score": 70,
+      "daysStale": 23,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 20,
+        "company": 30,
+        "category": 20,
+        "responseTime": 0
+      }
+    },
+    {
+      "name": "Christina Hamilton",
+      "email": "christina.hamilton@udemy.com",
+      "company": "Udemy",
+      "score": 70,
+      "daysStale": 23,
+      "category": "Interested",
+      "breakdown": {
+        "staleness": 20,
+        "company": 30,
+        "category": 20,
+        "responseTime": 0
+      }
+    }
+  ],
+  "all": [
+    {
+      "name": "Joshua Kopeika",
+      "email": "josh.kopeika@complex.com",
+      "company": "Complex",
+      "score": 100,
+      "daysStale": 63
+    },
+    {
+      "name": "Olli Laamanen",
+      "email": "olli.laamanen@rovio.com",
+      "company": "Rovio",
+      "score": 90,
+      "daysStale": 72
+    },
+    {
+      "name": "Simon Roberts",
+      "email": "simon.roberts@sega.co.uk",
+      "company": "Sega of America",
+      "score": 90,
+      "daysStale": 72
+    },
+    {
+      "name": "Sankar Patel",
+      "email": "sankar@playosmo.com",
+      "company": "Osmo",
+      "score": 90,
+      "daysStale": 63
+    },
+    {
+      "name": "Jerry Pratt",
+      "email": "jerry.pratt@personainc.ai",
+      "company": "Figure",
+      "score": 90,
+      "daysStale": 49
+    },
+    {
+      "name": "Brianny Chamorro",
+      "email": "brianny@doist.com",
+      "company": "Doist",
+      "score": 90,
+      "daysStale": 48
+    },
+    {
+      "name": "David Dahlgren",
+      "email": "david@resolutiongames.com",
+      "company": "Resolution Games",
+      "score": 85,
+      "daysStale": 70
+    },
+    {
+      "name": "Sean Yi",
+      "email": "seany@snailgamesusa.com",
+      "company": "Snail Games USA",
+      "score": 80,
+      "daysStale": 64
+    },
+    {
+      "name": "Aleksey Sigabatulin",
+      "email": "a.sigabatulin@pixonic.com",
+      "company": "Pixonic",
+      "score": 80,
+      "daysStale": 72
+    },
+    {
+      "name": "Jeremy Flynn",
+      "email": "jeremy.flynn@allelitewrestling.com",
+      "company": "All Elite Wrestling",
+      "score": 80,
+      "daysStale": 63
+    },
+    {
+      "name": "Ivy Houde",
+      "email": "ivy@jackpot.com",
+      "company": "Jackpot",
+      "score": 77,
+      "daysStale": 29
+    },
+    {
+      "name": "Colby Draper",
+      "email": "colby.draper@empowerly.com",
+      "company": "Empowerly",
+      "score": 70,
+      "daysStale": 63
+    },
+    {
+      "name": "Tala",
+      "email": "tala@repl.it",
+      "company": "Replit",
+      "score": 70,
+      "daysStale": 26
+    },
+    {
+      "name": "Ryann Sgriccia",
+      "email": "rsgriccia@ign.com",
+      "company": "IGN Entertainment",
+      "score": 70,
+      "daysStale": 23
+    },
+    {
+      "name": "Christina Hamilton",
+      "email": "christina.hamilton@udemy.com",
+      "company": "Udemy",
+      "score": 70,
+      "daysStale": 23
+    },
+    {
+      "name": "Liene Cunska",
+      "email": "liene@atgames.net",
+      "company": "AtGames",
+      "score": 67,
+      "daysStale": 62
+    },
+    {
+      "name": "Jon",
+      "email": "jon@doingthingsmedia.com",
+      "company": "Doing Things Media",
+      "score": 67,
+      "daysStale": 62
+    },
+    {
+      "name": "Evgeny Zvyagin",
+      "email": "e.zvyagin@virtus.pro",
+      "company": "Virtus",
+      "score": 67,
+      "daysStale": 23
+    },
+    {
+      "name": "Nick Depalo",
+      "email": "nick.depalo@unity3d.com",
+      "company": "Unity",
+      "score": 67,
+      "daysStale": 14
+    },
+    {
+      "name": "Samantha Gaspin",
+      "email": "sami@mindtrip.ai",
+      "company": "Mindtrip",
+      "score": 65,
+      "daysStale": 49
+    },
+    {
+      "name": "Erika R.",
+      "email": "erika@assemblyfestival.com",
+      "company": "Assembly Festival",
+      "score": 65,
+      "daysStale": 63
+    },
+    {
+      "name": "Greg Lee",
+      "email": "greg@teamterriblegames.com",
+      "company": "Team Terrible",
+      "score": 65,
+      "daysStale": 70
+    },
+    {
+      "name": "Milica Mijailovic",
+      "email": "milicad@twodesperados.com",
+      "company": "Two Desperados",
+      "score": 63,
+      "daysStale": 72
+    },
+    {
+      "name": "Sergei Konstantinov",
+      "email": "sk@ddream.games",
+      "company": "D.Dream Games",
+      "score": 63,
+      "daysStale": 63
+    },
+    {
+      "name": "Maelle Gurib",
+      "email": "m.gurib@go-electra.com",
+      "company": "Electra",
+      "score": 63,
+      "daysStale": 63
+    },
+    {
+      "name": "Ines Kondic",
+      "email": "ines.kondic@outfit7.com",
+      "company": "Outfit 7",
+      "score": 63,
+      "daysStale": 63
+    },
+    {
+      "name": "Jesse Padilla",
+      "email": "jessep@fitbod.me",
+      "company": "Fitbod",
+      "score": 63,
+      "daysStale": 63
+    },
+    {
+      "name": "Chloe Massiah",
+      "email": "chloe.massiah@gozney.com",
+      "company": "Gozney",
+      "score": 63,
+      "daysStale": 62
+    },
+    {
+      "name": "Rahul srivastava",
+      "email": "Rahul.srivastava@gyandhan.com",
+      "company": "GyanDhan",
+      "score": 62,
+      "daysStale": 20
+    },
+    {
+      "name": "Kari Gibson",
+      "email": "kari.g@littlemoons.co.uk",
+      "company": "Little Moons",
+      "score": 60,
+      "daysStale": 63
+    },
+    {
+      "name": "Cory O'Born",
+      "email": "coborn@visitseattle.org",
+      "company": "Visit Seattle",
+      "score": 60,
+      "daysStale": 63
+    },
+    {
+      "name": "William Marie",
+      "email": "wmarie@oldskullgames.com",
+      "company": "Old Skull Games",
+      "score": 60,
+      "daysStale": 64
+    },
+    {
+      "name": "Vladimir Mickovic",
+      "email": "vladimir.mickovic@juicymarbles.com",
+      "company": "Juicy Marbles",
+      "score": 60,
+      "daysStale": 63
+    },
+    {
+      "name": "Andrei Lopata",
+      "email": "alopata@atypicalgames.com",
+      "company": "Atypical Games s.r.l.",
+      "score": 60,
+      "daysStale": 70
+    },
+    {
+      "name": "Ugo Voisin",
+      "email": "ugo.voisin@fastned.nl",
+      "company": "Fastned",
+      "score": 60,
+      "daysStale": 49
+    },
+    {
+      "name": "Pepper Raper",
+      "email": "pepper.raper@rockcityenterprises.com",
+      "company": "See Rock City",
+      "score": 60,
+      "daysStale": 49
+    },
+    {
+      "name": "Franck",
+      "email": "franck@devialet.com",
+      "company": "Devialet",
+      "score": 60,
+      "daysStale": 44
+    },
+    {
+      "name": "Gianna Calistro",
+      "email": "gianna.calistro@doublegood.com",
+      "company": "Double Good",
+      "score": 60,
+      "daysStale": 48
+    },
+    {
+      "name": "Frank Lee",
+      "email": "flee@antec.com",
+      "company": "Antec",
+      "score": 60,
+      "daysStale": 62
+    },
+    {
+      "name": "Madeline Richards",
+      "email": "madeline@afandco.com",
+      "company": "Evergreen Lodge at Yosemite",
+      "score": 60,
+      "daysStale": 63
+    },
+    {
+      "name": "Tamika Curtis-Holloway",
+      "email": "tholloway@jhchc.org",
+      "company": "Jackson Hinds Comprehensive Health Center",
+      "score": 60,
+      "daysStale": 63
+    },
+    {
+      "name": "Janell Craig",
+      "email": "jcraig@destinationcle.org",
+      "company": "Destination Cleveland",
+      "score": 60,
+      "daysStale": 64
+    },
+    {
+      "name": "Jessica Gilliand",
+      "email": "jessica@coatsink.com",
+      "company": "Coatsink",
+      "score": 60,
+      "daysStale": 47
+    },
+    {
+      "name": "Brian Tan",
+      "email": "brian@myfirst.tech",
+      "company": "myFirst",
+      "score": 60,
+      "daysStale": 42
+    },
+    {
+      "name": "Ishita Bhanot",
+      "email": "ishita.bhanot@gyandhan.com",
+      "company": "GyanDhan",
+      "score": 58,
+      "daysStale": 20
+    },
+    {
+      "name": "Chris Stevens",
+      "email": "chris.stevens@spothero.com",
+      "company": "Spot Hero",
+      "score": 57,
+      "daysStale": 47
+    },
+    {
+      "name": "Divakshu Taneja",
+      "email": "divakshu.taneja@wahed.com",
+      "company": "Wahed",
+      "score": 57,
+      "daysStale": 49
+    },
+    {
+      "name": "Valeriya Kramp",
+      "email": "kramp@owlcat.games",
+      "company": "Owlcat Games",
+      "score": 53,
+      "daysStale": 14
+    },
+    {
+      "name": "Raan Williams",
+      "email": "raan@playingforchange.com",
+      "company": "playingforchange",
+      "score": 50,
+      "daysStale": 49
+    },
+    {
+      "name": "Angelo Materlik",
+      "email": "angelo.materlik@atari.com",
+      "company": "Atari",
+      "score": 50,
+      "daysStale": 50
+    },
+    {
+      "name": "Mervyn Yap",
+      "email": "mervyn@daydream.sg",
+      "company": "Daydream",
+      "score": 50,
+      "daysStale": 49
+    },
+    {
+      "name": "Keith",
+      "email": "martin@trymartin.com",
+      "company": "Martin",
+      "score": 50,
+      "daysStale": 35
+    },
+    {
+      "name": "Glen Gaudion",
+      "email": "glen@thermal.travel",
+      "company": "Thermal",
+      "score": 50,
+      "daysStale": 49
+    },
+    {
+      "name": "Dimple Patel",
+      "email": "dimple.patel@wizeacademy.com",
+      "company": "Wize Computing Academy",
+      "score": 50,
+      "daysStale": 34
+    },
+    {
+      "name": "Richard Evans",
+      "email": "richard.evans@beehiiv.com",
+      "company": "Beehiiv",
+      "score": 50,
+      "daysStale": 34
+    },
+    {
+      "name": "Oscar Hernandez",
+      "email": "oscar@umiasalud.com",
+      "company": "El Dorado",
+      "score": 50,
+      "daysStale": 48
+    },
+    {
+      "name": "Chuks Aylor",
+      "email": "chuksaylor@dreamworksdirect.com",
+      "company": "Dreamworks Direct",
+      "score": 50,
+      "daysStale": 28
+    },
+    {
+      "name": "Ivan Ivan",
+      "email": "Ivan@coppernicometals.com",
+      "company": "Coppernico Metals",
+      "score": 50,
+      "daysStale": 23
+    },
+    {
+      "name": "Jan Jan",
+      "email": "jan@publishlab.com",
+      "company": "Labrador CMS",
+      "score": 47,
+      "daysStale": 23
+    },
+    {
+      "name": "Naim Hamdar",
+      "email": "naim@payzli.com",
+      "company": "Payzli",
+      "score": 47,
+      "daysStale": 22
+    },
+    {
+      "name": "Waleed Nasir",
+      "email": "waleed@qult.ai",
+      "company": "Qult",
+      "score": 47,
+      "daysStale": 22
+    },
+    {
+      "name": "Margarita Cardona",
+      "email": "margarita@coppernicometals.com",
+      "company": "Coppernico Metals",
+      "score": 45,
+      "daysStale": 23
+    },
+    {
+      "name": "Sarujan Ranjan",
+      "email": "sarujan@studystream.live",
+      "company": "StudyStream",
+      "score": 45,
+      "daysStale": 20
+    },
+    {
+      "name": "Ana Pastoria",
+      "email": "ana.p@imagen-ai.com",
+      "company": "Imagen",
+      "score": 45,
+      "daysStale": 23
+    },
+    {
+      "name": "Karin Baranyai",
+      "email": "karin.baranyai@air-up.com",
+      "company": "Air Up",
+      "score": 43,
+      "daysStale": 27
+    },
+    {
+      "name": "Nabil Ouazzani",
+      "email": "izzi@zoop.club",
+      "company": "Zoop",
+      "score": 43,
+      "daysStale": 20
+    },
+    {
+      "name": "Joe Schaeppi",
+      "email": "joe@solsten.io",
+      "company": "Solsten",
+      "score": 43,
+      "daysStale": 23
+    },
+    {
+      "name": "Miya",
+      "email": "miya@easeus.com",
+      "company": "EaseUS",
+      "score": 40,
+      "daysStale": 22
+    },
+    {
+      "name": "Laurynas Mazeliauskas",
+      "email": "laurynas.mazeliauskas@kiloverse.com",
+      "company": "Pulsetto",
+      "score": 40,
+      "daysStale": 19
+    },
+    {
+      "name": "Dominion Eromosele",
+      "email": "dom@carry1st.com",
+      "company": "Carry1st",
+      "score": 40,
+      "daysStale": 20
+    },
+    {
+      "name": "Sara Sara",
+      "email": "sara.duryea@circlesecurity.ai",
+      "company": "Circle Security",
+      "score": 40,
+      "daysStale": 21
+    }
+  ]
+}

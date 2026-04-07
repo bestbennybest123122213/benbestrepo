@@ -1,0 +1,10 @@
+{
+  "date": "2026-02-04T20:12:39.759Z",
+  "total": 118,
+  "booked": 21,
+  "meeting_request": 61,
+  "interested": 16,
+  "stale": 92,
+  "critical": 9,
+  "enterprise": 11
+}

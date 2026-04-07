@@ -1,0 +1,110 @@
+{
+  "generated": "2026-02-05T23:07:07.487Z",
+  "metrics": {
+    "total": 118,
+    "booked": 21,
+    "meetingReq": 61,
+    "interested": 16,
+    "infoReq": 20,
+    "bookingRate": 17.8,
+    "pendingRate": 51.7
+  },
+  "enterprise": {
+    "total": 11,
+    "booked": 0,
+    "pending": 7
+  },
+  "urgency": {
+    "hot": 1,
+    "warm": 2,
+    "stale": 79,
+    "critical": 5
+  },
+  "topPriorities": [
+    {
+      "company": "Navercorp",
+      "name": "Sungkwan Kim",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 9,
+      "score": 210
+    },
+    {
+      "company": "Paradoxinteractive",
+      "name": "Marina Hallikainen",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 10,
+      "score": 210
+    },
+    {
+      "company": "Unity",
+      "name": "Nick Depalo",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 13,
+      "score": 210
+    },
+    {
+      "company": "Stillfront",
+      "name": "Marina Andersson",
+      "category": "Interested",
+      "tier": "enterprise",
+      "ageDays": 1,
+      "score": 190
+    },
+    {
+      "company": "Udemy",
+      "name": "Christina Hamilton",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 16,
+      "score": 180
+    },
+    {
+      "company": "Replit",
+      "name": "Haya Odeh",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 21,
+      "score": 180
+    },
+    {
+      "company": "Ign",
+      "name": "Ryann Sgriccia",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 21,
+      "score": 180
+    },
+    {
+      "company": "Complex",
+      "name": "Joshua Kopeika",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "ageDays": 49,
+      "score": 180
+    },
+    {
+      "company": "Weedmaps",
+      "name": "David Vuong",
+      "category": "Interested",
+      "tier": "enterprise",
+      "ageDays": 10,
+      "score": 170
+    },
+    {
+      "company": "Circlesecurity",
+      "name": "Sara Sara",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "ageDays": 6,
+      "score": 140
+    }
+  ],
+  "revenue": {
+    "current": 10500,
+    "potential": 41000,
+    "upside": 30500
+  }
+}

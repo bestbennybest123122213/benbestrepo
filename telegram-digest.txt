@@ -1,0 +1,36 @@
+📊 *DAILY DIGEST*
+_Wednesday 4 Feb_
+
+📈 *PIPELINE*
+```
+Booked:           21
+Meeting Request:  61
+Interested:       16
+Info Request:     20
+─────────────────────
+TOTAL:           118
+```
+
+⚠️ *ALERTS*
+• 87 stale leads (>14d)
+• 🚨 7 critical (>60d)
+
+🏢 *ENTERPRISE LEADS* (11)
+👀 Marina Andersson @ Stillfront Group
+👀 Tushar Jain @ Dream11
+🤝 Sungkwan Kim @ Naver Corporation
+🤝 Marina Hallikainen @ Paradox Interactive
+👀 David Vuong @ Weedmaps
+
+🆕 *LAST 24H* (1 new)
+✨ Marina Andersson
+
+📉 *CONVERSION*
+Booking rate: 17.8%
+
+🎯 *TODAY*
+1. Clear 5 critical leads
+2. Book 3 meeting requests
+3. Follow up on enterprise leads
+
+🔗 [Dashboard](http://localhost:3456)

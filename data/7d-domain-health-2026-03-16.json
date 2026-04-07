@@ -1,0 +1,343 @@
+{
+  "scraped_at": "2026-03-16T22:23:37.939Z",
+  "date_range": "2026-03-10 - 2026-03-16",
+  "period": "7d",
+  "source": "SmartLead Email Health Metrics",
+  "mailboxes": [
+    {
+      "email": "mclaurin@itss-imannntvsite.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "0.00%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "mclaurin@theitss-imannntv.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "0.00%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "imman.mclaurin@joinitss-imannntv.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "0.00%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immanuel.mclaurin@joinitss-imannntv.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 1,
+      "openRate": "0.00%",
+      "replyRate": "0.00%",
+      "bounceRate": "3.13%"
+    },
+    {
+      "email": "immanuel.mclaurin@itss-imannntvcloud.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "0.00%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "imman.mclaurin@proitss-imannntv.com",
+      "sent": 41,
+      "opens": 1,
+      "replied": 3,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "2.94%",
+      "replyRate": "8.82%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "imman.mclaurin@itss-imannntvdigital.com",
+      "sent": 41,
+      "opens": 1,
+      "replied": 2,
+      "positive": 1,
+      "bounced": 1,
+      "openRate": "3.33%",
+      "replyRate": "6.90%",
+      "bounceRate": "3.33%"
+    },
+    {
+      "email": "mclaurin@itss-imannntvcloud.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 1,
+      "openRate": "0.00%",
+      "replyRate": "2.27%",
+      "bounceRate": "2.27%"
+    },
+    {
+      "email": "mclaurin@joinitss-imannntv.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "3.03%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immanuel.mclaurin@itss-imannntv24.com",
+      "sent": 41,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "2.22%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "imclaurin@smartitssimannntv.com",
+      "sent": 8,
+      "opens": 1,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "14.29%",
+      "replyRate": "14.29%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immanmclaurin_i@goitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "11.11%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immanmclaurin-m@goitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "14.29%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immanmclaurin.m@goitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "11.11%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immanmclaurin-m@smartitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "12.50%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "i-mclaurin@proitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "11.11%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immani-mclaurin@helloitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "12.50%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "immani.mclaurin@myitssimannntv.com",
+      "sent": 8,
+      "opens": 2,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "14.29%",
+      "replyRate": "14.29%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "imman.mm@myitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "14.29%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "imman.mm@proitssimannntv.com",
+      "sent": 8,
+      "opens": 1,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "16.67%",
+      "replyRate": "16.67%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "mclaurin_i@helloitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 1,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "11.11%",
+      "bounceRate": "0.00%"
+    },
+    {
+      "email": "mclaurin-i@useitssimannntv.com",
+      "sent": 8,
+      "opens": 0,
+      "replied": 1,
+      "positive": 0,
+      "bounced": 0,
+      "openRate": "0.00%",
+      "replyRate": "16.67%",
+      "bounceRate": "0.00%"
+    }
+  ],
+  "summary": {
+    "totalMailboxes": 22,
+    "totalSent": 506,
+    "totalOpens": 6,
+    "totalReplied": 20,
+    "totalPositive": 2,
+    "totalBounced": 3,
+    "overallOpenRate": "1.19%",
+    "overallReplyRate": "3.95%",
+    "overallBounceRate": "0.59%"
+  },
+  "topPerformers": [
+    {
+      "email": "imman.mclaurin@proitss-imannntv.com",
+      "sent": 41,
+      "replied": 3,
+      "replyRate": "7.32%"
+    },
+    {
+      "email": "imman.mclaurin@itss-imannntvdigital.com",
+      "sent": 41,
+      "replied": 2,
+      "replyRate": "4.88%"
+    },
+    {
+      "email": "mclaurin@itss-imannntvcloud.com",
+      "sent": 41,
+      "replied": 1,
+      "replyRate": "2.44%"
+    },
+    {
+      "email": "mclaurin@joinitss-imannntv.com",
+      "sent": 41,
+      "replied": 1,
+      "replyRate": "2.44%"
+    },
+    {
+      "email": "immanuel.mclaurin@itss-imannntv24.com",
+      "sent": 41,
+      "replied": 1,
+      "replyRate": "2.44%"
+    },
+    {
+      "email": "imclaurin@smartitssimannntv.com",
+      "sent": 8,
+      "replied": 1,
+      "replyRate": "12.50%"
+    },
+    {
+      "email": "immanmclaurin_i@goitssimannntv.com",
+      "sent": 8,
+      "replied": 1,
+      "replyRate": "12.50%"
+    },
+    {
+      "email": "immanmclaurin-m@goitssimannntv.com",
+      "sent": 8,
+      "replied": 1,
+      "replyRate": "12.50%"
+    },
+    {
+      "email": "immanmclaurin.m@goitssimannntv.com",
+      "sent": 8,
+      "replied": 1,
+      "replyRate": "12.50%"
+    },
+    {
+      "email": "immanmclaurin-m@smartitssimannntv.com",
+      "sent": 8,
+      "replied": 1,
+      "replyRate": "12.50%"
+    }
+  ],
+  "worstBouncers": [
+    {
+      "email": "imman.mclaurin@itss-imannntvdigital.com",
+      "sent": 41,
+      "bounced": 1,
+      "bounceRate": "3.33%"
+    },
+    {
+      "email": "immanuel.mclaurin@joinitss-imannntv.com",
+      "sent": 41,
+      "bounced": 1,
+      "bounceRate": "3.13%"
+    },
+    {
+      "email": "mclaurin@itss-imannntvcloud.com",
+      "sent": 41,
+      "bounced": 1,
+      "bounceRate": "2.27%"
+    }
+  ]
+}

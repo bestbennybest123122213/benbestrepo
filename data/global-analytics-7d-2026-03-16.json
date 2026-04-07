@@ -1,0 +1,16 @@
+{
+  "scrapedAt": "2026-03-16T22:02:36.301Z",
+  "period": "last_7_days",
+  "dateRange": "2026-03-10 - 2026-03-16",
+  "summary": {
+    "emailsSent": 6574,
+    "leads": 4866,
+    "opened": 19,
+    "replied": 24,
+    "positiveReply": 3,
+    "bounced": 38,
+    "openRate": 0.27,
+    "replyRate": 0.49,
+    "bounceRate": 0.78
+  }
+}

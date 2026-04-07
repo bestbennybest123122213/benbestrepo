@@ -1,0 +1,17 @@
+{
+  "snapshots": [
+    {
+      "timestamp": "2026-02-04T14:32:07.026Z",
+      "date": "2026-02-04",
+      "metrics": {
+        "total": 118,
+        "booked": 21,
+        "meetings": 61,
+        "interested": 16,
+        "info": 20,
+        "bookingRate": "17.80",
+        "unbooked": 97
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "deals": {
+    "jan@3wrk.com": {
+      "stages": {
+        "qualified": "2026-04-02T19:32:14.388Z"
+      },
+      "current_stage": "qualified",
+      "created_at": "2026-04-02T19:32:14.388Z"
+    }
+  },
+  "stage_averages": {
+    "first_contact_to_first_reply": null,
+    "first_reply_to_qualified": null,
+    "qualified_to_proposal_sent": null,
+    "proposal_sent_to_negotiation": null,
+    "negotiation_to_closed": null
+  },
+  "acceleration_tactics": {
+    "first_contact_to_first_reply": "Try a different subject line or send time. Consider a pattern interrupt follow-up.",
+    "first_reply_to_qualified": "Add urgency - mention limited campaign slots. Share a relevant case study.",
+    "qualified_to_proposal_sent": "Offer to jump on a quick call to discuss needs. Remove friction from proposal process.",
+    "proposal_sent_to_negotiation": "Follow up with a time-limited incentive. Address common objections proactively.",
+    "negotiation_to_closed": "Create urgency around campaign timing. Offer flexible payment terms or package options."
+  },
+  "last_updated": "2026-04-02T19:32:14.388Z"
+}

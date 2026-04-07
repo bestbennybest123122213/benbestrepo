@@ -1,0 +1,855 @@
+{
+  "generated": "2026-02-05T23:05:30.470Z",
+  "summary": {
+    "critical": 9,
+    "high": 41,
+    "medium": 29,
+    "low": 18
+  },
+  "morning": [
+    {
+      "company": "Stillfront",
+      "name": "Marina Andersson",
+      "email": "marina.andersson@stillfront.com",
+      "category": "Interested",
+      "tier": "enterprise",
+      "age_days": 1,
+      "priority_score": 245,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Paradoxinteractive",
+      "name": "Marina Hallikainen",
+      "email": "pr@paradoxinteractive.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 10,
+      "priority_score": 235,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Weedmaps",
+      "name": "David Vuong",
+      "email": "dvuong@weedmaps.com",
+      "category": "Interested",
+      "tier": "enterprise",
+      "age_days": 10,
+      "priority_score": 225,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Udemy",
+      "name": "Christina Hamilton",
+      "email": "christina.hamilton@udemy.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 16,
+      "priority_score": 225,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Ign",
+      "name": "Ryann Sgriccia",
+      "email": "ryann_sgriccia@ign.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 21,
+      "priority_score": 225,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Complex",
+      "name": "Joshua Kopeika",
+      "email": "josh.kopeika@complex.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 49,
+      "priority_score": 215,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Navercorp",
+      "name": "Sungkwan Kim",
+      "email": "sungkwan.kim@navercorp.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 9,
+      "priority_score": 210,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Unity",
+      "name": "Nick Depalo",
+      "email": "nick.depalo@unity.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 13,
+      "priority_score": 210,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Replit",
+      "name": "Haya Odeh",
+      "email": "haya@replit.com",
+      "category": "Meeting Request",
+      "tier": "enterprise",
+      "age_days": 21,
+      "priority_score": 200,
+      "urgency": "CRITICAL"
+    },
+    {
+      "company": "Dream11",
+      "name": "Tushar Jain",
+      "email": "tushar.jain@dream11.com",
+      "category": "Information Request",
+      "tier": "enterprise",
+      "age_days": 9,
+      "priority_score": 175,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Wallapop",
+      "name": "Angela Garcia Mozos",
+      "email": "angela.garcia@wallapop.com",
+      "category": "Information Request",
+      "tier": "enterprise",
+      "age_days": 15,
+      "priority_score": 165,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Circlesecurity",
+      "name": "Sara Sara",
+      "email": "sara.duryea@circlesecurity.ai",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 6,
+      "priority_score": 160,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Threedy",
+      "name": "Christian Stein",
+      "email": "christian.stein@threedy.io",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 13,
+      "priority_score": 160,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Doublegood",
+      "name": "Gianna Calistro",
+      "email": "gianna.calistro@doublegood.com",
+      "category": "Meeting Request",
+      "tier": "midmarket",
+      "age_days": 44,
+      "priority_score": 160,
+      "urgency": "HIGH"
+    }
+  ],
+  "afternoon": [
+    {
+      "company": "Wahed",
+      "name": "Tehreem Waheed",
+      "email": "tehreem.waheed@wahed.com",
+      "category": "Meeting Request",
+      "tier": "midmarket",
+      "age_days": 45,
+      "priority_score": 160,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Virtus",
+      "name": "Evgeny Zvyagin",
+      "email": "e.zvyagin@virtus.pro",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 14,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Owlcat",
+      "name": "Valeriya Kramp",
+      "email": "kramp@owlcat.games",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 14,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Carry1st",
+      "name": "Dominion Eromosele",
+      "email": "dom@carry1st.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 16,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Gyandhan",
+      "name": "Vipul Valupadash",
+      "email": "vipul.valupadash@gyandhan.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 16,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Rainbet",
+      "name": "Adriano Correia",
+      "email": "marketing@rainbet.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 17,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Gyandhan",
+      "name": "Ishita Bhanot",
+      "email": "ishita.bhanot@gyandhan.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 20,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Solsten",
+      "name": "Joe Schaeppi",
+      "email": "joe@solsten.io",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 20,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Imagen Ai",
+      "name": "Ana Pastoria",
+      "email": "ana.p@imagen-ai.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 21,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Rainbet",
+      "name": "Adriano Correia",
+      "email": "adriano@rainbet.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 27,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Juicymarbles",
+      "name": "Magnus Ruben",
+      "email": "magnus.ruben@juicymarbles.com",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 30,
+      "priority_score": 150,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Virtus",
+      "name": "Nikolai Petrossian",
+      "email": "n.petrossian@virtus.pro",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 16,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Poki",
+      "name": "Marcel Verboom",
+      "email": "marcel@poki.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 17,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Drink Trip",
+      "name": "Chloe Palmer",
+      "email": "cpalmer@drink-trip.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 17,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Preply",
+      "name": "Lorraine Finn",
+      "email": "lorraine.finn@preply.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 17,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Pulsetto",
+      "name": "Vitalijus Majorovas",
+      "email": "vitalijus@pulsetto.tech",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 20,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Studystream",
+      "name": "Sarujan Ranjan",
+      "email": "sarujan@studystream.live",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 21,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Colossalorder",
+      "name": "Mariina Hallikainen",
+      "email": "mariina.hallikainen@colossalorder.fi",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 21,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Easeus",
+      "name": "Judy Luo",
+      "email": "judy@easeus.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 22,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Thermalradar",
+      "name": "David Kay",
+      "email": "david@thermalradar.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 23,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Payzli",
+      "name": "Naim Hamdar",
+      "email": "naim@payzli.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 23,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Qult",
+      "name": "Waleed Nasir",
+      "email": "waleed@qult.ai",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 23,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Kinguin",
+      "name": "Marek Fila",
+      "email": "marek.fila@kinguin.net",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 23,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Crunchyroll",
+      "name": "Sophie Ricaume",
+      "email": "sophie.ricaume@crunchyroll.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 23,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Sombreroresources",
+      "name": "Ivan Ivan",
+      "email": "ivan@sombreroresources.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 24,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Rideyego",
+      "name": "Marc Alcaraz Fores",
+      "email": "content@rideyego.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 24,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Jackpot",
+      "name": "Dharin Nanavati",
+      "email": "dharin@jackpot.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 24,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Labradorcms",
+      "name": "Jan Jan",
+      "email": "jan@labradorcms.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 24,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Coppernicometals",
+      "name": "Margarita Cardona",
+      "email": "margarita@coppernicometals.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 24,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Umiasalud",
+      "name": "Oscar Hernandez",
+      "email": "oscar@umiasalud.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 25,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Rideyego",
+      "name": "Marc Alcaraz Fores",
+      "email": "marc@rideyego.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 26,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Air Up",
+      "name": "Karin Baranyai",
+      "email": "karin.baranyai@air-up.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 27,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Santamonica",
+      "name": "Emily Ohara",
+      "email": "eohara@santamonica.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 29,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Beehiiv",
+      "name": "Richard Evans",
+      "email": "richard.evans@beehiiv.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 30,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Thermal",
+      "name": "Glen Gaudion",
+      "email": "glen@thermal.travel",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 37,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Daydream",
+      "name": "Mervyn Yap",
+      "email": "mervyn@daydream.sg",
+      "category": "Meeting Request",
+      "tier": "startup",
+      "age_days": 42,
+      "priority_score": 140,
+      "urgency": "HIGH"
+    },
+    {
+      "company": "Eneba",
+      "name": "Aurika Pociute",
+      "email": "aurika.pociute@eneba.com",
+      "category": "Interested",
+      "tier": "midmarket",
+      "age_days": 16,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Urunn",
+      "name": "Nancy Serle",
+      "email": "nancy@urunn.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 31,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Coatsink",
+      "name": "Bryn Morrison-Elliott",
+      "email": "bryn@coatsink.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 34,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Doingthingsmedia",
+      "name": "Jon ",
+      "email": "jon@doingthingsmedia.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 35,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Tokenwell",
+      "name": "Wendell Phillips",
+      "email": "wendell@tokenwell.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 38,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Spothero",
+      "name": "Chris Stevens",
+      "email": "chris.stevens@spothero.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 44,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Personainc",
+      "name": "Jerry Pratt",
+      "email": "jerry.pratt@personainc.ai",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 45,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Fastned",
+      "name": "Ugo Voisin",
+      "email": "ugo.voisin@fastned.nl",
+      "category": "Information Request",
+      "tier": "midmarket",
+      "age_days": 45,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Joeandsephs",
+      "name": "Reagan Peters",
+      "email": "reagan@joeandsephs.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 48,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Atari",
+      "name": "Angelo Materlik",
+      "email": "angelo.materlik@atari.com",
+      "category": "Information Request",
+      "tier": "midmarket",
+      "age_days": 48,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    }
+  ],
+  "evening": [
+    {
+      "company": "Doist",
+      "name": "Amir Salihefendic",
+      "email": "amix@doist.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 49,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Mindtrip",
+      "name": "Samantha Gaspin",
+      "email": "sami@mindtrip.ai",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 49,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Playingforchange",
+      "name": "Raan Williams",
+      "email": "raan@playingforchange.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 50,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Evergreenlodge",
+      "name": "Teri Marshall",
+      "email": "terim@evergreenlodge.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 55,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Destinationcle",
+      "name": "Barbara Felt",
+      "email": "bfelt@destinationcle.org",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 56,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Doingthings",
+      "name": "Adam Hascall",
+      "email": "adam@doingthings.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 59,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Go Electra",
+      "name": "Maelle Gurib",
+      "email": "m.gurib@go-electra.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 59,
+      "priority_score": 130,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Antec",
+      "name": "Frank Lee",
+      "email": "flee@antec.com",
+      "category": "Meeting Request",
+      "tier": "unknown",
+      "age_days": 62,
+      "priority_score": 125,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Livekindred",
+      "name": "Gracyn Applegate",
+      "email": "gapplegate@livekindred.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 7,
+      "priority_score": 120,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Unstop",
+      "name": "Shubham Mishra",
+      "email": "shubham@unstop.com",
+      "category": "Information Request",
+      "tier": "midmarket",
+      "age_days": 9,
+      "priority_score": 120,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Gozney",
+      "name": "Chloe Massiah",
+      "email": "chloe.massiah@gozney.com",
+      "category": "Interested",
+      "tier": "midmarket",
+      "age_days": 55,
+      "priority_score": 120,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Omio",
+      "name": "Serena Grigolo",
+      "email": "serena.grigolo@omio.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 8,
+      "priority_score": 110,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Typology",
+      "name": "Tiphaine Turcan",
+      "email": "tiphaine.simon-turcan@typology.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 9,
+      "priority_score": 110,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Trustedhousesitters",
+      "name": "Emma Lumley",
+      "email": "emmalumley@trustedhousesitters.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 10,
+      "priority_score": 110,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Naturalcycles",
+      "name": "Agnes Ahlquist",
+      "email": "partnerships@naturalcycles.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 13,
+      "priority_score": 110,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Puntaa",
+      "name": "Jeremy Hare",
+      "email": "jeremy@puntaa.co",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 13,
+      "priority_score": 110,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Candivore",
+      "name": "Ilya Agron",
+      "email": "ilya@candivore.io",
+      "category": "Interested",
+      "tier": "startup",
+      "age_days": 16,
+      "priority_score": 110,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Naturalcycles",
+      "name": "Agnes Ahlquist",
+      "email": "agnes.ahlquist@naturalcycles.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 16,
+      "priority_score": 100,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Goodeggs",
+      "name": "Rodrigo Arevalo",
+      "email": "ar@goodeggs.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 30,
+      "priority_score": 100,
+      "urgency": "MEDIUM"
+    },
+    {
+      "company": "Piercegroup",
+      "name": "Ovidiu Apostu",
+      "email": "Ovidiu.Apostu@piercegroup.com",
+      "category": "Information Request",
+      "tier": "unknown",
+      "age_days": 8,
+      "priority_score": 90,
+      "urgency": "LOW"
+    },
+    {
+      "company": "Trymartin",
+      "name": "Keith ",
+      "email": "martin@trymartin.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 36,
+      "priority_score": 90,
+      "urgency": "LOW"
+    },
+    {
+      "company": "Assemblyfestival",
+      "name": "Erika R.",
+      "email": "erika@assemblyfestival.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 55,
+      "priority_score": 90,
+      "urgency": "LOW"
+    },
+    {
+      "company": "Outfit7",
+      "name": "Ines Kondic",
+      "email": "ines.kondic@outfit7.com",
+      "category": "Interested",
+      "tier": "unknown",
+      "age_days": 63,
+      "priority_score": 85,
+      "urgency": "LOW"
+    },
+    {
+      "company": "Coolmate",
+      "name": "Hiep Nguyen",
+      "email": "hiep@coolmate.me",
+      "category": "Information Request",
+      "tier": "unknown",
+      "age_days": 15,
+      "priority_score": 80,
+      "urgency": "LOW"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+Name,Company,Email,Status,Industry,Tier,GAuth Fit,Reason,Score
+Marina Andersson,Stillfront,marina.andersson@stillfront.com,Interested,Gaming,enterprise,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",195
+Marina Hallikainen,Paradoxinteractive,pr@paradoxinteractive.com,Meeting Request,Gaming,enterprise,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",170
+Nick Depalo,Unity,nick.depalo@unity.com,Meeting Request,Gaming/Technology,enterprise,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",170
+Ryann Sgriccia,Ign,ryann_sgriccia@ign.com,Meeting Request,Gaming Media,enterprise,PERFECT,"gaming industry - core GAuth ICP",155
+Dominion Eromosele,Carry1st,dom@carry1st.com,Meeting Request,Gaming,startup,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",126
+Tehreem Waheed,Wahed,tehreem.waheed@wahed.com,Meeting Request,FinTech,midmarket,PERFECT,"fintech industry - core GAuth ICP",117
+Valeriya Kramp,Owlcat,kramp@owlcat.games,Meeting Request,Unknown,unknown,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",110
+Vipul Valupadash,Gyandhan,vipul.valupadash@gyandhan.com,Meeting Request,EdTech/FinTech,startup,PERFECT,"fintech industry - core GAuth ICP",105
+Adriano Correia,Rainbet,marketing@rainbet.com,Meeting Request,Gaming/Crypto,startup,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",105
+Ishita Bhanot,Gyandhan,ishita.bhanot@gyandhan.com,Meeting Request,EdTech/FinTech,startup,PERFECT,"fintech industry - core GAuth ICP",105
+Joe Schaeppi,Solsten,joe@solsten.io,Meeting Request,Gaming Analytics,startup,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",105
+Adriano Correia,Rainbet,adriano@rainbet.com,Meeting Request,Gaming/Crypto,startup,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",105
+Marcel Verboom,Poki,marcel@poki.com,Meeting Request,Unknown,unknown,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",100
+Marek Fila,Kinguin,marek.fila@kinguin.net,Meeting Request,Unknown,unknown,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",100
+Sophie Ricaume,Crunchyroll,sophie.ricaume@crunchyroll.com,Meeting Request,Unknown,unknown,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",100
+Ilya Agron,Candivore,ilya@candivore.io,Interested,Gaming,startup,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",95
+Aurika Pociute,Eneba,aurika.pociute@eneba.com,Interested,Gaming Marketplace,midmarket,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",90
+Bryn Morrison-Elliott,Coatsink,bryn@coatsink.com,Meeting Request,Unknown,unknown,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",85
+Ines Kondic,Outfit7,ines.kondic@outfit7.com,Interested,Unknown,unknown,PERFECT,"Gaming/Consumer platform - high SMS/OTP potential",55
+Haya Odeh,Replit,haya@replit.com,Meeting Request,Developer Tools,enterprise,GOOD,"Consumer SaaS - likely has user auth needs",170
+Christina Hamilton,Udemy,christina.hamilton@udemy.com,Meeting Request,EdTech,enterprise,GOOD,"Consumer SaaS - likely has user auth needs",165
+Sungkwan Kim,Navercorp,sungkwan.kim@navercorp.com,Meeting Request,Technology,enterprise,GOOD,"Consumer SaaS - likely has user auth needs",160
+Christian Stein,Threedy,christian.stein@threedy.io,Meeting Request,3D Technology,startup,GOOD,"technology - potential fit",115
+Lorraine Finn,Preply,lorraine.finn@preply.com,Meeting Request,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",100
+Karin Baranyai,Air Up,karin.baranyai@air-up.com,Meeting Request,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",100
+Richard Evans,Beehiiv,richard.evans@beehiiv.com,Meeting Request,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",100
+Serena Grigolo,Omio,serena.grigolo@omio.com,Interested,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",90
+Glen Gaudion,Thermal,glen@thermal.travel,Meeting Request,Travel Tech,startup,GOOD,"travel - potential fit",90
+Chris Stevens,Spothero,chris.stevens@spothero.com,Meeting Request,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",85
+Amir Salihefendic,Doist,amix@doist.com,Meeting Request,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",85
+Rodrigo Arevalo,Goodeggs,ar@goodeggs.com,Interested,Unknown,unknown,GOOD,"Consumer SaaS - likely has user auth needs",70
+David Vuong,Weedmaps,dvuong@weedmaps.com,Interested,Cannabis Tech,enterprise,RESEARCH,"Needs manual review",140
+Joshua Kopeika,Complex,josh.kopeika@complex.com,Meeting Request,Media,enterprise,RESEARCH,"Needs manual review",125
+Evgeny Zvyagin,Virtus,e.zvyagin@virtus.pro,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",110
+Ana Pastoria,Imagen Ai,ana.p@imagen-ai.com,Meeting Request,AI/Photo,startup,RESEARCH,"Needs manual review",106
+Magnus Ruben,Juicymarbles,magnus.ruben@juicymarbles.com,Meeting Request,FoodTech,startup,RESEARCH,"Needs manual review",105
+Gianna Calistro,Doublegood,gianna.calistro@doublegood.com,Meeting Request,Food/Fundraising,midmarket,RESEARCH,"Needs manual review",105
+Nikolai Petrossian,Virtus,n.petrossian@virtus.pro,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Chloe Palmer,Drink Trip,cpalmer@drink-trip.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Vitalijus Majorovas,Pulsetto,vitalijus@pulsetto.tech,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Sarujan Ranjan,Studystream,sarujan@studystream.live,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Mariina Hallikainen,Colossalorder,mariina.hallikainen@colossalorder.fi,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Judy Luo,Easeus,judy@easeus.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Naim Hamdar,Payzli,naim@payzli.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Waleed Nasir,Qult,waleed@qult.ai,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Marc Alcaraz Fores,Rideyego,content@rideyego.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Dharin Nanavati,Jackpot,dharin@jackpot.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Jan Jan,Labradorcms,jan@labradorcms.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Marc Alcaraz Fores,Rideyego,marc@rideyego.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Emily Ohara,Santamonica,eohara@santamonica.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",100
+Gracyn Applegate,Livekindred,gapplegate@livekindred.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",90
+Mervyn Yap,Daydream,mervyn@daydream.sg,Meeting Request,AR/VR,startup,RESEARCH,"Needs manual review",90
+Jon ,Doingthingsmedia,jon@doingthingsmedia.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Wendell Phillips,Tokenwell,wendell@tokenwell.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Jerry Pratt,Personainc,jerry.pratt@personainc.ai,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Reagan Peters,Joeandsephs,reagan@joeandsephs.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Samantha Gaspin,Mindtrip,sami@mindtrip.ai,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Raan Williams,Playingforchange,raan@playingforchange.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Teri Marshall,Evergreenlodge,terim@evergreenlodge.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Barbara Felt,Destinationcle,bfelt@destinationcle.org,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Adam Hascall,Doingthings,adam@doingthings.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Maelle Gurib,Go Electra,m.gurib@go-electra.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Frank Lee,Antec,flee@antec.com,Meeting Request,Unknown,unknown,RESEARCH,"Needs manual review",85
+Tiphaine Turcan,Typology,tiphaine.simon-turcan@typology.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",80
+Emma Lumley,Trustedhousesitters,emmalumley@trustedhousesitters.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",80
+Agnes Ahlquist,Naturalcycles,partnerships@naturalcycles.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",80
+Jeremy Hare,Puntaa,jeremy@puntaa.co,Interested,Unknown,unknown,RESEARCH,"Needs manual review",80
+Chloe Massiah,Gozney,chloe.massiah@gozney.com,Interested,Consumer Products,midmarket,RESEARCH,"Needs manual review",75
+Agnes Ahlquist,Naturalcycles,agnes.ahlquist@naturalcycles.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",70
+Keith ,Trymartin,martin@trymartin.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",55
+Erika R.,Assemblyfestival,erika@assemblyfestival.com,Interested,Unknown,unknown,RESEARCH,"Needs manual review",55
+Sara Sara,Circlesecurity,sara.duryea@circlesecurity.ai,Meeting Request,Unknown,unknown,NOT_FIT,"B2B/Industrial - no consumer auth needs",120
+David Kay,Thermalradar,david@thermalradar.com,Meeting Request,Unknown,unknown,NOT_FIT,"B2B/Industrial - no consumer auth needs",100
+Ivan Ivan,Sombreroresources,ivan@sombreroresources.com,Meeting Request,Unknown,unknown,NOT_FIT,"B2B/Industrial - no consumer auth needs",100
+Margarita Cardona,Coppernicometals,margarita@coppernicometals.com,Meeting Request,Unknown,unknown,NOT_FIT,"B2B/Industrial - no consumer auth needs",100
+Oscar Hernandez,Umiasalud,oscar@umiasalud.com,Meeting Request,Unknown,unknown,NOT_FIT,"B2B/Industrial - no consumer auth needs",100
+Nancy Serle,Urunn,nancy@urunn.com,Meeting Request,Unknown,unknown,NOT_FIT,"B2B/Industrial - no consumer auth needs",100

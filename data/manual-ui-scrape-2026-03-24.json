@@ -1,0 +1,79 @@
+{
+  "scraped_at": "2026-03-24T06:00:09.065Z",
+  "source": "SmartLead Global Analytics (New Version) - Automated UI Scrape",
+  "method": "THE GOLD STANDARD",
+  "ranges": {
+    "yesterday": {
+      "period": "2026-03-24 - 2026-03-24",
+      "days": 1,
+      "sent": 610,
+      "opened": 4,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 3
+    },
+    "last_3_days": {
+      "period": "2026-03-22 - 2026-03-24",
+      "days": 3,
+      "sent": 610,
+      "opened": 4,
+      "replied": 0,
+      "positive": 0,
+      "bounced": 3
+    },
+    "last_7_days": {
+      "period": "2026-03-18 - 2026-03-24",
+      "days": 7,
+      "sent": 2504,
+      "opened": 13,
+      "replied": 23,
+      "positive": 3,
+      "bounced": 38
+    },
+    "last_14_days": {
+      "period": "2026-03-11 - 2026-03-24",
+      "days": 14,
+      "sent": 8627,
+      "opened": 27,
+      "replied": 47,
+      "positive": 0,
+      "bounced": 82
+    },
+    "last_30_days": {
+      "period": "2026-02-23 - 2026-03-24",
+      "days": 30,
+      "sent": 9237,
+      "opened": 31,
+      "replied": 56,
+      "positive": 11,
+      "bounced": 85
+    },
+    "last_60_days": {
+      "period": "2026-01-24 - 2026-03-24",
+      "days": 60,
+      "sent": 9237,
+      "opened": 31,
+      "replied": 56,
+      "positive": 11,
+      "bounced": 85
+    },
+    "last_90_days": {
+      "period": "2025-12-25 - 2026-03-24",
+      "days": 90,
+      "sent": 9237,
+      "opened": 31,
+      "replied": 56,
+      "positive": 11,
+      "bounced": 85
+    },
+    "last_120_days": {
+      "period": "2025-11-25 - 2026-03-24",
+      "days": 120,
+      "sent": 9237,
+      "opened": 31,
+      "replied": 56,
+      "positive": 11,
+      "bounced": 85
+    }
+  }
+}

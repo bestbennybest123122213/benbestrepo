@@ -1,0 +1,596 @@
+{
+  "entries": [
+    {
+      "timestamp": "2025-01-18T10:30:00Z",
+      "action": "draft_created",
+      "details": "Sarah Chen (TechVentures Inc)"
+    },
+    {
+      "timestamp": "2025-01-18T09:15:00Z",
+      "action": "draft_created",
+      "details": "Marcus Johnson (GameStudio Pro)"
+    },
+    {
+      "timestamp": "2025-01-18T08:45:00Z",
+      "action": "draft_created",
+      "details": "Emily Rodriguez (EduLearn AI)"
+    },
+    {
+      "timestamp": "2025-01-17T16:20:00Z",
+      "action": "draft_created",
+      "details": "David Park (MobileFirst Games)"
+    },
+    {
+      "timestamp": "2025-01-17T14:00:00Z",
+      "action": "draft_created",
+      "details": "Lisa Wang (CloudTech Solutions)"
+    },
+    {
+      "timestamp": "2025-01-17T10:00:00Z",
+      "action": "config_updated",
+      "details": "Confidence: 7, Hot Lead: 7"
+    },
+    {
+      "timestamp": "2025-01-17T09:00:00Z",
+      "action": "system_start",
+      "details": "Bull BRO initialized"
+    },
+    {
+      "id": "audit_1775068682660_xnw2yc",
+      "timestamp": "2026-04-01T18:38:02.660Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775068716261_84dwzo",
+      "timestamp": "2026-04-01T18:38:36.261Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775068855413_rf7ukf",
+      "timestamp": "2026-04-01T18:40:55.413Z",
+      "action": "bulk_approve",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "approved": 1,
+        "notFound": 0,
+        "alreadyApproved": 0,
+        "ids": [
+          "draft-001"
+        ]
+      }
+    },
+    {
+      "id": "audit_1775068855418_idvfrz",
+      "timestamp": "2026-04-01T18:40:55.418Z",
+      "action": "bulk_archive",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "archived": 1,
+        "notFound": 0,
+        "alreadyArchived": 0,
+        "ids": [
+          "draft-002"
+        ]
+      }
+    },
+    {
+      "id": "audit_1775068855419_0ugzzx",
+      "timestamp": "2026-04-01T18:40:55.419Z",
+      "action": "bulk_requeue",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "requeued": 1,
+        "notFound": 0,
+        "alreadyPending": 0,
+        "ids": [
+          "draft-001"
+        ]
+      }
+    },
+    {
+      "id": "audit_1775068928886_ptd1mm",
+      "timestamp": "2026-04-01T18:42:08.886Z",
+      "action": "test_action",
+      "user": "test-runner",
+      "details": {
+        "test": true
+      }
+    },
+    {
+      "id": "audit_1775068928911_dw0nsc",
+      "timestamp": "2026-04-01T18:42:08.911Z",
+      "action": "bulk_approve",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "approved": 0,
+        "notFound": 1,
+        "alreadyApproved": 0,
+        "ids": []
+      }
+    },
+    {
+      "id": "audit_1775068928911_snh7rj",
+      "timestamp": "2026-04-01T18:42:08.911Z",
+      "action": "bulk_archive",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "archived": 0,
+        "notFound": 1,
+        "alreadyArchived": 0,
+        "ids": []
+      }
+    },
+    {
+      "id": "audit_1775068928912_gm7a6m",
+      "timestamp": "2026-04-01T18:42:08.912Z",
+      "action": "bulk_requeue",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "requeued": 0,
+        "notFound": 1,
+        "alreadyPending": 0,
+        "ids": []
+      }
+    },
+    {
+      "id": "audit_1775068949475_luygmy",
+      "timestamp": "2026-04-01T18:42:29.475Z",
+      "action": "test_action",
+      "user": "test-runner",
+      "details": {
+        "test": true
+      }
+    },
+    {
+      "id": "audit_1775068949508_z3qec3",
+      "timestamp": "2026-04-01T18:42:29.508Z",
+      "action": "bulk_approve",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "approved": 0,
+        "notFound": 1,
+        "alreadyApproved": 0,
+        "ids": []
+      }
+    },
+    {
+      "id": "audit_1775068949510_7gtom7",
+      "timestamp": "2026-04-01T18:42:29.510Z",
+      "action": "bulk_archive",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "archived": 0,
+        "notFound": 1,
+        "alreadyArchived": 0,
+        "ids": []
+      }
+    },
+    {
+      "id": "audit_1775068949511_ze0xbm",
+      "timestamp": "2026-04-01T18:42:29.511Z",
+      "action": "bulk_requeue",
+      "user": "test",
+      "details": {
+        "total": 1,
+        "requeued": 0,
+        "notFound": 1,
+        "alreadyPending": 0,
+        "ids": []
+      }
+    },
+    {
+      "id": "audit_1775079507659_5tfvti",
+      "timestamp": "2026-04-01T21:38:27.659Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079535872_avgogg",
+      "timestamp": "2026-04-01T21:38:55.872Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079575818_rxkjco",
+      "timestamp": "2026-04-01T21:39:35.818Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079598666_mtth2y",
+      "timestamp": "2026-04-01T21:39:58.666Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079628388_hg54u7",
+      "timestamp": "2026-04-01T21:40:28.388Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079630375_x3u1c4",
+      "timestamp": "2026-04-01T21:40:30.375Z",
+      "action": "winning_reply_added",
+      "user": "dashboard",
+      "details": {
+        "intent": "interested",
+        "industry": "gaming"
+      }
+    },
+    {
+      "id": "audit_1775079658019_nigckj",
+      "timestamp": "2026-04-01T21:40:58.019Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079672935_cjvsig",
+      "timestamp": "2026-04-01T21:41:12.935Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079689902_mh252p",
+      "timestamp": "2026-04-01T21:41:29.902Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079716955_c6tgbd",
+      "timestamp": "2026-04-01T21:41:56.955Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775079968876_oevd1v",
+      "timestamp": "2026-04-01T21:46:08.876Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775080049294_x5x7hy",
+      "timestamp": "2026-04-01T21:47:29.294Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775080060041_cz4grs",
+      "timestamp": "2026-04-01T21:47:40.041Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775080093466_8b1krm",
+      "timestamp": "2026-04-01T21:48:13.466Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775080572584_rsdeih",
+      "timestamp": "2026-04-01T21:56:12.584Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775080664127_du0h2g",
+      "timestamp": "2026-04-01T21:57:44.127Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775080696931_5h0q6n",
+      "timestamp": "2026-04-01T21:58:16.931Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081291289_nz165g",
+      "timestamp": "2026-04-01T22:08:11.289Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081327593_09cxoh",
+      "timestamp": "2026-04-01T22:08:47.593Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081641206_x4ct1k",
+      "timestamp": "2026-04-01T22:14:01.206Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081679888_144fwt",
+      "timestamp": "2026-04-01T22:14:39.888Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081714642_5gyaq6",
+      "timestamp": "2026-04-01T22:15:14.642Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081762509_sf6rho",
+      "timestamp": "2026-04-01T22:16:02.509Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081886229_fj0m56",
+      "timestamp": "2026-04-01T22:18:06.229Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775081924917_vccx78",
+      "timestamp": "2026-04-01T22:18:44.917Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775138655379_3g27qu",
+      "timestamp": "2026-04-02T14:04:15.379Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775138699324_er1ouu",
+      "timestamp": "2026-04-02T14:04:59.325Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775138732075_3pmr8t",
+      "timestamp": "2026-04-02T14:05:32.075Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775138781240_3x7c46",
+      "timestamp": "2026-04-02T14:06:21.240Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775138815891_29h6a1",
+      "timestamp": "2026-04-02T14:06:55.891Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775138848328_q4jcgm",
+      "timestamp": "2026-04-02T14:07:28.328Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775139119124_cjo0dm",
+      "timestamp": "2026-04-02T14:11:59.124Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775139201006_71c4l9",
+      "timestamp": "2026-04-02T14:13:21.007Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775139227995_zuf97k",
+      "timestamp": "2026-04-02T14:13:47.995Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775139251184_ps4jbr",
+      "timestamp": "2026-04-02T14:14:11.184Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775140803048_04ewds",
+      "timestamp": "2026-04-02T14:40:03.048Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775141807665_pko8x3",
+      "timestamp": "2026-04-02T14:56:47.665Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775142549561_i79ca0",
+      "timestamp": "2026-04-02T15:09:09.561Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775143138484_6fkkn3",
+      "timestamp": "2026-04-02T15:18:58.484Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775146289746_5h89q6",
+      "timestamp": "2026-04-02T16:11:29.746Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775146456111_y4q3lv",
+      "timestamp": "2026-04-02T16:14:16.111Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775146530849_3j6nii",
+      "timestamp": "2026-04-02T16:15:30.849Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775503594481_vae8j5",
+      "timestamp": "2026-04-06T19:26:34.481Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    },
+    {
+      "id": "audit_1775572352006_rn6j0f",
+      "timestamp": "2026-04-07T14:32:32.006Z",
+      "action": "system_start",
+      "user": "server",
+      "details": {
+        "port": 3847
+      }
+    }
+  ],
+  "lastRotation": "2026-04-01T18:38:02.607Z"
+}

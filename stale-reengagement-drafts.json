@@ -1,0 +1,52 @@
+{
+  "generated": "2026-02-06T12:43:35.457Z",
+  "criteria": {
+    "category": null,
+    "limit": 3
+  },
+  "summary": {
+    "total": 3,
+    "byCategory": {
+      "Interested": 1,
+      "Information Request": 2
+    }
+  },
+  "drafts": [
+    {
+      "to": "ines.kondic@outfit7.com",
+      "name": "Ines Kondic",
+      "company": "Outfit7",
+      "subject": "Thought of Outfit7 when I saw this",
+      "body": "Hi Ines,\n\nI came across something recently that made me think of our conversation. I came across something that made me think of the conversation we had.\n\nSince we last spoke, we've been working on some exciting things that might be relevant for Outfit7:\n• Helped similar companies increase their reach by 40%+\n• Launched new features specifically for the Unknown space\n• Built partnerships with teams facing similar challenges\n\nWould love to share more details if you're still open to it. Do you have 15 minutes this week?\n\nBest,\nImann",
+      "category": "Interested",
+      "template": "Value Add - Interested",
+      "ageDays": 64,
+      "tier": "unknown",
+      "leadId": 159
+    },
+    {
+      "to": "coborn@visitseattle.org",
+      "name": "Cory O'Born",
+      "company": "Visitseattle",
+      "subject": "Did that info help, Cory?",
+      "body": "Hi Cory,\n\nI wanted to follow up on the information I shared earlier. Did it answer your questions about our collaboration?\n\nHappy to clarify anything or hop on a quick call if it's easier to discuss live. Sometimes 10 minutes of conversation saves a dozen emails!\n\nLet me know what would be most helpful for you.\n\nBest,\nImann",
+      "category": "Information Request",
+      "template": "Check-In - Information Request",
+      "ageDays": 64,
+      "tier": "unknown",
+      "leadId": 176
+    },
+    {
+      "to": "sara@polarsteps.com",
+      "name": "Sara Van Geloven",
+      "company": "Polarsteps",
+      "subject": "Did that info help, Sara?",
+      "body": "Hi Sara,\n\nI wanted to follow up on the information I shared earlier. Did it answer your questions about our collaboration?\n\nHappy to clarify anything or hop on a quick call if it's easier to discuss live. Sometimes 10 minutes of conversation saves a dozen emails!\n\nLet me know what would be most helpful for you.\n\nBest,\nImann",
+      "category": "Information Request",
+      "template": "Check-In - Information Request",
+      "ageDays": 64,
+      "tier": "startup",
+      "leadId": 149
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+📊 *DAILY PIPELINE REPORT*
+Friday, February 6, 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 *PIPELINE OVERVIEW*
+• Total Leads: 118
+• Booked: 21 (17.8%)
+• Meeting Requests: 61 (pending!)
+• Interested: 16
+• Info Requests: 20
+
+🏢 *ENTERPRISE STATUS*
+• 11 enterprise leads
+• 0 booked, 7 pending
+• 0% enterprise booking rate ⚠️
+
+⏰ *URGENCY BREAKDOWN*
+• 🔥 Hot (0-3d): 1
+• 🟠 Warm (4-7d): 2
+• ⚠️ Stale (15+d): 79
+• 🚨 Critical (60+d): 5
+
+━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 *TOP 5 PRIORITIES TODAY*
+
+1. *Navercorp* [ENT]
+   Sungkwan Kim | Meeting Request
+   9d old | Score: 210
+2. *Paradoxinteractive* [ENT]
+   Marina Hallikainen | Meeting Request
+   10d old | Score: 210
+3. *Unity* [ENT]
+   Nick Depalo | Meeting Request
+   13d old | Score: 210
+4. *Stillfront* [ENT]
+   Marina Andersson | Interested
+   1d old | Score: 190
+5. *Udemy* [ENT]
+   Christina Hamilton | Meeting Request
+   16d old | Score: 180
+
+━━━━━━━━━━━━━━━━━━━━━━━
+
+💰 *REVENUE POTENTIAL*
+• Current: $10,500
+• If all MeetReq convert: $41,000
+• Upside: $30,500
+
+📌 *ACTION ITEMS*
+1. Follow up on 7 enterprise meeting requests
+2. Contact 3 hot/warm leads today
+3. Reactivate 79 stale leads
+4. Convert 54 other meeting requests
+
+Run `node gex.js followup` for detailed schedule
+Dashboard: http://localhost:3456

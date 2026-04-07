@@ -1,0 +1,48 @@
+{
+  "currentWeek": "2026-02-01",
+  "weekNumber": 6,
+  "activeChallenges": [
+    "stale_slayer",
+    "pipeline_pusher",
+    "booking_blitz",
+    "speed_demon"
+  ],
+  "challengeProgress": {
+    "stale_slayer": 10,
+    "booking_blitz": 1
+  },
+  "dailyProgress": {},
+  "stats": {
+    "total_xp": 150,
+    "level": 1,
+    "stale_cleared": 10,
+    "total_leads_cleared": 10,
+    "total_meetings": 1,
+    "total_deals": 0,
+    "fast_responses": 0,
+    "current_streak": 0,
+    "max_streak": 0,
+    "speed_demon_completed": 0,
+    "perfect_weeks": 0,
+    "high_score_weeks": 0,
+    "weeks_played": 0,
+    "challenges_completed": 1,
+    "daily_challenges_completed": 0
+  },
+  "achievements": [
+    "first_blood"
+  ],
+  "weeklyHistory": [],
+  "personalBests": {
+    "best_week_challenges": 0,
+    "best_week_xp": 0,
+    "longest_streak": 0,
+    "fastest_response_minutes": null,
+    "most_stale_cleared_week": 0,
+    "most_meetings_week": 0
+  },
+  "lastActivityDate": "2026-02-07",
+  "todayChallenge": "power_hour",
+  "todayChallengeCompleted": false,
+  "lastDailyCheck": "2026-02-07"
+}

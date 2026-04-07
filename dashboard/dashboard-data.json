@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-02-11T21:06:55.658Z",
+  "pipelineValue": 25000,
+  "hotLeads": 1,
+  "responseTime": "-",
+  "pendingLeads": 218,
+  "topLeads": [
+    {
+      "name": "Ivan Slavitt",
+      "email": "ivan.slavitt@opus.pro",
+      "company": null,
+      "category": "Meeting Request",
+      "age": 1,
+      "urgency": "hot"
+    },
+    {
+      "name": "Agnes Ahlquist",
+      "email": "partnerships@naturalcycles.com",
+      "company": null,
+      "category": "Interested",
+      "age": 6,
+      "urgency": "warm"
+    },
+    {
+      "name": "Sadia ",
+      "email": "sadia.azmal@agilebits.com",
+      "company": null,
+      "category": "Information Request",
+      "age": 6,
+      "urgency": "warm"
+    },
+    {
+      "name": "Marina Andersson",
+      "email": "marina.andersson@stillfront.com",
+      "company": null,
+      "category": "Interested",
+      "age": 7,
+      "urgency": "warm"
+    },
+    {
+      "name": "Sara Sara",
+      "email": "sara.duryea@circlesecurity.ai",
+      "company": null,
+      "category": "Meeting Request",
+      "age": 12,
+      "urgency": "cool"
+    }
+  ],
+  "ageDistribution": {
+    "hot": 1,
+    "warm": 3,
+    "cooling": 7,
+    "stale": 243
+  },
+  "avgAge": 36,
+  "meetingRequests": 130,
+  "meetingsBooked": 36,
+  "totalCommission": 41042.25,
+  "activeDeals": 1,
+  "forecast": 7500,
+  "deals": [
+    {
+      "id": 1,
+      "company": "Stillfront (Marina Andersson)",
+      "value": 25000,
+      "stage": "Contacted",
+      "nextAction": "Send follow-up email",
+      "nextActionDate": "2026-02-07",
+      "creator": "ItssIMANNN",
+      "createdAt": "2026-02-06T14:57:21.395Z",
+      "updatedAt": "2026-02-06T14:57:21.396Z",
+      "history": [
+        {
+          "date": "2026-02-06T14:57:21.396Z",
+          "action": "Created",
+          "stage": "Contacted"
+        }
+      ]
+    }
+  ],
+  "weeklyTrend": [
+    {
+      "date": "2026-02-05",
+      "label": "Thu",
+      "count": 2
+    },
+    {
+      "date": "2026-02-06",
+      "label": "Fri",
+      "count": 0
+    },
+    {
+      "date": "2026-02-07",
+      "label": "Sat",
+      "count": 0
+    },
+    {
+      "date": "2026-02-08",
+      "label": "Sun",
+      "count": 0
+    },
+    {
+      "date": "2026-02-09",
+      "label": "Mon",
+      "count": 0
+    },
+    {
+      "date": "2026-02-10",
+      "label": "Tue",
+      "count": 1
+    },
+    {
+      "date": "2026-02-11",
+      "label": "Wed",
+      "count": 0
+    }
+  ],
+  "lds": {
+    "totalLeads": 0,
+    "hot": 0,
+    "warm": 0,
+    "cold": 0,
+    "connected": true
+  }
+}

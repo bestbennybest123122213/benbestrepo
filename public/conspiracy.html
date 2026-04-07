@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔺 PRAWDA, KTÓREJ NIE CHCĄ ŻEBYŚ ZOBACZYŁ 🔺</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 60px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='50,5 95,95 5,95' fill='none' stroke='%23333' stroke-width='0.5'/%3E%3C/svg%3E") repeat;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ffd93d;
+        }
+        
+        p {
+            font-size: 1.8em;
+            max-width: 900px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #6bcf6b;
+            border-left: 4px solid #6bcf6b;
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+        
+        .evidence {
+            background: rgba(255,107,107,0.1);
+            border: 1px solid #ff6b6b;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .triangle {
+            font-size: 4em;
+            margin: 20px;
+        }
+        
+        .small {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 30px;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+        
+        .nav button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: #1a1a2e;
+            color: #fff;
+            border: 2px solid #ff6b6b;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav button:hover {
+            background: #ff6b6b;
+        }
+        
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ff6b6b;
+            transition: width 0.3s;
+        }
+        
+        .slide-num {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 1.2em;
+            color: #666;
+        }
+        
+        ul {
+            text-align: left;
+            font-size: 1.5em;
+            max-width: 800px;
+        }
+        
+        li {
+            margin: 20px 0;
+            list-style: "🔺 ";
+        }
+        
+        .redacted {
+            background: #333;
+            color: #333;
+            padding: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .redacted:hover {
+            background: transparent;
+            color: #ff6b6b;
+        }
+        
+        .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+        
+        .eye {
+            font-size: 5em;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress" id="progress"></div>
+    <div class="slide-num" id="slideNum"></div>
+    
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+        <div class="triangle">🔺</div>
+        <h1>PRAWDA, KTÓREJ NIE CHCĄ<br>ŻEBYŚ ZOBACZYŁ</h1>
+        <p>Prezentacja dla obudzonych umysłów</p>
+        <p class="small">Naciśnij → aby kontynuować... jeśli masz odwagę</p>
+        <p class="small blink">⚠️ ONI mogą to czytać ⚠️</p>
+    </div>
+    
+    <!-- Slide 2: Ptaki -->
+    <div class="slide">
+        <h2>🐦 PTAKI NIE SĄ PRAWDZIWE</h2>
+        <p>W 1986 roku rząd wymienił wszystkie ptaki na drony inwigilacyjne.</p>
+        <div class="evidence">
+            <p><strong>DOWÓD:</strong> Czy kiedykolwiek widziałeś młodego gołębia?</p>
+        </div>
+        <p class="quote">"Dlaczego ptaki siedzą na liniach elektrycznych? Bo się ładują."</p>
+        <p class="small">Dlatego 5G... ale o tym później 👀</p>
+    </div>
+    
+    <!-- Slide 3: Biedronka -->
+    <div class="slide">
+        <h2>🐞 BIEDRONKA TO OPERACJA PSYCHOLOGICZNA</h2>
+        <p>Zauważyłeś, że logo Biedronki to biedronka z <strong>7 kropkami</strong>?</p>
+        <ul>
+            <li>7 dni w tygodniu - kontrola czasu</li>
+            <li>7 grzechów głównych - kontrola moralności</li>
+            <li>7 krasnoludków - Illuminati potwierdzili</li>
+        </ul>
+        <p class="small">Przypadek? W konspiracji nie ma przypadków.</p>
+    </div>
+    
+    <!-- Slide 4: Woda -->
+    <div class="slide">
+        <h2>💧 WODA MA PAMIĘĆ</h2>
+        <p>Ale zapomina o wszystkim co jej powiedziałeś, kiedy ją wypijesz.</p>
+        <div class="evidence">
+            <p>Tak jak twój tata zapomniał wrócić po papierosy.</p>
+        </div>
+        <p class="quote">"H2O to kod. H = 8, 2 = 2, O = 15. 8+2+15 = 25. Jak wiek, w którym Einstein <span class="redacted">CENZURA</span>"</p>
+    </div>
+    
+    <!-- Slide 5: Księżyc -->
+    <div class="slide">
+        <h2>🌙 KSIĘŻYC JEST HOLOGRAMEM</h2>
+        <p>Prawdziwy księżyc został skradziony w 1969 roku.</p>
+        <p>Dlatego astronauci "wylądowali" na nim - żeby zainstalować projektor.</p>
+        <div class="evidence">
+            <p><strong>PYTANIE:</strong> Skoro księżyc kontroluje przypływy, a my w 70% to woda...</p>
+            <p>...to kto kontroluje CIEBIE? 🤔</p>
+        </div>
+    </div>
+    
+    <!-- Slide 6: Żyrafy -->
+    <div class="slide">
+        <h2>🦒 ŻYRAFY NIE ISTNIEJĄ</h2>
+        <p>To konie w kostiumach na szczudłach, stworzone przez rząd.</p>
+        <ul>
+            <li>Nikt nie widział żyrafy w Polsce - DLACZEGO?</li>
+            <li>Ich szyje łamią prawa fizyki</li>
+            <li>Nazwa "żyrafa" brzmi jak wymyślona - bo jest</li>
+        </ul>
+        <p class="quote">"Obudź się, owco. Ale nie żyrafo, bo nie istniejesz."</p>
+    </div>
+    
+    <!-- Slide 7: IKEA -->
+    <div class="slide">
+        <h2>🪑 IKEA TO LABIRYNT KONTROLI</h2>
+        <p>Szwedzki test psychologiczny na masową skalę.</p>
+        <div class="evidence">
+            <p>Wchodzisz po lampę. Wychodzisz z 47 świeczkami, sztuczną rośliną i egzystencjalnym kryzysem.</p>
+        </div>
+        <p>Nazwy produktów to zakodowane wiadomości:</p>
+        <p><strong>KALLAX</strong> = "Kup Wszystko, Ludzie Lubi Absurd, X = Nieznane"</p>
+        <p class="small">MALM to anagram od... no właśnie 🤫</p>
+    </div>
+    
+    <!-- Slide 8: Poniedziałek -->
+    <div class="slide">
+        <h2>📅 PONIEDZIAŁEK JEST FAKE</h2>
+        <p>Oryginalnie tydzień miał 6 dni.</p>
+        <p>Poniedziałek został dodany w 1582 roku przez papieża Grzegorza XIII.</p>
+        <div class="evidence">
+            <p><strong>CEL:</strong> Dodatkowy dzień pracy = więcej podatków = więcej kontroli</p>
+        </div>
+        <p class="quote">"Dlatego tak bardzo nienawidzisz poniedziałków. Twoje ciało PAMIĘTA prawdę."</p>
+    </div>
+    
+    <!-- Slide 9: Finland -->
+    <div class="slide">
+        <h2>🇫🇮 FINLANDIA NIE ISTNIEJE</h2>
+        <p>To fikcja stworzona przez Japonię i ZSRR w czasie zimnej wojny.</p>
+        <ul>
+            <li>Japonia chciała łowić w Bałtyku bez ograniczeń</li>
+            <li>ZSRR potrzebował buforu</li>
+            <li>"Finowie" to aktorzy z Estonii</li>
+        </ul>
+        <p class="small">Nokia? Produkowana w <span class="redacted">CENZURA</span></p>
+    </div>
+    
+    <!-- Slide 10: Twoja egzystencja -->
+    <div class="slide">
+        <h2>🧠 OSTATNIA PRAWDA</h2>
+        <div class="eye">👁️</div>
+        <p>Zastanawiałeś się kiedyś, dlaczego czytasz tę prezentację?</p>
+        <p>Może dlatego, że <strong>CHCIELI</strong> żebyś ją zobaczył.</p>
+        <div class="evidence">
+            <p>Może prawdziwa konspiracja to fakt, że szukasz konspiracji,<br>zamiast odpowiedzieć na te 3 maile z pracy.</p>
+        </div>
+        <p class="quote">"Największy trik diabła to przekonanie świata, że nie istnieje.<br>Największy trik twojego szefa to przekonanie cię, że deadline jest jutro."</p>
+    </div>
+    
+    <!-- Slide 11: Zakończenie -->
+    <div class="slide">
+        <div class="triangle">🔺</div>
+        <h1>ZOSTAŁEŚ OBUDZONY</h1>
+        <p>Albo właśnie straciłeś 5 minut życia.</p>
+        <p>Tak czy inaczej - ONI wygrali.</p>
+        <p style="margin-top: 50px; font-size: 1.2em;">🐦 Ptaki cię obserwują 🐦</p>
+        <p class="small" style="margin-top: 50px;">Ta prezentacja się samo-zniszczy za <span class="blink">NIGDY</span><br>bo to tylko HTML i nie umiem tego zaprogramować.</p>
+    </div>
+    
+    <div class="nav">
+        <button onclick="prevSlide()">← Wstecz</button>
+        <button onclick="nextSlide()">Dalej →</button>
+    </div>
+    
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        
+        function showSlide(n) {
+            slides[current].classList.remove('active');
+            current = (n + total) % total;
+            slides[current].classList.add('active');
+            document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+            document.getElementById('slideNum').textContent = `${current + 1} / ${total}`;
+        }
+        
+        function nextSlide() { showSlide(current + 1); }
+        function prevSlide() { showSlide(current - 1); }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        // Touch support
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+        document.addEventListener('touchend', e => {
+            const diff = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(diff) > 50) diff > 0 ? prevSlide() : nextSlide();
+        });
+        
+        showSlide(0);
+    </script>
+</body>
+</html>

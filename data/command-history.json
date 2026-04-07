@@ -1,0 +1,560 @@
+[
+  {
+    "command": "triage",
+    "args": [],
+    "timestamp": "2026-04-06T19:29:28.448Z"
+  },
+  {
+    "command": "new",
+    "args": [
+      "--telegram"
+    ],
+    "timestamp": "2026-04-06T19:29:24.103Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-04-06T19:29:11.096Z"
+  },
+  {
+    "command": "webhook",
+    "args": [
+      "--help"
+    ],
+    "timestamp": "2026-04-02T18:36:33.871Z"
+  },
+  {
+    "command": "performance",
+    "args": [],
+    "timestamp": "2026-03-31T13:18:19.477Z"
+  },
+  {
+    "command": "positives",
+    "args": [
+      "--all"
+    ],
+    "timestamp": "2026-03-31T13:11:00.249Z"
+  },
+  {
+    "command": "positives",
+    "args": [
+      "--help"
+    ],
+    "timestamp": "2026-03-31T13:10:55.489Z"
+  },
+  {
+    "command": "scrape-ui",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-30T20:35:23.286Z"
+  },
+  {
+    "command": "cli-sync",
+    "args": [
+      "--time-only"
+    ],
+    "timestamp": "2026-03-30T20:34:37.107Z"
+  },
+  {
+    "command": "global-analytics",
+    "args": [],
+    "timestamp": "2026-03-30T20:34:06.050Z"
+  },
+  {
+    "command": "cli",
+    "args": [
+      "--test"
+    ],
+    "timestamp": "2026-03-30T17:09:28.600Z"
+  },
+  {
+    "command": "reply",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-26T03:02:12.531Z"
+  },
+  {
+    "command": "status",
+    "args": [],
+    "timestamp": "2026-03-26T03:01:39.342Z"
+  },
+  {
+    "command": "nba",
+    "args": [],
+    "timestamp": "2026-03-26T03:00:52.503Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-26T03:00:27.733Z"
+  },
+  {
+    "command": "commission",
+    "args": [
+      "summary"
+    ],
+    "timestamp": "2026-03-25T09:11:28.949Z"
+  },
+  {
+    "command": "commission",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-25T09:11:25.973Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-24T21:26:44.154Z"
+  },
+  {
+    "command": "domains",
+    "args": [],
+    "timestamp": "2026-03-24T03:16:38.225Z"
+  },
+  {
+    "command": "perf",
+    "args": [],
+    "timestamp": "2026-03-24T03:16:33.527Z"
+  },
+  {
+    "command": "scorecard",
+    "args": [],
+    "timestamp": "2026-03-24T03:16:30.806Z"
+  },
+  {
+    "command": "fast",
+    "args": [
+      "draft",
+      "7434"
+    ],
+    "timestamp": "2026-03-24T03:15:58.957Z"
+  },
+  {
+    "command": "inbox",
+    "args": [],
+    "timestamp": "2026-03-24T03:15:43.408Z"
+  },
+  {
+    "command": "nba",
+    "args": [],
+    "timestamp": "2026-03-24T03:15:38.892Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-24T03:15:33.793Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-22T07:30:09.109Z"
+  },
+  {
+    "command": "status",
+    "args": [],
+    "timestamp": "2026-03-22T03:13:37.226Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-22T03:13:35.734Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-20T21:23:49.360Z"
+  },
+  {
+    "command": "status",
+    "args": [],
+    "timestamp": "2026-03-20T03:08:38.972Z"
+  },
+  {
+    "command": "decay",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-20T03:08:33.961Z"
+  },
+  {
+    "command": "reply",
+    "args": [],
+    "timestamp": "2026-03-20T03:08:33.217Z"
+  },
+  {
+    "command": "urgent",
+    "args": [],
+    "timestamp": "2026-03-20T03:08:29.431Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-20T03:08:23.697Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-19T21:29:27.287Z"
+  },
+  {
+    "command": "status",
+    "args": [],
+    "timestamp": "2026-03-19T03:07:19.741Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-19T03:07:11.461Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-18T07:30:07.249Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-18T04:40:08.434Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-18T04:10:09.207Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-18T03:40:09.911Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-18T03:10:36.712Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-17T23:59:38.507Z"
+  },
+  {
+    "command": "pricing",
+    "args": [
+      "--telegram"
+    ],
+    "timestamp": "2026-03-17T21:05:30.001Z"
+  },
+  {
+    "command": "domain-check",
+    "args": [
+      "--export"
+    ],
+    "timestamp": "2026-03-17T21:04:02.159Z"
+  },
+  {
+    "command": "domain-check",
+    "args": [
+      "--telegram"
+    ],
+    "timestamp": "2026-03-17T21:03:54.808Z"
+  },
+  {
+    "command": "fix",
+    "args": [],
+    "timestamp": "2026-03-16T23:24:05.947Z"
+  },
+  {
+    "command": "validate",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-16T23:22:42.613Z"
+  },
+  {
+    "command": "perf",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-16T23:22:12.107Z"
+  },
+  {
+    "command": "accounts",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-16T23:21:58.398Z"
+  },
+  {
+    "command": "perf",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-16T23:05:40.870Z"
+  },
+  {
+    "command": "morning",
+    "args": [
+      "--quick"
+    ],
+    "timestamp": "2026-03-16T23:03:51.428Z"
+  },
+  {
+    "command": "morning",
+    "args": [],
+    "timestamp": "2026-03-16T23:03:23.820Z"
+  },
+  {
+    "command": "batch",
+    "args": [
+      "--help"
+    ],
+    "timestamp": "2026-03-16T23:02:56.710Z"
+  },
+  {
+    "command": "batch",
+    "args": [],
+    "timestamp": "2026-03-16T23:02:51.969Z"
+  },
+  {
+    "command": "stale",
+    "args": [],
+    "timestamp": "2026-03-16T23:02:47.859Z"
+  },
+  {
+    "command": "accounts",
+    "args": [
+      "--telegram"
+    ],
+    "timestamp": "2026-03-16T23:02:24.384Z"
+  },
+  {
+    "command": "status",
+    "args": [],
+    "timestamp": "2026-03-16T22:47:53.314Z"
+  },
+  {
+    "command": "decay",
+    "args": [],
+    "timestamp": "2026-03-16T22:47:44.415Z"
+  },
+  {
+    "command": "urgent",
+    "args": [],
+    "timestamp": "2026-03-16T22:47:44.049Z"
+  },
+  {
+    "command": "nba",
+    "args": [],
+    "timestamp": "2026-03-16T22:47:37.680Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T22:47:32.244Z"
+  },
+  {
+    "command": "domains",
+    "args": [],
+    "timestamp": "2026-03-16T22:34:31.146Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T22:10:48.203Z"
+  },
+  {
+    "command": "domains",
+    "args": [],
+    "timestamp": "2026-03-16T22:08:48.890Z"
+  },
+  {
+    "command": "health",
+    "args": [],
+    "timestamp": "2026-03-16T22:08:41.729Z"
+  },
+  {
+    "command": "standup",
+    "args": [],
+    "timestamp": "2026-03-16T20:02:04.064Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T20:02:00.139Z"
+  },
+  {
+    "command": "engage",
+    "args": [
+      "log",
+      "action",
+      "Fixed Hypertide vs Google loading issue"
+    ],
+    "timestamp": "2026-03-16T15:55:35.129Z"
+  },
+  {
+    "command": "engage",
+    "args": [
+      "log",
+      "action",
+      "Removed Inbound Advantage card from dashboard"
+    ],
+    "timestamp": "2026-03-16T15:49:08.825Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T15:00:29.142Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T15:00:27.807Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T14:00:11.484Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T14:00:10.259Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T13:00:16.587Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T13:00:15.143Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T12:00:06.915Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T10:10:14.147Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T10:10:13.127Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T10:00:20.835Z"
+  },
+  {
+    "command": "oneclick",
+    "args": [],
+    "timestamp": "2026-03-16T09:40:54.740Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T09:40:09.029Z"
+  },
+  {
+    "command": "decay-live",
+    "args": [],
+    "timestamp": "2026-03-16T09:08:55.062Z"
+  },
+  {
+    "command": "engage",
+    "args": [],
+    "timestamp": "2026-03-16T09:00:54.249Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T09:00:53.263Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T08:31:21.123Z"
+  },
+  {
+    "command": "engage",
+    "args": [
+      "log",
+      "briefing"
+    ],
+    "timestamp": "2026-03-16T07:30:36.354Z"
+  },
+  {
+    "command": "morning-tg",
+    "args": [],
+    "timestamp": "2026-03-16T07:00:25.718Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T07:00:19.672Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T07:00:11.039Z"
+  },
+  {
+    "command": "weekly-email",
+    "args": [],
+    "timestamp": "2026-03-16T06:35:37.500Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T06:35:00.255Z"
+  },
+  {
+    "command": "value",
+    "args": [],
+    "timestamp": "2026-03-16T06:02:39.706Z"
+  },
+  {
+    "command": "value",
+    "args": [],
+    "timestamp": "2026-03-16T06:02:17.546Z"
+  },
+  {
+    "command": "new",
+    "args": [],
+    "timestamp": "2026-03-16T06:01:07.227Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T04:40:12.880Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T04:10:09.008Z"
+  },
+  {
+    "command": "pulse",
+    "args": [],
+    "timestamp": "2026-03-16T04:08:20.741Z"
+  },
+  {
+    "command": "health",
+    "args": [],
+    "timestamp": "2026-03-16T04:07:42.035Z"
+  },
+  {
+    "command": "winloss",
+    "args": [
+      "--playbook"
+    ],
+    "timestamp": "2026-03-16T04:06:20.682Z"
+  }
+]

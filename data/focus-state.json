@@ -1,0 +1,63 @@
+{
+  "completed": [
+    {
+      "type": "CLOSING_DEAL",
+      "priority": 1,
+      "lead": {
+        "id": 160,
+        "created_at": "2026-02-03T20:23:34.228588+00:00",
+        "name": "Olanrewaju Anifowoshe",
+        "email": "anifowoshe.o@dreamworksdirect.com",
+        "company": "dreamworksdirect",
+        "website": "dreamworksdirect.com",
+        "category": "Interested",
+        "status": "Booked",
+        "conversation_month": "Jan",
+        "conversation_year": 2026,
+        "conversation_date": "2026-01-07",
+        "lead_response_at": "2026-01-16T08:29:00+00:00",
+        "our_response_at": "2026-01-16T08:39:00+00:00",
+        "response_time_seconds": 600,
+        "meeting_date": "2026-04-02T08:00:00+00:00",
+        "notes": "[cold_email]",
+        "updated_at": "2026-02-04T01:08:49.592+00:00"
+      },
+      "action": "Close the deal with dreamworksdirect",
+      "why": "Booked meeting ready to convert - highest probability revenue",
+      "how": "gex view 160",
+      "value": 22500,
+      "time": "30 min",
+      "timestamp": "2026-02-08T04:38:34.433Z",
+      "completedAt": "2026-02-08T04:38:49.841Z"
+    }
+  ],
+  "current": {
+    "type": "CLOSING_DEAL",
+    "priority": 1,
+    "lead": {
+      "id": 160,
+      "created_at": "2026-02-03T20:23:34.228588+00:00",
+      "name": "Olanrewaju Anifowoshe",
+      "email": "anifowoshe.o@dreamworksdirect.com",
+      "company": "dreamworksdirect",
+      "website": "dreamworksdirect.com",
+      "category": "Interested",
+      "status": "Booked",
+      "conversation_month": "Jan",
+      "conversation_year": 2026,
+      "conversation_date": "2026-01-07",
+      "lead_response_at": "2026-01-16T08:29:00+00:00",
+      "our_response_at": "2026-01-16T08:39:00+00:00",
+      "response_time_seconds": 600,
+      "meeting_date": "2026-04-02T08:00:00+00:00",
+      "notes": "[cold_email]",
+      "updated_at": "2026-02-04T01:08:49.592+00:00"
+    },
+    "action": "Close the deal with dreamworksdirect",
+    "why": "Booked meeting ready to convert - highest probability revenue",
+    "how": "gex view 160",
+    "value": 22500,
+    "time": "30 min",
+    "timestamp": "2026-02-14T14:00:23.424Z"
+  }
+}

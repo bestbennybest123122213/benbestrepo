@@ -1,0 +1,222 @@
+[
+  {
+    "date": "2026-02-06T23:03:15.667Z",
+    "score": 26,
+    "breakdown": {
+      "freshness": 1,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -14
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 3,
+      "hot": 0,
+      "stale": 102,
+      "critical": 62,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-02-07T23:00:19.277Z",
+    "score": 25,
+    "breakdown": {
+      "freshness": 1,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 3,
+      "hot": 0,
+      "stale": 104,
+      "critical": 64,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-02-08T15:00:13.790Z",
+    "score": 25,
+    "breakdown": {
+      "freshness": 1,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 3,
+      "hot": 0,
+      "stale": 104,
+      "critical": 65,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-02-09T12:00:13.206Z",
+    "score": 25,
+    "breakdown": {
+      "freshness": 1,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 3,
+      "hot": 0,
+      "stale": 104,
+      "critical": 68,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-02-11T07:00:21.310Z",
+    "score": 25,
+    "breakdown": {
+      "freshness": 1,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 3,
+      "hot": 0,
+      "stale": 104,
+      "critical": 69,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-02-12T07:00:08.691Z",
+    "score": 24,
+    "breakdown": {
+      "freshness": 0,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 0,
+      "hot": 0,
+      "stale": 104,
+      "critical": 80,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-03-08T21:01:55.689Z",
+    "score": 24,
+    "breakdown": {
+      "freshness": 0,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 0,
+      "hot": 0,
+      "stale": 107,
+      "critical": 107,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-03-14T03:03:57.244Z",
+    "score": 24,
+    "breakdown": {
+      "freshness": 0,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 0,
+      "hot": 0,
+      "stale": 107,
+      "critical": 107,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-03-15T23:09:41.309Z",
+    "score": 24,
+    "breakdown": {
+      "freshness": 0,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 0,
+      "hot": 0,
+      "stale": 107,
+      "critical": 107,
+      "bookingRate": "29.1"
+    }
+  },
+  {
+    "date": "2026-03-16T23:03:51.732Z",
+    "score": 24,
+    "breakdown": {
+      "freshness": 0,
+      "hotLeads": 0,
+      "responseRate": 20,
+      "conversion": 19,
+      "stalePenalty": -15
+    },
+    "stats": {
+      "total": 151,
+      "active": 107,
+      "booked": 44,
+      "scheduling": 98,
+      "fresh": 0,
+      "hot": 0,
+      "stale": 107,
+      "critical": 107,
+      "bookingRate": "29.1"
+    }
+  }
+]

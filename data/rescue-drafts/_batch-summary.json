@@ -1,0 +1,251 @@
+{
+  "generated_at": "2026-02-07T23:05:00.419Z",
+  "total": 35,
+  "drafts": [
+    {
+      "email": "marina.andersson@stillfront.com",
+      "name": "Marina Andersson",
+      "bucket": "fresh",
+      "days": 3,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/marina.andersson_at_stillfront.com.txt"
+    },
+    {
+      "email": "partnerships@naturalcycles.com",
+      "name": "Agnes Ahlquist",
+      "bucket": "fresh",
+      "days": 2,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/partnerships_at_naturalcycles.com.txt"
+    },
+    {
+      "email": "marina.andersson@stillfront.com",
+      "name": "Marina Andersson",
+      "bucket": "cooling",
+      "days": 12,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/marina.andersson_at_stillfront.com.txt"
+    },
+    {
+      "email": "emmalumley@trustedhousesitters.com",
+      "name": "Emma Lumley",
+      "bucket": "cooling",
+      "days": 12,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/emmalumley_at_trustedhousesitters.com.txt"
+    },
+    {
+      "email": "dvuong@weedmaps.com",
+      "name": "David Vuong",
+      "bucket": "cooling",
+      "days": 12,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/dvuong_at_weedmaps.com.txt"
+    },
+    {
+      "email": "tiphaine.simon-turcan@typology.com",
+      "name": "Tiphaine Turcan",
+      "bucket": "cooling",
+      "days": 11,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/tiphaine.simon-turcan_at_typology.com.txt"
+    },
+    {
+      "email": "serena.grigolo@omio.com",
+      "name": "Serena Grigolo",
+      "bucket": "cooling",
+      "days": 10,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/serena.grigolo_at_omio.com.txt"
+    },
+    {
+      "email": "marina.andersson@stillfront.com",
+      "name": "Marina Andersson",
+      "bucket": "cooling",
+      "days": 10,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/marina.andersson_at_stillfront.com.txt"
+    },
+    {
+      "email": "gapplegate@livekindred.com",
+      "name": "Gracyn Applegate",
+      "bucket": "cooling",
+      "days": 9,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/gapplegate_at_livekindred.com.txt"
+    },
+    {
+      "email": "erika@assemblyfestival.com",
+      "name": "Erika R.",
+      "bucket": "cold",
+      "days": 66,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/erika_at_assemblyfestival.com.txt"
+    },
+    {
+      "email": "ines.kondic@outfit7.com",
+      "name": "Ines Kondic",
+      "bucket": "cold",
+      "days": 65,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/ines.kondic_at_outfit7.com.txt"
+    },
+    {
+      "email": "chloe.massiah@gozney.com",
+      "name": "Chloe Massiah",
+      "bucket": "cold",
+      "days": 65,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/chloe.massiah_at_gozney.com.txt"
+    },
+    {
+      "email": "chloe.massiah@gozney.com",
+      "name": "Chloe Massiah",
+      "bucket": "cold",
+      "days": 57,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/chloe.massiah_at_gozney.com.txt"
+    },
+    {
+      "email": "erika@assemblyfestival.com",
+      "name": "Erika R.",
+      "bucket": "cold",
+      "days": 57,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/erika_at_assemblyfestival.com.txt"
+    },
+    {
+      "email": "martin@trymartin.com",
+      "name": "Keith ",
+      "bucket": "cold",
+      "days": 38,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/martin_at_trymartin.com.txt"
+    },
+    {
+      "email": "emmalumley@trustedhousesitters.com",
+      "name": "Emma Lumley",
+      "bucket": "cold",
+      "days": 35,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/emmalumley_at_trustedhousesitters.com.txt"
+    },
+    {
+      "email": "ar@goodeggs.com",
+      "name": "Rodrigo Arevalo",
+      "bucket": "cold",
+      "days": 32,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/ar_at_goodeggs.com.txt"
+    },
+    {
+      "email": "tiphaine.simon-turcan@typology.com",
+      "name": "Tiphaine Turcan",
+      "bucket": "cold",
+      "days": 32,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/tiphaine.simon-turcan_at_typology.com.txt"
+    },
+    {
+      "email": "dvuong@weedmaps.com",
+      "name": "David Vuong",
+      "bucket": "cold",
+      "days": 29,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/dvuong_at_weedmaps.com.txt"
+    },
+    {
+      "email": "aurika.pociute@eneba.com",
+      "name": "Aurika Pociute",
+      "bucket": "cold",
+      "days": 26,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/aurika.pociute_at_eneba.com.txt"
+    },
+    {
+      "email": "aurika.pociute@eneba.com",
+      "name": "Aurika Pociute",
+      "bucket": "cold",
+      "days": 24,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/aurika.pociute_at_eneba.com.txt"
+    },
+    {
+      "email": "agnes.ahlquist@naturalcycles.com",
+      "name": "Agnes Ahlquist",
+      "bucket": "cold",
+      "days": 23,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/agnes.ahlquist_at_naturalcycles.com.txt"
+    },
+    {
+      "email": "jeremy@puntaa.co",
+      "name": "Jeremy Hare",
+      "bucket": "cold",
+      "days": 23,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/jeremy_at_puntaa.co.txt"
+    },
+    {
+      "email": "emmalumley@trustedhousesitters.com",
+      "name": "Emma Lumley",
+      "bucket": "cold",
+      "days": 22,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/emmalumley_at_trustedhousesitters.com.txt"
+    },
+    {
+      "email": "jeremy@puntaa.co",
+      "name": "Jeremy Hare",
+      "bucket": "cold",
+      "days": 19,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/jeremy_at_puntaa.co.txt"
+    },
+    {
+      "email": "ilya@candivore.io",
+      "name": "Ilya Agron",
+      "bucket": "cold",
+      "days": 18,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/ilya_at_candivore.io.txt"
+    },
+    {
+      "email": "aurika.pociute@eneba.com",
+      "name": "Aurika Pociute",
+      "bucket": "cold",
+      "days": 18,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/aurika.pociute_at_eneba.com.txt"
+    },
+    {
+      "email": "aurika.pociute@eneba.com",
+      "name": "Aurika Pociute",
+      "bucket": "cold",
+      "days": 18,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/aurika.pociute_at_eneba.com.txt"
+    },
+    {
+      "email": "agnes.ahlquist@naturalcycles.com",
+      "name": "Agnes Ahlquist",
+      "bucket": "cold",
+      "days": 18,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/agnes.ahlquist_at_naturalcycles.com.txt"
+    },
+    {
+      "email": "marina.andersson@stillfront.com",
+      "name": "Marina Andersson",
+      "bucket": "cold",
+      "days": 17,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/marina.andersson_at_stillfront.com.txt"
+    },
+    {
+      "email": "jeremy@puntaa.co",
+      "name": "Jeremy Hare",
+      "bucket": "cold",
+      "days": 15,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/jeremy_at_puntaa.co.txt"
+    },
+    {
+      "email": "jeremy@puntaa.co",
+      "name": "Jeremy Hare",
+      "bucket": "cold",
+      "days": 15,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/jeremy_at_puntaa.co.txt"
+    },
+    {
+      "email": "partnerships@naturalcycles.com",
+      "name": "Agnes Ahlquist",
+      "bucket": "cold",
+      "days": 15,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/partnerships_at_naturalcycles.com.txt"
+    },
+    {
+      "email": "gapplegate@livekindred.com",
+      "name": "Gracyn Applegate",
+      "bucket": "cold",
+      "days": 15,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/gapplegate_at_livekindred.com.txt"
+    },
+    {
+      "email": "serena.grigolo@omio.com",
+      "name": "Serena Grigolo",
+      "bucket": "cold",
+      "days": 15,
+      "file": "/Users/ben/clawd/domain-health-dashboard/data/rescue-drafts/serena.grigolo_at_omio.com.txt"
+    }
+  ]
+}

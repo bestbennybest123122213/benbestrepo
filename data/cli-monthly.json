@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-04-04T05:09:05.877Z",
+  "source": "smartlead-cli",
+  "months": [
+    {
+      "label": "November 2025",
+      "year": 2025,
+      "month": 11,
+      "isCurrent": false,
+      "isFinalized": true,
+      "dateRange": {
+        "start": "2025-11-01",
+        "end": "2025-11-30"
+      },
+      "metrics": {
+        "sent": 1898,
+        "replied": 45,
+        "bounced": 22,
+        "positive": 13,
+        "contacted": 1173,
+        "replyRate": "3.84",
+        "positiveRate": "28.89",
+        "bounceRate": "1.16"
+      }
+    },
+    {
+      "label": "December 2025",
+      "year": 2025,
+      "month": 12,
+      "isCurrent": false,
+      "isFinalized": true,
+      "dateRange": {
+        "start": "2025-12-01",
+        "end": "2025-12-31"
+      },
+      "metrics": {
+        "sent": 15648,
+        "replied": 361,
+        "bounced": 133,
+        "positive": 64,
+        "contacted": 6123,
+        "replyRate": "5.90",
+        "positiveRate": "17.73",
+        "bounceRate": "0.85"
+      },
+      "trends": {
+        "sent": "724.4",
+        "replied": "702.2",
+        "positive": "392.3",
+        "bounced": "504.5",
+        "contacted": "422.0"
+      }
+    },
+    {
+      "label": "January 2026",
+      "year": 2026,
+      "month": 1,
+      "isCurrent": false,
+      "isFinalized": true,
+      "dateRange": {
+        "start": "2026-01-01",
+        "end": "2026-01-31"
+      },
+      "metrics": {
+        "sent": 26166,
+        "replied": 318,
+        "bounced": 242,
+        "positive": 81,
+        "contacted": 10877,
+        "replyRate": "2.92",
+        "positiveRate": "25.47",
+        "bounceRate": "0.92"
+      },
+      "trends": {
+        "sent": "67.2",
+        "replied": "-11.9",
+        "positive": "26.6",
+        "bounced": "82.0",
+        "contacted": "77.6"
+      }
+    },
+    {
+      "label": "February 2026",
+      "year": 2026,
+      "month": 2,
+      "isCurrent": false,
+      "isFinalized": true,
+      "dateRange": {
+        "start": "2026-02-01",
+        "end": "2026-02-28"
+      },
+      "metrics": {
+        "sent": 25197,
+        "replied": 193,
+        "bounced": 304,
+        "positive": 34,
+        "contacted": 11979,
+        "replyRate": "1.61",
+        "positiveRate": "17.62",
+        "bounceRate": "1.21"
+      },
+      "trends": {
+        "sent": "-3.7",
+        "replied": "-39.3",
+        "positive": "-58.0",
+        "bounced": "25.6",
+        "contacted": "10.1"
+      }
+    },
+    {
+      "label": "March 2026",
+      "year": 2026,
+      "month": 3,
+      "isCurrent": false,
+      "isFinalized": true,
+      "dateRange": {
+        "start": "2026-03-01",
+        "end": "2026-03-31"
+      },
+      "metrics": {
+        "sent": 22000,
+        "replied": 173,
+        "bounced": 264,
+        "positive": 27,
+        "contacted": 10654,
+        "replyRate": "1.62",
+        "positiveRate": "15.61",
+        "bounceRate": "1.20"
+      },
+      "trends": {
+        "sent": "-12.7",
+        "replied": "-10.4",
+        "positive": "-20.6",
+        "bounced": "-13.2",
+        "contacted": "-11.1"
+      }
+    },
+    {
+      "label": "April 2026",
+      "year": 2026,
+      "month": 4,
+      "isCurrent": true,
+      "isFinalized": false,
+      "dateRange": {
+        "start": "2026-04-01",
+        "end": "2026-04-04"
+      },
+      "metrics": {
+        "sent": 1979,
+        "replied": 15,
+        "bounced": 20,
+        "positive": 3,
+        "contacted": 1826,
+        "replyRate": "0.82",
+        "positiveRate": "20.00",
+        "bounceRate": "1.01"
+      },
+      "trends": {
+        "sent": "-91.0",
+        "replied": "-91.3",
+        "positive": "-88.9",
+        "bounced": "-92.4",
+        "contacted": "-82.9"
+      }
+    }
+  ],
+  "totals": {
+    "sent": 92888,
+    "replied": 1105,
+    "bounced": 985,
+    "positive": 222,
+    "contacted": 27116,
+    "replyRate": "4.08",
+    "positiveRate": "20.09",
+    "bounceRate": "1.06"
+  }
+}

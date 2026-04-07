@@ -1,0 +1,14 @@
+{
+  "scrapedAt": "2026-03-18T00:23:00Z",
+  "periods": {
+    "2026-03-16": {
+      "label": "Mar 16 (Sun)",
+      "sent": 1487,
+      "replied": 5,
+      "positive": 3,
+      "bounced": 8,
+      "dateRange": "2026-03-16 - 2026-03-16"
+    }
+  },
+  "status": "in_progress"
+}

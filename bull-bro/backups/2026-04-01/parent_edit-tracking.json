@@ -1,0 +1,23 @@
+{
+  "edits": [
+    {
+      "timestamp": "2026-04-01T15:41:12.682Z",
+      "intent": "meeting_request",
+      "lead_email": "demo@example.com",
+      "original_length": 105,
+      "final_length": 126,
+      "edit_distance": 10,
+      "original_preview": "Hey John, sounds good. How about one of these times?\n- Monday at 10am ET\n- Tuesday at 2pm ET\n\nBest, ",
+      "final_preview": "Hey John, sounds good. Let's hop on a quick call.\n- Monday at 10am ET\n- Tuesday at 2pm ET\n\nLooking f"
+    }
+  ],
+  "stats": {
+    "total_edits": 1,
+    "by_intent": {
+      "meeting_request": 1
+    },
+    "common_corrections": [],
+    "average_edit_distance": 10
+  },
+  "last_updated": "2026-04-01T15:41:12.684Z"
+}

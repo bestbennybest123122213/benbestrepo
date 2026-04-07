@@ -1,0 +1,107 @@
+{
+  "lastUpdated": "2026-03-14T20:55:00.000Z",
+  "source": "SmartLead Global Analytics (New Version) - Puppeteer UI Scrape",
+  "method": "THE GOLD STANDARD",
+  "note": "Values scraped directly from SmartLead UI - 100% accurate",
+  "ranges": {
+    "yesterday": {
+      "sent": 1272,
+      "opened": 2,
+      "replied": 3,
+      "positive": 0,
+      "bounced": 6
+    },
+    "last3d": {
+      "sent": 2544,
+      "opened": 5,
+      "replied": 10,
+      "positive": 0,
+      "bounced": 12
+    },
+    "last7d": {
+      "sent": 6420,
+      "opened": 19,
+      "replied": 31,
+      "positive": 4,
+      "bounced": 36
+    },
+    "last14d": {
+      "sent": 12780,
+      "opened": 55,
+      "replied": 78,
+      "positive": 9,
+      "bounced": 121
+    },
+    "last30d": {
+      "sent": 26826,
+      "opened": 124,
+      "replied": 204,
+      "positive": 27,
+      "bounced": 299
+    },
+    "last60d": {
+      "sent": 54141,
+      "opened": 264,
+      "replied": 439,
+      "positive": 87,
+      "bounced": 544
+    },
+    "last90d": {
+      "sent": 73697,
+      "opened": 526,
+      "replied": 788,
+      "positive": 138,
+      "bounced": 771
+    },
+    "last120d": {
+      "sent": 81689,
+      "opened": 579,
+      "replied": 988,
+      "positive": 186,
+      "bounced": 819
+    }
+  },
+  "uiMetrics": {
+    "last30d": {
+      "totalLeadsActive": 12142,
+      "newLeadsReached": 7170,
+      "followUpLeads": 4972,
+      "meetingRequests": 24,
+      "interested": 6,
+      "booked": 2,
+      "outOfOffice": 86,
+      "gmailSent": 12912,
+      "outlookSent": 13914,
+      "totalCampaigns": 208,
+      "activeCampaigns": 28
+    },
+    "last60d": {
+      "totalLeadsActive": 19835,
+      "newLeadsReached": 13817,
+      "followUpLeads": 6018,
+      "meetingRequests": 61,
+      "interested": 23,
+      "booked": 18,
+      "informationRequest": 17,
+      "outOfOffice": 160,
+      "gmailSent": 25262,
+      "outlookSent": 28879,
+      "totalCampaigns": 260,
+      "activeCampaigns": 28
+    },
+    "last90d": {
+      "totalLeadsActive": 23388,
+      "newLeadsReached": 22410,
+      "followUpLeads": 978,
+      "meetingRequests": 96,
+      "interested": 28,
+      "booked": 24,
+      "informationRequest": 32,
+      "outOfOffice": 355,
+      "gmailSent": 31287,
+      "outlookSent": 37201,
+      "totalCampaigns": 312,
+      "activeCampaigns": 28
+    }
+  }
+}

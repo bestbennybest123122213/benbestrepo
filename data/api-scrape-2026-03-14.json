@@ -1,0 +1,31 @@
+{
+  "scraped_at": "2026-03-14T21:16:29.156Z",
+  "source": "SmartLead Direct API - In-Browser Fetch",
+  "method": "THE GOLD STANDARD v3",
+  "ranges": {
+    "yesterday": {
+      "error": "API returned 401"
+    },
+    "last_3_days": {
+      "error": "API returned 401"
+    },
+    "last_7_days": {
+      "error": "API returned 401"
+    },
+    "last_14_days": {
+      "error": "API returned 401"
+    },
+    "last_30_days": {
+      "error": "API returned 401"
+    },
+    "last_60_days": {
+      "error": "API returned 401"
+    },
+    "last_90_days": {
+      "error": "API returned 401"
+    },
+    "last_120_days": {
+      "error": "API returned 401"
+    }
+  }
+}

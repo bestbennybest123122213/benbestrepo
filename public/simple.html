@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GEX Dashboard - Simple</title>
+  <style>
+    body { font-family: sans-serif; background: #141414; color: #fff; padding: 20px; }
+    .card { background: #1a1a1a; padding: 20px; border-radius: 8px; margin: 10px 0; }
+    .metric { font-size: 32px; font-weight: bold; color: #f97316; }
+    .label { color: #888; font-size: 14px; }
+    .loading { color: #888; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+    th { color: #888; }
+    .btn { background: #f97316; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+    .btn:hover { background: #ea580c; }
+  </style>
+</head>
+<body>
+  <h1>🚀 GEX Dashboard</h1>
+  <button class="btn" onclick="loadData()">Refresh</button>
+  
+  <div id="status" class="loading">Loading...</div>
+  
+  <div class="grid" id="metrics"></div>
+  
+  <h2>Campaigns</h2>
+  <table id="campaigns">
+    <thead>
+      <tr><th>Name</th><th>Leads</th><th>Sent</th><th>Replies</th><th>Reply Rate</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function loadData() {
+      document.getElementById('status').textContent = 'Loading...';
+      try {
+        const res = await fetch('/api/dashboard');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        
+        document.getElementById('status').textContent = 'Loaded in ' + data.loadTimeMs + 'ms';
+        
+        // Metrics
+        const m = data.leadMetrics;
+        document.getElementById('metrics').innerHTML = `
+          <div class="card"><div class="metric">${m.totalLeads.toLocaleString()}</div><div class="label">Total Leads</div></div>
+          <div class="card"><div class="metric">${m.totalReplies.toLocaleString()}</div><div class="label">Replies</div></div>
+          <div class="card"><div class="metric">${m.totalInterested}</div><div class="label">Interested</div></div>
+          <div class="card"><div class="metric">${m.replyRate}%</div><div class="label">Reply Rate</div></div>
+          <div class="card"><div class="metric">${m.positiveReplyRate}%</div><div class="label">Positive Rate</div></div>
+        `;
+        
+        // Campaigns
+        const tbody = document.querySelector('#campaigns tbody');
+        tbody.innerHTML = data.campaigns.map(c => `
+          <tr>
+            <td>${c.name}</td>
+            <td>${c.leads.toLocaleString()}</td>
+            <td>${c.sent.toLocaleString()}</td>
+            <td>${c.replied}</td>
+            <td>${c.replyRate}%</td>
+          </tr>
+        `).join('');
+        
+      } catch(err) {
+        document.getElementById('status').textContent = 'Error: ' + err.message;
+      }
+    }
+    
+    loadData();
+  </script>
+</body>
+</html>

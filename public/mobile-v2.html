@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>GEX Mobile</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --card: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #fff;
+      --muted: #888;
+      --accent: #f97316;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 16px;
+      padding-bottom: 100px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 8px 0;
+    }
+    .header h1 {
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .live-badge {
+      background: var(--green);
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      50% { opacity: 0.6; }
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .stat {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .stat.hot .stat-value { color: var(--red); }
+    .stat.booked .stat-value { color: var(--green); }
+    .stat.meeting .stat-value { color: var(--blue); }
+
+    /* Action Cards */
+    .section-title {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 20px 0 12px;
+    }
+    
+    .lead-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--accent);
+    }
+    .lead-card.hot { border-left-color: var(--red); }
+    .lead-card.enterprise { border-left-color: var(--accent); }
+    .lead-card.meeting { border-left-color: var(--green); }
+    
+    .lead-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .lead-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .lead-company {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .lead-badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--border);
+    }
+    .lead-badge.hot { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+    .lead-badge.enterprise { background: rgba(249, 115, 22, 0.2); color: var(--accent); }
+    
+    .lead-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    
+    /* Action Buttons */
+    .lead-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      flex: 1;
+      min-width: 80px;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .action-btn:active {
+      transform: scale(0.97);
+    }
+    .action-btn.primary {
+      background: var(--green);
+      color: white;
+    }
+    .action-btn.secondary {
+      background: var(--border);
+      color: var(--text);
+    }
+    .action-btn.call {
+      background: var(--blue);
+      color: white;
+    }
+    
+    /* Swipe Actions Container */
+    .swipe-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .swipe-actions {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      transform: translateX(100%);
+      transition: transform 0.2s;
+    }
+    .swipe-btn {
+      width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+    }
+    .swipe-btn.booked { background: var(--green); }
+    .swipe-btn.snooze { background: var(--accent); }
+    
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 10px;
+    }
+    .nav-item.active { color: var(--accent); }
+    .nav-item span { font-size: 20px; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      background: var(--green);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+      z-index: 1000;
+      transform: translateY(-150%);
+      transition: transform 0.3s;
+    }
+    .toast.show { transform: translateY(0); }
+    .toast.error { background: var(--red); }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎯 GEX <span class="live-badge">LIVE</span></h1>
+    <button onclick="refresh()" style="background:none;border:none;font-size:20px;cursor:pointer;">🔄</button>
+  </div>
+
+  <div class="stats-row" id="stats">
+    <div class="stat hot"><div class="stat-value">-</div><div class="stat-label">Hot</div></div>
+    <div class="stat meeting"><div class="stat-value">-</div><div class="stat-label">Meetings</div></div>
+    <div class="stat booked"><div class="stat-value">-</div><div class="stat-label">Booked</div></div>
+    <div class="stat"><div class="stat-value">-</div><div class="stat-label">Total</div></div>
+  </div>
+
+  <div class="section-title">🔥 Priority Actions</div>
+  <div id="actions" class="loading">Loading...</div>
+
+  <div class="section-title">📋 Recent Leads</div>
+  <div id="leads" class="loading">Loading...</div>
+
+  <nav class="bottom-nav">
+    <a href="/mobile-v2.html" class="nav-item active"><span>🎯</span>Actions</a>
+    <a href="/" class="nav-item"><span>📊</span>Dashboard</a>
+    <a href="/mobile.html" class="nav-item"><span>📱</span>Classic</a>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/quick-actions.js"></script>
+  
+  <script>
+    function showToast(msg, isError = false) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => t.className = 'toast', 3000);
+    }
+
+    async function refresh() {
+      try {
+        // Fetch mobile actions data
+        const res = await fetch('/api/mobile-actions');
+        const data = await res.json();
+        
+        // Update stats
+        document.getElementById('stats').innerHTML = `
+          <div class="stat hot">
+            <div class="stat-value">${data.stats?.hot || 0}</div>
+            <div class="stat-label">Hot</div>
+          </div>
+          <div class="stat meeting">
+            <div class="stat-value">${data.stats?.meetings || 0}</div>
+            <div class="stat-label">Meetings</div>
+          </div>
+          <div class="stat booked">
+            <div class="stat-value">${data.stats?.booked || 0}</div>
+            <div class="stat-label">Booked</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">${data.stats?.total || 0}</div>
+            <div class="stat-label">Total</div>
+          </div>
+        `;
+        
+        // Render action cards
+        const actions = data.actions || [];
+        if (actions.length === 0) {
+          document.getElementById('actions').innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;">No urgent actions! 🎉</div>';
+        } else {
+          document.getElementById('actions').innerHTML = actions.map(a => `
+            <div class="lead-card ${a.type}">
+              <div class="lead-header">
+                <div>
+                  <div class="lead-name">${a.name || 'Unknown'}</div>
+                  <div class="lead-company">${a.company || 'Unknown Company'}</div>
+                </div>
+                <span class="lead-badge ${a.type}">${a.emoji} ${a.age}</span>
+              </div>
+              <div class="lead-meta">${a.label}</div>
+              <div class="lead-actions">
+                <button class="action-btn primary" onclick="markBooked('${a.email}')">✅ Booked</button>
+                <button class="action-btn secondary" onclick="followUp('${a.email}', '${a.name}', '${a.company}')">📧 Follow Up</button>
+                <a href="tel:${a.email.split('@')[0]}" class="action-btn call">📞</a>
+              </div>
+            </div>
+          `).join('');
+        }
+        
+        // Fetch recent leads
+        const leadsRes = await fetch('/api/dashboard');
+        const leadsData = await leadsRes.json();
+        const leads = (leadsData.positiveReplies || []).slice(0, 10);
+        
+        document.getElementById('leads').innerHTML = leads.map(l => `
+          <div class="lead-card ${l.reply_category === 'Booked' ? '' : 'meeting'}">
+            <div class="lead-header">
+              <div>
+                <div class="lead-name">${l.lead_name || l.lead_email.split('@')[0]}</div>
+                <div class="lead-company">${l.lead_company || 'Unknown'}</div>
+              </div>
+              <span class="lead-badge">${l.reply_category}</span>
+            </div>
+            ${l.reply_category !== 'Booked' ? `
+              <div class="lead-actions">
+                <button class="action-btn primary" onclick="markBooked('${l.lead_email}')">✅ Booked</button>
+                <button class="action-btn secondary" onclick="snooze('${l.lead_email}')">⏰ Snooze</button>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+        
+      } catch (err) {
+        showToast('Failed to load: ' + err.message, true);
+      }
+    }
+
+    async function markBooked(email) {
+      try {
+        await gexActions.api('mark_booked', email);
+        showToast('Marked as booked! 🎉');
+        refresh();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    function followUp(email, name, company) {
+      gexActions.followUp(email, name, company);
+    }
+
+    async function snooze(email) {
+      try {
+        await gexActions.api('snooze', email, { days: 3 });
+        showToast('Snoozed for 3 days ⏰');
+        refresh();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    // Real-time updates
+    if (window.gexRealtime) {
+      gexRealtime.on('new_lead', () => {
+        showToast('🔥 New lead just came in!');
+        refresh();
+      });
+      gexRealtime.on('status_change', () => refresh());
+    }
+
+    // Initial load
+    refresh();
+    
+    // Auto-refresh every 60 seconds
+    setInterval(refresh, 60000);
+  </script>
+</body>
+</html>

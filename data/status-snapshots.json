@@ -1,0 +1,64 @@
+{
+  "snapshots": [
+    {
+      "timestamp": "2026-02-07T13:01:15.197Z",
+      "hotLeads": 0,
+      "pendingLeads": 107,
+      "bookedLeads": 44,
+      "staleLeads": 104,
+      "pipelineValue": 25000,
+      "domainsHealthy": 20,
+      "domainsCritical": 2
+    },
+    {
+      "timestamp": "2026-02-07T14:00:16.724Z",
+      "hotLeads": 0,
+      "pendingLeads": 107,
+      "bookedLeads": 44,
+      "staleLeads": 104,
+      "pipelineValue": 25000,
+      "domainsHealthy": 20,
+      "domainsCritical": 2
+    },
+    {
+      "timestamp": "2026-02-07T14:00:56.942Z",
+      "hotLeads": 0,
+      "pendingLeads": 107,
+      "bookedLeads": 44,
+      "staleLeads": 104,
+      "pipelineValue": 25000,
+      "domainsHealthy": 20,
+      "domainsCritical": 2
+    },
+    {
+      "timestamp": "2026-02-07T15:00:16.819Z",
+      "hotLeads": 0,
+      "pendingLeads": 107,
+      "bookedLeads": 44,
+      "staleLeads": 104,
+      "pipelineValue": 25000,
+      "domainsHealthy": 20,
+      "domainsCritical": 2
+    },
+    {
+      "timestamp": "2026-02-07T16:00:20.196Z",
+      "hotLeads": 0,
+      "pendingLeads": 107,
+      "bookedLeads": 44,
+      "staleLeads": 104,
+      "pipelineValue": 25000,
+      "domainsHealthy": 20,
+      "domainsCritical": 2
+    },
+    {
+      "timestamp": "2026-02-07T17:00:19.094Z",
+      "hotLeads": 0,
+      "pendingLeads": 107,
+      "bookedLeads": 44,
+      "staleLeads": 104,
+      "pipelineValue": 25000,
+      "domainsHealthy": 20,
+      "domainsCritical": 2
+    }
+  ]
+}

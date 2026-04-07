@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-03-09T01:23:28.250Z",
+    "type": "sync",
+    "message": "Starting campaign sync..."
+  },
+  {
+    "timestamp": "2026-03-09T01:23:28.776Z",
+    "type": "sync",
+    "message": "Found 50 campaigns"
+  },
+  {
+    "timestamp": "2026-03-09T01:23:28.777Z",
+    "type": "sync",
+    "message": "Starting positive replies sync..."
+  },
+  {
+    "timestamp": "2026-03-09T01:23:29.280Z",
+    "type": "sync",
+    "message": "Replies sync complete: 0 new, 0 updated"
+  },
+  {
+    "timestamp": "2026-03-09T01:23:29.280Z",
+    "type": "sync",
+    "message": "Starting statistics sync..."
+  },
+  {
+    "timestamp": "2026-03-09T01:23:52.100Z",
+    "type": "sync",
+    "message": "Stats sync complete: 30 campaigns"
+  }
+]

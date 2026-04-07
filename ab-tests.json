@@ -1,0 +1,46 @@
+{
+  "tests": [
+    {
+      "id": "1770217489607",
+      "name": "Subject Line Test - Question vs Statement",
+      "type": "subject",
+      "status": "active",
+      "createdAt": "2026-02-04T15:04:49.607Z",
+      "hypothesis": null,
+      "variants": [
+        {
+          "id": "A",
+          "name": "Question Format",
+          "description": "",
+          "campaignIds": [],
+          "metrics": {
+            "sent": 0,
+            "opened": 0,
+            "replied": 0,
+            "positiveReplies": 0,
+            "booked": 0,
+            "bounced": 0
+          }
+        },
+        {
+          "id": "B",
+          "name": "Statement Format",
+          "description": "",
+          "campaignIds": [],
+          "metrics": {
+            "sent": 0,
+            "opened": 0,
+            "replied": 0,
+            "positiveReplies": 0,
+            "booked": 0,
+            "bounced": 0
+          }
+        }
+      ],
+      "winner": null,
+      "confidence": 0,
+      "notes": []
+    }
+  ],
+  "history": []
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEX OS - Visualizations Demo</title>
+  <style>
+    :root {
+      --bg-dark: #0d0d0d;
+      --bg-main: #141414;
+      --bg-card: #1a1a1a;
+      --text: #fff;
+      --text-muted: #888;
+      --text-dim: #666;
+      --accent: #f97316;
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.15);
+      --yellow: #eab308;
+      --blue: #3b82f6;
+      --border: #2a2a2a;
+      --hypertide: #06b6d4;
+      --google: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-main);
+      color: var(--text);
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 { margin-bottom: 32px; }
+    h2 { margin: 32px 0 16px; color: var(--text-muted); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <h1>📊 GEX OS Visualizations</h1>
+
+  <h2>Pipeline Funnel</h2>
+  <div class="card">
+    <div class="card-title">Lead Conversion Funnel</div>
+    <div id="funnel"></div>
+  </div>
+
+  <h2>Metrics Overview</h2>
+  <div id="metrics"></div>
+
+  <h2>Charts</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Category Distribution</div>
+      <div id="donut"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Weekly Performance</div>
+      <div id="lineChart"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Response by Day</div>
+      <div id="barChart"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">HyperTide vs Google</div>
+      <div id="compare"></div>
+    </div>
+  </div>
+
+  <h2>Gauges</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="card" style="text-align: center;">
+      <div class="card-title">Booking Rate</div>
+      <div id="gauge1"></div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="card-title">Response Rate</div>
+      <div id="gauge2"></div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="card-title">Positive Rate</div>
+      <div id="gauge3"></div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="card-title">Health Score</div>
+      <div id="gauge4"></div>
+    </div>
+  </div>
+
+  <script src="/visualizations.js"></script>
+  <script>
+    // Wait for visualizations to load
+    setTimeout(() => {
+      // Funnel
+      gexViz.funnel('funnel', [
+        { label: 'Total Leads', value: 118, color: 'var(--accent)' },
+        { label: 'Replied', value: 118, pct: '100%', color: 'var(--blue)' },
+        { label: 'Meeting Request', value: 61, pct: '51.7%', color: 'var(--green)' },
+        { label: 'Booked', value: 21, pct: '17.8%', color: 'var(--green)' }
+      ]);
+
+      // Metrics
+      gexViz.metricCards('metrics', [
+        { label: 'Total Leads', value: '118', color: 'var(--accent)' },
+        { label: 'Booked', value: '21', color: 'var(--green)', trend: 5 },
+        { label: 'Hot Leads', value: '1', color: 'var(--red)' },
+        { label: 'Enterprise', value: '11', color: 'var(--blue)' },
+        { label: 'Stale', value: '75', color: 'var(--text-muted)', trend: -3 }
+      ]);
+
+      // Donut
+      gexViz.donut('donut', [
+        { label: 'Meeting Request', value: 61, color: '#22c55e' },
+        { label: 'Interested', value: 16, color: '#3b82f6' },
+        { label: 'Booked', value: 21, color: '#f97316' },
+        { label: 'Info Request', value: 20, color: '#a855f7' }
+      ], 'leads');
+
+      // Line Chart
+      gexViz.lineChart('lineChart', {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [
+          { label: 'Replies', data: [12, 19, 15, 25, 22, 8, 5], color: '#22c55e', fill: true },
+          { label: 'Booked', data: [2, 4, 3, 5, 4, 1, 2], color: '#f97316' }
+        ]
+      });
+
+      // Bar Chart
+      gexViz.barChart('barChart', {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [
+          { label: 'Responses', data: [18, 24, 21, 28, 15], color: '#3b82f6' }
+        ]
+      });
+
+      // Compare Bars
+      gexViz.compareBars('compare', [
+        { label: 'Reply Rate', a: 2.8, b: 1.9 },
+        { label: 'Positive %', a: 45, b: 38 },
+        { label: 'Bounce %', a: 1.2, b: 2.1 }
+      ]);
+
+      // Gauges
+      gexViz.gauge('gauge1', 17.8, 100, { label: 'Booking Rate' });
+      gexViz.gauge('gauge2', 2.5, 5, { label: 'Response', suffix: '%' });
+      gexViz.gauge('gauge3', 52, 100, { label: 'Positive' });
+      gexViz.gauge('gauge4', 85, 100, { label: 'Score' });
+    }, 100);
+  </script>
+</body>
+</html>

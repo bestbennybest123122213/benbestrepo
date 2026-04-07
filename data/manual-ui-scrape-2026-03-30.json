@@ -1,0 +1,61 @@
+{
+  "scraped_at": "2026-03-30T20:33:48.374Z",
+  "source": "SmartLead CLI (official)",
+  "method": "smartlead-cli",
+  "ranges": {
+    "last_7_days": {
+      "period": "2026-03-24 - 2026-03-30",
+      "label": "Last 7 Days",
+      "sent": 2523,
+      "opened": 15,
+      "replied": 20,
+      "bounced": 53,
+      "positive": 3
+    },
+    "last_14_days": {
+      "period": "2026-03-17 - 2026-03-30",
+      "label": "Last 14 Days",
+      "sent": 6457,
+      "opened": 30,
+      "replied": 54,
+      "bounced": 101,
+      "positive": 12
+    },
+    "last_30_days": {
+      "period": "2026-03-01 - 2026-03-30",
+      "label": "Last 30 Days",
+      "sent": 20724,
+      "opened": 96,
+      "replied": 147,
+      "bounced": 255,
+      "positive": 20
+    },
+    "last_60_days": {
+      "period": "2026-01-30 - 2026-03-30",
+      "label": "Last 60 Days",
+      "sent": 47164,
+      "opened": 201,
+      "replied": 349,
+      "bounced": 578,
+      "positive": 56
+    },
+    "last_90_days": {
+      "period": "2025-12-31 - 2026-03-30",
+      "label": "Last 90 Days",
+      "sent": 73134,
+      "opened": 397,
+      "replied": 683,
+      "bounced": 816,
+      "positive": 123
+    },
+    "last_120_days": {
+      "period": "2025-12-01 - 2026-03-30",
+      "label": "Last 120 Days",
+      "sent": 87735,
+      "opened": 619,
+      "replied": 1012,
+      "bounced": 934,
+      "positive": 163
+    }
+  }
+}

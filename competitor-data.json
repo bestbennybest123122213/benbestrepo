@@ -1,0 +1,109 @@
+{
+  "grin.co": {
+    "name": "GRIN",
+    "type": "Platform",
+    "focus": "E-commerce influencer marketing",
+    "pricing": "$10k-25k/month",
+    "strengths": [
+      "Shopify integration",
+      "Creator payments",
+      "ROI tracking"
+    ],
+    "weaknesses": [
+      "Expensive",
+      "Complex setup",
+      "E-commerce focused"
+    ]
+  },
+  "aspireiq.com": {
+    "name": "AspireIQ",
+    "type": "Platform",
+    "focus": "Community-driven influencer marketing",
+    "pricing": "$15k-50k/month",
+    "strengths": [
+      "Large creator network",
+      "Campaign management",
+      "Analytics"
+    ],
+    "weaknesses": [
+      "High cost",
+      "Enterprise only",
+      "Long contracts"
+    ]
+  },
+  "upfluence.com": {
+    "name": "Upfluence",
+    "type": "Platform",
+    "focus": "Full-stack influencer marketing",
+    "pricing": "$5k-20k/month",
+    "strengths": [
+      "Chrome extension",
+      "CRM features",
+      "E-commerce focus"
+    ],
+    "weaknesses": [
+      "Data accuracy issues",
+      "UI complexity"
+    ]
+  },
+  "traackr.com": {
+    "name": "Traackr",
+    "type": "Platform",
+    "focus": "Enterprise influencer management",
+    "pricing": "$20k-100k/year",
+    "strengths": [
+      "Enterprise features",
+      "Global coverage",
+      "Compliance"
+    ],
+    "weaknesses": [
+      "Very expensive",
+      "Overkill for SMBs"
+    ]
+  },
+  "creatoriq.com": {
+    "name": "CreatorIQ",
+    "type": "Platform",
+    "focus": "Enterprise creator management",
+    "pricing": "$30k+/month",
+    "strengths": [
+      "Data depth",
+      "Enterprise scale",
+      "Fraud detection"
+    ],
+    "weaknesses": [
+      "Extremely expensive",
+      "Long implementation"
+    ]
+  },
+  "modash.io": {
+    "name": "Modash",
+    "type": "Discovery",
+    "focus": "Influencer discovery & analytics",
+    "pricing": "$99-999/month",
+    "strengths": [
+      "Affordable",
+      "Good data",
+      "Easy to use"
+    ],
+    "weaknesses": [
+      "Discovery only",
+      "No campaign management"
+    ]
+  },
+  "heepsy.com": {
+    "name": "Heepsy",
+    "type": "Discovery",
+    "focus": "Influencer search",
+    "pricing": "$49-269/month",
+    "strengths": [
+      "Affordable",
+      "Easy search",
+      "Quick start"
+    ],
+    "weaknesses": [
+      "Limited features",
+      "Smaller database"
+    ]
+  }
+}

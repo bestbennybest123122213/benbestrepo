@@ -1,0 +1,321 @@
+{
+  "version": "1.0.0",
+  "name": "Email Response Management SOP",
+  "description": "Brain for Bull BRO templating and response style",
+  
+  "golden_rules": [
+    "ALWAYS push for a call at the end of every response (in a nice, non-pushy way)",
+    "Include specific time slots when pushing for calls",
+    "Use case studies to overcome objections",
+    "Keep tone conversational and confident"
+  ],
+  
+  "mailboxes": {
+    "jan@3wrk.com": {
+      "function": "Post-booking communications - meeting confirmations, cancellations, reschedules, follow-ups",
+      "tone": "Casual, friendly, understanding",
+      "signature": "Best,\nJan"
+    },
+    "partnership@alementary.tv": {
+      "function": "Inbound partnership inquiries for Alementary brand - warm leads who reached out first",
+      "tone": "Professional but approachable",
+      "signature": "Best,\nAlasdair"
+    },
+    "imman_smartlead": {
+      "function": "Cold outreach replies - leads who did NOT reach out first",
+      "tone": "Conversational, confident, data-driven",
+      "signature": "Best,\nImman"
+    }
+  },
+  
+  "response_timing": {
+    "priority_1": {
+      "triggers": ["booked_meetings", "cancellations"],
+      "response_time": "1 hour during business hours"
+    },
+    "priority_2": {
+      "triggers": ["interested_leads", "pricing_questions"],
+      "response_time": "4 hours"
+    },
+    "priority_3": {
+      "triggers": ["follow_ups", "general_inquiries"],
+      "response_time": "24 hours"
+    }
+  },
+  
+  "variables": {
+    "{{first_name}}": "Lead's first name",
+    "{{company_name}}": "Lead's company name",
+    "{{meeting_date_time}}": "Specific date and time of meeting",
+    "{{schedule}}": "Two specific time slot options with timezone",
+    "{{suggested_month}}": "Specific month for future follow-up",
+    "{{relevant_content_type}}": "Industry-specific content type based on lead's business",
+    "{{new_meeting_date_time}}": "Rescheduled meeting time",
+    "{{provide_2_time_slots_with_dates_and_timezone}}": "Two time slots with dates and timezone"
+  },
+  
+  "templates": {
+    "jan_3wrk": {
+      "lead_declined_meeting": {
+        "trigger": "Lead declined a scheduled meeting in calendar system",
+        "script": "Hey {{first_name}},\n\nSaw that you declined the meeting scheduled for {{meeting_date_time}}. Something bad happened?\n\nBest,\nJan",
+        "actions": ["Wait 48 hours for response", "If no response → proceed to follow-up sequence"]
+      },
+      "lead_missed_meeting_1": {
+        "trigger": "Lead booked but did not attend scheduled meeting",
+        "timing": "Send immediately after missed meeting",
+        "script": "Hey {{first_name}},\n\nSeems like you missed the meeting scheduled for {{meeting_date_time}}. Something bad happened?\n\nBest,\nJan"
+      },
+      "lead_missed_meeting_2": {
+        "trigger": "No response to first follow-up",
+        "timing": "Send 2 days after 1st follow-up",
+        "script": "Hey {{first_name}},\n\nDoes {{suggest_two_time_slots_next_week}} work for you?\n\nBest,\nJan"
+      },
+      "lead_missed_meeting_3": {
+        "trigger": "No response to second follow-up",
+        "timing": "Send 2 days after 2nd follow-up",
+        "script": "Have you had a chance to book a call yet? If no, here's a link to schedule a call: https://calendly.com/jan__w/partnership_itssimannn\n\nCan't wait to chat.\n\nBest,\nJan"
+      },
+      "lead_requested_reschedule": {
+        "trigger": "Lead asks to change meeting time",
+        "script": "Hey {{first_name}},\n\nI've rescheduled it for {{new_meeting_date_time}}. Let me know if that works for you and we can push it further if need be.\n\nBest,\nJan",
+        "alternative": "Got you {{first_name}}, take your time. I will just keep something in the calendar a few weeks from now so we don't forget.\n\nBest,\nJan",
+        "actions": ["Update calendar with new meeting time", "Send calendar invite for new time"]
+      },
+      "multiple_cancellations": {
+        "trigger": "Lead has cancelled or rescheduled 3+ times",
+        "script": "Hi {{first_name}},\n\nI understand, things happen. I'll reschedule using the link. If there are any days or times in your calendar that won't work, just let me know upfront so we can lock in something that sticks.\n\nWe won't be able to reschedule again so let's make this one stick - we're running out of calendar real estate here :)\n\nLooking forward to connecting.\n\nBest,\nJan",
+        "actions": ["This is the final reschedule attempt", "If they cancel again → remove from active follow-up"]
+      },
+      "post_meeting_followup": {
+        "trigger": "Meeting was successfully completed",
+        "script": "Hi {{first_name}},\n\nAnything new that happened recently?\n\nBest,\nJan"
+      },
+      "lead_needs_more_time": {
+        "trigger": "Lead needs more time after meeting",
+        "subject": "Re: Meeting - {{company_name}}",
+        "script": "Got you man, keep building and if there's something new keep me posted! :)\n\nBest,\nJan",
+        "actions": ["Set reminder for follow-up in 2-3 weeks", "Update CRM with meeting notes"]
+      }
+    },
+    
+    "partnership_alementary": {
+      "initial_inquiry": {
+        "trigger": "Brand reaches out asking about partnership, rates, or collaboration",
+        "script": "Hi {{first_name}},\n\nThanks for the offer — that's something for us to consider.\n\nTo give you an idea, we are one of the biggest tech channels out there averaging 4.9 million views per sponsored video across all platforms.\n\nRecently, we've been focused on making brands go viral and have been doing partnerships through campaigns that contain 3-5 videos. Our rates typically range from $5k to $35k per campaign.\n\nHere are some specific examples of our work:\n- Suno AI (AI Music Creation Platform): 41 million views\n- Xreal (Smart Glasses): 31 million views\n- RYSE (Smart home device): 6.5 million views\n\nPlease find more details in this document, which includes stats, case studies, and testimonials: Our Process\n\nSounds like a fit?\n\nBest,\nJan",
+        "actions": ["Wait 2-3 days for response", "If interested → send booking link"]
+      },
+      "lead_responded_positively": {
+        "trigger": "Lead replies showing interest after receiving general information",
+        "script": "Hi {{first_name}},\n\nBest way for us to move forward would be to get on a quick call so we can strategize what's possible and needed for our collaboration.\n\nWould you be able to book a call here? https://calendly.com/jan__w/partnership_alementary\n\nBest,\nAlasdair",
+        "actions": ["Track if they book the call", "If no booking within 3 days → send follow-up"]
+      },
+      "followup_no_response": {
+        "trigger": "Lead hasn't responded 5-7 days after initial inquiry email",
+        "script": "Hi {{first_name}},\n\nWe are doing a bit of a Q4 push for companies and we still have 2 spots for our partners; would you be interested in one of those?\n\nBest way for us to move forward would be to get on a quick call so we can strategize what's possible and needed for our collaboration.\n\nWould you be able to book a call here? https://calendly.com/jan__w/partnership_alementary\n\nBest,\nAlasdair",
+        "note": "Adjust Q4 to current quarter"
+      },
+      "second_followup": {
+        "trigger": "Still no response 5 days after first follow-up",
+        "script": "Hi {{first_name}},\n\nLet us know what you think.\n\nBest,\nAlasdair",
+        "actions": ["If no response → Mark as unresponsive after 7 days"]
+      },
+      "third_followup": {
+        "trigger": "Still no response after second follow-up, but lead seems high-value",
+        "script": "Have you given it any thought?\n\nBest,\nAlasdair",
+        "actions": ["Use sparingly, only for high-priority leads", "After this → Remove from active follow-up sequence"]
+      },
+      "budget_too_low": {
+        "trigger": "Lead states budget is below $5k minimum",
+        "script": "Hi {{first_name}},\n\nThe budget you have does not meet our current rates. Our minimum rate per project is $5k.\n\nIf you have any other project in the future, feel free to let us know.\n\nBest,\nAlasdair",
+        "actions": ["Keep in database for future outreach", "Set reminder to check back in 6 months"]
+      },
+      "suspicious_request": {
+        "trigger": "Lead asks to download software or follow unusual verification process",
+        "script": "Hi {{first_name}},\n\nWe don't download software unless we've hopped on a call to verify this is legit.\n\nIf our rates are within your budget, we can schedule a quick intro call before or after the holidays. Let me know when you are free.\n\nBest,\nAlasdair",
+        "actions": ["Do NOT proceed until verification call is completed", "Flag as potential spam/scam if request persists"]
+      }
+    },
+    
+    "imman_smartlead": {
+      "interested": {
+        "trigger": "Lead expresses interest or wants to learn more",
+        "script": "Hey {{first_name}},\n\nAwesome to hear you're interested.\n\nLet's jump on a quick call to discuss what would work best for {{company_name}}.\n\nI'm free {{provide_2_time_slots_with_dates_and_timezone}} — either work?\n\nBest,\nImman",
+        "tag": "Interested",
+        "actions": ["Send calendar link", "Track if they book", "Follow up in 3 days if no booking"]
+      },
+      "pricing_question": {
+        "trigger": "Lead asks about pricing, rates, or costs",
+        "script": "Hey {{first_name}},\n\nGreat question. Our campaigns typically range from $15k to $50k depending on scope, number of videos, and targets.\n\nHere's what we've done recently:\n- Whiteout Survival: 49M views, 100k new users\n- Gauth AI: 15M+ views across platforms\n- CamScanner: 3M views\n\nWorth a quick call to see what would make sense for {{company_name}}?\n\nI'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+        "tag": "Information Request",
+        "actions": ["Push for call booking", "Track response"]
+      },
+      "not_doing_influencer": {
+        "trigger": "Lead says they don't do influencer marketing or quarter's budget is allocated",
+        "script": "Hey {{first_name}},\n\nWhen is the next time you guys will be planning an influencer campaign? Is Q1, Q2 planning already done?\n\nBest,\nImman",
+        "tag": "Interested",
+        "actions": ["Note which quarter they're planning", "Set reminder to follow up 1 month before that quarter"]
+      },
+      "revisit_in_few_months": {
+        "trigger": "Lead is interested but wants to revisit in a few months",
+        "script": "Hey {{first_name}},\n\nTotally get it! Understand things are stretched atm.\n\nAre you against me booking it first week of {{suggested_month}}? That way, it won't get lost.\n\nBest,\nImman",
+        "tag": "Interested",
+        "actions": ["Schedule meeting for suggested timeframe", "Send reminder 1 week before scheduled call"]
+      },
+      "no_longer_at_company": {
+        "trigger": "Lead replies they've left the company",
+        "script": "I see {{first_name}}. Hope some time off is doing great for you!\n\nIs there anyone you could connect me with from {{company_name}} then?\n\nBest,\nImman",
+        "tag": "Wrong Person",
+        "actions": ["If they provide new contact → Replace and create new lead entry", "Replace lead in Smartlead with new contact if provided"]
+      },
+      "not_a_fit": {
+        "trigger": "Lead says partnership is not a fit without elaboration",
+        "script": "Hey {{first_name}},\n\nMay I know the reason you think it's not a fit? When I was on the page I thought completely opposite.\n\nWhiteout Survival also thought we might not be a right fit — after that we generated for them 50M views and 100k new signups.\n\nWorth a few mins to chat?\n\nBest,\nImman",
+        "tag": "Not Interested",
+        "actions": ["Wait for response explaining why", "If they elaborate → Address specific concern", "If no response → Follow up once more in 5 days"]
+      },
+      "not_interested": {
+        "trigger": "Lead says they're not interested without specific reason",
+        "script": "Hey {{first_name}},\n\nTotally understand — quick question though, what made it feel like a no?\n\nWhen I looked into your brand, I genuinely thought there was a strong fit.\n\nWe had a similar response from Whiteout Survival at first, and after a short call we helped drive 50M views and 100k new signups.\n\nWorth a few mins to chat?\n\nBest,\nImman",
+        "tag": "Not Interested",
+        "actions": ["Wait for response", "If they provide reason → Address it", "If firm not interested → Tag as Not Interested and stop outreach"]
+      },
+      "company_bankrupt": {
+        "trigger": "Lead mentions company is shutting down or in financial trouble",
+        "script": "Hey {{first_name}},\n\nSorry to hear about that. Do you have any other friends in the industry I could connect with?\n\nBest,\nImman",
+        "tag": "Not Interested",
+        "actions": ["Remove from active sequences", "If they provide referrals → Create new lead entries"]
+      },
+      "asked_about_target_audience": {
+        "trigger": "Lead asks Who is your target audience? or What demographics do you reach?",
+        "script": "Hi {{first_name}},\n\nWe have a unique way of reaching specific audiences. 79% of people watching our videos are non-subscribers—these are viewers chosen by the platform's algorithm based on their interests in the topics we cover.\n\nSo when we promote {{relevant_content_type}} content, the majority of the audience watching will be people the algorithm identifies as {{relevant_content_type}} enthusiasts based on their viewing history and interests.\n\nAs you've probably experienced yourself, platforms are very effective at targeting people based on what they've previously watched and engaged with.\n\nWorth a quick call to dig into this more? I'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+        "tag": "Information request",
+        "actions": ["Push for call booking", "Follow up if no response in 3 days"]
+      },
+      "asked_about_geographic_targeting": {
+        "trigger": "Lead asks if you can target specific country or city",
+        "script": "Hi {{first_name}},\n\nWe have a unique way of reaching specific audiences. 79% of people watching our videos are non-subscribers—these are viewers chosen by the platform's algorithm based on their interests in the topics we cover.\n\nThat being said, videos that we would record targeting people in {{country_city}} would be pushed by the algorithm to reach as many people from {{country_city}} as possible.\n\nHowever, we can't guarantee that this will be the only city targeted, since after the videos go viral (sometimes reaching up to 50M views), it's natural for the algorithm to expand the audience beyond a single city.\n\nWant to hop on a quick call to discuss how we can make this work for {{company_name}}? I'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+        "tag": "Information request",
+        "actions": ["Push for call booking", "Follow up if no response in 3 days"]
+      },
+      "asked_for_something_we_dont_do": {
+        "trigger": "Lead requests specific deliverable, structure, or approach we don't normally offer",
+        "script": "Hey {{first_name}},\n\nIt's possible that we can create a structure like that if we believe that the product is the right fit.\n\nLet's chat about it - I'm available {{provide_2_time_slots_with_dates_and_timezone}}, either works?\n\nBest,\nImman",
+        "tag": "Meeting Request",
+        "actions": ["Propose meeting to discuss feasibility", "After call → determine if request is viable"]
+      },
+      "budget_lower_than_typical": {
+        "trigger": "Lead states budget is below $10k minimum",
+        "script": "Hey {{first_name}},\n\nWill remember you if we're going to have some spots for a smaller activation.\n\nBest,\nImman",
+        "tag": "Interested",
+        "actions": ["Keep in database", "Reach out if there are smaller opportunities in future"]
+      },
+      "asked_for_video_examples": {
+        "trigger": "Lead asks Can you show me what the video would look like? or Can you send a creative concept?",
+        "subject": "Re: Partnership - {{company_name}}",
+        "script": "Hi {{first_name}},\n\nHere's the thing: the creative work is actually the bulk of what we do. Coming up with the right concept for a brand can take a week or two, sometimes even longer depending on the fit. We always personalize ideas based on the specific brand and goals.\n\nWhat I can do now is send over examples of typical videos we've done for partners so you can see the format and style we work in:\n- Whiteout Survival: https://www.tiktok.com/@itssimannn/video/7533077826682064158 — 49M views, generated 100k users\n- CamScanner: https://youtube.com/shorts/m-UIN4IuC6I — 3M views across all platforms\n- Gauth AI: https://www.tiktok.com/@itssimannn/video/7552689711941324063 — 15M views across platforms (total for the campaign)\n\nBut the actual campaign concepts get tailored once we dive deeper.\n\nWhen it comes to investment, campaigns typically range from $15k to $50k depending on scope, number of videos, and the targets we're aiming for.\n\nIf you want us to create a full plan, we'd need to talk more about {{company_name}} first — just to make sure we're the right fit for each other and that we can actually promote it effectively.\n\nLet's jump on a call - I'm free {{provide_2_time_slots_with_dates_and_timezone}}.\n\nBest,\nImman",
+        "tag": "Information Request",
+        "actions": ["Propose call to discuss custom strategy", "Track if they book meeting"]
+      }
+    },
+    
+    "smartlead_categories": {
+      "out_of_office": {
+        "tag": "Out Of Office",
+        "actions": ["Pause sequence until return date"]
+      },
+      "do_not_contact": {
+        "tag": "DNC",
+        "actions": ["Block lead in Smartlead immediately"]
+      },
+      "provided_different_contact": {
+        "actions": ["Try to get warm introduction first", "Replace lead if introduction not possible"]
+      },
+      "wrong_person": {
+        "tag": "Wrong Person",
+        "actions": ["Remove from sequence unless new contact provided"]
+      },
+      "interested": {
+        "tag": "Interested",
+        "actions": ["Use Imman scripts for pricing/info questions", "Push for call booking"]
+      },
+      "meeting_request": {
+        "tag": "Meeting Request",
+        "actions": ["Send calendar link immediately"]
+      },
+      "booked": {
+        "tag": "Booked",
+        "actions": ["Stop automation", "Notify client"]
+      },
+      "information_request": {
+        "tag": "Information Request",
+        "actions": ["Use Document 2 scripts for detailed responses"]
+      }
+    }
+  },
+  
+  "smartlead_tags": {
+    "future_opportunity": {"action": "Set reminder for planning period"},
+    "revisit_later": {"action": "Schedule for requested timeframe"},
+    "no_longer_at_company": {"action": "Replace if new contact provided"},
+    "referral": {"action": "Create new lead entry"},
+    "objection_not_a_fit": {"action": "Address concern, follow up"},
+    "objection_not_interested": {"action": "Stop outreach if firm no"},
+    "bankrupt": {"action": "Remove from sequences"},
+    "information_request": {"action": "Provide info, follow up"},
+    "out_of_office": {"action": "Pause until return"},
+    "dnc": {"action": "Block immediately"},
+    "wrong_person": {"action": "Remove from sequence"},
+    "interested": {"action": "Push for call booking"},
+    "meeting_request": {"action": "Send calendar link"},
+    "booked": {"action": "Stop automation, notify client"}
+  },
+  
+  "case_studies": {
+    "whiteout_survival": {
+      "views": "50M",
+      "results": "100k new signups",
+      "note": "Initially thought not a fit"
+    },
+    "gauth_ai": {
+      "views": "15M+",
+      "platforms": "all platforms"
+    },
+    "suno_ai": {
+      "views": "41M",
+      "type": "AI Music Creation Platform"
+    },
+    "xreal": {
+      "views": "31M",
+      "type": "Smart Glasses"
+    },
+    "ryse": {
+      "views": "6.5M",
+      "type": "Smart home device"
+    },
+    "camscanner": {
+      "views": "3M",
+      "platforms": "all platforms"
+    },
+    "valeo": {
+      "revenue": "$30,906"
+    },
+    "allison_ai": {
+      "revenue": "$24,045"
+    }
+  },
+  
+  "pricing": {
+    "alementary": {
+      "min": 5000,
+      "max": 35000,
+      "type": "per campaign",
+      "videos_per_campaign": "3-5"
+    },
+    "imman": {
+      "min": 10000,
+      "max": 50000,
+      "type": "per campaign"
+    }
+  }
+}

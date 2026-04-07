@@ -1,0 +1,886 @@
+[
+  {
+    "company": "Circlesecurity",
+    "domain": "circlesecurity.ai",
+    "name": "Sara Sara",
+    "email": "sara.duryea@circlesecurity.ai",
+    "category": "Meeting Request",
+    "age_days": 6,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Circlesecurity",
+      "linkedin_company": "https://www.linkedin.com/company/circlesecurity",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Sara%20Sara%20Circlesecurity",
+      "google": "https://www.google.com/search?q=Circlesecurity+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Circlesecurity",
+      "twitter": "https://twitter.com/search?q=Circlesecurity",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Circlesecurity"
+    }
+  },
+  {
+    "company": "Livekindred",
+    "domain": "livekindred.com",
+    "name": "Gracyn Applegate",
+    "email": "gapplegate@livekindred.com",
+    "category": "Interested",
+    "age_days": 7,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Livekindred",
+      "linkedin_company": "https://www.linkedin.com/company/livekindred",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Gracyn%20Applegate%20Livekindred",
+      "google": "https://www.google.com/search?q=Livekindred+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Livekindred",
+      "twitter": "https://twitter.com/search?q=Livekindred",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Livekindred"
+    }
+  },
+  {
+    "company": "Omio",
+    "domain": "omio.com",
+    "name": "Serena Grigolo",
+    "email": "serena.grigolo@omio.com",
+    "category": "Interested",
+    "age_days": 8,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Omio",
+      "linkedin_company": "https://www.linkedin.com/company/omio",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Serena%20Grigolo%20Omio",
+      "google": "https://www.google.com/search?q=Omio+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Omio",
+      "twitter": "https://twitter.com/search?q=Omio",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Omio"
+    }
+  },
+  {
+    "company": "Typology",
+    "domain": "typology.com",
+    "name": "Tiphaine Turcan",
+    "email": "tiphaine.simon-turcan@typology.com",
+    "category": "Interested",
+    "age_days": 9,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Typology",
+      "linkedin_company": "https://www.linkedin.com/company/typology",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Tiphaine%20Turcan%20Typology",
+      "google": "https://www.google.com/search?q=Typology+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Typology",
+      "twitter": "https://twitter.com/search?q=Typology",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Typology"
+    }
+  },
+  {
+    "company": "Trustedhousesitters",
+    "domain": "trustedhousesitters.com",
+    "name": "Emma Lumley",
+    "email": "emmalumley@trustedhousesitters.com",
+    "category": "Interested",
+    "age_days": 10,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Trustedhousesitters",
+      "linkedin_company": "https://www.linkedin.com/company/trustedhousesitters",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Emma%20Lumley%20Trustedhousesitters",
+      "google": "https://www.google.com/search?q=Trustedhousesitters+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Trustedhousesitters",
+      "twitter": "https://twitter.com/search?q=Trustedhousesitters",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Trustedhousesitters"
+    }
+  },
+  {
+    "company": "Naturalcycles",
+    "domain": "naturalcycles.com",
+    "name": "Agnes Ahlquist",
+    "email": "partnerships@naturalcycles.com",
+    "category": "Interested",
+    "age_days": 13,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Naturalcycles",
+      "linkedin_company": "https://www.linkedin.com/company/naturalcycles",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Agnes%20Ahlquist%20Naturalcycles",
+      "google": "https://www.google.com/search?q=Naturalcycles+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Naturalcycles",
+      "twitter": "https://twitter.com/search?q=Naturalcycles",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Naturalcycles"
+    }
+  },
+  {
+    "company": "Puntaa",
+    "domain": "puntaa.co",
+    "name": "Jeremy Hare",
+    "email": "jeremy@puntaa.co",
+    "category": "Interested",
+    "age_days": 13,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Puntaa",
+      "linkedin_company": "https://www.linkedin.com/company/puntaa.co",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Jeremy%20Hare%20Puntaa",
+      "google": "https://www.google.com/search?q=Puntaa+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Puntaa",
+      "twitter": "https://twitter.com/search?q=Puntaa",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Puntaa"
+    }
+  },
+  {
+    "company": "Virtus",
+    "domain": "virtus.pro",
+    "name": "Evgeny Zvyagin",
+    "email": "e.zvyagin@virtus.pro",
+    "category": "Meeting Request",
+    "age_days": 14,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Virtus",
+      "linkedin_company": "https://www.linkedin.com/company/virtus.pro",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Evgeny%20Zvyagin%20Virtus",
+      "google": "https://www.google.com/search?q=Virtus+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Virtus",
+      "twitter": "https://twitter.com/search?q=Virtus",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Virtus"
+    }
+  },
+  {
+    "company": "Owlcat",
+    "domain": "owlcat.games",
+    "name": "Valeriya Kramp",
+    "email": "kramp@owlcat.games",
+    "category": "Meeting Request",
+    "age_days": 14,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Owlcat",
+      "linkedin_company": "https://www.linkedin.com/company/owlcat.games",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Valeriya%20Kramp%20Owlcat",
+      "google": "https://www.google.com/search?q=Owlcat+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Owlcat",
+      "twitter": "https://twitter.com/search?q=Owlcat",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Owlcat"
+    }
+  },
+  {
+    "company": "Virtus",
+    "domain": "virtus.pro",
+    "name": "Nikolai Petrossian",
+    "email": "n.petrossian@virtus.pro",
+    "category": "Meeting Request",
+    "age_days": 16,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Virtus",
+      "linkedin_company": "https://www.linkedin.com/company/virtus.pro",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Nikolai%20Petrossian%20Virtus",
+      "google": "https://www.google.com/search?q=Virtus+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Virtus",
+      "twitter": "https://twitter.com/search?q=Virtus",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Virtus"
+    }
+  },
+  {
+    "company": "Naturalcycles",
+    "domain": "naturalcycles.com",
+    "name": "Agnes Ahlquist",
+    "email": "agnes.ahlquist@naturalcycles.com",
+    "category": "Interested",
+    "age_days": 16,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Naturalcycles",
+      "linkedin_company": "https://www.linkedin.com/company/naturalcycles",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Agnes%20Ahlquist%20Naturalcycles",
+      "google": "https://www.google.com/search?q=Naturalcycles+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Naturalcycles",
+      "twitter": "https://twitter.com/search?q=Naturalcycles",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Naturalcycles"
+    }
+  },
+  {
+    "company": "Poki",
+    "domain": "poki.com",
+    "name": "Marcel Verboom",
+    "email": "marcel@poki.com",
+    "category": "Meeting Request",
+    "age_days": 17,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Poki",
+      "linkedin_company": "https://www.linkedin.com/company/poki",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Marcel%20Verboom%20Poki",
+      "google": "https://www.google.com/search?q=Poki+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Poki",
+      "twitter": "https://twitter.com/search?q=Poki",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Poki"
+    }
+  },
+  {
+    "company": "Drink Trip",
+    "domain": "drink-trip.com",
+    "name": "Chloe Palmer",
+    "email": "cpalmer@drink-trip.com",
+    "category": "Meeting Request",
+    "age_days": 17,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Drink%20Trip",
+      "linkedin_company": "https://www.linkedin.com/company/drink-trip",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Chloe%20Palmer%20Drink%20Trip",
+      "google": "https://www.google.com/search?q=Drink%20Trip+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Drink%20Trip",
+      "twitter": "https://twitter.com/search?q=Drink%20Trip",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Drink%20Trip"
+    }
+  },
+  {
+    "company": "Preply",
+    "domain": "preply.com",
+    "name": "Lorraine Finn",
+    "email": "lorraine.finn@preply.com",
+    "category": "Meeting Request",
+    "age_days": 17,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Preply",
+      "linkedin_company": "https://www.linkedin.com/company/preply",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Lorraine%20Finn%20Preply",
+      "google": "https://www.google.com/search?q=Preply+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Preply",
+      "twitter": "https://twitter.com/search?q=Preply",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Preply"
+    }
+  },
+  {
+    "company": "Pulsetto",
+    "domain": "pulsetto.tech",
+    "name": "Vitalijus Majorovas",
+    "email": "vitalijus@pulsetto.tech",
+    "category": "Meeting Request",
+    "age_days": 20,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Pulsetto",
+      "linkedin_company": "https://www.linkedin.com/company/pulsetto.tech",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Vitalijus%20Majorovas%20Pulsetto",
+      "google": "https://www.google.com/search?q=Pulsetto+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Pulsetto",
+      "twitter": "https://twitter.com/search?q=Pulsetto",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Pulsetto"
+    }
+  },
+  {
+    "company": "Studystream",
+    "domain": "studystream.live",
+    "name": "Sarujan Ranjan",
+    "email": "sarujan@studystream.live",
+    "category": "Meeting Request",
+    "age_days": 21,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Studystream",
+      "linkedin_company": "https://www.linkedin.com/company/studystream.live",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Sarujan%20Ranjan%20Studystream",
+      "google": "https://www.google.com/search?q=Studystream+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Studystream",
+      "twitter": "https://twitter.com/search?q=Studystream",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Studystream"
+    }
+  },
+  {
+    "company": "Colossalorder",
+    "domain": "colossalorder.fi",
+    "name": "Mariina Hallikainen",
+    "email": "mariina.hallikainen@colossalorder.fi",
+    "category": "Meeting Request",
+    "age_days": 21,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Colossalorder",
+      "linkedin_company": "https://www.linkedin.com/company/colossalorder.fi",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Mariina%20Hallikainen%20Colossalorder",
+      "google": "https://www.google.com/search?q=Colossalorder+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Colossalorder",
+      "twitter": "https://twitter.com/search?q=Colossalorder",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Colossalorder"
+    }
+  },
+  {
+    "company": "Easeus",
+    "domain": "easeus.com",
+    "name": "Judy Luo",
+    "email": "judy@easeus.com",
+    "category": "Meeting Request",
+    "age_days": 22,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Easeus",
+      "linkedin_company": "https://www.linkedin.com/company/easeus",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Judy%20Luo%20Easeus",
+      "google": "https://www.google.com/search?q=Easeus+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Easeus",
+      "twitter": "https://twitter.com/search?q=Easeus",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Easeus"
+    }
+  },
+  {
+    "company": "Thermalradar",
+    "domain": "thermalradar.com",
+    "name": "David Kay",
+    "email": "david@thermalradar.com",
+    "category": "Meeting Request",
+    "age_days": 23,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Thermalradar",
+      "linkedin_company": "https://www.linkedin.com/company/thermalradar",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=David%20Kay%20Thermalradar",
+      "google": "https://www.google.com/search?q=Thermalradar+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Thermalradar",
+      "twitter": "https://twitter.com/search?q=Thermalradar",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Thermalradar"
+    }
+  },
+  {
+    "company": "Payzli",
+    "domain": "payzli.com",
+    "name": "Naim Hamdar",
+    "email": "naim@payzli.com",
+    "category": "Meeting Request",
+    "age_days": 23,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Payzli",
+      "linkedin_company": "https://www.linkedin.com/company/payzli",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Naim%20Hamdar%20Payzli",
+      "google": "https://www.google.com/search?q=Payzli+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Payzli",
+      "twitter": "https://twitter.com/search?q=Payzli",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Payzli"
+    }
+  },
+  {
+    "company": "Qult",
+    "domain": "qult.ai",
+    "name": "Waleed Nasir",
+    "email": "waleed@qult.ai",
+    "category": "Meeting Request",
+    "age_days": 23,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Qult",
+      "linkedin_company": "https://www.linkedin.com/company/qult",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Waleed%20Nasir%20Qult",
+      "google": "https://www.google.com/search?q=Qult+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Qult",
+      "twitter": "https://twitter.com/search?q=Qult",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Qult"
+    }
+  },
+  {
+    "company": "Kinguin",
+    "domain": "kinguin.net",
+    "name": "Marek Fila",
+    "email": "marek.fila@kinguin.net",
+    "category": "Meeting Request",
+    "age_days": 23,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Kinguin",
+      "linkedin_company": "https://www.linkedin.com/company/kinguin.net",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Marek%20Fila%20Kinguin",
+      "google": "https://www.google.com/search?q=Kinguin+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Kinguin",
+      "twitter": "https://twitter.com/search?q=Kinguin",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Kinguin"
+    }
+  },
+  {
+    "company": "Crunchyroll",
+    "domain": "crunchyroll.com",
+    "name": "Sophie Ricaume",
+    "email": "sophie.ricaume@crunchyroll.com",
+    "category": "Meeting Request",
+    "age_days": 23,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Crunchyroll",
+      "linkedin_company": "https://www.linkedin.com/company/crunchyroll",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Sophie%20Ricaume%20Crunchyroll",
+      "google": "https://www.google.com/search?q=Crunchyroll+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Crunchyroll",
+      "twitter": "https://twitter.com/search?q=Crunchyroll",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Crunchyroll"
+    }
+  },
+  {
+    "company": "Sombreroresources",
+    "domain": "sombreroresources.com",
+    "name": "Ivan Ivan",
+    "email": "ivan@sombreroresources.com",
+    "category": "Meeting Request",
+    "age_days": 24,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Sombreroresources",
+      "linkedin_company": "https://www.linkedin.com/company/sombreroresources",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Ivan%20Ivan%20Sombreroresources",
+      "google": "https://www.google.com/search?q=Sombreroresources+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Sombreroresources",
+      "twitter": "https://twitter.com/search?q=Sombreroresources",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Sombreroresources"
+    }
+  },
+  {
+    "company": "Rideyego",
+    "domain": "rideyego.com",
+    "name": "Marc Alcaraz Fores",
+    "email": "content@rideyego.com",
+    "category": "Meeting Request",
+    "age_days": 24,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Rideyego",
+      "linkedin_company": "https://www.linkedin.com/company/rideyego",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Marc%20Alcaraz%20Fores%20Rideyego",
+      "google": "https://www.google.com/search?q=Rideyego+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Rideyego",
+      "twitter": "https://twitter.com/search?q=Rideyego",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Rideyego"
+    }
+  },
+  {
+    "company": "Jackpot",
+    "domain": "jackpot.com",
+    "name": "Dharin Nanavati",
+    "email": "dharin@jackpot.com",
+    "category": "Meeting Request",
+    "age_days": 24,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Jackpot",
+      "linkedin_company": "https://www.linkedin.com/company/jackpot",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Dharin%20Nanavati%20Jackpot",
+      "google": "https://www.google.com/search?q=Jackpot+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Jackpot",
+      "twitter": "https://twitter.com/search?q=Jackpot",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Jackpot"
+    }
+  },
+  {
+    "company": "Labradorcms",
+    "domain": "labradorcms.com",
+    "name": "Jan Jan",
+    "email": "jan@labradorcms.com",
+    "category": "Meeting Request",
+    "age_days": 24,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Labradorcms",
+      "linkedin_company": "https://www.linkedin.com/company/labradorcms",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Jan%20Jan%20Labradorcms",
+      "google": "https://www.google.com/search?q=Labradorcms+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Labradorcms",
+      "twitter": "https://twitter.com/search?q=Labradorcms",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Labradorcms"
+    }
+  },
+  {
+    "company": "Coppernicometals",
+    "domain": "coppernicometals.com",
+    "name": "Margarita Cardona",
+    "email": "margarita@coppernicometals.com",
+    "category": "Meeting Request",
+    "age_days": 24,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Coppernicometals",
+      "linkedin_company": "https://www.linkedin.com/company/coppernicometals",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Margarita%20Cardona%20Coppernicometals",
+      "google": "https://www.google.com/search?q=Coppernicometals+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Coppernicometals",
+      "twitter": "https://twitter.com/search?q=Coppernicometals",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Coppernicometals"
+    }
+  },
+  {
+    "company": "Umiasalud",
+    "domain": "umiasalud.com",
+    "name": "Oscar Hernandez",
+    "email": "oscar@umiasalud.com",
+    "category": "Meeting Request",
+    "age_days": 25,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Umiasalud",
+      "linkedin_company": "https://www.linkedin.com/company/umiasalud",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Oscar%20Hernandez%20Umiasalud",
+      "google": "https://www.google.com/search?q=Umiasalud+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Umiasalud",
+      "twitter": "https://twitter.com/search?q=Umiasalud",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Umiasalud"
+    }
+  },
+  {
+    "company": "Rideyego",
+    "domain": "rideyego.com",
+    "name": "Marc Alcaraz Fores",
+    "email": "marc@rideyego.com",
+    "category": "Meeting Request",
+    "age_days": 27,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Rideyego",
+      "linkedin_company": "https://www.linkedin.com/company/rideyego",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Marc%20Alcaraz%20Fores%20Rideyego",
+      "google": "https://www.google.com/search?q=Rideyego+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Rideyego",
+      "twitter": "https://twitter.com/search?q=Rideyego",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Rideyego"
+    }
+  },
+  {
+    "company": "Air Up",
+    "domain": "air-up.com",
+    "name": "Karin Baranyai",
+    "email": "karin.baranyai@air-up.com",
+    "category": "Meeting Request",
+    "age_days": 27,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Air%20Up",
+      "linkedin_company": "https://www.linkedin.com/company/air-up",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Karin%20Baranyai%20Air%20Up",
+      "google": "https://www.google.com/search?q=Air%20Up+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Air%20Up",
+      "twitter": "https://twitter.com/search?q=Air%20Up",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Air%20Up"
+    }
+  },
+  {
+    "company": "Santamonica",
+    "domain": "santamonica.com",
+    "name": "Emily Ohara",
+    "email": "eohara@santamonica.com",
+    "category": "Meeting Request",
+    "age_days": 29,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Santamonica",
+      "linkedin_company": "https://www.linkedin.com/company/santamonica",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Emily%20Ohara%20Santamonica",
+      "google": "https://www.google.com/search?q=Santamonica+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Santamonica",
+      "twitter": "https://twitter.com/search?q=Santamonica",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Santamonica"
+    }
+  },
+  {
+    "company": "Beehiiv",
+    "domain": "beehiiv.com",
+    "name": "Richard Evans",
+    "email": "richard.evans@beehiiv.com",
+    "category": "Meeting Request",
+    "age_days": 30,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Beehiiv",
+      "linkedin_company": "https://www.linkedin.com/company/beehiiv",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Richard%20Evans%20Beehiiv",
+      "google": "https://www.google.com/search?q=Beehiiv+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Beehiiv",
+      "twitter": "https://twitter.com/search?q=Beehiiv",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Beehiiv"
+    }
+  },
+  {
+    "company": "Goodeggs",
+    "domain": "goodeggs.com",
+    "name": "Rodrigo Arevalo",
+    "email": "ar@goodeggs.com",
+    "category": "Interested",
+    "age_days": 30,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Goodeggs",
+      "linkedin_company": "https://www.linkedin.com/company/goodeggs",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Rodrigo%20Arevalo%20Goodeggs",
+      "google": "https://www.google.com/search?q=Goodeggs+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Goodeggs",
+      "twitter": "https://twitter.com/search?q=Goodeggs",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Goodeggs"
+    }
+  },
+  {
+    "company": "Urunn",
+    "domain": "urunn.com",
+    "name": "Nancy Serle",
+    "email": "nancy@urunn.com",
+    "category": "Meeting Request",
+    "age_days": 31,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Urunn",
+      "linkedin_company": "https://www.linkedin.com/company/urunn",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Nancy%20Serle%20Urunn",
+      "google": "https://www.google.com/search?q=Urunn+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Urunn",
+      "twitter": "https://twitter.com/search?q=Urunn",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Urunn"
+    }
+  },
+  {
+    "company": "Coatsink",
+    "domain": "coatsink.com",
+    "name": "Bryn Morrison-Elliott",
+    "email": "bryn@coatsink.com",
+    "category": "Meeting Request",
+    "age_days": 34,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Coatsink",
+      "linkedin_company": "https://www.linkedin.com/company/coatsink",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Bryn%20Morrison-Elliott%20Coatsink",
+      "google": "https://www.google.com/search?q=Coatsink+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Coatsink",
+      "twitter": "https://twitter.com/search?q=Coatsink",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Coatsink"
+    }
+  },
+  {
+    "company": "Doingthingsmedia",
+    "domain": "doingthingsmedia.com",
+    "name": "Jon ",
+    "email": "jon@doingthingsmedia.com",
+    "category": "Meeting Request",
+    "age_days": 35,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Doingthingsmedia",
+      "linkedin_company": "https://www.linkedin.com/company/doingthingsmedia",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Jon%20%20Doingthingsmedia",
+      "google": "https://www.google.com/search?q=Doingthingsmedia+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Doingthingsmedia",
+      "twitter": "https://twitter.com/search?q=Doingthingsmedia",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Doingthingsmedia"
+    }
+  },
+  {
+    "company": "Trymartin",
+    "domain": "trymartin.com",
+    "name": "Keith ",
+    "email": "martin@trymartin.com",
+    "category": "Interested",
+    "age_days": 36,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Trymartin",
+      "linkedin_company": "https://www.linkedin.com/company/trymartin",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Keith%20%20Trymartin",
+      "google": "https://www.google.com/search?q=Trymartin+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Trymartin",
+      "twitter": "https://twitter.com/search?q=Trymartin",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Trymartin"
+    }
+  },
+  {
+    "company": "Tokenwell",
+    "domain": "tokenwell.com",
+    "name": "Wendell Phillips",
+    "email": "wendell@tokenwell.com",
+    "category": "Meeting Request",
+    "age_days": 38,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Tokenwell",
+      "linkedin_company": "https://www.linkedin.com/company/tokenwell",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Wendell%20Phillips%20Tokenwell",
+      "google": "https://www.google.com/search?q=Tokenwell+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Tokenwell",
+      "twitter": "https://twitter.com/search?q=Tokenwell",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Tokenwell"
+    }
+  },
+  {
+    "company": "Spothero",
+    "domain": "spothero.com",
+    "name": "Chris Stevens",
+    "email": "chris.stevens@spothero.com",
+    "category": "Meeting Request",
+    "age_days": 44,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Spothero",
+      "linkedin_company": "https://www.linkedin.com/company/spothero",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Chris%20Stevens%20Spothero",
+      "google": "https://www.google.com/search?q=Spothero+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Spothero",
+      "twitter": "https://twitter.com/search?q=Spothero",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Spothero"
+    }
+  },
+  {
+    "company": "Personainc",
+    "domain": "personainc.ai",
+    "name": "Jerry Pratt",
+    "email": "jerry.pratt@personainc.ai",
+    "category": "Meeting Request",
+    "age_days": 45,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Personainc",
+      "linkedin_company": "https://www.linkedin.com/company/personainc",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Jerry%20Pratt%20Personainc",
+      "google": "https://www.google.com/search?q=Personainc+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Personainc",
+      "twitter": "https://twitter.com/search?q=Personainc",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Personainc"
+    }
+  },
+  {
+    "company": "Joeandsephs",
+    "domain": "joeandsephs.com",
+    "name": "Reagan Peters",
+    "email": "reagan@joeandsephs.com",
+    "category": "Meeting Request",
+    "age_days": 48,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Joeandsephs",
+      "linkedin_company": "https://www.linkedin.com/company/joeandsephs",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Reagan%20Peters%20Joeandsephs",
+      "google": "https://www.google.com/search?q=Joeandsephs+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Joeandsephs",
+      "twitter": "https://twitter.com/search?q=Joeandsephs",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Joeandsephs"
+    }
+  },
+  {
+    "company": "Doist",
+    "domain": "doist.com",
+    "name": "Amir Salihefendic",
+    "email": "amix@doist.com",
+    "category": "Meeting Request",
+    "age_days": 49,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Doist",
+      "linkedin_company": "https://www.linkedin.com/company/doist",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Amir%20Salihefendic%20Doist",
+      "google": "https://www.google.com/search?q=Doist+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Doist",
+      "twitter": "https://twitter.com/search?q=Doist",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Doist"
+    }
+  },
+  {
+    "company": "Mindtrip",
+    "domain": "mindtrip.ai",
+    "name": "Samantha Gaspin",
+    "email": "sami@mindtrip.ai",
+    "category": "Meeting Request",
+    "age_days": 49,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Mindtrip",
+      "linkedin_company": "https://www.linkedin.com/company/mindtrip",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Samantha%20Gaspin%20Mindtrip",
+      "google": "https://www.google.com/search?q=Mindtrip+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Mindtrip",
+      "twitter": "https://twitter.com/search?q=Mindtrip",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Mindtrip"
+    }
+  },
+  {
+    "company": "Playingforchange",
+    "domain": "playingforchange.com",
+    "name": "Raan Williams",
+    "email": "raan@playingforchange.com",
+    "category": "Meeting Request",
+    "age_days": 50,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Playingforchange",
+      "linkedin_company": "https://www.linkedin.com/company/playingforchange",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Raan%20Williams%20Playingforchange",
+      "google": "https://www.google.com/search?q=Playingforchange+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Playingforchange",
+      "twitter": "https://twitter.com/search?q=Playingforchange",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Playingforchange"
+    }
+  },
+  {
+    "company": "Evergreenlodge",
+    "domain": "evergreenlodge.com",
+    "name": "Teri Marshall",
+    "email": "terim@evergreenlodge.com",
+    "category": "Meeting Request",
+    "age_days": 55,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Evergreenlodge",
+      "linkedin_company": "https://www.linkedin.com/company/evergreenlodge",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Teri%20Marshall%20Evergreenlodge",
+      "google": "https://www.google.com/search?q=Evergreenlodge+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Evergreenlodge",
+      "twitter": "https://twitter.com/search?q=Evergreenlodge",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Evergreenlodge"
+    }
+  },
+  {
+    "company": "Assemblyfestival",
+    "domain": "assemblyfestival.com",
+    "name": "Erika R.",
+    "email": "erika@assemblyfestival.com",
+    "category": "Interested",
+    "age_days": 55,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Assemblyfestival",
+      "linkedin_company": "https://www.linkedin.com/company/assemblyfestival",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Erika%20R.%20Assemblyfestival",
+      "google": "https://www.google.com/search?q=Assemblyfestival+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Assemblyfestival",
+      "twitter": "https://twitter.com/search?q=Assemblyfestival",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Assemblyfestival"
+    }
+  },
+  {
+    "company": "Destinationcle",
+    "domain": "destinationcle.org",
+    "name": "Barbara Felt",
+    "email": "bfelt@destinationcle.org",
+    "category": "Meeting Request",
+    "age_days": 56,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Destinationcle",
+      "linkedin_company": "https://www.linkedin.com/company/destinationcle.org",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Barbara%20Felt%20Destinationcle",
+      "google": "https://www.google.com/search?q=Destinationcle+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Destinationcle",
+      "twitter": "https://twitter.com/search?q=Destinationcle",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Destinationcle"
+    }
+  },
+  {
+    "company": "Doingthings",
+    "domain": "doingthings.com",
+    "name": "Adam Hascall",
+    "email": "adam@doingthings.com",
+    "category": "Meeting Request",
+    "age_days": 59,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Doingthings",
+      "linkedin_company": "https://www.linkedin.com/company/doingthings",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Adam%20Hascall%20Doingthings",
+      "google": "https://www.google.com/search?q=Doingthings+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Doingthings",
+      "twitter": "https://twitter.com/search?q=Doingthings",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Doingthings"
+    }
+  },
+  {
+    "company": "Go Electra",
+    "domain": "go-electra.com",
+    "name": "Maelle Gurib",
+    "email": "m.gurib@go-electra.com",
+    "category": "Meeting Request",
+    "age_days": 59,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Go%20Electra",
+      "linkedin_company": "https://www.linkedin.com/company/go-electra",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Maelle%20Gurib%20Go%20Electra",
+      "google": "https://www.google.com/search?q=Go%20Electra+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Go%20Electra",
+      "twitter": "https://twitter.com/search?q=Go%20Electra",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Go%20Electra"
+    }
+  },
+  {
+    "company": "Antec",
+    "domain": "antec.com",
+    "name": "Frank Lee",
+    "email": "flee@antec.com",
+    "category": "Meeting Request",
+    "age_days": 62,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Antec",
+      "linkedin_company": "https://www.linkedin.com/company/antec",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Frank%20Lee%20Antec",
+      "google": "https://www.google.com/search?q=Antec+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Antec",
+      "twitter": "https://twitter.com/search?q=Antec",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Antec"
+    }
+  },
+  {
+    "company": "Outfit7",
+    "domain": "outfit7.com",
+    "name": "Ines Kondic",
+    "email": "ines.kondic@outfit7.com",
+    "category": "Interested",
+    "age_days": 63,
+    "links": {
+      "crunchbase": "https://www.crunchbase.com/textsearch?q=Outfit7",
+      "linkedin_company": "https://www.linkedin.com/company/outfit7",
+      "linkedin_person": "https://www.linkedin.com/search/results/people/?keywords=Ines%20Kondic%20Outfit7",
+      "google": "https://www.google.com/search?q=Outfit7+company+funding+employees",
+      "pitchbook": "https://pitchbook.com/profiles/search?q=Outfit7",
+      "twitter": "https://twitter.com/search?q=Outfit7",
+      "glassdoor": "https://www.glassdoor.com/Search/results.htm?keyword=Outfit7"
+    }
+  }
+]

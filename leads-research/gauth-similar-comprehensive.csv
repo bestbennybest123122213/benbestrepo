@@ -1,0 +1,32 @@
+icp_fit,company_name,website,funding,headquarters,employees,business_type,category,seo_description
+EXCEPTION (Jan confirmed works),Synthesia,synthesia.io,$200M+ (Series D),UK (London),<500,B2B,AI Video,AI video generation. $4B valuation. Enterprise training.
+MEDIUM,Riiid,riiid.com,$256.7M,South Korea,<500,B2C,EdTech AI,AI tutoring for SAT/ACT prep. Santa AI tutor. 1M+ users.
+MEDIUM,Sana Labs,sanalabs.com,$250M valuation,Sweden (Stockholm),<200,B2B,Enterprise Learning AI,AI-powered personalized learning for enterprises.
+MEDIUM,GameTree,gametree.me,$3.6M,USA,<30,B2C,Gaming Social,AI-powered gaming friend finder. 600K users.
+MEDIUM,Rootd,rootd.io,Bootstrapped,Canada,<10,B2C,Mental Health,Anxiety and panic attack relief app. 2M+ users. $83K MRR.
+MEDIUM,Gossip Harbor (Microfun),microfun.com,$44M+ (2015-2017),China,<500,B2C,Mobile Games,Merge puzzle game with drama. $275M revenue 2025. Rising star.
+MEDIUM,Mathos AI (MathGPT Pro),mathgptpro.com,Unknown (startup),Unknown,<50,B2C,AI Math Solver,AI math solver. Outperforms DeepSeek R1.
+MEDIUM,Coopah Running,coopah.com,$1.9M,UK,<30,B2C,Fitness,AI running coach. London Marathon official partner.
+MEDIUM,Manifest (Mental Health),manifestapp.xyz,$3.4M,USA,<30,B2C,Mental Health,Gen Z mental health community with AI insights.
+MEDIUM,HowNow,gethownow.com,$9.3M,UK (London),<100,B2B,Corporate Learning,AI corporate learning platform.
+MEDIUM,Blue Canoe,bluecanoelearning.com,$4.4M,USA,<30,B2B,Language Learning,AI pronunciation coach for workplace.
+MEDIUM,Nectir AI,nectir.io,$6.3M,USA,<50,B2B,EdTech AI,FERPA-compliant AI assistants for educators.
+MEDIUM,Rabbit,rabbit.tech,$30M,USA,<100,B2C,AI Hardware,R1 AI device. Khosla-backed. $199 pocket AI companion.
+STRONG,MagicSchool,magicschool.ai,$62.4M,USA,<500,B2C,EdTech AI,"AI tools for educators. 5M+ users, 160 countries. Lesson planning, content creation."
+STRONG,SchoolAI,schoolai.com,$25M (Series A Apr 2025),USA (Utah),<100,B2C,EdTech AI,AI platform for K-12 teaching and learning.
+STRONG,Knowunity,knowunity.com,€45M (~$50M),Germany (Berlin),<200,B2C,EdTech AI,AI learning companion for students. 20M users. Founded by students.
+STRONG,Speak,speak.com,$160M,USA,<300,B2C,Language Learning AI,"AI language learning focused on speaking. OpenAI, Khosla, Accel-backed."
+STRONG,Amira Learning,amiralearning.com,$40.3M,USA,<100,B2C,EdTech AI,"AI reading assistant. 2M students, 3000+ schools."
+STRONG,QANDA (Mathpresso),qanda.ai,$130M,South Korea,<300,B2C,AI Homework Helper,AI homework helper. Photo-to-solution. Google-backed. 50M+ downloads.
+STRONG,ReelShort (Crazy Maple Studio),reelshort.com,Chinese-backed (COL Group),USA (California),<200,B2C,Short Drama/Entertainment,Short-form drama streaming. $30M+/month revenue. TIME100 company.
+STRONG,DramaBox (STORYMATRIX),dramabox.com,Seeking US funding,Singapore,<100,B2C,Short Drama/Entertainment,Short drama streaming app. $196M revenue 2025.
+STRONG,WOMBO,wombo.ai,$15M,Canada,<50,B2C,AI Creative Tools,AI avatar and artwork generation. 200M+ downloads.
+STRONG,Revyze,revyze.fr,$8M,France,<50,B2C,EdTech/Social Learning,AI social learning for Gen Z. 1M+ users. Peer-created content.
+STRONG,Howbout,howbout.app,$11M,UK,<50,B2C,Social/Productivity,"Social calendar for friends. 4M users, 50M events."
+STRONG,Alarmy,alar.my,Bootstrapped,South Korea,<50,B2C,Productivity/Lifestyle,Smart alarm app. $15M annual revenue.
+STRONG,Osmo,playosmo.com,$32.5M,USA,<200,B2C,EdTech/Gaming,AI educational games. Physical + digital play. 31K classrooms.
+STRONG,Question AI (D3 Dimension),questionai.com,Unknown,Singapore,<100,B2C,AI Homework Helper,AI homework helper. Direct Gauth competitor. 10M+ users.
+STRONG,Flint K12,flintk12.com,Unknown,USA,<100,B2C,EdTech AI,AI learning platform for K-12 schools.
+STRONG,Sightful (Spacetop),sightful.com,$61M,Israel/USA,<100,B2C,AR/VR Hardware,AR laptop with 100-inch virtual display. Productivity-focused. Magic Leap founders.
+STRONG,VITURE,viture.com,$100M (Series B),USA (San Francisco),<200,B2C,AR/XR Glasses,XR glasses for gaming and productivity. 52% US market share. Luma Pro.
+STRONG,Brilliant Labs,brilliant.xyz,$6M,Singapore,<50,B2C,AI Glasses,"Open-source AI glasses (Frame, Halo). Backed by Oculus/Siri co-founders."

@@ -1,0 +1,73 @@
+{
+  "scrapedAt": "2026-03-16T22:07:12.543Z",
+  "description": "Global Analytics multi-period scrape via Clawdbot browser automation",
+  "periods": {
+    "last_7_days": {
+      "dateRange": "2026-03-10 - 2026-03-16",
+      "summary": {
+        "emailsSent": 6574,
+        "leads": 4866,
+        "opened": 19,
+        "replied": 24,
+        "positiveReply": 3,
+        "bounced": 38,
+        "openRate": 0.27,
+        "replyRate": 0.49,
+        "bounceRate": 0.78
+      }
+    },
+    "last_30_days": {
+      "dateRange": "2026-02-15 - 2026-03-16",
+      "summary": {
+        "emailsSent": 26974,
+        "leads": 11952,
+        "opened": 130,
+        "replied": 198,
+        "positiveReply": 27,
+        "bounced": 285,
+        "openRate": 0.31,
+        "replyRate": 1.66,
+        "bounceRate": 2.38
+      }
+    },
+    "last_60_days": {
+      "dateRange": "2026-01-15 - 2026-03-16",
+      "summary": {
+        "emailsSent": 54324,
+        "leads": 19823,
+        "opened": 265,
+        "replied": 432,
+        "positiveReply": 85,
+        "bounced": 545,
+        "openRate": 0.39,
+        "replyRate": 2.18,
+        "bounceRate": 2.75
+      }
+    },
+    "last_90_days": {
+      "dateRange": "2025-12-16 - 2026-03-16",
+      "summary": {
+        "emailsSent": 74685,
+        "leads": 23539,
+        "opened": 518,
+        "replied": 786,
+        "positiveReply": 138,
+        "bounced": 777,
+        "openRate": 0.53,
+        "replyRate": 3.34,
+        "bounceRate": 3.3
+      }
+    }
+  },
+  "insights": {
+    "totalEmailsSent90d": 74685,
+    "totalReplies90d": 786,
+    "positiveReplyRate90d": "17.6% of replies are positive",
+    "bounceRate90d": "3.30% (above 3% threshold - needs attention)",
+    "scalingRatio90d": "1:540 (1 positive per 540 emails - need more volume)",
+    "weeklyTrend": {
+      "lastWeekReplies": 24,
+      "avgWeeklyReplies90d": 61
+    }
+  }
+}

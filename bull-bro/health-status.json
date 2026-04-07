@@ -1,0 +1,15 @@
+{
+  "lastCheck": "2026-04-01T18:28:56.777Z",
+  "smartlead": {
+    "status": "unknown",
+    "error": "No API key configured"
+  },
+  "anthropic": {
+    "status": "unknown",
+    "error": "No API key configured"
+  },
+  "disk": {
+    "status": "ok",
+    "freeGB": 136
+  }
+}

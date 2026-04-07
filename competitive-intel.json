@@ -1,0 +1,87 @@
+{
+  "generated": "2026-02-06T01:03:25.248Z",
+  "competitors": [
+    {
+      "name": "Grin",
+      "domain": "grin.co",
+      "focus": "E-commerce influencer marketing",
+      "funding": "$110M+",
+      "tier": "Enterprise"
+    },
+    {
+      "name": "CreatorIQ",
+      "domain": "creatoriq.com",
+      "focus": "Enterprise creator management",
+      "funding": "$40M+",
+      "tier": "Enterprise"
+    },
+    {
+      "name": "Aspire",
+      "domain": "aspire.io",
+      "focus": "Influencer marketing platform",
+      "funding": "$100M+",
+      "tier": "Mid-Market"
+    },
+    {
+      "name": "Upfluence",
+      "domain": "upfluence.com",
+      "focus": "Influencer discovery & analytics",
+      "funding": "$3.6M",
+      "tier": "SMB/Mid"
+    },
+    {
+      "name": "Traackr",
+      "domain": "traackr.com",
+      "focus": "Data-driven influencer marketing",
+      "funding": "$27M",
+      "tier": "Enterprise"
+    },
+    {
+      "name": "Klear",
+      "domain": "klear.com",
+      "focus": "Influencer analytics & CRM",
+      "funding": "Acquired by Meltwater",
+      "tier": "Enterprise"
+    },
+    {
+      "name": "Tagger",
+      "domain": "taggermedia.com",
+      "focus": "Influencer marketing intelligence",
+      "funding": "Acquired by Sprout Social",
+      "tier": "Enterprise"
+    },
+    {
+      "name": "Impact.com",
+      "domain": "impact.com",
+      "focus": "Partnership automation",
+      "funding": "$150M+",
+      "tier": "Enterprise"
+    },
+    {
+      "name": "Captiv8",
+      "domain": "captiv8.io",
+      "focus": "AI influencer marketing",
+      "funding": "$27M",
+      "tier": "Mid-Market"
+    },
+    {
+      "name": "HypeAuditor",
+      "domain": "hypeauditor.com",
+      "focus": "Influencer analytics & fraud detection",
+      "funding": "$5M",
+      "tier": "SMB/Mid"
+    }
+  ],
+  "marketSize": {
+    "global": "$21.1B (2024)",
+    "growth": "32% CAGR",
+    "source": "Influencer Marketing Hub"
+  },
+  "keyTrends": [
+    "AI-powered creator discovery",
+    "Focus on ROI measurement",
+    "Long-term creator partnerships > one-offs",
+    "Micro-influencer growth",
+    "Short-form video dominance"
+  ]
+}

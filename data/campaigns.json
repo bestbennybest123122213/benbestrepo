@@ -1,0 +1,65 @@
+{
+  "campaigns": [
+    {
+      "id": 1,
+      "brand": "Whiteout Survival",
+      "creator": "ItssIMANNN",
+      "vertical": "gaming",
+      "dealValue": 48000,
+      "date": "2025-10-15",
+      "metrics": {
+        "views": 48000000,
+        "installs": 100000,
+        "engagement": 8.5,
+        "trending": "Top 10 iOS for 3 days"
+      },
+      "notes": "Best performing campaign. Story integration format.",
+      "createdAt": "2026-02-06T15:02:32.303Z"
+    },
+    {
+      "id": 2,
+      "brand": "Gauth AI",
+      "creator": "ItssIMANNN",
+      "vertical": "edtech",
+      "dealValue": 35000,
+      "date": "2025-11-20",
+      "metrics": {
+        "views": 15000000,
+        "installs": 50000,
+        "engagement": 7.8,
+        "trending": "Viral on TikTok"
+      },
+      "notes": "Education app. Strong conversion.",
+      "createdAt": "2026-02-06T15:02:32.303Z"
+    },
+    {
+      "id": 3,
+      "brand": "Valeo",
+      "creator": "ItssIMANNN",
+      "vertical": "consumer",
+      "dealValue": 30906,
+      "date": "2025-12-10",
+      "metrics": {
+        "views": 12000000,
+        "engagement": 6.5
+      },
+      "notes": "Consumer brand integration.",
+      "createdAt": "2026-02-06T15:02:32.303Z"
+    },
+    {
+      "id": 4,
+      "brand": "Allison AI",
+      "creator": "ItssIMANNN",
+      "vertical": "tech",
+      "dealValue": 24045,
+      "date": "2026-01-15",
+      "metrics": {
+        "views": 10000000,
+        "engagement": 7.2
+      },
+      "notes": "AI/tech product.",
+      "createdAt": "2026-02-06T15:02:32.303Z"
+    }
+  ],
+  "lastId": 4
+}
