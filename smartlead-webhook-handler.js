@@ -529,7 +529,7 @@ async function processAutoReply(task) {
         await sendTelegramNotification({
           leadEmail, leadName, leadCompany, campaignName,
           subcategory: aiResult.category.toLowerCase().replace(' ', '_'),
-          replyPreview: `📝 DRAFT (not sent):\n\nLead said: "${replyBody.substring(0, 100)}"\n\nBull Bro drafted:\n${aiResult.response.substring(0, 300)}`
+          replyPreview: `📝 DRAFT (not sent):\n\nLead said: "${replyBody.substring(0, 200)}"\n\nBull Bro drafted:\n${aiResult.response}`
         });
 
         await updateDraftStatus(payload, aiResult, 'draft');
