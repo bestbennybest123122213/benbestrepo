@@ -20,8 +20,7 @@ const supabase = createClient(
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const SMARTLEAD_API_KEY = process.env.SMARTLEAD_API_KEY;
 const SMARTLEAD_BASE_URL = 'https://server.smartlead.ai/api/v1';
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_ESCALATION_CHAT_ID || '-5182589075';
+const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 const CALENDLY_API_TOKEN = process.env.CALENDLY_API_TOKEN;
 
 // ============================================================
@@ -615,13 +614,13 @@ async function updateDraftStatus(payload, aiResult, status) {
 // ============================================================
 
 async function sendEscalation(message) {
-  await sendTelegramMessage(message, TELEGRAM_CHAT_ID);
+  await sendSlackMessage(message);
 }
 
 async function sendTelegramNotification(data) {
   try {
     const { leadEmail, leadName, leadCompany, campaignName, subcategory, replyPreview } = data;
-
+    
     const categoryEmoji = {
       'interested': '✨',
       'meeting_request': '📅',
@@ -630,47 +629,44 @@ async function sendTelegramNotification(data) {
       'booked': '🎯',
       'out_of_office': '🏖️'
     };
-
+    
     const emoji = categoryEmoji[subcategory] || '📬';
     const displayName = leadName || leadEmail;
     const displayCompany = leadCompany ? ` (${leadCompany})` : '';
-
+    
     const message = `${emoji} Bull Bro Auto-Reply\n\n` +
       `${displayName}${displayCompany}\n` +
       `Category: ${subcategory.replace(/_/g, ' ')}\n` +
       `Campaign: ${campaignName || 'Unknown'}\n\n` +
       `${replyPreview}\n\n` +
       `View: https://bull-os-production.up.railway.app/auto-reply.html`;
-
-    await sendTelegramMessage(message, TELEGRAM_CHAT_ID);
+    
+    await sendSlackMessage(message);
   } catch (err) {
-    console.error('[TELEGRAM] Notification error:', err.message);
+    console.error('[SLACK] Notification error:', err.message);
   }
 }
 
-async function sendTelegramMessage(text, chatId) {
+async function sendSlackMessage(text) {
   try {
-    if (!TELEGRAM_BOT_TOKEN) {
-      console.warn('[TELEGRAM] No bot token configured, skipping');
+    if (!SLACK_WEBHOOK_URL) {
+      console.warn('[SLACK] No webhook URL configured, skipping');
       return;
     }
-
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    const response = await fetch(url, {
+    
+    const response = await fetch(SLACK_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: text,
-        parse_mode: 'HTML'
-      })
+      body: JSON.stringify({ text: text })
     });
-
+    
     if (!response.ok) {
-      console.error('[TELEGRAM] Send failed:', await response.text());
+      console.error('[SLACK] Send failed:', await response.text());
+    } else {
+      console.log('[SLACK] Message sent');
     }
   } catch (err) {
-    console.error('[TELEGRAM] Error:', err.message);
+    console.error('[SLACK] Error:', err.message);
   }
 }
 
