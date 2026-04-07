@@ -339,10 +339,13 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += `LATEST REPLY FROM LEAD:\n${replyText}\n\n`;
     userPrompt += `INSTRUCTIONS:\n`;
     userPrompt += `1. Categorize this reply (Interested, Information Request, Meeting Request, Booked, Not Interested, Wrong Person, Do Not Contact, Out of Office)\n`;
-    userPrompt += `2. MEMORY rules ALWAYS override SOP templates. Never copy-paste SOP templates verbatim. Use them as reference only and rephrase in context of the thread. Keep responses concise — every sentence must earn its place.\n`;    userPrompt += `3. If you are not confident, output ESCALATE: [reason] instead of a response\n`;
-    userPrompt += `4. If the lead should be blocked (Do Not Contact), output BLOCK: [reason]\n`;
-    userPrompt += `5. If the lead is OOO, output OOO: [return date if available]\n`;
-    userPrompt += `6. Otherwise, output your response in this exact format:\n`;
+    userPrompt += `2. CRITICAL: MEMORY rules ALWAYS override SOP templates. NEVER copy-paste or closely follow SOP template wording. Write fresh responses in a casual, direct tone as if you are a real person typing a quick email. SOP templates are ONLY for understanding what type of answer to give, NOT for wording. Keep responses short — 2-4 sentences max for simple replies, 4-6 max for detailed questions. Every sentence must earn its place. When a lead asks multiple things, pick the strongest signal and address that. Push for the call.\n`;
+    userPrompt += `3. If company name is unknown or missing, do NOT use a generic name like Gmail or Yahoo. Just skip the company reference entirely.\n`;
+    userPrompt += `4. If you are not confident, output ESCALATE: [reason] instead of a response\n`;
+    userPrompt += `5. If the lead should be blocked (Do Not Contact), output BLOCK: [reason] and do NOT send any reply\n`;
+    userPrompt += `6. If the lead is OOO, output OOO: [return date if available] and do NOT send any reply\n`;
+    userPrompt += `7. If the lead says remove me, unsubscribe, or any removal request, output BLOCK: removal request and do NOT send any reply\n`;
+    userPrompt += `8. Otherwise, output your response in this exact format:\n`;
     userPrompt += `CATEGORY: [category]\n`;
     userPrompt += `SMARTLEAD_STATUS: [the status to set in SmartLead]\n`;
     userPrompt += `RESPONSE:\n[your email response here]\n`;
@@ -697,7 +700,10 @@ function extractCompanyFromEmail(email) {
   const domain = email.split('@')[1];
   if (!domain) return null;
   const company = domain.split('.')[0];
+  const genericDomains = ['gmail', 'yahoo', 'hotmail', 'outlook', 'icloud', 'aol', 'mail', 'protonmail', 'zoho'];
+  if (genericDomains.includes(company.toLowerCase())) return null;
   return company.charAt(0).toUpperCase() + company.slice(1);
+}
 }
 
 // ============================================================
