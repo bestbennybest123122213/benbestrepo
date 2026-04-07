@@ -339,8 +339,7 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += `LATEST REPLY FROM LEAD:\n${replyText}\n\n`;
     userPrompt += `INSTRUCTIONS:\n`;
     userPrompt += `1. Categorize this reply (Interested, Information Request, Meeting Request, Booked, Not Interested, Wrong Person, Do Not Contact, Out of Office)\n`;
-    userPrompt += `2. Follow your SOPs and MEMORY rules to generate the appropriate response\n`;
-    userPrompt += `3. If you are not confident, output ESCALATE: [reason] instead of a response\n`;
+    userPrompt += `2. MEMORY rules ALWAYS override SOP templates. Never copy-paste SOP templates verbatim. Use them as reference only and rephrase in context of the thread. Keep responses concise — every sentence must earn its place.\n`;    userPrompt += `3. If you are not confident, output ESCALATE: [reason] instead of a response\n`;
     userPrompt += `4. If the lead should be blocked (Do Not Contact), output BLOCK: [reason]\n`;
     userPrompt += `5. If the lead is OOO, output OOO: [return date if available]\n`;
     userPrompt += `6. Otherwise, output your response in this exact format:\n`;
