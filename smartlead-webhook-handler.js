@@ -21,6 +21,7 @@ const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const SMARTLEAD_API_KEY = process.env.SMARTLEAD_API_KEY;
 const SMARTLEAD_BASE_URL = 'https://server.smartlead.ai/api/v1';
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
+const SLACK_POSITIVE_WEBHOOK_URL = process.env.SLACK_POSITIVE_WEBHOOK_URL;
 const CALENDLY_API_TOKEN = process.env.CALENDLY_API_TOKEN;
 
 // ============================================================
@@ -550,6 +551,26 @@ async function processAutoReply(task) {
         );
       }
 
+      // Handle positive first replies — notify positive Slack channel + insert into curated_leads
+      var positiveCategories = ['Interested', 'Information Request', 'Meeting Request'];
+      if (positiveCategories.indexOf(aiResult.category) >= 0) {
+        // Check if this is a first reply (not already in curated_leads)
+        var isFirstReply = true;
+        try {
+          var existingLead = await supabase.from('curated_leads').select('id').eq('email', leadEmail).limit(1);
+          if (existingLead.data && existingLead.data.length > 0) {
+            isFirstReply = false;
+            console.log('[CURATED] Lead already exists: ' + leadEmail + ' -- skipping positive notification');
+          }
+        } catch (checkErr) {
+          console.error('[CURATED] Error checking existing lead:', checkErr.message);
+        }
+
+        if (isFirstReply) {
+          await handlePositiveLead(payload, aiResult, replyBody);
+        }
+      }
+
       if (!AUTO_SEND_ENABLED) {
         console.log('[PROCESS] DRAFT MODE -- saving draft for ' + leadEmail);
         await sendSlackNotification({
@@ -677,6 +698,111 @@ async function sendSlackMessage(text) {
     }
   } catch (err) {
     console.error('[SLACK] Error:', err.message);
+  }
+}
+
+// ============================================================
+// POSITIVE LEAD HANDLING - Slack notification + curated_leads insert
+// ============================================================
+
+async function handlePositiveLead(payload, aiResult, replyBody) {
+  var leadEmail = payload.to_email || (payload.lead && payload.lead.email);
+  var leadName = payload.to_name || ((payload.lead && payload.lead.first_name ? payload.lead.first_name : '') + ' ' + (payload.lead && payload.lead.last_name ? payload.lead.last_name : '')).trim();
+  var leadCompany = (payload.lead && payload.lead.company_name) || extractCompanyFromEmail(leadEmail);
+  var campaignId = payload.campaign_id ? String(payload.campaign_id) : null;
+  var campaignName = payload.campaign_name;
+  var leadResponseTime = payload.event_timestamp || payload.time_replied || (payload.reply_message && payload.reply_message.time);
+
+  // Extract domain from email
+  var domain = null;
+  if (leadEmail && leadEmail.indexOf('@') >= 0) {
+    domain = leadEmail.split('@')[1];
+  }
+
+  // Calculate response time
+  var now = new Date();
+  var leadResponseDate = leadResponseTime ? new Date(leadResponseTime) : now;
+  var ertSeconds = Math.floor((now.getTime() - leadResponseDate.getTime()) / 1000);
+  if (ertSeconds < 0) ertSeconds = 0;
+
+  // Format ERT as readable string
+  var ertHours = Math.floor(ertSeconds / 3600);
+  var ertMins = Math.floor((ertSeconds % 3600) / 60);
+  var ertFormatted = ertHours + ':' + (ertMins < 10 ? '0' : '') + ertMins + ':00';
+
+  // Date parts for conv_date, conv_month, conv_year
+  var convDate = leadResponseDate.toISOString().split('T')[0];
+  var convMonth = leadResponseDate.toLocaleString('en-US', { month: 'long' });
+  var convYear = String(leadResponseDate.getFullYear());
+
+  // 1. Send to positive Slack channel
+  await sendPositiveSlackNotification({
+    leadName: leadName,
+    leadEmail: leadEmail,
+    leadCompany: leadCompany,
+    campaignId: campaignId,
+    campaignName: campaignName,
+    category: aiResult.category,
+    replyPreview: replyBody
+  });
+
+  // 2. Insert into curated_leads table
+  try {
+    await supabase.from('curated_leads').insert({
+      email: leadEmail,
+      name: leadName || null,
+      company: leadCompany || null,
+      domain: domain,
+      category: aiResult.category || 'Interested',
+      status: 'Not booked',
+      conv_date: convDate,
+      conv_month: convMonth,
+      conv_year: convYear,
+      lead_response: leadResponseDate.toISOString(),
+      response_time: now.toISOString(),
+      ert_seconds: ertSeconds,
+      ert: ertFormatted,
+      meeting_date: null,
+      notes: replyBody ? replyBody.substring(0, 500) : null,
+      source: 'outbound',
+      created_at: now.toISOString()
+    });
+    console.log('[CURATED] Positive lead inserted: ' + leadEmail);
+  } catch (err) {
+    console.error('[CURATED] Failed to insert positive lead:', err.message);
+  }
+}
+
+async function sendPositiveSlackNotification(data) {
+  try {
+    if (!SLACK_POSITIVE_WEBHOOK_URL) {
+      console.warn('[SLACK-POSITIVE] No webhook URL configured, skipping');
+      return;
+    }
+
+    var displayCompany = data.leadCompany ? data.leadCompany : 'Unknown';
+    var replyPreview = data.replyPreview || '';
+    if (replyPreview.length > 300) replyPreview = replyPreview.substring(0, 300) + '...';
+
+    var message = 'Positive reply from (' + displayCompany + ')\n' +
+      'Lead Email: ' + data.leadEmail + '\n' +
+      'Campaign Id: ' + (data.campaignId || 'Unknown') + '\n' +
+      'Campaign Name: ' + (data.campaignName || 'Unknown') + '\n' +
+      'Sentiment: ' + data.category + ' - ' + replyPreview;
+
+    var response = await fetch(SLACK_POSITIVE_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: message })
+    });
+    if (!response.ok) {
+      var errText = await response.text();
+      console.error('[SLACK-POSITIVE] Send failed:', errText);
+    } else {
+      console.log('[SLACK-POSITIVE] Positive notification sent');
+    }
+  } catch (err) {
+    console.error('[SLACK-POSITIVE] Error:', err.message);
   }
 }
 
