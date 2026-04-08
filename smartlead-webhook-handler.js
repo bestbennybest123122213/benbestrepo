@@ -704,7 +704,6 @@ function extractCompanyFromEmail(email) {
   if (genericDomains.includes(company.toLowerCase())) return null;
   return company.charAt(0).toUpperCase() + company.slice(1);
 }
-}
 
 // ============================================================
 // WEBHOOK ENDPOINT
