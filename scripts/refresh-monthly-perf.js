@@ -2,9 +2,9 @@
 /**
  * Refresh Monthly Domain & Account Performance
  *
- * Fetches mailbox-statistics from all campaigns via Smartlead API,
- * computes per-account monthly sends/replies using day-wise-overall-stats,
- * then aggregates to domain level.
+ * PRESERVES existing data for NOV-FEB (Jan's verified Google Sheet export).
+ * Only refreshes MAR onward using Smartlead API proportional estimates.
+ * Automatically adds new months (APR, MAY, etc.) as time progresses.
  *
  * Outputs:
  *   data/domain-monthly-perf.json  (domain-level monthly breakdown)
@@ -22,6 +22,9 @@ const path = require('path');
 const API_KEY = process.env.SMARTLEAD_API_KEY;
 const BASE_URL = 'https://server.smartlead.ai/api/v1';
 const DATA_DIR = path.join(__dirname, '../data');
+
+// Months where Jan's Google Sheet data is the source of truth — do NOT overwrite
+const PRESERVED_MONTHS = new Set(['NOV', 'DEC', 'JAN', 'FEB']);
 
 const delay = ms => new Promise(r => setTimeout(r, ms));
 const log = msg => console.log(`[${new Date().toISOString().slice(11, 19)}] ${msg}`);
@@ -41,11 +44,11 @@ async function apiRequest(endpoint, retries = 3) {
   }
 }
 
-// Get month boundaries from Nov 2025 through current month
-function getMonthRanges() {
+// Get month ranges that need refreshing (MAR 2026 onward through current month)
+function getRefreshMonthRanges() {
   const ranges = [];
   const now = new Date();
-  let year = 2025, month = 10; // Nov 2025 (0-indexed)
+  let year = 2026, month = 2; // March (0-indexed)
 
   while (year < now.getFullYear() || (year === now.getFullYear() && month <= now.getMonth())) {
     const start = new Date(Date.UTC(year, month, 1));
@@ -68,7 +71,6 @@ function getMonthRanges() {
   return ranges;
 }
 
-// Get day-wise stats for a date range
 async function getDayWiseStats(startDate, endDate) {
   const data = await apiRequest(`/analytics/day-wise-overall-stats?start_date=${startDate}&end_date=${endDate}`);
   const days = data?.data?.day_wise_stats || data?.day_wise_stats || [];
@@ -81,7 +83,6 @@ async function getDayWiseStats(startDate, endDate) {
   return totals;
 }
 
-// Get per-email lifetime stats from mailbox-statistics across all campaigns
 async function getMailboxStats() {
   const campaigns = await apiRequest('/campaigns/');
   const active = campaigns.filter(c => ['ACTIVE','COMPLETED','PAUSED','STOPPED'].includes(c.status));
@@ -117,42 +118,61 @@ async function main() {
     process.exit(1);
   }
 
-  const monthRanges = getMonthRanges();
-  log(`Months to process: ${monthRanges.map(m => m.label).join(', ')}`);
+  const domainPath = path.join(DATA_DIR, 'domain-monthly-perf.json');
+  const accountPath = path.join(DATA_DIR, 'account-monthly-perf.json');
 
-  // Step 1: Get overall day-wise totals per month
-  log('Fetching day-wise stats per month...');
+  let existingDomainData = {};
+  let existingAccountData = {};
+  try {
+    if (fs.existsSync(domainPath)) existingDomainData = JSON.parse(fs.readFileSync(domainPath, 'utf8'));
+    if (fs.existsSync(accountPath)) existingAccountData = JSON.parse(fs.readFileSync(accountPath, 'utf8'));
+    log(`Loaded existing data: ${Object.keys(existingDomainData).length} domains, ${Object.keys(existingAccountData).length} accounts`);
+  } catch (e) {
+    log(`Could not load existing data: ${e.message}`);
+  }
+
+  const refreshMonths = getRefreshMonthRanges();
+  log(`Months to refresh: ${refreshMonths.map(m => m.label).join(', ')}`);
+  log(`Preserved months (Jan's data): ${[...PRESERVED_MONTHS].join(', ')}`);
+
+  log('Fetching day-wise stats for refresh months...');
   const monthlyOverall = {};
-  for (const m of monthRanges) {
+  for (const m of refreshMonths) {
     monthlyOverall[m.label] = await getDayWiseStats(m.start, m.end);
-    log(`  ${m.label}: ${monthlyOverall[m.label].sent} sent, ${monthlyOverall[m.label].replied} replied`);
+    log(`  ${m.label}${m.isCurrent ? ' (partial)' : ''}: ${monthlyOverall[m.label].sent} sent, ${monthlyOverall[m.label].replied} replied`);
     await delay(300);
   }
 
-  // Step 2: Get lifetime per-email stats
   log('Fetching mailbox statistics...');
   const emailStats = await getMailboxStats();
   const emails = Object.values(emailStats);
   log(`Got stats for ${emails.length} email accounts`);
 
-  // Step 3: Compute total lifetime across all accounts
   const totalLifetime = emails.reduce((acc, e) => {
     acc.sent += e.sent;
     acc.replies += e.replies;
     return acc;
   }, { sent: 0, replies: 0 });
 
-  // Step 4: Distribute monthly totals proportionally per account
-  // Each account's share of a month = (account lifetime sent / total lifetime sent) * month total
-  const accountMonthly = {};
   const domainMonthly = {};
+  const accountMonthly = {};
 
   for (const email of emails) {
     const proportion = totalLifetime.sent > 0 ? email.sent / totalLifetime.sent : 0;
     const replyProportion = totalLifetime.replies > 0 ? email.replies / totalLifetime.replies : 0;
 
+    const existingAcct = existingAccountData[email.email];
     const months = {};
-    for (const m of monthRanges) {
+
+    if (existingAcct && existingAcct.months) {
+      for (const label of PRESERVED_MONTHS) {
+        if (existingAcct.months[label]) {
+          months[label] = { ...existingAcct.months[label] };
+        }
+      }
+    }
+
+    for (const m of refreshMonths) {
       const overall = monthlyOverall[m.label];
       const sent = Math.round(overall.sent * proportion);
       const replies = Math.round(overall.replied * replyProportion);
@@ -163,8 +183,8 @@ async function main() {
       };
     }
 
-    const totalSent = Object.values(months).reduce((s, m) => s + m.sent, 0);
-    const totalReplies = Object.values(months).reduce((s, m) => s + m.replies, 0);
+    const totalSent = Object.values(months).reduce((s, m) => s + (m.sent || 0), 0);
+    const totalReplies = Object.values(months).reduce((s, m) => s + (m.replies || 0), 0);
 
     accountMonthly[email.email] = {
       domain: email.domain,
@@ -174,31 +194,42 @@ async function main() {
       total_reply_rate: totalSent > 0 ? parseFloat((totalReplies / totalSent * 100).toFixed(2)) : 0
     };
 
-    // Aggregate to domain
     if (!domainMonthly[email.domain]) {
       domainMonthly[email.domain] = {};
-      for (const m of monthRanges) {
-        domainMonthly[email.domain][m.label] = { sent: 0, replies: 0, accounts: 0, reply_rate: 0 };
-      }
     }
-    for (const m of monthRanges) {
-      domainMonthly[email.domain][m.label].sent += months[m.label].sent;
-      domainMonthly[email.domain][m.label].replies += months[m.label].replies;
-      domainMonthly[email.domain][m.label].accounts++;
+
+    for (const [label, mData] of Object.entries(months)) {
+      if (!domainMonthly[email.domain][label]) {
+        domainMonthly[email.domain][label] = { sent: 0, replies: 0, accounts: 0, reply_rate: 0 };
+      }
+      domainMonthly[email.domain][label].sent += mData.sent || 0;
+      domainMonthly[email.domain][label].replies += mData.replies || 0;
+      domainMonthly[email.domain][label].accounts++;
     }
   }
 
-  // Calculate domain reply rates
+  for (const [domain, oldData] of Object.entries(existingDomainData)) {
+    if (!domainMonthly[domain]) {
+      domainMonthly[domain] = {};
+      for (const [label, mData] of Object.entries(oldData)) {
+        if (PRESERVED_MONTHS.has(label)) {
+          domainMonthly[domain][label] = { ...mData };
+        }
+      }
+    } else {
+      for (const label of PRESERVED_MONTHS) {
+        if (!domainMonthly[domain][label] && oldData[label]) {
+          domainMonthly[domain][label] = { ...oldData[label] };
+        }
+      }
+    }
+  }
+
   for (const domain of Object.keys(domainMonthly)) {
-    for (const m of monthRanges) {
-      const d = domainMonthly[domain][m.label];
+    for (const [label, d] of Object.entries(domainMonthly[domain])) {
       d.reply_rate = d.sent > 0 ? parseFloat((d.replies / d.sent * 100).toFixed(2)) : 0;
     }
   }
-
-  // Step 5: Save files
-  const domainPath = path.join(DATA_DIR, 'domain-monthly-perf.json');
-  const accountPath = path.join(DATA_DIR, 'account-monthly-perf.json');
 
   fs.writeFileSync(domainPath, JSON.stringify(domainMonthly, null, 2));
   fs.writeFileSync(accountPath, JSON.stringify(accountMonthly, null, 2));
@@ -206,11 +237,18 @@ async function main() {
   log(`Saved ${Object.keys(domainMonthly).length} domains to ${domainPath}`);
   log(`Saved ${Object.keys(accountMonthly).length} accounts to ${accountPath}`);
 
-  // Summary
   console.log('\n=== Monthly Summary ===');
-  for (const m of monthRanges) {
-    const o = monthlyOverall[m.label];
-    console.log(`${m.label}${m.isCurrent ? ' (partial)' : ''}: ${o.sent} sent | ${o.replied} replied | ${(o.sent > 0 ? (o.replied/o.sent*100) : 0).toFixed(2)}%`);
+  const allMonthLabels = [...PRESERVED_MONTHS, ...refreshMonths.map(m => m.label)];
+  for (const label of allMonthLabels) {
+    if (PRESERVED_MONTHS.has(label)) {
+      console.log(`${label}: [preserved from Jan's data]`);
+    } else {
+      const o = monthlyOverall[label];
+      if (o) {
+        const isCurrent = refreshMonths.find(m => m.label === label)?.isCurrent;
+        console.log(`${label}${isCurrent ? ' (partial)' : ''}: ${o.sent} sent | ${o.replied} replied | ${(o.sent > 0 ? (o.replied/o.sent*100) : 0).toFixed(2)}%`);
+      }
+    }
   }
   console.log(`\nDomains: ${Object.keys(domainMonthly).length} | Accounts: ${Object.keys(accountMonthly).length}`);
 }
