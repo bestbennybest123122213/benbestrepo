@@ -2073,7 +2073,7 @@ app.get('/api/domain-stats', async (req, res) => {
     
     // Get the latest snapshot date
     const { data: latestData, error: latestError } = await client
-      .from('domain_daily_stats')
+      .from('domain_snapshots')
       .select('snapshot_date')
       .order('snapshot_date', { ascending: false })
       .limit(1);
@@ -2091,7 +2091,7 @@ app.get('/api/domain-stats', async (req, res) => {
     
     // Get all stats from the latest snapshot
     const { data: currentStats, error: currentError } = await client
-      .from('domain_daily_stats')
+      .from('domain_snapshots')
       .select('*')
       .eq('snapshot_date', latestDate);
     
@@ -2112,16 +2112,18 @@ app.get('/api/domain-stats', async (req, res) => {
     
     // Get historical snapshots for calculating deltas
     const { data: historicalStats } = await client
-      .from('domain_daily_stats')
-      .select('domain, snapshot_date, sent, replies, bounced')
+      .from('domain_snapshots')
+      .select('domain, snapshot_date, campaign_sends, campaign_replies, bounce_rate')
       .in('snapshot_date', [fmt(date7d), fmt(date14d), fmt(date30d), fmt(date60d), fmt(date90d)]);
     
     // Build lookup maps for historical data
-    const historyMap = {};
-    (historicalStats || []).forEach(h => {
-      if (!historyMap[h.domain]) historyMap[h.domain] = {};
-      historyMap[h.domain][h.snapshot_date] = h;
-    });
+    historyMap[h.domain][h.snapshot_date] = {
+      domain: h.domain,
+      snapshot_date: h.snapshot_date,
+      sent: h.campaign_sends ?? h.sent ?? 0,
+      replies: h.campaign_replies ?? h.replies ?? 0,
+      bounced: h.bounce_rate != null ? h.bounce_rate : (h.bounced ?? 0)
+    };
     
     // Try to load estimated historical data from JSON file
     let estimatedData = {};
@@ -2167,10 +2169,16 @@ app.get('/api/domain-stats', async (req, res) => {
     } catch (e) {
       console.log('[DOMAIN-STATS] No UI-scraped 7d data:', e.message);
     }
-    
+    const normalizedStats = currentStats.map(d => ({
+  ...d,
+  sent: d.campaign_sends ?? d.sent ?? 0,
+  replies: d.campaign_replies ?? d.replies ?? 0,
+  bounced: d.bounce_rate != null && d.bounced == null ? 0 : (d.bounced ?? 0)
+}));
+
     // Enrich current stats with time-based data
     // PRIORITY: Jan's Google Sheet data is the source of truth
-    const enrichedStats = currentStats.map(d => {
+    const enrichedStats = normalizedStats.map(d => {
       const history = historyMap[d.domain] || {};
       const h7d = history[fmt(date7d)];
       const h14d = history[fmt(date14d)];
