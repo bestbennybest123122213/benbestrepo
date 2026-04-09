@@ -1,2206 +1,930 @@
 {
-  "withbyinfluence.info": {
+  "smartitssimannntv.com": {
     "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 1,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 100
-    },
-    "JAN": {
-      "sent": 2,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 50
-    },
-    "FEB": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencelabs.co": {
-    "NOV": {
-      "sent": 13,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 105,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 1.9
-    },
-    "JAN": {
-      "sent": 176,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 1.14
-    },
-    "FEB": {
-      "sent": 170,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 148,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 51,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "byinfluenceflow.info": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 1,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 100
-    },
-    "JAN": {
-      "sent": 2,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 50
-    },
-    "FEB": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencechain.info": {
-    "NOV": {
-      "sent": 28,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 230,
-      "replies": 4,
-      "accounts": 2,
-      "reply_rate": 1.74
-    },
-    "JAN": {
-      "sent": 386,
-      "replies": 4,
-      "accounts": 2,
-      "reply_rate": 1.04
-    },
-    "FEB": {
-      "sent": 372,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 0.54
-    },
-    "MAR": {
-      "sent": 324,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.31
-    },
-    "APR": {
-      "sent": 110,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.91
-    }
-  },
-  "byinfluenceteam.co": {
-    "NOV": {
-      "sent": 18,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 149,
-      "replies": 4,
-      "accounts": 1,
-      "reply_rate": 2.68
-    },
-    "JAN": {
-      "sent": 250,
-      "replies": 3,
-      "accounts": 1,
-      "reply_rate": 1.2
-    },
-    "FEB": {
-      "sent": 241,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 0.83
-    },
-    "MAR": {
-      "sent": 210,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 0.95
-    },
-    "APR": {
-      "sent": 71,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 1.41
-    }
-  },
-  "byinfluenceai.info": {
-    "NOV": {
-      "sent": 14,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 116,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.86
-    },
-    "JAN": {
-      "sent": 194,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.52
-    },
-    "FEB": {
-      "sent": 187,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 163,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 55,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencehq.co": {
-    "NOV": {
-      "sent": 17,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 141,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 1.42
-    },
-    "JAN": {
-      "sent": 236,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.42
-    },
-    "FEB": {
-      "sent": 227,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.44
-    },
-    "MAR": {
-      "sent": 198,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.51
-    },
-    "APR": {
-      "sent": 67,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluenceonline.info": {
-    "NOV": {
-      "sent": 29,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 243,
-      "replies": 3,
-      "accounts": 2,
-      "reply_rate": 1.23
-    },
-    "JAN": {
-      "sent": 406,
-      "replies": 3,
-      "accounts": 2,
-      "reply_rate": 0.74
-    },
-    "FEB": {
-      "sent": 392,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.26
-    },
-    "MAR": {
-      "sent": 341,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.29
-    },
-    "APR": {
-      "sent": 116,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "joinbyinfluence.info": {
-    "NOV": {
-      "sent": 12,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 102,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 1.96
-    },
-    "JAN": {
-      "sent": 170,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.59
-    },
-    "FEB": {
-      "sent": 164,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.61
-    },
-    "MAR": {
-      "sent": 143,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.7
-    },
-    "APR": {
-      "sent": 49,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencenetwork.co": {
-    "NOV": {
-      "sent": 14,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 119,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.84
-    },
-    "JAN": {
-      "sent": 200,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.5
-    },
-    "FEB": {
-      "sent": 192,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 168,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 57,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluenceagency.info": {
-    "NOV": {
-      "sent": 16,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 135,
-      "replies": 4,
-      "accounts": 1,
-      "reply_rate": 2.96
-    },
-    "JAN": {
-      "sent": 225,
-      "replies": 3,
-      "accounts": 1,
-      "reply_rate": 1.33
-    },
-    "FEB": {
-      "sent": 217,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 0.92
-    },
-    "MAR": {
-      "sent": 189,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 1.06
-    },
-    "APR": {
-      "sent": 64,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 1.56
-    }
-  },
-  "usebyinfluence.info": {
-    "NOV": {
-      "sent": 29,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 236,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 0.85
-    },
-    "JAN": {
-      "sent": 396,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.25
-    },
-    "FEB": {
-      "sent": 381,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.26
-    },
-    "MAR": {
-      "sent": 332,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.3
-    },
-    "APR": {
-      "sent": 113,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencecrew.info": {
-    "NOV": {
-      "sent": 13,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 115,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 1.74
-    },
-    "JAN": {
-      "sent": 191,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.52
-    },
-    "FEB": {
-      "sent": 184,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.54
-    },
-    "MAR": {
-      "sent": 160,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 0.63
-    },
-    "APR": {
-      "sent": 55,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "scaleinfluence.info": {
-    "NOV": {
-      "sent": 12,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 98,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 2.04
-    },
-    "JAN": {
-      "sent": 163,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 1.23
-    },
-    "FEB": {
-      "sent": 157,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.64
-    },
-    "MAR": {
-      "sent": 137,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.73
-    },
-    "APR": {
-      "sent": 47,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluenceplus.info": {
-    "NOV": {
-      "sent": 15,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 122,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 1.64
-    },
-    "JAN": {
-      "sent": 204,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.49
-    },
-    "FEB": {
-      "sent": 196,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.51
-    },
-    "MAR": {
-      "sent": 171,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.58
-    },
-    "APR": {
-      "sent": 58,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluenceteam.info": {
-    "NOV": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 5,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencehq.info": {
-    "NOV": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 5,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencetech.info": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 4,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 6,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 6,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 5,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencehub.info": {
-    "NOV": {
-      "sent": 16,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 136,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.74
-    },
-    "JAN": {
-      "sent": 227,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.44
-    },
-    "FEB": {
-      "sent": 219,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 191,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 65,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencenetwork.info": {
-    "NOV": {
-      "sent": 15,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 124,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.81
-    },
-    "JAN": {
-      "sent": 208,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.48
-    },
-    "FEB": {
-      "sent": 200,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 174,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 59,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencelabs.info": {
-    "NOV": {
-      "sent": 19,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 155,
-      "replies": 5,
-      "accounts": 2,
-      "reply_rate": 3.23
-    },
-    "JAN": {
-      "sent": 259,
-      "replies": 4,
-      "accounts": 2,
-      "reply_rate": 1.54
-    },
-    "FEB": {
-      "sent": 249,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 0.8
-    },
-    "MAR": {
-      "sent": 218,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 0.92
-    },
-    "APR": {
-      "sent": 74,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 1.35
-    }
-  },
-  "byinfluencegroup.info": {
-    "NOV": {
-      "sent": 15,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 125,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 209,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 202,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 176,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 60,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencecloud.info": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 4,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 6,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 6,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 5,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluenceworks.co": {
-    "NOV": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 5,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencepage.co": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "itssimannnblog.info": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "itssimannnfilm.info": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 1,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 100
-    },
-    "JAN": {
-      "sent": 1,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 100
-    },
-    "FEB": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "byinfluencemedia.co": {
-    "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 2,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 100
-    },
-    "JAN": {
-      "sent": 2,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 100
-    },
-    "FEB": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "itssimannntv.com": {
-    "NOV": {
-      "sent": 43,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 351,
-      "replies": 4,
-      "accounts": 1,
-      "reply_rate": 1.14
-    },
-    "JAN": {
-      "sent": 587,
-      "replies": 3,
-      "accounts": 1,
-      "reply_rate": 0.51
-    },
-    "FEB": {
-      "sent": 565,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 0.35
-    },
-    "MAR": {
-      "sent": 494,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 0.4
-    },
-    "APR": {
-      "sent": 168,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 0.6
-    }
-  },
-  "itss-imannntvstudio.com": {
-    "NOV": {
-      "sent": 128,
-      "replies": 1,
-      "accounts": 3,
-      "reply_rate": 0.78
-    },
-    "DEC": {
-      "sent": 1052,
-      "replies": 11,
-      "accounts": 3,
-      "reply_rate": 1.05
-    },
-    "JAN": {
-      "sent": 1760,
+      "sent": 247,
       "replies": 9,
-      "accounts": 3,
-      "reply_rate": 0.51
-    },
-    "FEB": {
-      "sent": 1695,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 0.35
-    },
-    "MAR": {
-      "sent": 1480,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 0.41
-    },
-    "APR": {
-      "sent": 503,
-      "replies": 2,
-      "accounts": 3,
-      "reply_rate": 0.4
-    }
-  },
-  "itss-imannntvsite.com": {
-    "NOV": {
-      "sent": 126,
-      "replies": 1,
-      "accounts": 3,
-      "reply_rate": 0.79
+      "accounts": 41,
+      "reply_rate": 5.63
     },
     "DEC": {
-      "sent": 1047,
-      "replies": 11,
-      "accounts": 3,
-      "reply_rate": 1.05
-    },
-    "JAN": {
-      "sent": 1749,
-      "replies": 8,
-      "accounts": 3,
-      "reply_rate": 0.46
-    },
-    "FEB": {
-      "sent": 1686,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 0.36
-    },
-    "MAR": {
-      "sent": 1470,
-      "replies": 5,
-      "accounts": 3,
-      "reply_rate": 0.34
-    },
-    "APR": {
-      "sent": 498,
-      "replies": 2,
-      "accounts": 3,
-      "reply_rate": 0.4
-    }
-  },
-  "itss-imannntvpro.com": {
-    "NOV": {
-      "sent": 127,
-      "replies": 2,
-      "accounts": 3,
-      "reply_rate": 1.57
-    },
-    "DEC": {
-      "sent": 1051,
-      "replies": 15,
-      "accounts": 3,
-      "reply_rate": 1.43
-    },
-    "JAN": {
-      "sent": 1757,
-      "replies": 13,
-      "accounts": 3,
-      "reply_rate": 0.74
-    },
-    "FEB": {
-      "sent": 1693,
-      "replies": 8,
-      "accounts": 3,
-      "reply_rate": 0.47
-    },
-    "MAR": {
-      "sent": 1478,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 0.41
-    },
-    "APR": {
-      "sent": 502,
-      "replies": 2,
-      "accounts": 3,
-      "reply_rate": 0.4
-    }
-  },
-  "the365itss-imannntv.com": {
-    "NOV": {
-      "sent": 127,
-      "replies": 4,
-      "accounts": 3,
-      "reply_rate": 3.15
-    },
-    "DEC": {
-      "sent": 1048,
-      "replies": 31,
-      "accounts": 3,
-      "reply_rate": 2.96
-    },
-    "JAN": {
-      "sent": 1752,
-      "replies": 28,
-      "accounts": 3,
-      "reply_rate": 1.6
-    },
-    "FEB": {
-      "sent": 1688,
-      "replies": 18,
-      "accounts": 3,
-      "reply_rate": 1.07
-    },
-    "MAR": {
-      "sent": 1474,
-      "replies": 15,
-      "accounts": 3,
-      "reply_rate": 1.02
-    },
-    "APR": {
-      "sent": 501,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 1.2
-    }
-  },
-  "joinitss-imannntv.com": {
-    "NOV": {
-      "sent": 147,
-      "replies": 3,
-      "accounts": 3,
-      "reply_rate": 2.04
-    },
-    "DEC": {
-      "sent": 1213,
-      "replies": 21,
-      "accounts": 3,
-      "reply_rate": 1.73
-    },
-    "JAN": {
-      "sent": 2027,
-      "replies": 18,
-      "accounts": 3,
-      "reply_rate": 0.89
-    },
-    "FEB": {
-      "sent": 1952,
-      "replies": 12,
-      "accounts": 3,
-      "reply_rate": 0.61
-    },
-    "MAR": {
-      "sent": 1705,
-      "replies": 10,
-      "accounts": 3,
-      "reply_rate": 0.59
-    },
-    "APR": {
-      "sent": 579,
-      "replies": 4,
-      "accounts": 3,
-      "reply_rate": 0.69
-    }
-  },
-  "proitss-imannntv.com": {
-    "NOV": {
-      "sent": 152,
-      "replies": 3,
-      "accounts": 3,
-      "reply_rate": 1.97
-    },
-    "DEC": {
-      "sent": 1244,
-      "replies": 24,
-      "accounts": 3,
-      "reply_rate": 1.93
-    },
-    "JAN": {
-      "sent": 2081,
-      "replies": 21,
-      "accounts": 3,
-      "reply_rate": 1.01
-    },
-    "FEB": {
-      "sent": 2004,
-      "replies": 13,
-      "accounts": 3,
-      "reply_rate": 0.65
-    },
-    "MAR": {
-      "sent": 1750,
-      "replies": 12,
-      "accounts": 3,
-      "reply_rate": 0.69
-    },
-    "APR": {
-      "sent": 594,
-      "replies": 4,
-      "accounts": 3,
-      "reply_rate": 0.67
-    }
-  },
-  "itss-imannntv24.com": {
-    "NOV": {
-      "sent": 152,
-      "replies": 2,
-      "accounts": 3,
-      "reply_rate": 1.32
-    },
-    "DEC": {
-      "sent": 1255,
-      "replies": 18,
-      "accounts": 3,
-      "reply_rate": 1.43
-    },
-    "JAN": {
-      "sent": 2100,
+      "sent": 1074,
       "replies": 16,
-      "accounts": 3,
-      "reply_rate": 0.76
-    },
-    "FEB": {
-      "sent": 2022,
-      "replies": 11,
-      "accounts": 3,
-      "reply_rate": 0.54
-    },
-    "MAR": {
-      "sent": 1766,
-      "replies": 8,
-      "accounts": 3,
-      "reply_rate": 0.45
-    },
-    "APR": {
-      "sent": 599,
-      "replies": 4,
-      "accounts": 3,
-      "reply_rate": 0.67
-    }
-  },
-  "theitss-imannntv.com": {
-    "NOV": {
-      "sent": 129,
-      "replies": 4,
-      "accounts": 3,
-      "reply_rate": 3.1
-    },
-    "DEC": {
-      "sent": 1061,
-      "replies": 31,
-      "accounts": 3,
-      "reply_rate": 2.92
+      "accounts": 41,
+      "reply_rate": 3.72
     },
     "JAN": {
-      "sent": 1775,
-      "replies": 28,
-      "accounts": 3,
-      "reply_rate": 1.58
+      "sent": 1683,
+      "replies": 9,
+      "accounts": 42,
+      "reply_rate": 1.25
     },
     "FEB": {
-      "sent": 1709,
-      "replies": 17,
-      "accounts": 3,
-      "reply_rate": 0.99
-    },
-    "MAR": {
-      "sent": 1491,
-      "replies": 15,
-      "accounts": 3,
+      "sent": 1643,
+      "replies": 8,
+      "accounts": 42,
       "reply_rate": 1.01
     },
-    "APR": {
-      "sent": 507,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 1.18
-    }
-  },
-  "itss-imannntvsolutions.com": {
-    "NOV": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 19,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 10.53
-    },
-    "JAN": {
-      "sent": 33,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 3.03
-    },
-    "FEB": {
-      "sent": 31,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 3.23
-    },
     "MAR": {
-      "sent": 27,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 3.7
-    },
-    "APR": {
-      "sent": 9,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
+      "sent": 821,
+      "replies": 4,
+      "accounts": 50,
+      "reply_rate": 0.9
     }
   },
   "itss-imannntvweb.com": {
     "NOV": {
-      "sent": 2,
+      "sent": 0,
       "replies": 0,
-      "accounts": 3,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 17,
-      "replies": 6,
+      "sent": 547,
+      "replies": 21,
       "accounts": 3,
-      "reply_rate": 35.29
+      "reply_rate": 11.86
     },
     "JAN": {
-      "sent": 29,
-      "replies": 4,
+      "sent": 676,
+      "replies": 8,
       "accounts": 3,
-      "reply_rate": 13.79
+      "reply_rate": 2.93
     },
     "FEB": {
-      "sent": 28,
-      "replies": 3,
-      "accounts": 3,
-      "reply_rate": 10.71
-    },
-    "MAR": {
-      "sent": 24,
-      "replies": 3,
-      "accounts": 3,
-      "reply_rate": 12.5
-    },
-    "APR": {
-      "sent": 8,
-      "replies": 1,
-      "accounts": 3,
-      "reply_rate": 12.5
-    }
-  },
-  "itss-imannntvspace.com": {
-    "NOV": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 7,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 28.57
-    },
-    "JAN": {
-      "sent": 12,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 16.67
-    },
-    "FEB": {
-      "sent": 12,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 10,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 3,
-      "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
-    }
-  },
-  "itss-imannntvapp.com": {
-    "NOV": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 5,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "JAN": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "FEB": {
-      "sent": 8,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "MAR": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    }
-  },
-  "myitssimannntv.com": {
-    "NOV": {
-      "sent": 20,
-      "replies": 0,
-      "accounts": 17,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 167,
-      "replies": 16,
-      "accounts": 17,
-      "reply_rate": 9.58
-    },
-    "JAN": {
-      "sent": 280,
-      "replies": 14,
-      "accounts": 17,
-      "reply_rate": 5
-    },
-    "FEB": {
-      "sent": 271,
-      "replies": 3,
-      "accounts": 17,
-      "reply_rate": 1.11
-    },
-    "MAR": {
-      "sent": 234,
-      "replies": 3,
-      "accounts": 17,
-      "reply_rate": 1.28
-    },
-    "APR": {
-      "sent": 77,
-      "replies": 0,
-      "accounts": 17,
-      "reply_rate": 0
-    }
-  },
-  "smartitssimannntv.com": {
-    "NOV": {
-      "sent": 25,
-      "replies": 0,
-      "accounts": 15,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 189,
-      "replies": 12,
-      "accounts": 15,
-      "reply_rate": 6.35
-    },
-    "JAN": {
-      "sent": 316,
-      "replies": 10,
-      "accounts": 15,
-      "reply_rate": 3.16
-    },
-    "FEB": {
-      "sent": 308,
-      "replies": 4,
-      "accounts": 15,
-      "reply_rate": 1.3
-    },
-    "MAR": {
-      "sent": 265,
-      "replies": 3,
-      "accounts": 15,
-      "reply_rate": 1.13
-    },
-    "APR": {
-      "sent": 90,
-      "replies": 1,
-      "accounts": 15,
-      "reply_rate": 1.11
-    }
-  },
-  "helloitssimannntv.com": {
-    "NOV": {
-      "sent": 25,
-      "replies": 0,
-      "accounts": 17,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 205,
-      "replies": 15,
-      "accounts": 17,
-      "reply_rate": 7.32
-    },
-    "JAN": {
-      "sent": 343,
-      "replies": 13,
-      "accounts": 17,
-      "reply_rate": 3.79
-    },
-    "FEB": {
-      "sent": 333,
-      "replies": 4,
-      "accounts": 17,
-      "reply_rate": 1.2
-    },
-    "MAR": {
-      "sent": 289,
-      "replies": 4,
-      "accounts": 17,
-      "reply_rate": 1.38
-    },
-    "APR": {
-      "sent": 96,
-      "replies": 0,
-      "accounts": 17,
-      "reply_rate": 0
-    }
-  },
-  "proitssimannntv.com": {
-    "NOV": {
-      "sent": 14,
-      "replies": 0,
-      "accounts": 15,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 124,
-      "replies": 18,
-      "accounts": 15,
-      "reply_rate": 14.52
-    },
-    "JAN": {
-      "sent": 203,
+      "sent": 595,
       "replies": 11,
-      "accounts": 15,
-      "reply_rate": 5.42
-    },
-    "FEB": {
-      "sent": 197,
-      "replies": 7,
-      "accounts": 15,
-      "reply_rate": 3.55
+      "accounts": 3,
+      "reply_rate": 3.63
     },
     "MAR": {
-      "sent": 173,
-      "replies": 7,
-      "accounts": 15,
-      "reply_rate": 4.05
-    },
-    "APR": {
-      "sent": 59,
-      "replies": 0,
-      "accounts": 15,
-      "reply_rate": 0
+      "sent": 300,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 1.92
     }
   },
-  "goitssimannntv.com": {
+  "goitss-imannntv.com": {
     "NOV": {
-      "sent": 5,
+      "sent": 0,
       "replies": 0,
-      "accounts": 15,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 47,
-      "replies": 15,
-      "accounts": 15,
-      "reply_rate": 31.91
+      "sent": 549,
+      "replies": 24,
+      "accounts": 3,
+      "reply_rate": 12.85
     },
     "JAN": {
-      "sent": 78,
-      "replies": 12,
-      "accounts": 15,
-      "reply_rate": 15.38
+      "sent": 676,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 1.32
     },
     "FEB": {
-      "sent": 77,
-      "replies": 4,
-      "accounts": 15,
-      "reply_rate": 5.19
+      "sent": 594,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 1.19
     },
     "MAR": {
-      "sent": 64,
-      "replies": 4,
-      "accounts": 15,
-      "reply_rate": 6.25
-    },
-    "APR": {
-      "sent": 20,
-      "replies": 0,
-      "accounts": 15,
-      "reply_rate": 0
+      "sent": 300,
+      "replies": 5,
+      "accounts": 3,
+      "reply_rate": 2.83
     }
   },
-  "useitssimannntv.com": {
+  "itss-imannntvsite.com": {
     "NOV": {
-      "sent": 3,
+      "sent": 0,
       "replies": 0,
-      "accounts": 4,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 17,
-      "replies": 3,
-      "accounts": 4,
-      "reply_rate": 17.65
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
     },
     "JAN": {
-      "sent": 27,
-      "replies": 3,
-      "accounts": 4,
-      "reply_rate": 11.11
+      "sent": 450,
+      "replies": 5,
+      "accounts": 3,
+      "reply_rate": 3.42
     },
     "FEB": {
-      "sent": 27,
-      "replies": 1,
-      "accounts": 4,
-      "reply_rate": 3.7
+      "sent": 591,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 1.07
     },
     "MAR": {
-      "sent": 23,
+      "sent": 300,
       "replies": 1,
-      "accounts": 4,
-      "reply_rate": 4.35
-    },
-    "APR": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 4,
-      "reply_rate": 0
+      "accounts": 3,
+      "reply_rate": 0.51
     }
   },
   "teamitssimannntv.com": {
     "NOV": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 6,
-      "reply_rate": 0
+      "sent": 67,
+      "replies": 4,
+      "accounts": 11,
+      "reply_rate": 8.66
     },
     "DEC": {
-      "sent": 62,
-      "replies": 3,
-      "accounts": 6,
-      "reply_rate": 4.84
+      "sent": 299,
+      "replies": 2,
+      "accounts": 11,
+      "reply_rate": 1.57
     },
     "JAN": {
-      "sent": 103,
-      "replies": 2,
-      "accounts": 6,
-      "reply_rate": 1.94
+      "sent": 564,
+      "replies": 8,
+      "accounts": 14,
+      "reply_rate": 3.45
     },
     "FEB": {
-      "sent": 101,
-      "replies": 1,
-      "accounts": 6,
-      "reply_rate": 0.99
+      "sent": 559,
+      "replies": 4,
+      "accounts": 14,
+      "reply_rate": 1.47
     },
     "MAR": {
-      "sent": 88,
+      "sent": 354,
       "replies": 1,
-      "accounts": 6,
-      "reply_rate": 1.14
-    },
-    "APR": {
-      "sent": 30,
-      "replies": 0,
-      "accounts": 6,
-      "reply_rate": 0
+      "accounts": 51,
+      "reply_rate": 0.56
     }
   },
-  "itss-imannntvzone.com": {
+  "itss-imannntv.com": {
     "NOV": {
-      "sent": 2,
+      "sent": 0,
       "replies": 0,
-      "accounts": 3,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 16,
-      "replies": 2,
+      "sent": 544,
+      "replies": 19,
       "accounts": 3,
-      "reply_rate": 12.5
+      "reply_rate": 11.45
     },
     "JAN": {
-      "sent": 27,
-      "replies": 2,
+      "sent": 674,
+      "replies": 12,
       "accounts": 3,
-      "reply_rate": 7.41
+      "reply_rate": 4.59
     },
     "FEB": {
-      "sent": 26,
-      "replies": 0,
+      "sent": 594,
+      "replies": 5,
       "accounts": 3,
-      "reply_rate": 0
+      "reply_rate": 1.65
     },
     "MAR": {
-      "sent": 23,
-      "replies": 0,
+      "sent": 300,
+      "replies": 1,
       "accounts": 3,
+      "reply_rate": 0.53
+    }
+  },
+  "itss-imannntvspace.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
       "reply_rate": 0
     },
-    "APR": {
-      "sent": 8,
-      "replies": 0,
+    "DEC": {
+      "sent": 525,
+      "replies": 18,
       "accounts": 3,
+      "reply_rate": 10.71
+    },
+    "JAN": {
+      "sent": 656,
+      "replies": 7,
+      "accounts": 3,
+      "reply_rate": 2.93
+    },
+    "FEB": {
+      "sent": 593,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 1.4
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.61
+    }
+  },
+  "theitss-imannntv.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
       "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 540,
+      "replies": 16,
+      "accounts": 3,
+      "reply_rate": 8.93
+    },
+    "JAN": {
+      "sent": 669,
+      "replies": 15,
+      "accounts": 3,
+      "reply_rate": 5.66
+    },
+    "FEB": {
+      "sent": 594,
+      "replies": 10,
+      "accounts": 3,
+      "reply_rate": 3.56
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.63
+    }
+  },
+  "myitssimannntv.com": {
+    "NOV": {
+      "sent": 313,
+      "replies": 7,
+      "accounts": 52,
+      "reply_rate": 3.8
+    },
+    "DEC": {
+      "sent": 1283,
+      "replies": 21,
+      "accounts": 52,
+      "reply_rate": 3.93
+    },
+    "JAN": {
+      "sent": 2086,
+      "replies": 17,
+      "accounts": 52,
+      "reply_rate": 1.87
+    },
+    "FEB": {
+      "sent": 2055,
+      "replies": 6,
+      "accounts": 52,
+      "reply_rate": 0.56
+    },
+    "MAR": {
+      "sent": 1022,
+      "replies": 4,
+      "accounts": 52,
+      "reply_rate": 0.68
+    }
+  },
+  "getitss-imannntv.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 547,
+      "replies": 15,
+      "accounts": 3,
+      "reply_rate": 8.52
+    },
+    "JAN": {
+      "sent": 670,
+      "replies": 17,
+      "accounts": 3,
+      "reply_rate": 6.08
+    },
+    "FEB": {
+      "sent": 593,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 1.08
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.54
     }
   },
   "itss-imannntvcloud.com": {
     "NOV": {
       "sent": 0,
       "replies": 0,
-      "accounts": 1,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 4,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 50
+      "sent": 537,
+      "replies": 25,
+      "accounts": 3,
+      "reply_rate": 13.67
     },
     "JAN": {
-      "sent": 7,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 28.57
+      "sent": 672,
+      "replies": 9,
+      "accounts": 3,
+      "reply_rate": 3.36
     },
     "FEB": {
-      "sent": 7,
+      "sent": 591,
       "replies": 1,
-      "accounts": 1,
-      "reply_rate": 14.29
+      "accounts": 3,
+      "reply_rate": 0.37
     },
     "MAR": {
-      "sent": 6,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 16.67
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 300,
+      "replies": 2,
+      "accounts": 3,
+      "reply_rate": 0.96
     }
   },
-  "itss-imannntv365.com": {
+  "joinitss-imannntv.com": {
     "NOV": {
-      "sent": 1,
+      "sent": 0,
       "replies": 0,
-      "accounts": 1,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 5,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 20
+      "sent": 39,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 19.66
     },
     "JAN": {
-      "sent": 9,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 11.11
+      "sent": 577,
+      "replies": 9,
+      "accounts": 3,
+      "reply_rate": 4.6
     },
     "FEB": {
-      "sent": 9,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 593,
+      "replies": 6,
+      "accounts": 3,
+      "reply_rate": 1.84
     },
     "MAR": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 3,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 300,
+      "replies": 2,
+      "accounts": 3,
+      "reply_rate": 1.14
     }
   },
   "getitssimannntv.com": {
     "NOV": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 209,
+      "replies": 1,
+      "accounts": 35,
+      "reply_rate": 0.72
     },
     "DEC": {
-      "sent": 4,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 25
+      "sent": 597,
+      "replies": 9,
+      "accounts": 35,
+      "reply_rate": 3.65
     },
     "JAN": {
-      "sent": 7,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 14.29
+      "sent": 1968,
+      "replies": 10,
+      "accounts": 50,
+      "reply_rate": 1.43
     },
     "FEB": {
-      "sent": 7,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 1902,
+      "replies": 10,
+      "accounts": 50,
+      "reply_rate": 1.24
     },
     "MAR": {
-      "sent": 6,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 2,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 946,
+      "replies": 1,
+      "accounts": 50,
+      "reply_rate": 0.21
     }
   },
-  "byinfluenceplatform.info": {
+  "itss-imannntvsolutions.com": {
     "NOV": {
       "sent": 0,
       "replies": 0,
-      "accounts": 1,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
-      "sent": 1,
-      "replies": 0,
+      "sent": 10,
+      "replies": 1,
       "accounts": 1,
-      "reply_rate": 0
+      "reply_rate": 33.33
     },
     "JAN": {
-      "sent": 1,
+      "sent": 151,
       "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "accounts": 2,
+      "reply_rate": 0.0
     },
     "FEB": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 504,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 1.89
     },
     "MAR": {
-      "sent": 1,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
-    },
-    "APR": {
-      "sent": 0,
-      "replies": 0,
-      "accounts": 1,
-      "reply_rate": 0
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.48
     }
   },
-  "goitss-imannntv.com": {
+  "goitssimannntv.com": {
     "NOV": {
-      "sent": 137,
-      "replies": 2,
-      "accounts": 3,
-      "reply_rate": 1.46
-    },
-    "DEC": {
-      "sent": 1130,
-      "replies": 25,
-      "accounts": 3,
-      "reply_rate": 2.21
-    },
-    "JAN": {
-      "sent": 1891,
-      "replies": 21,
-      "accounts": 3,
-      "reply_rate": 1.11
-    },
-    "FEB": {
-      "sent": 1821,
-      "replies": 14,
-      "accounts": 3,
-      "reply_rate": 0.77
-    },
-    "MAR": {
-      "sent": 1590,
-      "replies": 12,
-      "accounts": 3,
-      "reply_rate": 0.75
-    },
-    "APR": {
-      "sent": 540,
+      "sent": 300,
       "replies": 5,
-      "accounts": 3,
-      "reply_rate": 0.93
-    }
-  },
-  "getitss-imannntv.com": {
-    "NOV": {
-      "sent": 130,
-      "replies": 3,
-      "accounts": 3,
-      "reply_rate": 2.31
+      "accounts": 50,
+      "reply_rate": 2.5
     },
     "DEC": {
-      "sent": 1074,
-      "replies": 31,
-      "accounts": 3,
-      "reply_rate": 2.89
+      "sent": 1186,
+      "replies": 18,
+      "accounts": 50,
+      "reply_rate": 3.71
     },
     "JAN": {
-      "sent": 1796,
-      "replies": 27,
-      "accounts": 3,
-      "reply_rate": 1.5
+      "sent": 2028,
+      "replies": 33,
+      "accounts": 51,
+      "reply_rate": 3.71
     },
     "FEB": {
-      "sent": 1729,
-      "replies": 17,
-      "accounts": 3,
-      "reply_rate": 0.98
+      "sent": 1988,
+      "replies": 15,
+      "accounts": 51,
+      "reply_rate": 1.57
     },
     "MAR": {
-      "sent": 1509,
-      "replies": 15,
-      "accounts": 3,
-      "reply_rate": 0.99
-    },
-    "APR": {
-      "sent": 513,
-      "replies": 6,
-      "accounts": 3,
-      "reply_rate": 1.17
+      "sent": 982,
+      "replies": 9,
+      "accounts": 50,
+      "reply_rate": 1.41
     }
   },
   "itss-imannntvonline.com": {
     "NOV": {
-      "sent": 90,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 2.22
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
     },
     "DEC": {
-      "sent": 737,
+      "sent": 543,
       "replies": 17,
-      "accounts": 2,
-      "reply_rate": 2.31
+      "accounts": 3,
+      "reply_rate": 10.21
     },
     "JAN": {
-      "sent": 1233,
-      "replies": 15,
-      "accounts": 2,
-      "reply_rate": 1.22
+      "sent": 649,
+      "replies": 12,
+      "accounts": 3,
+      "reply_rate": 4.81
     },
     "FEB": {
-      "sent": 1188,
-      "replies": 9,
-      "accounts": 2,
-      "reply_rate": 0.76
+      "sent": 590,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 1.11
     },
     "MAR": {
-      "sent": 1037,
-      "replies": 8,
-      "accounts": 2,
-      "reply_rate": 0.77
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.54
+    }
+  },
+  "itss-imannntvzone.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
     },
-    "APR": {
-      "sent": 353,
+    "DEC": {
+      "sent": 519,
+      "replies": 16,
+      "accounts": 3,
+      "reply_rate": 9.69
+    },
+    "JAN": {
+      "sent": 667,
+      "replies": 9,
+      "accounts": 3,
+      "reply_rate": 3.45
+    },
+    "FEB": {
+      "sent": 593,
       "replies": 3,
-      "accounts": 2,
-      "reply_rate": 0.85
+      "accounts": 3,
+      "reply_rate": 1.02
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.41
+    }
+  },
+  "itss-imannntv24.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 528,
+      "replies": 15,
+      "accounts": 3,
+      "reply_rate": 8.82
+    },
+    "JAN": {
+      "sent": 668,
+      "replies": 7,
+      "accounts": 3,
+      "reply_rate": 2.74
+    },
+    "FEB": {
+      "sent": 594,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.38
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.56
+    }
+  },
+  "itss-imannntv365.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 550,
+      "replies": 15,
+      "accounts": 3,
+      "reply_rate": 8.2
+    },
+    "JAN": {
+      "sent": 666,
+      "replies": 7,
+      "accounts": 3,
+      "reply_rate": 2.67
+    },
+    "FEB": {
+      "sent": 593,
+      "replies": 9,
+      "accounts": 3,
+      "reply_rate": 3.43
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 0,
+      "accounts": 3,
+      "reply_rate": 0.0
     }
   },
   "itss-imannntvdigital.com": {
     "NOV": {
-      "sent": 2,
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 536,
+      "replies": 27,
+      "accounts": 3,
+      "reply_rate": 15.75
+    },
+    "JAN": {
+      "sent": 671,
+      "replies": 12,
+      "accounts": 3,
+      "reply_rate": 4.48
+    },
+    "FEB": {
+      "sent": 594,
+      "replies": 3,
+      "accounts": 3,
+      "reply_rate": 1.1
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 2.46
+    }
+  },
+  "the365itss-imannntv.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "JAN": {
+      "sent": 452,
+      "replies": 12,
+      "accounts": 3,
+      "reply_rate": 7.7
+    },
+    "FEB": {
+      "sent": 591,
+      "replies": 18,
+      "accounts": 3,
+      "reply_rate": 6.19
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 2,
+      "accounts": 3,
+      "reply_rate": 0.95
+    }
+  },
+  "itss-imannntvpro.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "JAN": {
+      "sent": 451,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 2.81
+    },
+    "FEB": {
+      "sent": 593,
+      "replies": 7,
+      "accounts": 3,
+      "reply_rate": 2.57
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 0,
+      "accounts": 3,
+      "reply_rate": 0.0
+    }
+  },
+  "proitssimannntv.com": {
+    "NOV": {
+      "sent": 246,
+      "replies": 9,
+      "accounts": 41,
+      "reply_rate": 5.69
+    },
+    "DEC": {
+      "sent": 1051,
+      "replies": 12,
+      "accounts": 41,
+      "reply_rate": 2.71
+    },
+    "JAN": {
+      "sent": 1773,
+      "replies": 23,
+      "accounts": 45,
+      "reply_rate": 3.04
+    },
+    "FEB": {
+      "sent": 1734,
+      "replies": 10,
+      "accounts": 45,
+      "reply_rate": 1.21
+    },
+    "MAR": {
+      "sent": 878,
+      "replies": 4,
+      "accounts": 52,
+      "reply_rate": 0.72
+    }
+  },
+  "proitss-imannntv.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 74,
+      "replies": 0,
+      "accounts": 3,
+      "reply_rate": 0.0
+    },
+    "JAN": {
+      "sent": 572,
+      "replies": 11,
+      "accounts": 3,
+      "reply_rate": 5.59
+    },
+    "FEB": {
+      "sent": 594,
+      "replies": 6,
+      "accounts": 3,
+      "reply_rate": 1.87
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 2.05
+    }
+  },
+  "itss-imannntvstudio.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "JAN": {
+      "sent": 448,
+      "replies": 4,
+      "accounts": 3,
+      "reply_rate": 2.72
+    },
+    "FEB": {
+      "sent": 593,
+      "replies": 5,
+      "accounts": 3,
+      "reply_rate": 1.78
+    },
+    "MAR": {
+      "sent": 300,
+      "replies": 1,
+      "accounts": 3,
+      "reply_rate": 0.52
+    }
+  },
+  "itssimannntv.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "DEC": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
+      "reply_rate": 0
+    },
+    "JAN": {
+      "sent": 150,
+      "replies": 1,
+      "accounts": 1,
+      "reply_rate": 2.08
+    },
+    "FEB": {
+      "sent": 198,
+      "replies": 2,
+      "accounts": 1,
+      "reply_rate": 2.13
+    },
+    "MAR": {
+      "sent": 100,
       "replies": 0,
       "accounts": 1,
+      "reply_rate": 0.0
+    }
+  },
+  "useitssimannntv.com": {
+    "NOV": {
+      "sent": 312,
+      "replies": 6,
+      "accounts": 52,
+      "reply_rate": 2.88
+    },
+    "DEC": {
+      "sent": 901,
+      "replies": 17,
+      "accounts": 52,
+      "reply_rate": 4.49
+    },
+    "JAN": {
+      "sent": 2093,
+      "replies": 24,
+      "accounts": 52,
+      "reply_rate": 2.81
+    },
+    "FEB": {
+      "sent": 2080,
+      "replies": 10,
+      "accounts": 52,
+      "reply_rate": 1.02
+    },
+    "MAR": {
+      "sent": 1040,
+      "replies": 8,
+      "accounts": 52,
+      "reply_rate": 1.37
+    }
+  },
+  "helloitssimannntv.com": {
+    "NOV": {
+      "sent": 204,
+      "replies": 4,
+      "accounts": 34,
+      "reply_rate": 3.19
+    },
+    "DEC": {
+      "sent": 883,
+      "replies": 14,
+      "accounts": 34,
+      "reply_rate": 3.8
+    },
+    "JAN": {
+      "sent": 1441,
+      "replies": 19,
+      "accounts": 36,
+      "reply_rate": 2.98
+    },
+    "FEB": {
+      "sent": 1402,
+      "replies": 15,
+      "accounts": 36,
+      "reply_rate": 2.13
+    },
+    "MAR": {
+      "sent": 734,
+      "replies": 3,
+      "accounts": 52,
+      "reply_rate": 0.68
+    }
+  },
+  "itss-imannntvapp.com": {
+    "NOV": {
+      "sent": 0,
+      "replies": 0,
+      "accounts": 0,
       "reply_rate": 0
     },
     "DEC": {
       "sent": 14,
-      "replies": 3,
-      "accounts": 1,
-      "reply_rate": 21.43
+      "replies": 2,
+      "accounts": 3,
+      "reply_rate": 71.43
     },
     "JAN": {
-      "sent": 24,
-      "replies": 3,
-      "accounts": 1,
-      "reply_rate": 12.5
-    },
-    "FEB": {
-      "sent": 23,
-      "replies": 2,
-      "accounts": 1,
-      "reply_rate": 8.7
-    },
-    "MAR": {
-      "sent": 20,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 5
-    },
-    "APR": {
-      "sent": 7,
-      "replies": 1,
-      "accounts": 1,
-      "reply_rate": 14.29
-    }
-  },
-  "itss-imannntv.com": {
-    "NOV": {
-      "sent": 1,
+      "sent": 5,
       "replies": 0,
       "accounts": 2,
-      "reply_rate": 0
-    },
-    "DEC": {
-      "sent": 7,
-      "replies": 2,
-      "accounts": 2,
-      "reply_rate": 28.57
-    },
-    "JAN": {
-      "sent": 11,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 9.09
+      "reply_rate": 0.0
     },
     "FEB": {
-      "sent": 11,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 9.09
+      "sent": 459,
+      "replies": 8,
+      "accounts": 3,
+      "reply_rate": 4.55
     },
     "MAR": {
-      "sent": 9,
-      "replies": 1,
-      "accounts": 2,
-      "reply_rate": 11.11
-    },
-    "APR": {
-      "sent": 3,
+      "sent": 297,
       "replies": 0,
-      "accounts": 2,
-      "reply_rate": 0
+      "accounts": 3,
+      "reply_rate": 0.0
     }
   }
 }
