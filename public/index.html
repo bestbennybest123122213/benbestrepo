@@ -5158,7 +5158,7 @@
 
       // Render monthly table (same structure, but with month columns)
       const renderMonthlyTable = (domainList, type) => {
-        const monthKeys = ['MAR', 'FEB', 'JAN', 'DEC', 'NOV'];
+        const monthKeys = ['APR', 'MAR', 'FEB', 'JAN', 'DEC', 'NOV'];
         const sortedList = [...domainList].sort((a, b) => {
           const aData = domainMonthlyPerfData?.[a.domain]?.MAR?.sent || 0;
           const bData = domainMonthlyPerfData?.[b.domain]?.MAR?.sent || 0;
@@ -5198,6 +5198,7 @@
               <tr class="child-row" data-parent="monthly_${type}_${d.domain}" style="background: var(--bg-dark); font-size: 11px;">
                 <td></td>
                 <td style="padding-left: 24px; color: var(--text-muted);">${acc.email}</td>
+                ${renderMonth(acc.months?.APR)}
                 ${renderMonth(acc.months?.MAR)}
                 ${renderMonth(acc.months?.FEB)}
                 ${renderMonth(acc.months?.JAN)}
@@ -5215,6 +5216,7 @@
                 <span style="font-weight: 500;">${d.domain}</span>
                 <span style="color: var(--text-dim); font-size: 10px; margin-left: 6px;">(${domainAccounts.length})</span>
               </td>
+              ${renderMonth(domData.APR)}
               ${renderMonth(domData.MAR)}
               ${renderMonth(domData.FEB)}
               ${renderMonth(domData.JAN)}
@@ -5243,6 +5245,9 @@
                 <tr style="background: var(--bg-dark);">
                   <th style="width: 30px;">#</th>
                   <th style="min-width: 180px;">Domain</th>
+                  <th style="text-align: center; background: rgba(16,185,129,0.1);">Apr Sent</th>
+                  <th style="text-align: center; background: rgba(16,185,129,0.1);">Apr Reply</th>
+                  <th style="text-align: center; background: rgba(16,185,129,0.15);">Apr %</th>
                   <th style="text-align: center; background: rgba(59,130,246,0.1);">Mar Sent</th>
                   <th style="text-align: center; background: rgba(59,130,246,0.1);">Mar Reply</th>
                   <th style="text-align: center; background: rgba(59,130,246,0.15);">Mar %</th>
@@ -5261,7 +5266,7 @@
                 </tr>
               </thead>
               <tbody>
-                ${rows || '<tr><td colspan="17" style="text-align: center; color: var(--text-muted);">No domains</td></tr>'}
+                ${rows || '<tr><td colspan="20" style="text-align: center; color: var(--text-muted);">No domains</td></tr>'}
               </tbody>
             </table>
           </div>
