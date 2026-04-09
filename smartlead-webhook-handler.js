@@ -585,6 +585,23 @@ async function processAutoReply(task) {
     case 'REPLY':
       console.log('[PROCESS] Generated reply (category: ' + aiResult.category + ') | Mode: ' + (AUTO_SEND_ENABLED ? 'AUTO-SEND' : 'DRAFT'));
 
+      // Auto-upgrade category to Meeting Request if response contains time slots
+      // and current category is Interested or Information Request
+      if (aiResult.category === 'Interested' || aiResult.category === 'Information Request') {
+        var responseText = aiResult.response || '';
+        var hasTimeSlots = (responseText.indexOf('EST') >= 0 && responseText.indexOf('free') >= 0) ||
+          responseText.indexOf('either works') >= 0 ||
+          responseText.indexOf('which works') >= 0 ||
+          responseText.indexOf('does that work') >= 0 ||
+          responseText.indexOf('I\'m free') >= 0 ||
+          responseText.indexOf("I'm free") >= 0;
+        if (hasTimeSlots) {
+          console.log('[PROCESS] Response contains time slots -- upgrading category from ' + aiResult.category + ' to Meeting Request');
+          aiResult.category = 'Meeting Request';
+          aiResult.smartleadStatus = 'Meeting Request';
+        }
+      }
+
       // Process escalation note — handle CC, Replace Lead, and notify Slack
       var ccEmails = null;
       if (aiResult.escalationNote) {
