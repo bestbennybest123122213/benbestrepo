@@ -11,14 +11,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Debug campaign stats
         env:
           SMARTLEAD_API_KEY: ${{ secrets.SMARTLEAD_API_KEY }}
-        run: node scripts/debug-capture.js
+        run: |
+          node -e "
+          const API_KEY = process.env.SMARTLEAD_API_KEY;
+          const BASE = 'https://server.smartlead.ai/api/v1';
+          (async () => {
+            console.log('API key length:', API_KEY.length);
+            const res = await fetch(BASE + '/campaigns/?api_key=' + API_KEY);
+            const campaigns = await res.json();
+            console.log('Total campaigns:', campaigns.length);
+            const sc = {};
+            campaigns.forEach(c => { sc[c.status] = (sc[c.status]||0)+1; });
+            console.log('By status:', JSON.stringify(sc));
+            const broken = campaigns.filter(c => ['ACTIVE','COMPLETED','PAUSED'].includes(c.status));
+            console.log('Broken filter (no STOPPED):', broken.length);
+            const correct = campaigns.filter(c => !c.parent_campaign_id && c.status !== 'DRAFTED');
+            console.log('Correct filter:', correct.length);
+            const test = correct.slice(0,3);
+            for (const c of test) {
+              const r = await fetch(BASE+'/campaigns/'+c.id+'/mailbox-statistics?api_key='+API_KEY);
+              const d = await r.json();
+              const s = d?.data || d || [];
+              let sent=0, rep=0;
+              if(Array.isArray(s)) s.forEach(x=>{sent+=parseInt(x.sent_count)||0;rep+=parseInt(x.reply_count)||0;});
+              console.log('Campaign '+c.id+' ['+c.status+']: '+s.length+' mailboxes, '+sent+' sent, '+rep+' replies');
+              await new Promise(r=>setTimeout(r,300));
+            }
+          })().catch(e => { console.error(e); process.exit(1); });
+          "
