@@ -18,9 +18,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run domain stats capture
+      - name: Capture domain snapshots
         env:
           SMARTLEAD_API_KEY: ${{ secrets.SMARTLEAD_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: node scripts/capture-domain-stats.js
+
+      - name: Refresh monthly performance data
+        env:
+          SMARTLEAD_API_KEY: ${{ secrets.SMARTLEAD_API_KEY }}
+        run: node scripts/refresh-monthly-perf.js
+
+      - name: Commit updated data files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/domain-monthly-perf.json data/account-monthly-perf.json
+          git diff --staged --quiet || git commit -m "Auto-update monthly performance data [skip ci]"
+          git push
