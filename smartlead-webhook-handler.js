@@ -118,17 +118,23 @@ async function getFullThread(campaignId, leadId) {
   }
 }
 
-async function sendReply(campaignId, emailStatsId, replyText) {
+async function sendReply(campaignId, emailStatsId, replyText, ccEmails) {
   try {
     var url = SMARTLEAD_BASE_URL + '/campaigns/' + campaignId + '/reply-email-thread?api_key=' + SMARTLEAD_API_KEY;
+    var bodyObj = {
+      email_stats_id: emailStatsId,
+      email_body: replyText.replace(/\r\n/g, '\n').replace(/\n/g, '<br>'),
+      add_signature: false
+    };
+    // Add CC if provided
+    if (ccEmails && ccEmails.length > 0) {
+      bodyObj.cc = ccEmails;
+      console.log('[SMARTLEAD] Sending with CC: ' + ccEmails);
+    }
     var response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email_stats_id: emailStatsId,
-        email_body: replyText.replace(/\r\n/g, '\n').replace(/\n/g, '<br>'),
-        add_signature: false
-      })
+      body: JSON.stringify(bodyObj)
     });
     if (!response.ok) {
       var errText = await response.text();
@@ -139,6 +145,42 @@ async function sendReply(campaignId, emailStatsId, replyText) {
     return true;
   } catch (err) {
     console.error('[SMARTLEAD] Send reply error:', err.message);
+    return false;
+  }
+}
+
+/**
+ * Replace Lead - Update lead's contact info in SmartLead
+ * Used when Wrong Person provides a new contact
+ */
+async function replaceLead(campaignId, leadId, newEmail, firstName, lastName, companyName) {
+  try {
+    if (!campaignId || !leadId || !newEmail) {
+      console.error('[SMARTLEAD] replaceLead missing required params: campaignId=' + campaignId + ' leadId=' + leadId + ' newEmail=' + newEmail);
+      return false;
+    }
+    var url = SMARTLEAD_BASE_URL + '/campaigns/' + campaignId + '/leads/' + leadId + '/?api_key=' + SMARTLEAD_API_KEY;
+    var bodyObj = {
+      email: newEmail
+    };
+    if (firstName) bodyObj.first_name = firstName;
+    if (lastName) bodyObj.last_name = lastName;
+    if (companyName) bodyObj.company_name = companyName;
+
+    var response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyObj)
+    });
+    if (!response.ok) {
+      var errText = await response.text();
+      console.error('[SMARTLEAD] Replace lead failed:', response.status, errText);
+      return false;
+    }
+    console.log('[SMARTLEAD] Lead replaced successfully: ' + newEmail);
+    return true;
+  } catch (err) {
+    console.error('[SMARTLEAD] Replace lead error:', err.message);
     return false;
   }
 }
@@ -298,8 +340,9 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '7. NEVER volunteer pricing unless lead explicitly asked about pricing/rates/cost. "Tell me more" does NOT mean send pricing.\n';
     userPrompt += '8. When lead provides their own booking/calendar link: if Imman mailbox say "My business partner Jan (jan@3wrk.com) will book a time on your calendar shortly. Talk soon." If Jan mailbox say "I will book a time on your calendar shortly. Talk soon."\n';
     userPrompt += '9. For Not Interested: ALWAYS make ONE pushback with a proof point before accepting. If timing language present, skip pushback and lock in future check-in: "are you against me booking something for [month]? That way it won\'t get lost."\n';
-    userPrompt += '10. For Wrong Person: ask for warm intro. Do NOT repeat the pitch.\n';
-    userPrompt += '11. Bull Bro CANNOT replace leads, schedule calendar events, or make phone calls. These actions go in ESCALATE only, never in RESPONSE.\n';
+    userPrompt += '10. For Wrong Person: ask for warm intro. Do NOT repeat the pitch. If the lead provides a new contact email, include REPLACE_LEAD in the ESCALATE field with the format: REPLACE_LEAD: new_email=x, first_name=x, last_name=x, company_name=x (include whatever info is available).\n';
+    userPrompt += '11. When a lead CCs someone or says "I have CC\'d [name]", include CC_EMAILS in the ESCALATE field with format: CC_EMAILS: email1@company.com, email2@company.com. The system will automatically Reply All.\n';
+    userPrompt += '12. Bull Bro CANNOT schedule calendar events or make phone calls. These actions go in ESCALATE only.\n';
     userPrompt += '12. Below 80% confident: output ESCALATE: [reason] instead of a response.\n';
     userPrompt += '13. Removal/unsubscribe request: output BLOCK: removal request. No reply.\n';
     userPrompt += '14. OOO: output OOO: [return date]. No reply.\n';
@@ -542,13 +585,66 @@ async function processAutoReply(task) {
     case 'REPLY':
       console.log('[PROCESS] Generated reply (category: ' + aiResult.category + ') | Mode: ' + (AUTO_SEND_ENABLED ? 'AUTO-SEND' : 'DRAFT'));
 
-      // Send escalation note to Slack separately if present
+      // Process escalation note — handle CC, Replace Lead, and notify Slack
+      var ccEmails = null;
       if (aiResult.escalationNote) {
-        await sendEscalation(
-          '📋 ACTION NEEDED: ' + leadName + ' (' + leadCompany + ')\n' +
-          'Email: ' + leadEmail + '\n' +
-          'Action: ' + aiResult.escalationNote
-        );
+        var escNote = aiResult.escalationNote;
+
+        // Extract CC emails if present
+        var ccMatch = escNote.match(/CC_EMAILS:\s*(.+)/i);
+        if (ccMatch) {
+          ccEmails = ccMatch[1].trim();
+          console.log('[PROCESS] CC emails extracted: ' + ccEmails);
+        }
+
+        // Extract and execute Replace Lead if present
+        var replaceMatch = escNote.match(/REPLACE_LEAD:\s*(.+)/i);
+        if (replaceMatch && campaignId && leadId) {
+          var replaceInfo = replaceMatch[1];
+          var newEmail = null;
+          var newFirst = null;
+          var newLast = null;
+          var newCompany = null;
+
+          var emailMatch = replaceInfo.match(/new_email=([^\s,]+)/);
+          var firstMatch = replaceInfo.match(/first_name=([^\s,]+)/);
+          var lastMatch = replaceInfo.match(/last_name=([^\s,]+)/);
+          var compMatch = replaceInfo.match(/company_name=([^,]+)/);
+
+          if (emailMatch) newEmail = emailMatch[1].trim();
+          if (firstMatch) newFirst = firstMatch[1].trim();
+          if (lastMatch) newLast = lastMatch[1].trim();
+          if (compMatch) newCompany = compMatch[1].trim();
+
+          if (newEmail) {
+            var replaced = await replaceLead(campaignId, leadId, newEmail, newFirst, newLast, newCompany);
+            if (replaced) {
+              await sendEscalation(
+                '✅ LEAD REPLACED: ' + leadName + ' (' + leadCompany + ')\n' +
+                'Old email: ' + leadEmail + '\n' +
+                'New email: ' + newEmail + '\n' +
+                'New name: ' + (newFirst || '') + ' ' + (newLast || '') + '\n' +
+                'Campaign: ' + campaignName
+              );
+            } else {
+              await sendEscalation(
+                '⚠️ REPLACE LEAD FAILED: ' + leadName + ' (' + leadCompany + ')\n' +
+                'Tried to replace with: ' + newEmail + '\n' +
+                'Please replace manually in SmartLead.'
+              );
+            }
+          }
+        }
+
+        // Send any remaining escalation info to Slack (excluding CC/Replace which are already handled)
+        var cleanedNote = escNote.replace(/CC_EMAILS:\s*.+/i, '').replace(/REPLACE_LEAD:\s*.+/i, '').trim();
+        if (cleanedNote.length > 0) {
+          await sendEscalation(
+            '📋 ACTION NEEDED: ' + leadName + ' (' + leadCompany + ')\n' +
+            'Email: ' + leadEmail + '\n' +
+            'Action: ' + cleanedNote
+          );
+        }
       }
 
       // Handle positive first replies — notify positive Slack channel + insert into curated_leads
@@ -582,7 +678,7 @@ async function processAutoReply(task) {
 
       } else {
         if (campaignId && emailStatsId) {
-          var sent = await sendReply(campaignId, emailStatsId, aiResult.response);
+          var sent = await sendReply(campaignId, emailStatsId, aiResult.response, ccEmails);
 
           if (sent) {
             console.log('[PROCESS] Reply sent to ' + leadEmail);
