@@ -2117,14 +2117,18 @@ app.get('/api/domain-stats', async (req, res) => {
       .in('snapshot_date', [fmt(date7d), fmt(date14d), fmt(date30d), fmt(date60d), fmt(date90d)]);
     
     // Build lookup maps for historical data
-    historyMap[h.domain][h.snapshot_date] = {
-      domain: h.domain,
-      snapshot_date: h.snapshot_date,
-      sent: h.campaign_sends ?? h.sent ?? 0,
-      replies: h.campaign_replies ?? h.replies ?? 0,
-      bounced: h.bounce_rate != null ? h.bounce_rate : (h.bounced ?? 0)
-    };
-    
+    const historyMap = {};
+    (historicalStats || []).forEach(h => {
+      if (!historyMap[h.domain]) historyMap[h.domain] = {};
+      historyMap[h.domain][h.snapshot_date] = {
+        domain: h.domain,
+        snapshot_date: h.snapshot_date,
+        sent: h.campaign_sends ?? h.sent ?? 0,
+        replies: h.campaign_replies ?? h.replies ?? 0,
+        bounced: h.bounce_rate != null ? h.bounce_rate : (h.bounced ?? 0)
+      };
+    });
+
     // Try to load estimated historical data from JSON file
     let estimatedData = {};
     try {
