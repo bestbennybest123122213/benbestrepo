@@ -5202,7 +5202,7 @@ app.patch('/api/curated-leads/:id', async (req, res) => {
     const updates = req.body;
     
     // Only allow certain fields to be updated
-    const allowedFields = ['email', 'name', 'company', 'domain', 'category', 'status', 'notes', 'meeting_date', 'lead_response', 'response_time', 'ert', 'source'];
+    const allowedFields = ['email', 'name', 'company', 'domain', 'category', 'status', 'notes', 'meeting_date', 'lead_response', 'response_time', 'ert', 'source', 'campaign_name', 'mailbox'];
     const filteredUpdates = {};
     for (const field of allowedFields) {
       if (updates.hasOwnProperty(field)) {
@@ -5262,6 +5262,69 @@ app.patch('/api/curated-leads/:id', async (req, res) => {
     res.json({ success: true, lead: data });
   } catch (err) {
     console.error('Update curated lead error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Auto-promote lead to CRM Imman Outbound when status changes to "Booked"
+// Deduplicates by email - won't create duplicate entries
+app.post('/api/crm-imman/auto-promote', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.status(500).json({ error: 'Database not configured' });
+
+    const { email, name, company, campaign_name, mailbox } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Check for existing entry (deduplication by email)
+    const { data: existing } = await client
+      .from('crm_imman_outbound')
+      .select('id, email')
+      .eq('email', email.toLowerCase())
+      .single();
+
+    if (existing) {
+      console.log(`[CRM-IMMAN] Lead already exists in CRM: ${email} (id: ${existing.id})`);
+      return res.json({ success: true, lead: existing, alreadyExists: true });
+    }
+
+    // Insert new lead into CRM Imman Outbound
+    const today = new Date();
+    const dateStr = `${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}/${today.getFullYear()}`;
+
+    const newLead = {
+      date_first_response: dateStr,
+      name: name || null,
+      email: email.toLowerCase(),
+      company: company || null,
+      campaign_name: campaign_name || null,
+      mailbox: mailbox || null,
+      sales_person: 'jan'
+    };
+
+    const { data, error } = await client
+      .from('crm_imman_outbound')
+      .insert([newLead])
+      .select()
+      .single();
+
+    if (error) {
+      // Handle unique constraint violation (email already exists)
+      if (error.code === '23505') {
+        console.log(`[CRM-IMMAN] Duplicate email detected: ${email}`);
+        return res.json({ success: true, alreadyExists: true });
+      }
+      throw error;
+    }
+
+    console.log(`[CRM-IMMAN] Auto-promoted lead to CRM: ${email}`);
+    res.json({ success: true, lead: data, alreadyExists: false });
+  } catch (err) {
+    console.error('[CRM-IMMAN] Auto-promote error:', err);
     res.status(500).json({ error: err.message });
   }
 });
