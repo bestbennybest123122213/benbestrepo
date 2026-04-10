@@ -638,7 +638,32 @@ CRM.saveCell = async function(td, leadId, field, newValue, oldValue, originalHtm
     this.pushUndo({ type: 'edit', leadId, field, oldValue, newValue });
     this.render();
     showToast('Saved', 'success');
-    
+
+    // Auto-promote to CRM Imman when status changes to "Booked"
+    if (field === 'status' && newValue === 'Booked' && lead) {
+      try {
+        const promoteRes = await fetch('/api/crm-imman/auto-promote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: lead.email,
+            name: lead.name || null,
+            company: lead.company || null,
+            campaign_name: lead.campaign_name || null,
+            mailbox: lead.mailbox || null
+          })
+        });
+        const promoteResult = await promoteRes.json();
+        if (promoteResult.success && !promoteResult.alreadyExists) {
+          showToast('Lead added to CRM Imman', 'success');
+        } else if (promoteResult.alreadyExists) {
+          showToast('Lead already in CRM Imman', 'info');
+        }
+      } catch (promoteErr) {
+        console.error('Auto-promote to CRM failed:', promoteErr);
+      }
+    }
+
   } catch (err) {
     // Revert on failure
     if (lead) lead[field] = oldValue;

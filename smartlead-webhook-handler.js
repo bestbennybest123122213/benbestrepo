@@ -965,6 +965,8 @@ async function handlePositiveLead(payload, aiResult, replyBody) {
       meeting_date: null,
       notes: replyBody ? replyBody.substring(0, 500) : null,
       source: 'outbound',
+      campaign_name: campaignName || null,
+      mailbox: payload.from_email || null,
       created_at: now.toISOString()
     });
     console.log('[CURATED] Positive lead inserted: ' + leadEmail);
