@@ -538,6 +538,82 @@ async function processAutoReply(task) {
     return;
   }
 
+  // ============================================================
+  // PRE-FLIGHT CHECK: Is this lead already in the pipeline?
+  // Check curated_leads for existing Booked/Scheduling status
+  // If so, escalate instead of auto-replying — lead is already being handled
+  // ============================================================
+  var existingLeadStatus = null;
+  try {
+    var existingCheck = await supabase.from('curated_leads').select('id, status, category, email').eq('email', leadEmail).limit(1);
+    if (existingCheck.data && existingCheck.data.length > 0) {
+      existingLeadStatus = existingCheck.data[0].status;
+      var existingCategory = existingCheck.data[0].category;
+      console.log('[PROCESS] Lead already in curated_leads: ' + leadEmail + ' | Status: ' + existingLeadStatus + ' | Category: ' + existingCategory);
+
+      if (existingLeadStatus === 'Booked' || existingLeadStatus === 'Scheduling') {
+        console.log('[PROCESS] Lead is already ' + existingLeadStatus + ' -- escalating instead of auto-replying');
+        await sendEscalation(
+          '📋 EXISTING LEAD REPLY: ' + leadName + ' (' + leadCompany + ')\n' +
+          'Email: ' + leadEmail + '\n' +
+          'Current status: ' + existingLeadStatus + '\n' +
+          'Campaign: ' + campaignName + '\n' +
+          'Lead said: ' + replyBody.substring(0, 300) + '\n\n' +
+          'This lead is already ' + existingLeadStatus + ' from a previous campaign. Bull Bro did NOT auto-reply. Please handle manually.'
+        );
+        await updateDraftStatus(payload, { type: 'ESCALATE', reason: 'Lead already ' + existingLeadStatus + ' in pipeline' }, 'escalated_existing');
+        return;
+      }
+    }
+  } catch (checkErr) {
+    console.error('[PROCESS] Error checking lead history:', checkErr.message);
+    // Continue processing if check fails — better to respond than silently fail
+  }
+
+  // Also check smartlead_webhook_log for recent prior interactions from other campaigns
+  try {
+    var priorInteractions = await supabase.from('smartlead_webhook_log')
+      .select('campaign_id, category, ai_response, created_at')
+      .eq('lead_email', leadEmail)
+      .eq('event', 'AUTO_REPLY_PROCESSED')
+      .order('created_at', { ascending: false })
+      .limit(5);
+
+    if (priorInteractions.data && priorInteractions.data.length > 0) {
+      // Check if any prior interaction was from a DIFFERENT campaign
+      var currentCampaignId = campaignId;
+      var crossCampaignReplies = [];
+      for (var p = 0; p < priorInteractions.data.length; p++) {
+        if (priorInteractions.data[p].campaign_id !== currentCampaignId) {
+          crossCampaignReplies.push(priorInteractions.data[p]);
+        }
+      }
+
+      if (crossCampaignReplies.length > 0) {
+        var lastCrossReply = crossCampaignReplies[0];
+        var lastCategory = lastCrossReply.category || 'Unknown';
+        console.log('[PROCESS] Lead has prior interactions from other campaigns. Last category: ' + lastCategory);
+
+        // If previous interaction was Meeting Request or Booked, escalate
+        if (lastCategory === 'Meeting Request' || lastCategory === 'Booked') {
+          console.log('[PROCESS] Lead was previously ' + lastCategory + ' in another campaign -- escalating');
+          await sendEscalation(
+            '📋 CROSS-CAMPAIGN LEAD: ' + leadName + ' (' + leadCompany + ')\n' +
+            'Email: ' + leadEmail + '\n' +
+            'Current campaign: ' + campaignName + '\n' +
+            'Previous status: ' + lastCategory + ' (from campaign ' + lastCrossReply.campaign_id + ')\n' +
+            'Lead said: ' + replyBody.substring(0, 300) + '\n\n' +
+            'This lead already had a ' + lastCategory + ' in another campaign. Bull Bro did NOT auto-reply. Please check if this needs manual handling.'
+          );
+          await updateDraftStatus(payload, { type: 'ESCALATE', reason: 'Cross-campaign lead with prior ' + lastCategory }, 'escalated_cross_campaign');
+          return;
+        }
+      }
+    }
+  } catch (histErr) {
+    console.error('[PROCESS] Error checking prior interactions:', histErr.message);
+  }
+
   var delayMinutes = calculateDelay(replyReceivedAt, webhookReceivedAt);
   if (delayMinutes > 0) {
     console.log('[PROCESS] Waiting ' + delayMinutes.toFixed(1) + ' minutes before processing...');
