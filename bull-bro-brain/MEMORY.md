@@ -74,12 +74,13 @@ Files loaded on spawn: SOUL.md, MEMORY.md, SOPs.md
 
 ### F. Wrong Person Handling
 - "I cannot be of any help" / "I can't assist" = Wrong Person, not Not Interested
-- Always ask for warm intro: "would you be able to connect us here as well? Quick intro would go a long way"
-- When redirected to an email, ask for warm intro — don't just say "I'll reach out"
+- CRITICAL RULE: When a new contact email is ALREADY PROVIDED in the reply (e.g. "reach out to sarah@company.com", "contact partnerships@company.com", "my colleague X handles this at x@company.com"), do NOT ask for a warm intro. The intro is already given. Instead: (1) Replace Lead with the new contact via ESCALATE, (2) Reply All addressing the NEW person directly with a fresh pitch name-dropping the referrer, (3) push for call. Example response to the NEW person: "Hey [new person], [referrer] connected us. I run @itssimannn (10M subscribers, 361M monthly views). We helped Whiteout Survival hit 48M views and 100k users. Worth a quick chat to see if there's a fit? I'm free Mon 11am or 3pm and Wed 1pm or 4pm EST, either works?"
+- Only ask for warm intro when NO new contact email is provided: "would you be able to connect us with the right person? A quick intro would go a long way"
+- NEVER say "I'll reach out to X" without actually replacing the lead and sending the email. If you can't replace, escalate. Don't make promises you can't keep.
 - When someone CCs the correct person: Reply All, address both, name-drop original contact, Replace Lead with CC'd contact, set to Meeting Request for subsequence
 - When CC'd on an internal forward and new person can see original email: don't repeat the pitch. Thank the connector, address new person, keep it short, push for call
 - When lead forwards internally: Resume Lead, follow up after 1-2 days warmly: "did your [team/person] get a chance to look at it?"
-- Left the company: Replace Lead with most relevant redirect email, send fresh email name-dropping original person
+- Left the company (automatic email like "I've stepped down" or "I no longer work here"): this is an AUTOMATED message. Do NOT respond to the original person. Replace Lead with the new contact provided, send fresh email to the new person name-dropping the referrer. If no new contact provided, escalate to Jan/Jaleel.
 - Wrong Person who doubles down (2nd reply still can't help + adds objections): accept gracefully, move on. Don't push a third time
 - Unresponsive Wrong Person: follow up after 1-2 days. If still no response, as a stretch — research the company yourself, Replace Lead, fresh email
 - Replace Lead process: fill in whatever info available (minimum: name, email, company name, website). Use "Partnership Team" if no real name. Update later if real contact provided
@@ -117,11 +118,12 @@ Files loaded on spawn: SOUL.md, MEMORY.md, SOPs.md
 - Reschedule or deck/proposal requests on SmartLead: escalate to Jan/Jaleel — Jan handles from his own email
 
 ### J. OOO & Auto-Replies
-- Short OOO (days/weeks with return date): wait for auto-resume. Don't reach out to alternate contacts
-- Extended leave (months, maternity, "until late 2026"): treat as Wrong Person. Replace Lead with most relevant alternate contact
-- Spam/bot auto-replies (reference numbers, "respond in 24-48 hours"): don't reply. Monitor 48 hours. If human follows up, respond then
-- Auto-reply vs human reply: if borderline/unclear, treat as human and respond normally
-- Automatic forwarding replies ("I have moved to another company", "contact X instead"): these are AUTOMATED. Do NOT respond to the person who left. Instead, ESCALATE with the new contact info so Jan/Jaleel can Replace Lead and send fresh outreach. Bull Bro cannot replace leads himself.
+- Short OOO (days/weeks with return date): DO NOT RESPOND. Wait for auto-resume. Don't reach out to alternate contacts.
+- Extended leave (months, maternity, "until late 2026"): DO NOT RESPOND to the OOO person. This is an automatic email. If alternate contacts are provided, Replace Lead with the most relevant one and send fresh outreach to the new contact. If no alternate contacts, escalate to Jan/Jaleel.
+- "I've stepped down" / "I no longer work here" / "I've left the company": these are AUTOMATED messages. DO NOT RESPOND to the original person. Do NOT say "appreciate the redirect" or ask for intro — they left, they can't intro you. If a new contact is provided, Replace Lead and send fresh email to the new person name-dropping the referrer. If no new contact, escalate.
+- Spam/bot auto-replies (reference numbers, "respond in 24-48 hours"): don't reply. Monitor 48 hours. If human follows up, respond then.
+- Auto-reply vs human reply: if borderline/unclear, treat as human and respond normally.
+- KEY RULE: Any email that is clearly an automatic/system response (OOO, maternity leave, left company, stepped down, forwarding notice) should NEVER get a response sent to the original person. The only action is to Replace Lead if a new contact is given, or escalate if not.
 
 ### K. Special Scenarios
 - Lead replies in another language: reply in their language if possible. Common European languages are fine. For less common scripts, fallback to English: "would it be easier to continue in English?" If redirected to US/English team, switch to English
