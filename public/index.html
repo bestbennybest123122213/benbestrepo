@@ -8945,7 +8945,32 @@
             pushUndo({ type: 'edit', leadId, field, oldValue: currentValue || null });
             lead[field] = newValue || null;
           }
-          
+
+          // Auto-promote to CRM Imman when status changes to "Booked"
+          if (field === 'status' && newValue === 'Booked' && lead) {
+            try {
+              const promoteRes = await fetch('/api/crm-imman/auto-promote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email: lead.email,
+                  name: lead.name || null,
+                  company: lead.company || null,
+                  campaign_name: lead.campaign_name || null,
+                  mailbox: lead.mailbox || null
+                })
+              });
+              const promoteResult = await promoteRes.json();
+              if (promoteResult.success && !promoteResult.alreadyExists) {
+                showToast('Lead added to CRM Imman', 'success');
+              } else if (promoteResult.alreadyExists) {
+                showToast('Lead already in CRM Imman', 'info');
+              }
+            } catch (promoteErr) {
+              console.error('Auto-promote failed:', promoteErr);
+            }
+          }
+
           // Re-render to update colors
           renderInterestedLeadsTable();
           showToast('Saved', 'success');
@@ -12648,6 +12673,8 @@
                   <th style="width: 130px;" onclick="sortCrmBy('name')">NAME ${sortIcon('name')}</th>
                   <th style="width: 170px;" onclick="sortCrmBy('email')">EMAIL ${sortIcon('email')}</th>
                   <th style="width: 110px;" onclick="sortCrmBy('company')">COMPANY ${sortIcon('company')}</th>
+                  <th style="width: 140px;" onclick="sortCrmBy('campaign_name')">CAMPAIGN <span class="crm-info-icon" title="Smartlead campaign the lead came from">ⓘ</span> ${sortIcon('campaign_name')}</th>
+                  <th style="width: 160px;" onclick="sortCrmBy('mailbox')">MAILBOX <span class="crm-info-icon" title="Sending email that contacted the lead">ⓘ</span> ${sortIcon('mailbox')}</th>
                   <th style="width: 55px;" onclick="sortCrmBy('first_call_show_up')">SHOW <span class="crm-info-icon" title="Did lead show up for first call? (Yes/No)">ⓘ</span> ${sortIcon('first_call_show_up')}</th>
                   <th style="width: 65px;" onclick="sortCrmBy('financially_qualified')">FinQual <span class="crm-info-icon" title="Financially Qualified - Can afford services? (Yes/No)">ⓘ</span> ${sortIcon('financially_qualified')}</th>
                   <th style="width: 65px;" onclick="sortCrmBy('first_call_qualified')">MQual <span class="crm-info-icon" title="Marketing Qualified - Good fit? (Yes/No)">ⓘ</span> ${sortIcon('first_call_qualified')}</th>
@@ -12670,6 +12697,8 @@
                   <td><input type="text" class="imman-new-input" id="newCrmName" placeholder="Name *"></td>
                   <td><input type="email" class="imman-new-input" id="newCrmEmail" placeholder="Email *"></td>
                   <td><input type="text" class="imman-new-input" id="newCrmCompany" placeholder="Company"></td>
+                  <td><input type="text" class="imman-new-input" id="newCrmCampaign" placeholder="Campaign"></td>
+                  <td><input type="text" class="imman-new-input" id="newCrmMailbox" placeholder="Mailbox email"></td>
                   <td><select class="imman-new-input" id="newCrmShow"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                   <td><select class="imman-new-input" id="newCrmFQ"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                   <td><select class="imman-new-input" id="newCrmQual"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
@@ -12697,6 +12726,8 @@
                     <td style="font-weight: 500;">${textCell(l.id, 'name', l.name)}</td>
                     <td>${textCell(l.id, 'email', l.email)}</td>
                     <td>${textCell(l.id, 'company', l.company)}</td>
+                    <td>${textCell(l.id, 'campaign_name', l.campaign_name)}</td>
+                    <td>${textCell(l.id, 'mailbox', l.mailbox)}</td>
                     <td>${yesNoCell(l.id, 'first_call_show_up', l.first_call_show_up)}</td>
                     <td>${yesNoCell(l.id, 'financially_qualified', l.financially_qualified)}</td>
                     <td>${yesNoCell(l.id, 'first_call_qualified', l.first_call_qualified)}</td>
@@ -13103,6 +13134,8 @@
         name: name,
         email: email,
         company: document.getElementById('newCrmCompany')?.value || null,
+        campaign_name: document.getElementById('newCrmCampaign')?.value || null,
+        mailbox: document.getElementById('newCrmMailbox')?.value || null,
         first_call_show_up: document.getElementById('newCrmShow')?.value || null,
         financially_qualified: document.getElementById('newCrmFQ')?.value || null,
         first_call_qualified: document.getElementById('newCrmQual')?.value || null,
