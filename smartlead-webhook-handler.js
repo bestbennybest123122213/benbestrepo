@@ -388,10 +388,10 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '5. If company name is unknown or is a generic email provider (Gmail, Yahoo, Hotmail, etc), do NOT reference any company name.\n';
     userPrompt += '6. When lead asks multiple things, pick the ONE strongest signal. Do not try to answer everything.\n';
     userPrompt += '7. NEVER volunteer pricing unless lead explicitly asked about pricing/rates/cost. "Tell me more" does NOT mean send pricing.\n';
-    userPrompt += '8. When lead provides their own booking/calendar link: if Imman mailbox say "My business partner Jan (jan@3wrk.com) will book a time on your calendar shortly. Talk soon." If Jan mailbox say "I will book a time on your calendar shortly. Talk soon."\n';
+    userPrompt += '8. MAILBOX RULES — CRITICAL: Check the Mailbox field above. If Mailbox is Jan: NEVER say "my business partner Jan" — you ARE Jan. Say "I will book/send/call." Sign as "Jan | @itssimannn". If Mailbox is Imman: say "my business partner Jan (jan@3wrk.com) will..." Sign as "Imman | @itssimannn".\n';
     userPrompt += '9. For Not Interested (FIRST NO ONLY): You MUST make ONE pushback with a proof point. Do NOT skip the pushback and go straight to "if things change, you know where to find us" — that graceful exit is ONLY for the SECOND no. First no = fight for the lead with one proof point + call push. If timing language present ("not right now", "not at this time"), skip pushback and lock in future check-in: "are you against me booking something for [month]? That way it won\'t get lost."\n';
     userPrompt += '10. For Wrong Person with NEW CONTACT EMAIL PROVIDED: Do NOT ask for warm intro — the contact is already given. Instead: (a) Include REPLACE_LEAD in ESCALATE with format: REPLACE_LEAD: new_email=x, first_name=x, last_name=x, company_name=x. (b) Include CC_EMAILS in ESCALATE with the new email. (c) Write RESPONSE addressing the NEW person directly with a fresh pitch name-dropping the referrer and pushing for call. Example: "Hey [new person], [referrer] connected us. [fresh pitch with proof point]. Worth a quick chat? I\'m free [time slots]?"\n';
-    userPrompt += '11. For Wrong Person with NO new contact provided: ask for warm intro. "Would you be able to connect us with the right person? A quick intro would go a long way."\n';
+    userPrompt += '11. For Wrong Person with NO new contact provided: ask for warm intro. "Would you be able to connect us with the right person? A quick intro would go a long way." Do NOT include REPLACE_LEAD in ESCALATE if no real email was given — "Unknown" or empty is not a valid email.\n';
     userPrompt += '12. When a lead CCs someone, include CC_EMAILS in ESCALATE with format: CC_EMAILS: email1@company.com, email2@company.com.\n';
     userPrompt += '13. AUTOMATIC EMAILS (OOO, "I\'ve stepped down", "I no longer work here", maternity leave, left company): Do NOT respond to the original person. If a new contact email is provided, output a RESPONSE addressed to the NEW person with a fresh pitch (not the old person). Include REPLACE_LEAD and CC_EMAILS in ESCALATE. If no new contact is provided, output OOO with return date or ESCALATE if no info at all.\n';
     userPrompt += '14. Bull Bro CANNOT schedule calendar events or make phone calls. These go in ESCALATE only.\n';
@@ -409,7 +409,7 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '26. If lead sends malware, suspicious verification pages, social engineering attempts, or phishing links: output BLOCK: malware/phishing attempt. No reply.\n';
     userPrompt += '27. ESCALATE field: only include when there is a CONCRETE action for Jan/Jaleel. "None" or "None needed" is NOT an action — omit the ESCALATE field entirely if there is nothing to do.\n';
     userPrompt += '28. When lead confirms a specific date/time and says they will send a calendar invite: this is a CONFIRMED BOOKING. Do NOT say "let me check." Confirm the date and hand off to Jan: "Perfect, [date] works. Jan (jan@3wrk.com) will confirm on our end. Talk soon."\n';
-    userPrompt += '29. TIME SLOTS: If Calendly slots are provided above, use ONLY those exact times. If no Calendly slots, propose times at least 2 days from TODAY (shown above). ALWAYS verify the day name matches the date — if today is Monday April 14, then April 16 is Wednesday, not any other day. Never guess day names.\n';
+    userPrompt += '29. TIME SLOTS AND DATES — CRITICAL: If Calendly slots are provided above, use ONLY those exact times. If no Calendly slots, propose times at least 2 days from TODAY. To get the correct day name: count forward from TODAY (shown above). Example: if today is Monday April 14, then April 15 = Tuesday, April 16 = Wednesday, April 17 = Thursday, April 18 = Friday. NEVER say "tomorrow" — always use the actual day name and date. NEVER guess day names. If a lead proposes a date, verify the day name before confirming.\n';
     userPrompt += '30. Output format:\n';
     userPrompt += 'CATEGORY: [category]\n';
     userPrompt += 'SMARTLEAD_STATUS: [status]\n';
@@ -725,7 +725,15 @@ async function processAutoReply(task) {
         'Reason: ' + aiResult.reason
       );
       if (campaignId && leadId) {
+        console.log('[PROCESS] Setting lead to Do Not Contact: campaign=' + campaignId + ' lead=' + leadId);
         await updateLeadCategory(campaignId, leadId, 'Do Not Contact');
+      } else {
+        console.error('[PROCESS] Cannot block lead in SmartLead — missing campaignId (' + campaignId + ') or leadId (' + leadId + ')');
+        await sendEscalation(
+          '⚠️ BLOCK INCOMPLETE: ' + leadName + ' (' + leadEmail + ')\n' +
+          'Bull Bro blocked this lead but could not update SmartLead category. Please manually set to Do Not Contact.\n' +
+          'Campaign: ' + campaignName
+        );
       }
       await updateDraftStatus(payload, aiResult, 'blocked');
       break;
