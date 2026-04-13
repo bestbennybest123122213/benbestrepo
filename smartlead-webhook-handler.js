@@ -90,7 +90,22 @@ async function processQueue() {
   try {
     await processAutoReply(task);
   } catch (err) {
-    console.error('[QUEUE] Processing error:', err.message);
+    console.error('[QUEUE] Processing error:', err.message, err.stack);
+    // SAFETY NET: If processAutoReply crashes, notify Slack so we never silently lose a lead
+    try {
+      var failedEmail = (task.payload && (task.payload.to_email || (task.payload.lead && task.payload.lead.email))) || 'unknown';
+      var failedName = (task.payload && task.payload.to_name) || 'unknown';
+      var failedCampaign = (task.payload && task.payload.campaign_name) || 'unknown';
+      await sendSlackMessage(
+        '🚨 CRITICAL: Bull Bro crashed processing a reply!\n' +
+        'Lead: ' + failedName + ' (' + failedEmail + ')\n' +
+        'Campaign: ' + failedCampaign + '\n' +
+        'Error: ' + err.message + '\n' +
+        'This lead got NO response and NO draft. Please handle manually.'
+      );
+    } catch (slackErr) {
+      console.error('[QUEUE] Even Slack notification failed:', slackErr.message);
+    }
   }
   setTimeout(function() { processQueue(); }, 3000);
 }
@@ -202,7 +217,10 @@ async function updateLeadCategory(campaignId, leadId, category) {
       body: JSON.stringify({ status: category })
     });
     if (!response.ok) {
-      console.error('[SMARTLEAD] Category update failed:', response.status);
+      var errText = await response.text();
+      console.error('[SMARTLEAD] Category update failed:', response.status, errText);
+    } else {
+      console.log('[SMARTLEAD] Category updated to: ' + category + ' for lead ' + leadId);
     }
   } catch (err) {
     console.error('[SMARTLEAD] Category update error:', err.message);
@@ -222,18 +240,29 @@ async function getAvailableSlots() {
     var meResponse = await fetch('https://api.calendly.com/users/me', {
       headers: { 'Authorization': 'Bearer ' + CALENDLY_API_TOKEN }
     });
-    if (!meResponse.ok) return null;
+    if (!meResponse.ok) {
+      console.error('[CALENDLY] /users/me failed:', meResponse.status);
+      return null;
+    }
     var meData = await meResponse.json();
     var userUri = meData.resource.uri;
+    console.log('[CALENDLY] User URI:', userUri);
 
     var eventsResponse = await fetch('https://api.calendly.com/event_types?user=' + userUri + '&active=true', {
       headers: { 'Authorization': 'Bearer ' + CALENDLY_API_TOKEN }
     });
-    if (!eventsResponse.ok) return null;
+    if (!eventsResponse.ok) {
+      console.error('[CALENDLY] /event_types failed:', eventsResponse.status);
+      return null;
+    }
     var eventsData = await eventsResponse.json();
-    if (!eventsData.collection || eventsData.collection.length === 0) return null;
+    if (!eventsData.collection || eventsData.collection.length === 0) {
+      console.warn('[CALENDLY] No active event types found');
+      return null;
+    }
 
     var eventType = eventsData.collection[0].uri;
+    console.log('[CALENDLY] Event type:', eventType);
     var now = new Date();
     var startTime = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000);
     var endTime = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
@@ -242,9 +271,15 @@ async function getAvailableSlots() {
       'https://api.calendly.com/event_type_available_times?event_type=' + eventType + '&start_time=' + startTime.toISOString() + '&end_time=' + endTime.toISOString(),
       { headers: { 'Authorization': 'Bearer ' + CALENDLY_API_TOKEN } }
     );
-    if (!availResponse.ok) return null;
+    if (!availResponse.ok) {
+      console.error('[CALENDLY] /available_times failed:', availResponse.status);
+      return null;
+    }
     var availData = await availResponse.json();
-    return formatTimeSlots(availData.collection);
+    console.log('[CALENDLY] Found ' + (availData.collection ? availData.collection.length : 0) + ' available slots');
+    var formatted = formatTimeSlots(availData.collection);
+    console.log('[CALENDLY] Formatted slots: ' + (formatted || 'null'));
+    return formatted;
   } catch (err) {
     console.error('[CALENDLY] Error:', err.message);
     return null;
@@ -311,7 +346,12 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
 
     var isJanMailbox = fromEmail && (fromEmail.includes('jan') || fromEmail.includes('3wrk'));
 
+    // Tell Sonnet what today's date is so it never guesses wrong day names
+    var today = new Date();
+    var todayStr = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/New_York' });
+
     var userPrompt = 'You are Bull Bro. Process this SmartLead email reply.\n\n';
+    userPrompt += 'TODAY IS: ' + todayStr + ' (EST)\n\n';
     userPrompt += 'LEAD INFO:\n';
     userPrompt += '- Name: ' + (leadName || 'Unknown') + '\n';
     userPrompt += '- Company: ' + (leadCompany || 'Unknown') + '\n';
@@ -319,7 +359,9 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '- Mailbox: ' + (isJanMailbox ? 'Jan' : 'Imman') + '\n\n';
 
     if (availableSlots) {
-      userPrompt += 'AVAILABLE TIME SLOTS (from Calendly - real availability):\n' + availableSlots + '\n\n';
+      userPrompt += 'AVAILABLE TIME SLOTS (from Calendly - real availability - USE THESE EXACT TIMES):\n' + availableSlots + '\n\n';
+    } else {
+      userPrompt += 'CALENDLY: No slots available. When proposing times, use actual dates at least 2 days from TODAY with correct day names (check the date above). NEVER guess day names — verify the day matches the date.\n\n';
     }
 
     if (fullThread) {
@@ -347,7 +389,7 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '6. When lead asks multiple things, pick the ONE strongest signal. Do not try to answer everything.\n';
     userPrompt += '7. NEVER volunteer pricing unless lead explicitly asked about pricing/rates/cost. "Tell me more" does NOT mean send pricing.\n';
     userPrompt += '8. When lead provides their own booking/calendar link: if Imman mailbox say "My business partner Jan (jan@3wrk.com) will book a time on your calendar shortly. Talk soon." If Jan mailbox say "I will book a time on your calendar shortly. Talk soon."\n';
-    userPrompt += '9. For Not Interested: ALWAYS make ONE pushback with a proof point before accepting. If timing language present, skip pushback and lock in future check-in: "are you against me booking something for [month]? That way it won\'t get lost."\n';
+    userPrompt += '9. For Not Interested (FIRST NO ONLY): You MUST make ONE pushback with a proof point. Do NOT skip the pushback and go straight to "if things change, you know where to find us" — that graceful exit is ONLY for the SECOND no. First no = fight for the lead with one proof point + call push. If timing language present ("not right now", "not at this time"), skip pushback and lock in future check-in: "are you against me booking something for [month]? That way it won\'t get lost."\n';
     userPrompt += '10. For Wrong Person with NEW CONTACT EMAIL PROVIDED: Do NOT ask for warm intro — the contact is already given. Instead: (a) Include REPLACE_LEAD in ESCALATE with format: REPLACE_LEAD: new_email=x, first_name=x, last_name=x, company_name=x. (b) Include CC_EMAILS in ESCALATE with the new email. (c) Write RESPONSE addressing the NEW person directly with a fresh pitch name-dropping the referrer and pushing for call. Example: "Hey [new person], [referrer] connected us. [fresh pitch with proof point]. Worth a quick chat? I\'m free [time slots]?"\n';
     userPrompt += '11. For Wrong Person with NO new contact provided: ask for warm intro. "Would you be able to connect us with the right person? A quick intro would go a long way."\n';
     userPrompt += '12. When a lead CCs someone, include CC_EMAILS in ESCALATE with format: CC_EMAILS: email1@company.com, email2@company.com.\n';
@@ -361,10 +403,17 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '20. Only include ESCALATE when there is a REAL action needed. Do NOT include if nothing for Jan/Jaleel to do.\n';
     userPrompt += '21. NEVER say "I\'ll reach out to X" without actually including REPLACE_LEAD in ESCALATE. Empty promises kill deals.\n';
     userPrompt += '22. ABSOLUTELY CRITICAL: RESPONSE must contain ONLY the clean email. No process notes, no reasoning, no "---", no "**PROCESS", no "NEXT ACTION". The lead sees EVERY CHARACTER after RESPONSE:. End with signature and NOTHING else.\n';
-    userPrompt += '23. Output format:\n';
+    userPrompt += '23. NEVER fabricate information. Do NOT claim YouTube is on pause, channels are paused, or any platform status not in SOUL.md. Stick to facts only.\n';
+    userPrompt += '24. NEVER put product names, company names, or titles in ALL CAPS. Always use Title Case: "Runes Of Magic" not "RUNES OF MAGIC".\n';
+    userPrompt += '25. You ARE Imman (or Jan depending on mailbox). You are the creator, not an agency. 10M subscribers is a fact — never hedge or question it.\n';
+    userPrompt += '26. If lead sends malware, suspicious verification pages, social engineering attempts, or phishing links: output BLOCK: malware/phishing attempt. No reply.\n';
+    userPrompt += '27. ESCALATE field: only include when there is a CONCRETE action for Jan/Jaleel. "None" or "None needed" is NOT an action — omit the ESCALATE field entirely if there is nothing to do.\n';
+    userPrompt += '28. When lead confirms a specific date/time and says they will send a calendar invite: this is a CONFIRMED BOOKING. Do NOT say "let me check." Confirm the date and hand off to Jan: "Perfect, [date] works. Jan (jan@3wrk.com) will confirm on our end. Talk soon."\n';
+    userPrompt += '29. TIME SLOTS: If Calendly slots are provided above, use ONLY those exact times. If no Calendly slots, propose times at least 2 days from TODAY (shown above). ALWAYS verify the day name matches the date — if today is Monday April 14, then April 16 is Wednesday, not any other day. Never guess day names.\n';
+    userPrompt += '30. Output format:\n';
     userPrompt += 'CATEGORY: [category]\n';
     userPrompt += 'SMARTLEAD_STATUS: [status]\n';
-    userPrompt += 'ESCALATE: [REPLACE_LEAD: new_email=x, first_name=x | CC_EMAILS: x@company.com | other actions - ONLY if needed]\n';
+    userPrompt += 'ESCALATE: [REPLACE_LEAD: new_email=x, first_name=x | CC_EMAILS: x@company.com | other actions - ONLY if real action needed, OMIT ENTIRELY if none]\n';
     userPrompt += 'RESPONSE:\n[ONLY the clean email to send - nothing else]\n';
 
     var response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -436,9 +485,31 @@ function parseAIResponse(aiResponse) {
   var cleanResponse = stripProcessNotes(responseMatch[1].trim());
   var escalationNote = escalateMatch ? escalateMatch[1].trim() : null;
 
+  // SAFETY CHECK: If the "response" is actually a BLOCK or OOO command that Sonnet
+  // mistakenly put after RESPONSE:, catch it here and handle correctly
+  var responseLower = cleanResponse.toLowerCase();
+  if (responseLower.indexOf('block:') === 0 || responseLower === 'block' || 
+      responseLower.indexOf('block: removal') >= 0 || responseLower.indexOf('do not contact') >= 0 ||
+      responseLower === 'none - block lead immediately' || responseLower.indexOf('no reply sent') >= 0 ||
+      responseLower.indexOf('block lead immediately') >= 0) {
+    console.log('[PARSE] Caught BLOCK command inside RESPONSE field: ' + cleanResponse);
+    return { type: 'BLOCK', reason: cleanResponse };
+  }
+  if (responseLower.indexOf('ooo:') === 0 || responseLower.indexOf('out of office') === 0) {
+    console.log('[PARSE] Caught OOO command inside RESPONSE field: ' + cleanResponse);
+    return { type: 'OOO', info: cleanResponse };
+  }
+
+  // Also check category — if category is "Do Not Contact", force BLOCK regardless of response
+  var category = categoryMatch ? categoryMatch[1].trim() : 'Unknown';
+  if (category === 'Do Not Contact' || category === 'Block' || category === 'DNC') {
+    console.log('[PARSE] Category is Do Not Contact — forcing BLOCK');
+    return { type: 'BLOCK', reason: 'Category: Do Not Contact' };
+  }
+
   return {
     type: 'REPLY',
-    category: categoryMatch ? categoryMatch[1].trim() : 'Unknown',
+    category: category,
     smartleadStatus: statusMatch ? statusMatch[1].trim() : null,
     response: cleanResponse,
     escalationNote: escalationNote
@@ -673,20 +744,35 @@ async function processAutoReply(task) {
       console.log('[PROCESS] Generated reply (category: ' + aiResult.category + ') | Mode: ' + (AUTO_SEND_ENABLED ? 'AUTO-SEND' : 'DRAFT'));
 
       // Auto-upgrade category to Meeting Request if response contains time slots
-      // and current category is Interested or Information Request
-      if (aiResult.category === 'Interested' || aiResult.category === 'Information Request') {
-        var responseText = aiResult.response || '';
-        var hasTimeSlots = (responseText.indexOf('EST') >= 0 && responseText.indexOf('free') >= 0) ||
-          responseText.indexOf('either works') >= 0 ||
-          responseText.indexOf('which works') >= 0 ||
-          responseText.indexOf('does that work') >= 0 ||
-          responseText.indexOf('I\'m free') >= 0 ||
-          responseText.indexOf("I'm free") >= 0;
-        if (hasTimeSlots) {
-          console.log('[PROCESS] Response contains time slots -- upgrading category from ' + aiResult.category + ' to Meeting Request');
-          aiResult.category = 'Meeting Request';
-          aiResult.smartleadStatus = 'Meeting Request';
-        }
+      // This is CRITICAL — Meeting Request triggers SmartLead subsequence automation
+      var responseText = aiResult.response || '';
+      var responseLower = responseText.toLowerCase();
+      var hasTimeSlots = responseLower.indexOf('est') >= 0 && (responseLower.indexOf('free') >= 0 || responseLower.indexOf('works') >= 0) ||
+        responseLower.indexOf('either works') >= 0 ||
+        responseLower.indexOf('which works') >= 0 ||
+        responseLower.indexOf('does that work') >= 0 ||
+        responseLower.indexOf("i'm free") >= 0 ||
+        responseLower.indexOf('i\'m free') >= 0 ||
+        responseLower.indexOf('am or') >= 0 && responseLower.indexOf('pm') >= 0 ||
+        responseLower.indexOf('quick call') >= 0 ||
+        responseLower.indexOf('quick chat') >= 0 ||
+        responseLower.indexOf('worth a call') >= 0 ||
+        responseLower.indexOf('worth a chat') >= 0 ||
+        responseLower.indexOf('book a time') >= 0 ||
+        responseLower.indexOf('jan will') >= 0 && responseLower.indexOf('book') >= 0 ||
+        responseLower.indexOf('jan (jan@3wrk.com)') >= 0;
+
+      if (hasTimeSlots && (aiResult.category === 'Interested' || aiResult.category === 'Information Request')) {
+        console.log('[PROCESS] Response contains time slots/call push -- upgrading category from ' + aiResult.category + ' to Meeting Request');
+        aiResult.category = 'Meeting Request';
+        aiResult.smartleadStatus = 'Meeting Request';
+      }
+
+      // Force category update to SmartLead immediately for Meeting Request
+      // This triggers subsequence automation — don't wait for the normal flow
+      if (aiResult.category === 'Meeting Request' && campaignId && leadId) {
+        console.log('[PROCESS] Forcing immediate category update to Meeting Request for subsequence trigger');
+        await updateLeadCategory(campaignId, leadId, 'Meeting Request');
       }
 
       // Process escalation note — handle CC, Replace Lead, and notify Slack
@@ -742,7 +828,9 @@ async function processAutoReply(task) {
 
         // Send any remaining escalation info to Slack (excluding CC/Replace which are already handled)
         var cleanedNote = escNote.replace(/CC_EMAILS:\s*.+/i, '').replace(/REPLACE_LEAD:\s*.+/i, '').trim();
-        if (cleanedNote.length > 0) {
+        // Skip if note is empty or just says "None"
+        var noteLower = cleanedNote.toLowerCase();
+        if (cleanedNote.length > 0 && noteLower !== 'none' && noteLower !== 'none needed' && noteLower !== 'n/a' && noteLower !== 'no action needed' && noteLower !== 'no action') {
           await sendEscalation(
             '📋 ACTION NEEDED: ' + leadName + ' (' + leadCompany + ')\n' +
             'Email: ' + leadEmail + '\n' +
@@ -965,8 +1053,6 @@ async function handlePositiveLead(payload, aiResult, replyBody) {
       meeting_date: null,
       notes: replyBody ? replyBody.substring(0, 500) : null,
       source: 'outbound',
-      campaign_name: campaignName || null,
-      mailbox: payload.from_email || null,
       created_at: now.toISOString()
     });
     console.log('[CURATED] Positive lead inserted: ' + leadEmail);
