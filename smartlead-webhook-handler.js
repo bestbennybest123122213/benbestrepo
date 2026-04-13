@@ -984,7 +984,7 @@ async function sendSlackMessage(text) {
     var response = await fetch(SLACK_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: text })
+      body: JSON.stringify({ text: text, username: 'Bull Bro Escalations', icon_emoji: ':bull:' })
     });
     if (!response.ok) {
       var errText = await response.text();
@@ -1089,7 +1089,7 @@ async function sendPositiveSlackNotification(data) {
     var response = await fetch(SLACK_POSITIVE_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: message })
+      body: JSON.stringify({ text: message, username: 'Smartlead Positive Replies', icon_emoji: ':sparkles:' })
     });
     if (!response.ok) {
       var errText = await response.text();
