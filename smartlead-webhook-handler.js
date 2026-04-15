@@ -402,7 +402,7 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '19. NEVER approximate stats. Exact numbers only: Whiteout = 48M views, 100k users. Gauth AI = 15M views. CamScanner = 3M views.\n';
     userPrompt += '20. Only include ESCALATE when there is a REAL action needed. Do NOT include if nothing for Jan/Jaleel to do.\n';
     userPrompt += '21. NEVER say "I\'ll reach out to X" without actually including REPLACE_LEAD in ESCALATE. Empty promises kill deals.\n';
-    userPrompt += '22. ABSOLUTELY CRITICAL: RESPONSE must contain ONLY the clean email. No process notes, no reasoning, no "---", no "**PROCESS", no "NEXT ACTION". The lead sees EVERY CHARACTER after RESPONSE:. End with signature and NOTHING else.\n';
+    userPrompt += '22. ABSOLUTELY CRITICAL: RESPONSE must contain ONLY the clean email text that will be sent to the lead. No explanations, no process notes, no reasoning, no "we will wait", no "no response needed". If you decide NOT to send a reply, use NO_REPLY instead of putting notes in RESPONSE. The lead sees EVERY CHARACTER after RESPONSE:.\n';
     userPrompt += '23. NEVER fabricate information. Do NOT claim YouTube is on pause, channels are paused, or any platform status not in SOUL.md. Stick to facts only.\n';
     userPrompt += '24. NEVER put product names, company names, or titles in ALL CAPS. Always use Title Case: "Runes Of Magic" not "RUNES OF MAGIC".\n';
     userPrompt += '25. You ARE Imman (or Jan depending on mailbox). You are the creator, not an agency. 10M subscribers is a fact — never hedge or question it.\n';
@@ -410,11 +410,22 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '27. ESCALATE field: only include when there is a CONCRETE action for Jan/Jaleel. "None" or "None needed" is NOT an action — omit the ESCALATE field entirely if there is nothing to do.\n';
     userPrompt += '28. When lead confirms a specific date/time and says they will send a calendar invite: this is a CONFIRMED BOOKING. Do NOT say "let me check." Confirm the date and hand off to Jan: "Perfect, [date] works. Jan (jan@3wrk.com) will confirm on our end. Talk soon."\n';
     userPrompt += '29. TIME SLOTS AND DATES — CRITICAL: If Calendly slots are provided above, use ONLY those exact times. If no Calendly slots, propose times at least 2 days from TODAY. To get the correct day name: count forward from TODAY (shown above). Example: if today is Monday April 14, then April 15 = Tuesday, April 16 = Wednesday, April 17 = Thursday, April 18 = Friday. NEVER say "tomorrow" — always use the actual day name and date. NEVER guess day names. If a lead proposes a date, verify the day name before confirming.\n';
-    userPrompt += '30. Output format:\n';
+    userPrompt += '30. Output format — use ONE of these:\n';
+    userPrompt += '\n';
+    userPrompt += 'IF SENDING A REPLY:\n';
     userPrompt += 'CATEGORY: [category]\n';
     userPrompt += 'SMARTLEAD_STATUS: [status]\n';
-    userPrompt += 'ESCALATE: [REPLACE_LEAD: new_email=x, first_name=x | CC_EMAILS: x@company.com | other actions - ONLY if real action needed, OMIT ENTIRELY if none]\n';
-    userPrompt += 'RESPONSE:\n[ONLY the clean email to send - nothing else]\n';
+    userPrompt += 'ESCALATE: [actions - ONLY if needed]\n';
+    userPrompt += 'RESPONSE:\n[ONLY the clean email - nothing else]\n';
+    userPrompt += '\n';
+    userPrompt += 'IF NO REPLY SHOULD BE SENT (auto-reply loops, spam, waiting for human follow-up):\n';
+    userPrompt += 'CATEGORY: [category]\n';
+    userPrompt += 'SMARTLEAD_STATUS: [status]\n';
+    userPrompt += 'NO_REPLY: [brief reason why no reply is needed]\n';
+    userPrompt += '\n';
+    userPrompt += 'BLOCK: [reason] — for removal requests and DNC\n';
+    userPrompt += 'OOO: [return date] — for out of office with no new contact\n';
+    userPrompt += 'ESCALATE: [reason] — when below 80% confident\n';
 
     var response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -470,6 +481,14 @@ function parseAIResponse(aiResponse) {
   if (text.indexOf('OOO:') === 0 || (text.indexOf('OOO:') >= 0 && text.indexOf('RESPONSE:') < 0)) {
     var info = text.replace(/.*OOO:\s*/s, '').trim();
     return { type: 'OOO', info: info };
+  }
+
+  // NO_REPLY — Sonnet decided no response should be sent
+  var noReplyMatch = text.match(/NO_REPLY:\s*(.+)/);
+  if (noReplyMatch && text.indexOf('RESPONSE:') < 0) {
+    var noReplyReason = noReplyMatch[1].trim();
+    console.log('[PARSE] NO_REPLY detected: ' + noReplyReason);
+    return { type: 'NO_REPLY', reason: noReplyReason, category: (text.match(/CATEGORY:\s*(.+)/) || [])[1] || 'Unknown' };
   }
 
   // Structured response
@@ -780,6 +799,16 @@ async function processAutoReply(task) {
         replyPreview: 'OOO - ' + (aiResult.info || 'No return date')
       });
       await updateDraftStatus(payload, aiResult, 'ooo');
+      break;
+
+    case 'NO_REPLY':
+      console.log('[PROCESS] NO_REPLY: ' + aiResult.reason);
+      await sendSlackNotification({
+        leadEmail: leadEmail, leadName: leadName, leadCompany: leadCompany, campaignName: campaignName,
+        subcategory: (aiResult.category || 'no_reply').toLowerCase().replace(' ', '_'),
+        replyPreview: '⏸️ No reply sent. Reason: ' + aiResult.reason
+      });
+      await updateDraftStatus(payload, aiResult, 'no_reply');
       break;
 
     case 'REPLY':
