@@ -500,6 +500,40 @@ function parseAIResponse(aiResponse) {
     return { type: 'OOO', info: cleanResponse };
   }
 
+  // SAFETY CHECK: If the "response" contains internal process notes instead of an actual email
+  // These should NEVER be sent to a lead
+  var internalNotePatterns = [
+    'no response will be sent',
+    'no response needed',
+    'no reply will be sent',
+    'no reply needed',
+    'no email will be sent',
+    'this is an automated system',
+    'this is an internal',
+    'we will wait',
+    'we will follow up',
+    'will escalate to jan',
+    'will escalate to jaleel',
+    'escalate to jan/jaleel',
+    'per memory',
+    'per soul',
+    'per sop',
+    'per rule',
+    'processing note',
+    'internal note',
+    'system message',
+    'auto-reply loop',
+    'triggered by our own',
+    'acknowledged receipt',
+    'manual outreach strategy'
+  ];
+  for (var n = 0; n < internalNotePatterns.length; n++) {
+    if (responseLower.indexOf(internalNotePatterns[n]) >= 0) {
+      console.log('[PARSE] Caught internal process note inside RESPONSE: "' + internalNotePatterns[n] + '" in: ' + cleanResponse.substring(0, 200));
+      return { type: 'ESCALATE', reason: 'Response contained internal notes instead of email. Content: ' + cleanResponse.substring(0, 300) };
+    }
+  }
+
   // Also check category — if category is "Do Not Contact", force BLOCK regardless of response
   var category = categoryMatch ? categoryMatch[1].trim() : 'Unknown';
   if (category === 'Do Not Contact' || category === 'Block' || category === 'DNC') {
