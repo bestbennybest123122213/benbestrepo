@@ -5379,39 +5379,141 @@ app.get('/api/smartlead/mailboxes', async (req, res) => {
 });
 
 // Helper: look up a lead in Smartlead API by email to find campaign + mailbox
+// Iterates through campaigns (Smartlead has no global lead search by email);
+// finds which campaign contains this email via stats, then pulls message
+// history to identify the sending mailbox. Campaign list is cached for 5 min.
+let _smartleadCampaignCache = { data: null, fetchedAt: 0 };
+const SMARTLEAD_CACHE_TTL = 5 * 60 * 1000;
+
+async function getSmartleadCampaignsRaw() {
+  const now = Date.now();
+  if (_smartleadCampaignCache.data && (now - _smartleadCampaignCache.fetchedAt) < SMARTLEAD_CACHE_TTL) {
+    return _smartleadCampaignCache.data;
+  }
+  const apiKey = process.env.SMARTLEAD_API_KEY;
+  if (!apiKey) return [];
+  const base = 'https://server.smartlead.ai/api/v1';
+  try {
+    const res = await fetch(`${base}/campaigns?api_key=${apiKey}`);
+    if (!res.ok) return [];
+    const campaigns = await res.json();
+    const list = Array.isArray(campaigns) ? campaigns : [];
+    _smartleadCampaignCache = { data: list, fetchedAt: now };
+    return list;
+  } catch (e) {
+    return [];
+  }
+}
+
 async function lookupSmartleadLead(email) {
   const apiKey = process.env.SMARTLEAD_API_KEY;
-  if (!apiKey) return null;
+  if (!apiKey || !email) return null;
   const base = 'https://server.smartlead.ai/api/v1';
+  const emailLower = email.toLowerCase().trim();
 
   try {
-    const searchRes = await fetch(`${base}/leads/?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
-    if (!searchRes.ok) return null;
-    const searchData = await searchRes.json();
-    const lead = Array.isArray(searchData) ? searchData[0] : (searchData.data && searchData.data[0]);
-    if (!lead) return null;
+    const campaigns = await getSmartleadCampaignsRaw();
+    if (!campaigns.length) return null;
 
-    const campaignsRes = await fetch(`${base}/leads/${lead.id}/campaigns?api_key=${apiKey}`);
-    if (!campaignsRes.ok) return { campaign_name: null, mailbox: null };
-    const campaigns = await campaignsRes.json();
-    const campaign = Array.isArray(campaigns) ? campaigns[0] : null;
-    if (!campaign) return { campaign_name: null, mailbox: null };
+    // Iterate campaigns and check lead_data in statistics for matching email
+    for (const campaign of campaigns) {
+      try {
+        const statsRes = await fetch(`${base}/campaigns/${campaign.id}/statistics?api_key=${apiKey}`);
+        if (!statsRes.ok) continue;
+        const stats = await statsRes.json();
+        const leadData = (stats.lead_data || []).find(l => (l.lead_email || '').toLowerCase() === emailLower);
+        if (!leadData) continue;
 
-    const msgRes = await fetch(`${base}/campaigns/${campaign.id}/leads/${lead.id}/message-history?api_key=${apiKey}`);
-    if (!msgRes.ok) return { campaign_name: campaign.name, mailbox: null };
-    const msgData = await msgRes.json();
-    const history = msgData.history || [];
-    const sentMsg = history.find(m => m.type === 'SENT');
+        // Found the lead in this campaign - fetch mailbox from message history
+        let mailbox = null;
+        try {
+          const msgRes = await fetch(`${base}/campaigns/${campaign.id}/leads/${leadData.lead_id}/message-history?api_key=${apiKey}`);
+          if (msgRes.ok) {
+            const msgData = await msgRes.json();
+            const history = msgData.history || [];
+            const sentMsg = history.find(m => m.type === 'SENT');
+            mailbox = sentMsg?.from || sentMsg?.from_email || null;
+          }
+        } catch (e) {
+          // mailbox stays null; campaign name is still useful
+        }
 
-    return {
-      campaign_name: campaign.name || null,
-      mailbox: sentMsg?.from || null
-    };
+        return {
+          campaign_name: campaign.name || null,
+          mailbox: mailbox
+        };
+      } catch (e) {
+        continue;
+      }
+    }
+
+    return null;
   } catch (e) {
     console.warn('[SMARTLEAD-LOOKUP] Error:', e.message);
     return null;
   }
 }
+
+// Backfill campaign_name and mailbox from Smartlead for leads missing them.
+// Accepts { table } in body: 'outbound' (default) | 'inbound' | 'both'.
+// Iterates all leads where campaign_name or mailbox is null, looks up via
+// Smartlead API, and updates in bulk.
+app.post('/api/crm-imman/backfill-smartlead-info', async (req, res) => {
+  try {
+    const { initSupabase } = require('./lib/supabase');
+    const client = initSupabase();
+    if (!client) return res.status(500).json({ error: 'Database not configured' });
+    if (!process.env.SMARTLEAD_API_KEY) {
+      return res.status(400).json({ error: 'SMARTLEAD_API_KEY not configured' });
+    }
+
+    const target = (req.body && req.body.table) || 'both';
+    const tables = target === 'outbound' ? ['crm_imman_outbound']
+                 : target === 'inbound' ? ['crm_imman_inbound']
+                 : ['crm_imman_outbound', 'crm_imman_inbound'];
+
+    let updated = 0;
+    let checked = 0;
+    const errors = [];
+
+    for (const table of tables) {
+      const { data: leads, error } = await client
+        .from(table)
+        .select('id, email, campaign_name, mailbox')
+        .or('campaign_name.is.null,mailbox.is.null');
+
+      if (error) {
+        errors.push({ table, error: error.message });
+        continue;
+      }
+
+      for (const lead of leads || []) {
+        checked++;
+        if (!lead.email) continue;
+        try {
+          const info = await lookupSmartleadLead(lead.email);
+          if (!info) continue;
+          const update = {};
+          if (!lead.campaign_name && info.campaign_name) update.campaign_name = info.campaign_name;
+          if (!lead.mailbox && info.mailbox) update.mailbox = info.mailbox;
+          if (Object.keys(update).length > 0) {
+            update.updated_at = new Date().toISOString();
+            const { error: upErr } = await client.from(table).update(update).eq('id', lead.id);
+            if (upErr) errors.push({ email: lead.email, error: upErr.message });
+            else updated++;
+          }
+        } catch (e) {
+          errors.push({ email: lead.email, error: e.message });
+        }
+      }
+    }
+
+    res.json({ success: true, checked, updated, errors: errors.slice(0, 20) });
+  } catch (err) {
+    console.error('[CRM-IMMAN] Backfill error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // IL-002: Restore existing lead (make visible/update status)
 app.post('/api/curated-leads/:id/restore', async (req, res) => {

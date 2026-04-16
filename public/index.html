@@ -11521,6 +11521,39 @@
       }
     }
 
+    // Backfill missing campaign_name/mailbox from Smartlead for existing leads.
+    // Fetches all leads where either field is null, looks them up in Smartlead
+    // API, and updates the row. Can take a while if there are many leads.
+    async function backfillSmartleadInfo(table, btn) {
+      const originalText = btn?.textContent;
+      if (!confirm('This will look up missing Campaign and Mailbox values from Smartlead for all leads in this table.\n\nThis may take 30-60 seconds depending on the number of campaigns and leads.\n\nProceed?')) return;
+      if (btn) { btn.disabled = true; btn.textContent = '⏳ Syncing from Smartlead...'; }
+      try {
+        const res = await fetch('/api/crm-imman/backfill-smartlead-info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ table: table || 'both' })
+        });
+        const result = await res.json();
+        if (result.error) throw new Error(result.error);
+        showToast(`Checked ${result.checked} leads, updated ${result.updated}`, 'success');
+        // Reload the table to show the new values
+        if (table === 'outbound' || table === 'both') {
+          const fresh = await fetch('/api/crm-imman').then(r => r.json());
+          crmImmanData = fresh.leads || [];
+        }
+        if (table === 'inbound' || table === 'both') {
+          const fresh = await fetch('/api/crm-imman-inbound').then(r => r.json());
+          crmInboundData = fresh.leads || [];
+        }
+        renderCrmImmanTable();
+      } catch (err) {
+        showToast('Backfill failed: ' + err.message, 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = originalText; }
+      }
+    }
+
 
     // Column definitions with info tooltips
     const CRM_COLUMNS = {
@@ -12694,7 +12727,14 @@
           </div>
           
           <!-- Top Table: Imman - Outbound (Full Screen) -->
-          <div class="imman-section-title">📋 Imman - Outbound</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: 8px;">
+            <div class="imman-section-title" style="margin: 0;">📋 Imman - Outbound</div>
+            <button onclick="backfillSmartleadInfo('outbound', this)"
+              style="background: rgba(34, 197, 94, 0.1); border: 1px solid var(--green, #22c55e); color: var(--green, #22c55e); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;"
+              title="Auto-populate Campaign and Mailbox for leads where they're empty, using Smartlead API">
+              🔄 Refresh Campaign/Mailbox from Smartlead
+            </button>
+          </div>
           <div style="width: 100%; border-radius: 8px; border: 1px solid var(--border, #2a2a2a); overflow-x: auto;">
             <table class="imman-table" id="crmTable">
               <thead>
@@ -13290,7 +13330,6 @@
     
     function crmEditYesNo(e, leadId, field, currentValue) {
       e.stopPropagation();
-      // Get the span element (might be e.target or its parent)
       let cell = e.target;
       if (!cell.classList.contains('imman-editable')) {
         cell = cell.closest('.imman-editable');
@@ -13300,23 +13339,11 @@
       const lead = crmImmanData.find(l => l.id === leadId);
       if (!lead) return;
 
-      // Normalize currentValue - handle null, undefined, empty string
-      const normalizedCurrent = currentValue && currentValue !== 'null' && currentValue !== 'undefined' ? currentValue : '';
-
-      const select = document.createElement('select');
-      select.className = 'imman-select';
-      select.innerHTML = '<option value="">-</option><option value="Yes">Yes</option><option value="No">No</option>';
-      select.value = normalizedCurrent;
-
-      let saved = false;
-      const save = async () => {
-        if (saved) return; // Prevent double-save
-        saved = true;
-
-        const newValue = select.value || null;
-        const oldValue = normalizedCurrent || null;
-
-        try {
+      openInlineDropdownEditor(cell, {
+        current: currentValue,
+        options: [{ value: '', label: '-' }, { value: 'Yes', label: 'Yes' }, { value: 'No', label: 'No' }],
+        onSave: async (newValue) => {
+          const oldValue = lead[field] || null;
           const res = await fetch('/api/crm-imman/' + leadId, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -13324,47 +13351,69 @@
           });
           const result = await res.json();
           if (result.error) throw new Error(result.error);
-
-          // Update local data
           lead[field] = newValue;
-
           if (newValue !== oldValue) {
             crmUndoStack.push({ type: 'edit', leadId, field, oldValue, newValue });
             crmRedoStack = [];
           }
-        } catch (err) {
-          showToast('Error saving: ' + err.message, 'error');
+        },
+        onClose: () => renderCrmImmanTable()
+      });
+    }
+
+    // Shared inline dropdown editor that doesn't rely on blur (which fires
+    // spuriously when the native <select> popup opens, killing the editor
+    // before the user can pick an option). Instead, we listen for
+    // mousedown outside the select to detect dismissal.
+    function openInlineDropdownEditor(cell, { current, options, onSave, onClose }) {
+      const normalizedCurrent = (current && current !== 'null' && current !== 'undefined') ? current : '';
+      const select = document.createElement('select');
+      select.className = 'imman-select';
+      select.innerHTML = options.map(opt =>
+        `<option value="${crmEscape(opt.value)}" ${opt.value === normalizedCurrent ? 'selected' : ''}>${crmEscape(opt.label)}</option>`
+      ).join('');
+      select.value = normalizedCurrent;
+
+      let finished = false;
+      const finish = async (doSave) => {
+        if (finished) return;
+        finished = true;
+        document.removeEventListener('mousedown', outsideHandler, true);
+        const newValue = select.value || null;
+        if (doSave && newValue !== (normalizedCurrent || null)) {
+          try {
+            await onSave(newValue);
+          } catch (err) {
+            showToast('Error saving: ' + err.message, 'error');
+          }
         }
-        renderCrmImmanTable();
+        if (typeof onClose === 'function') onClose();
       };
 
-      // Primary save path: user picked an option (most reliable)
-      select.onchange = () => save();
-
-      // Blur is delayed because the native <select> dropdown temporarily
-      // steals focus from the element when opened in some browsers; an
-      // immediate save on blur destroys the select before the user can click.
-      // Wait 250ms so a pending click/change event can fire first.
-      select.onblur = () => {
-        setTimeout(() => { if (!saved) save(); }, 250);
+      const outsideHandler = (ev) => {
+        // If click target is the select itself OR a descendant, treat as inside
+        if (ev.target === select || select.contains(ev.target)) return;
+        finish(true);
       };
 
-      select.onkeydown = (ev) => {
-        if (ev.key === 'Escape') {
-          saved = true;
-          renderCrmImmanTable();
-        }
-        if (ev.key === 'Tab') {
-          ev.preventDefault();
-          save();
-        }
-      };
+      // Save on change (when user picks an option)
+      select.addEventListener('change', () => finish(true));
+
+      // Keyboard shortcuts
+      select.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') { ev.preventDefault(); finish(false); }
+        if (ev.key === 'Enter') { ev.preventDefault(); finish(true); }
+        if (ev.key === 'Tab') { ev.preventDefault(); finish(true); }
+      });
 
       cell.innerHTML = '';
       cell.appendChild(select);
-      // Defer focus to next animation frame so the originating click has
-      // fully resolved before focus is applied (avoids immediate blur).
-      requestAnimationFrame(() => select.focus());
+      select.focus();
+      // Register outside-click listener on next tick so the originating
+      // click that opened this editor doesn't immediately dismiss it.
+      setTimeout(() => {
+        if (!finished) document.addEventListener('mousedown', outsideHandler, true);
+      }, 50);
     }
 
     function crmEditSelect(e, leadId, field, currentValue, optionsKey) {
@@ -13378,28 +13427,21 @@
       const lead = crmImmanData.find(l => l.id === leadId);
       if (!lead) return;
 
-      const normalizedCurrent = currentValue && currentValue !== 'null' && currentValue !== 'undefined' ? currentValue : '';
       const options = optionsKey === 'campaigns' ? smartleadCampaignOptions : smartleadMailboxOptions;
+      const normalizedCurrent = currentValue && currentValue !== 'null' && currentValue !== 'undefined' ? currentValue : '';
 
-      const select = document.createElement('select');
-      select.className = 'imman-select';
-      let optionsHtml = '<option value="">-</option>';
-      // Include current value if not in options list (so it's preserved)
+      // Build option list; preserve current value even if not in Smartlead list
+      const dropdownOptions = [{ value: '', label: '-' }];
       if (normalizedCurrent && !options.includes(normalizedCurrent)) {
-        optionsHtml += `<option value="${crmEscape(normalizedCurrent)}" selected>${crmEscape(normalizedCurrent)}</option>`;
+        dropdownOptions.push({ value: normalizedCurrent, label: normalizedCurrent });
       }
-      optionsHtml += options.map(opt =>
-        `<option value="${crmEscape(opt)}" ${opt === normalizedCurrent ? 'selected' : ''}>${crmEscape(opt)}</option>`
-      ).join('');
-      select.innerHTML = optionsHtml;
+      options.forEach(opt => dropdownOptions.push({ value: opt, label: opt }));
 
-      let saved = false;
-      const save = async () => {
-        if (saved) return;
-        saved = true;
-        const newValue = select.value || null;
-        const oldValue = normalizedCurrent || null;
-        try {
+      openInlineDropdownEditor(cell, {
+        current: currentValue,
+        options: dropdownOptions,
+        onSave: async (newValue) => {
+          const oldValue = lead[field] || null;
           const res = await fetch('/api/crm-imman/' + leadId, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -13412,23 +13454,9 @@
             crmUndoStack.push({ type: 'edit', leadId, field, oldValue, newValue });
             crmRedoStack = [];
           }
-        } catch (err) {
-          showToast('Error saving: ' + err.message, 'error');
-        }
-        renderCrmImmanTable();
-      };
-
-      select.onchange = save;
-      // Delay blur-triggered save (see crmEditYesNo for why)
-      select.onblur = () => { setTimeout(() => { if (!saved) save(); }, 250); };
-      select.onkeydown = (ev) => {
-        if (ev.key === 'Escape') { saved = true; renderCrmImmanTable(); }
-        if (ev.key === 'Tab') { ev.preventDefault(); save(); }
-      };
-
-      cell.innerHTML = '';
-      cell.appendChild(select);
-      requestAnimationFrame(() => select.focus());
+        },
+        onClose: () => renderCrmImmanTable()
+      });
     }
 
     function crmNavigateToNextCell(currentCell, reverse) {
@@ -13899,98 +13927,65 @@
     function crmInboundEditYesNo(event, leadId, field, currentValue) {
       event.stopPropagation();
       const span = event.target;
-      const select = document.createElement('select');
-      select.className = 'imman-select';
-      select.innerHTML = '<option value="">-</option><option value="Yes">Yes</option><option value="No">No</option>';
-      select.value = currentValue || '';
-      
-      let saved = false;
-      const save = async () => {
-        if (saved) return;
-        saved = true;
-        const newValue = select.value;
-        if (newValue !== currentValue) {
-          try {
-            await fetch('/api/crm-imman-inbound/' + leadId, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ [field]: newValue })
-            });
-            const lead = crmInboundData.find(l => l.id === leadId);
-            if (lead) {
-              crmInboundUndoStack.push({ type: 'edit', leadId, field, oldValue: currentValue, newValue });
-              lead[field] = newValue;
-            }
-            renderCrmImmanTable();
-          } catch (err) {
-            showToast('Failed to save: ' + err.message, 'error');
-            renderCrmImmanTable();
+      const placeholder = document.createElement('span');
+      placeholder.className = 'imman-editable';
+      span.replaceWith(placeholder);
+
+      openInlineDropdownEditor(placeholder, {
+        current: currentValue,
+        options: [{ value: '', label: '-' }, { value: 'Yes', label: 'Yes' }, { value: 'No', label: 'No' }],
+        onSave: async (newValue) => {
+          const res = await fetch('/api/crm-imman-inbound/' + leadId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ [field]: newValue })
+          });
+          const result = await res.json();
+          if (result.error) throw new Error(result.error);
+          const lead = crmInboundData.find(l => l.id === leadId);
+          if (lead) {
+            crmInboundUndoStack.push({ type: 'edit', leadId, field, oldValue: currentValue, newValue });
+            lead[field] = newValue;
           }
-        } else {
-          renderCrmImmanTable();
-        }
-      };
-
-      select.addEventListener('change', save);
-      // Delayed blur so native dropdown click registers first
-      select.addEventListener('blur', () => {
-        setTimeout(() => { if (!saved) save(); }, 250);
+        },
+        onClose: () => renderCrmImmanTable()
       });
-
-      span.replaceWith(select);
-      requestAnimationFrame(() => select.focus());
     }
 
     function crmInboundEditSelect(event, leadId, field, currentValue, optionsKey) {
       event.stopPropagation();
       const span = event.target;
+      const placeholder = document.createElement('span');
+      placeholder.className = 'imman-editable';
+      span.replaceWith(placeholder);
+
       const options = optionsKey === 'campaigns' ? smartleadCampaignOptions : smartleadMailboxOptions;
-      const select = document.createElement('select');
-      select.className = 'imman-select';
-      let optionsHtml = '<option value="">-</option>';
       const normalized = currentValue || '';
+      const dropdownOptions = [{ value: '', label: '-' }];
       if (normalized && !options.includes(normalized)) {
-        optionsHtml += `<option value="${crmEscape(normalized)}" selected>${crmEscape(normalized)}</option>`;
+        dropdownOptions.push({ value: normalized, label: normalized });
       }
-      optionsHtml += options.map(opt =>
-        `<option value="${crmEscape(opt)}" ${opt === normalized ? 'selected' : ''}>${crmEscape(opt)}</option>`
-      ).join('');
-      select.innerHTML = optionsHtml;
+      options.forEach(opt => dropdownOptions.push({ value: opt, label: opt }));
 
-      let saved = false;
-      const save = async () => {
-        if (saved) return;
-        saved = true;
-        const newValue = select.value;
-        if (newValue !== currentValue) {
-          try {
-            await fetch('/api/crm-imman-inbound/' + leadId, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ [field]: newValue })
-            });
-            const lead = crmInboundData.find(l => l.id === leadId);
-            if (lead) {
-              crmInboundUndoStack.push({ type: 'edit', leadId, field, oldValue: currentValue, newValue });
-              lead[field] = newValue;
-            }
-            renderCrmImmanTable();
-          } catch (err) {
-            showToast('Failed to save: ' + err.message, 'error');
-            renderCrmImmanTable();
+      openInlineDropdownEditor(placeholder, {
+        current: currentValue,
+        options: dropdownOptions,
+        onSave: async (newValue) => {
+          const res = await fetch('/api/crm-imman-inbound/' + leadId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ [field]: newValue })
+          });
+          const result = await res.json();
+          if (result.error) throw new Error(result.error);
+          const lead = crmInboundData.find(l => l.id === leadId);
+          if (lead) {
+            crmInboundUndoStack.push({ type: 'edit', leadId, field, oldValue: currentValue, newValue });
+            lead[field] = newValue;
           }
-        } else {
-          renderCrmImmanTable();
-        }
-      };
-
-      select.addEventListener('change', save);
-      select.addEventListener('blur', () => {
-        setTimeout(() => { if (!saved) save(); }, 250);
+        },
+        onClose: () => renderCrmImmanTable()
       });
-
-      span.replaceWith(select);
-      requestAnimationFrame(() => select.focus());
     }
 
     // Inbound undo
