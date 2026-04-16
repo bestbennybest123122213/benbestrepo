@@ -11536,7 +11536,12 @@
         });
         const result = await res.json();
         if (result.error) throw new Error(result.error);
-        showToast(`Checked ${result.checked} leads, updated ${result.updated}`, 'success');
+        const errSample = (result.errors && result.errors.length) ? ' (' + result.errors.length + ' errors, first: ' + (result.errors[0].error || result.errors[0]) + ')' : '';
+        if (result.updated > 0) {
+          showToast(`Updated ${result.updated} of ${result.checked} leads${errSample}`, 'success');
+        } else {
+          showToast(`Checked ${result.checked} leads — no matches found in Smartlead${errSample}. Check that SMARTLEAD_API_KEY is set in Railway and that lead emails match Smartlead exactly.`, 'info');
+        }
         // Reload the table to show the new values
         if (table === 'outbound' || table === 'both') {
           const fresh = await fetch('/api/crm-imman').then(r => r.json());
@@ -13361,11 +13366,21 @@
       });
     }
 
-    // Shared inline dropdown editor that doesn't rely on blur (which fires
-    // spuriously when the native <select> popup opens, killing the editor
-    // before the user can pick an option). Instead, we listen for
-    // mousedown outside the select to detect dismissal.
+    // Shared inline dropdown editor.
+    // Bug history:
+    //   1. blur-based dismiss broke because native <select> popup briefly steals
+    //      focus, firing blur and destroying the editor before the click registered.
+    //   2. Click on the inner <select> bubbled up to the parent cell's onclick
+    //      handler, which re-invoked this function and recreated the select,
+    //      making the dropdown appear to "close immediately".
+    //   3. Outside-click detection used select.contains() but should use
+    //      cell.contains() — clicks land on the cell, not the select element.
+    // Current approach: bail if cell already has a select; stop click bubbling
+    // off the select; outside-click detection compares against the cell.
     function openInlineDropdownEditor(cell, { current, options, onSave, onClose }) {
+      // Already editing this cell — don't recreate (this is the click-bubble fix)
+      if (cell.querySelector('select')) return;
+
       const normalizedCurrent = (current && current !== 'null' && current !== 'undefined') ? current : '';
       const select = document.createElement('select');
       select.className = 'imman-select';
@@ -13373,6 +13388,11 @@
         `<option value="${crmEscape(opt.value)}" ${opt.value === normalizedCurrent ? 'selected' : ''}>${crmEscape(opt.label)}</option>`
       ).join('');
       select.value = normalizedCurrent;
+
+      // Stop clicks/mousedowns on the select from bubbling to the cell's
+      // onclick (which would re-invoke this function and recreate the select).
+      select.addEventListener('click', (ev) => ev.stopPropagation());
+      select.addEventListener('mousedown', (ev) => ev.stopPropagation());
 
       let finished = false;
       const finish = async (doSave) => {
@@ -13391,8 +13411,9 @@
       };
 
       const outsideHandler = (ev) => {
-        // If click target is the select itself OR a descendant, treat as inside
-        if (ev.target === select || select.contains(ev.target)) return;
+        // Inside = anywhere in the cell that hosts the select. Clicks on the
+        // cell's empty area (around the select) must NOT dismiss.
+        if (cell.contains(ev.target)) return;
         finish(true);
       };
 
