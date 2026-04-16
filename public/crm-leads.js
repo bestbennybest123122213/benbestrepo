@@ -650,12 +650,14 @@ CRM.saveCell = async function(td, leadId, field, newValue, oldValue, originalHtm
             name: lead.name || null,
             company: lead.company || null,
             campaign_name: lead.campaign_name || null,
-            mailbox: lead.mailbox || null
+            mailbox: lead.mailbox || null,
+            source: lead.source || null
           })
         });
         const promoteResult = await promoteRes.json();
         if (promoteResult.success && !promoteResult.alreadyExists) {
-          showToast('Lead added to CRM Imman', 'success');
+          const tableLabel = promoteResult.table === 'crm_imman_inbound' ? 'Inbound' : 'Outbound';
+          showToast('Lead added to CRM Imman (' + tableLabel + ')', 'success');
         } else if (promoteResult.alreadyExists) {
           showToast('Lead already in CRM Imman', 'info');
         }
