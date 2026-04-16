@@ -11536,11 +11536,15 @@
         });
         const result = await res.json();
         if (result.error) throw new Error(result.error);
-        const errSample = (result.errors && result.errors.length) ? ' (' + result.errors.length + ' errors, first: ' + (result.errors[0].error || result.errors[0]) + ')' : '';
+        const scanned = result.campaigns_scanned ?? '?';
+        const matched = result.matches_found ?? '?';
+        const errSample = (result.errors && result.errors.length) ? ' [' + result.errors.length + ' errors, first: ' + (result.errors[0].error || JSON.stringify(result.errors[0])) + ']' : '';
         if (result.updated > 0) {
-          showToast(`Updated ${result.updated} of ${result.checked} leads${errSample}`, 'success');
+          showToast(`✓ Updated ${result.updated} of ${result.checked} leads (scanned ${scanned} campaigns, matched ${matched} emails)${errSample}`, 'success');
+        } else if (result.checked === 0) {
+          showToast(`No leads need backfill — all leads already have Campaign + Mailbox populated`, 'info');
         } else {
-          showToast(`Checked ${result.checked} leads — no matches found in Smartlead${errSample}. Check that SMARTLEAD_API_KEY is set in Railway and that lead emails match Smartlead exactly.`, 'info');
+          showToast(`Scanned ${scanned} campaigns, ${matched} emails matched, but 0 updates. ${matched === 0 ? 'No CRM lead emails matched any Smartlead lead emails — check spelling/case.' : 'Possible DB write issue.'}${errSample}`, 'info');
         }
         // Reload the table to show the new values
         if (table === 'outbound' || table === 'both') {

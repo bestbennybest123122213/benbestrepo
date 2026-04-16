@@ -5456,14 +5456,17 @@ async function lookupSmartleadLead(email) {
 
 // Backfill campaign_name and mailbox from Smartlead for leads missing them.
 // Accepts { table } in body: 'outbound' (default) | 'inbound' | 'both'.
-// Iterates all leads where campaign_name or mailbox is null, looks up via
-// Smartlead API, and updates in bulk.
+// Performance: builds an in-memory email -> { campaign, leadId } index by
+// fetching every campaign's stats ONCE upfront, then matches leads against
+// the index. Avoids the N*M API calls a per-lead lookup would do.
+// Mailbox lookups still need a per-lead /message-history call.
 app.post('/api/crm-imman/backfill-smartlead-info', async (req, res) => {
   try {
     const { initSupabase } = require('./lib/supabase');
     const client = initSupabase();
     if (!client) return res.status(500).json({ error: 'Database not configured' });
-    if (!process.env.SMARTLEAD_API_KEY) {
+    const apiKey = process.env.SMARTLEAD_API_KEY;
+    if (!apiKey) {
       return res.status(400).json({ error: 'SMARTLEAD_API_KEY not configured' });
     }
 
@@ -5472,43 +5475,104 @@ app.post('/api/crm-imman/backfill-smartlead-info', async (req, res) => {
                  : target === 'inbound' ? ['crm_imman_inbound']
                  : ['crm_imman_outbound', 'crm_imman_inbound'];
 
-    let updated = 0;
-    let checked = 0;
-    const errors = [];
+    const base = 'https://server.smartlead.ai/api/v1';
 
+    // Step 1: Fetch all leads needing backfill from DB
+    const allLeads = [];
     for (const table of tables) {
       const { data: leads, error } = await client
         .from(table)
         .select('id, email, campaign_name, mailbox')
         .or('campaign_name.is.null,mailbox.is.null');
+      if (error) continue;
+      (leads || []).forEach(l => l.email && allLeads.push({ table, ...l }));
+    }
 
-      if (error) {
-        errors.push({ table, error: error.message });
-        continue;
-      }
+    const neededEmails = new Set(allLeads.map(l => (l.email || '').toLowerCase()).filter(Boolean));
+    if (neededEmails.size === 0) {
+      return res.json({ success: true, checked: 0, updated: 0, errors: [] });
+    }
 
-      for (const lead of leads || []) {
-        checked++;
-        if (!lead.email) continue;
+    // Step 2: Build email -> { campaignId, campaignName, leadId } index by
+    // fetching every campaign's statistics ONCE.
+    console.log(`[BACKFILL] Building Smartlead index for ${neededEmails.size} emails...`);
+    const campaigns = await getSmartleadCampaignsRaw();
+    const emailIndex = new Map(); // emailLower -> { campaignId, campaignName, leadId }
+
+    // Fetch stats in batches of 5 to avoid hammering the API
+    const batchSize = 5;
+    for (let i = 0; i < campaigns.length; i += batchSize) {
+      const batch = campaigns.slice(i, i + batchSize);
+      const results = await Promise.all(batch.map(async (c) => {
         try {
-          const info = await lookupSmartleadLead(lead.email);
-          if (!info) continue;
-          const update = {};
-          if (!lead.campaign_name && info.campaign_name) update.campaign_name = info.campaign_name;
-          if (!lead.mailbox && info.mailbox) update.mailbox = info.mailbox;
-          if (Object.keys(update).length > 0) {
-            update.updated_at = new Date().toISOString();
-            const { error: upErr } = await client.from(table).update(update).eq('id', lead.id);
-            if (upErr) errors.push({ email: lead.email, error: upErr.message });
-            else updated++;
+          const r = await fetch(`${base}/campaigns/${c.id}/statistics?api_key=${apiKey}`);
+          if (!r.ok) return null;
+          const stats = await r.json();
+          return { campaign: c, leadData: stats.lead_data || [] };
+        } catch (e) { return null; }
+      }));
+      for (const result of results) {
+        if (!result) continue;
+        for (const ld of result.leadData) {
+          const email = (ld.lead_email || '').toLowerCase();
+          if (email && neededEmails.has(email) && !emailIndex.has(email)) {
+            emailIndex.set(email, {
+              campaignId: result.campaign.id,
+              campaignName: result.campaign.name,
+              leadId: ld.lead_id
+            });
           }
-        } catch (e) {
-          errors.push({ email: lead.email, error: e.message });
         }
       }
     }
+    console.log(`[BACKFILL] Indexed ${emailIndex.size} matching emails across ${campaigns.length} campaigns`);
 
-    res.json({ success: true, checked, updated, errors: errors.slice(0, 20) });
+    // Step 3: For each lead, resolve campaign + (optionally) mailbox, then update DB
+    let updated = 0;
+    let checked = 0;
+    const errors = [];
+
+    for (const lead of allLeads) {
+      checked++;
+      const emailLower = (lead.email || '').toLowerCase();
+      const match = emailIndex.get(emailLower);
+      if (!match) continue;
+
+      const update = {};
+      if (!lead.campaign_name && match.campaignName) update.campaign_name = match.campaignName;
+
+      // Look up mailbox via message-history (one API call per lead, only if needed)
+      if (!lead.mailbox) {
+        try {
+          const msgRes = await fetch(`${base}/campaigns/${match.campaignId}/leads/${match.leadId}/message-history?api_key=${apiKey}`);
+          if (msgRes.ok) {
+            const msgData = await msgRes.json();
+            const sentMsg = (msgData.history || []).find(m => m.type === 'SENT');
+            const mailbox = sentMsg?.from || sentMsg?.from_email || null;
+            if (mailbox) update.mailbox = mailbox;
+          }
+        } catch (e) {
+          errors.push({ email: lead.email, error: 'mailbox lookup failed: ' + e.message });
+        }
+      }
+
+      if (Object.keys(update).length > 0) {
+        update.updated_at = new Date().toISOString();
+        const { error: upErr } = await client.from(lead.table).update(update).eq('id', lead.id);
+        if (upErr) errors.push({ email: lead.email, error: upErr.message });
+        else updated++;
+      }
+    }
+
+    console.log(`[BACKFILL] Done: checked ${checked}, updated ${updated}, errors ${errors.length}`);
+    res.json({
+      success: true,
+      checked,
+      updated,
+      campaigns_scanned: campaigns.length,
+      matches_found: emailIndex.size,
+      errors: errors.slice(0, 20)
+    });
   } catch (err) {
     console.error('[CRM-IMMAN] Backfill error:', err);
     res.status(500).json({ error: err.message });
