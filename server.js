@@ -5413,39 +5413,6 @@ async function lookupSmartleadLead(email) {
   }
 }
 
-// Send hot lead notification to Slack for follow-up tracking
-async function sendHotLeadSlackNotification(lead, tableType) {
-  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
-  if (!webhookUrl) {
-    console.warn('[SLACK] No SLACK_WEBHOOK_URL configured, skipping hot lead notify');
-    return;
-  }
-
-  const text = `🔥 *HOT LEAD flagged - needs follow-up!*\n\n` +
-    `*Table:* CRM Imman ${tableType}\n` +
-    `*Name:* ${lead.name || 'N/A'}\n` +
-    `*Email:* ${lead.email || 'N/A'}\n` +
-    `*Company:* ${lead.company || 'N/A'}\n` +
-    `*Campaign:* ${lead.campaign_name || 'N/A'}\n` +
-    `*Mailbox:* ${lead.mailbox || 'N/A'}\n` +
-    `*Notes:* ${lead.notes || '_(none)_'}`;
-
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text })
-    });
-    if (!response.ok) {
-      console.error('[SLACK] Hot lead send failed:', await response.text());
-    } else {
-      console.log(`[SLACK] Hot lead notification sent for ${lead.email}`);
-    }
-  } catch (err) {
-    console.error('[SLACK] Error sending hot lead notification:', err.message);
-  }
-}
-
 // IL-002: Restore existing lead (make visible/update status)
 app.post('/api/curated-leads/:id/restore', async (req, res) => {
   try {
@@ -7368,7 +7335,7 @@ app.get('/api/crm-imman', async (req, res) => {
   }
 });
 
-// CRM Imman - Update lead (with hot_lead Slack notification)
+// CRM Imman - Update lead
 app.put('/api/crm-imman/:id', async (req, res) => {
   try {
     const { initSupabase } = require('./lib/supabase');
@@ -7378,19 +7345,6 @@ app.put('/api/crm-imman/:id', async (req, res) => {
     const { id } = req.params;
     const updates = { ...req.body, updated_at: new Date().toISOString() };
 
-    // Check if hot_lead is being set to "Yes" (and wasn't already)
-    let shouldNotifyHotLead = false;
-    if (updates.hot_lead && updates.hot_lead.toLowerCase() === 'yes') {
-      const { data: existing } = await supabase
-        .from('crm_imman_outbound')
-        .select('hot_lead')
-        .eq('id', id)
-        .single();
-      if (!existing || (existing.hot_lead || '').toLowerCase() !== 'yes') {
-        shouldNotifyHotLead = true;
-      }
-    }
-
     const { data, error } = await supabase
       .from('crm_imman_outbound')
       .update(updates)
@@ -7399,11 +7353,6 @@ app.put('/api/crm-imman/:id', async (req, res) => {
       .single();
 
     if (error) throw error;
-
-    if (shouldNotifyHotLead && data) {
-      sendHotLeadSlackNotification(data, 'Outbound').catch(e => console.error('[SLACK] Hot lead notify failed:', e.message));
-    }
-
     res.json({ lead: data });
   } catch (error) {
     console.error('[CRM-IMMAN] Update error:', error);
@@ -7477,7 +7426,7 @@ app.get('/api/crm-imman-inbound', async (req, res) => {
   }
 });
 
-// CRM Imman Inbound - Update lead (with hot_lead Slack notification)
+// CRM Imman Inbound - Update lead
 app.put('/api/crm-imman-inbound/:id', async (req, res) => {
   try {
     const { initSupabase } = require('./lib/supabase');
@@ -7487,18 +7436,6 @@ app.put('/api/crm-imman-inbound/:id', async (req, res) => {
     const { id } = req.params;
     const updates = { ...req.body, updated_at: new Date().toISOString() };
 
-    let shouldNotifyHotLead = false;
-    if (updates.hot_lead && updates.hot_lead.toLowerCase() === 'yes') {
-      const { data: existing } = await supabase
-        .from('crm_imman_inbound')
-        .select('hot_lead')
-        .eq('id', id)
-        .single();
-      if (!existing || (existing.hot_lead || '').toLowerCase() !== 'yes') {
-        shouldNotifyHotLead = true;
-      }
-    }
-
     const { data, error } = await supabase
       .from('crm_imman_inbound')
       .update(updates)
@@ -7507,11 +7444,6 @@ app.put('/api/crm-imman-inbound/:id', async (req, res) => {
       .single();
 
     if (error) throw error;
-
-    if (shouldNotifyHotLead && data) {
-      sendHotLeadSlackNotification(data, 'Inbound').catch(e => console.error('[SLACK] Hot lead notify failed:', e.message));
-    }
-
     res.json({ lead: data });
   } catch (error) {
     console.error('[CRM-IMMAN-INBOUND] Update error:', error);

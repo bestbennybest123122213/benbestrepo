@@ -13296,27 +13296,26 @@
         cell = cell.closest('.imman-editable');
       }
       if (!cell) return;
-      
+
       const lead = crmImmanData.find(l => l.id === leadId);
       if (!lead) return;
-      
+
       // Normalize currentValue - handle null, undefined, empty string
       const normalizedCurrent = currentValue && currentValue !== 'null' && currentValue !== 'undefined' ? currentValue : '';
-      
+
       const select = document.createElement('select');
       select.className = 'imman-select';
       select.innerHTML = '<option value="">-</option><option value="Yes">Yes</option><option value="No">No</option>';
       select.value = normalizedCurrent;
-      
+
       let saved = false;
       const save = async () => {
         if (saved) return; // Prevent double-save
         saved = true;
-        
+
         const newValue = select.value || null;
         const oldValue = normalizedCurrent || null;
-        
-        // Always update even if same (to handle edge cases)
+
         try {
           const res = await fetch('/api/crm-imman/' + leadId, {
             method: 'PUT',
@@ -13325,10 +13324,10 @@
           });
           const result = await res.json();
           if (result.error) throw new Error(result.error);
-          
+
           // Update local data
           lead[field] = newValue;
-          
+
           if (newValue !== oldValue) {
             crmUndoStack.push({ type: 'edit', leadId, field, oldValue, newValue });
             crmRedoStack = [];
@@ -13338,27 +13337,34 @@
         }
         renderCrmImmanTable();
       };
-      
-      select.onchange = () => {
-        save();
-      };
+
+      // Primary save path: user picked an option (most reliable)
+      select.onchange = () => save();
+
+      // Blur is delayed because the native <select> dropdown temporarily
+      // steals focus from the element when opened in some browsers; an
+      // immediate save on blur destroys the select before the user can click.
+      // Wait 250ms so a pending click/change event can fire first.
       select.onblur = () => {
-        if (!saved) save();
+        setTimeout(() => { if (!saved) save(); }, 250);
       };
+
       select.onkeydown = (ev) => {
-        if (ev.key === 'Escape') { 
+        if (ev.key === 'Escape') {
           saved = true;
-          renderCrmImmanTable(); 
+          renderCrmImmanTable();
         }
-        if (ev.key === 'Tab') { 
-          ev.preventDefault(); 
+        if (ev.key === 'Tab') {
+          ev.preventDefault();
           save();
         }
       };
-      
+
       cell.innerHTML = '';
       cell.appendChild(select);
-      select.focus();
+      // Defer focus to next animation frame so the originating click has
+      // fully resolved before focus is applied (avoids immediate blur).
+      requestAnimationFrame(() => select.focus());
     }
 
     function crmEditSelect(e, leadId, field, currentValue, optionsKey) {
@@ -13413,7 +13419,8 @@
       };
 
       select.onchange = save;
-      select.onblur = () => { if (!saved) save(); };
+      // Delay blur-triggered save (see crmEditYesNo for why)
+      select.onblur = () => { setTimeout(() => { if (!saved) save(); }, 250); };
       select.onkeydown = (ev) => {
         if (ev.key === 'Escape') { saved = true; renderCrmImmanTable(); }
         if (ev.key === 'Tab') { ev.preventDefault(); save(); }
@@ -13421,7 +13428,7 @@
 
       cell.innerHTML = '';
       cell.appendChild(select);
-      select.focus();
+      requestAnimationFrame(() => select.focus());
     }
 
     function crmNavigateToNextCell(currentCell, reverse) {
@@ -13897,7 +13904,10 @@
       select.innerHTML = '<option value="">-</option><option value="Yes">Yes</option><option value="No">No</option>';
       select.value = currentValue || '';
       
+      let saved = false;
       const save = async () => {
+        if (saved) return;
+        saved = true;
         const newValue = select.value;
         if (newValue !== currentValue) {
           try {
@@ -13920,12 +13930,15 @@
           renderCrmImmanTable();
         }
       };
-      
+
       select.addEventListener('change', save);
-      select.addEventListener('blur', save);
+      // Delayed blur so native dropdown click registers first
+      select.addEventListener('blur', () => {
+        setTimeout(() => { if (!saved) save(); }, 250);
+      });
 
       span.replaceWith(select);
-      select.focus();
+      requestAnimationFrame(() => select.focus());
     }
 
     function crmInboundEditSelect(event, leadId, field, currentValue, optionsKey) {
@@ -13944,7 +13957,10 @@
       ).join('');
       select.innerHTML = optionsHtml;
 
+      let saved = false;
       const save = async () => {
+        if (saved) return;
+        saved = true;
         const newValue = select.value;
         if (newValue !== currentValue) {
           try {
@@ -13969,10 +13985,12 @@
       };
 
       select.addEventListener('change', save);
-      select.addEventListener('blur', save);
+      select.addEventListener('blur', () => {
+        setTimeout(() => { if (!saved) save(); }, 250);
+      });
 
       span.replaceWith(select);
-      select.focus();
+      requestAnimationFrame(() => select.focus());
     }
 
     // Inbound undo
