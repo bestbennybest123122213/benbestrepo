@@ -437,7 +437,13 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
       body: JSON.stringify({
         model: 'claude-sonnet-4-5-20250929',
         max_tokens: 4096,
-        system: SYSTEM_PROMPT,
+        system: [
+          {
+            type: 'text',
+            text: SYSTEM_PROMPT,
+            cache_control: { type: 'ephemeral', ttl: '1h' }
+          }
+        ],
         messages: [{ role: 'user', content: userPrompt }]
       })
     });
@@ -450,6 +456,11 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
 
     var data = await response.json();
     var aiResponse = data.content[0].text;
+    console.log('[SONNET] Cache:', {
+      read: data.usage.cache_read_input_tokens,
+      written: data.usage.cache_creation_input_tokens,
+      uncached: data.usage.input_tokens
+    });
     console.log('[SONNET] Raw response:', aiResponse.substring(0, 300));
     return parseAIResponse(aiResponse);
   } catch (err) {
