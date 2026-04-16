@@ -5266,33 +5266,51 @@ app.patch('/api/curated-leads/:id', async (req, res) => {
   }
 });
 
-// Auto-promote lead to CRM Imman Outbound when status changes to "Booked"
-// Deduplicates by email - won't create duplicate entries
+// Auto-promote lead to CRM Imman when status changes to "Booked"
+// Routes to outbound or inbound based on source; deduplicates by email
 app.post('/api/crm-imman/auto-promote', async (req, res) => {
   try {
     const { initSupabase } = require('./lib/supabase');
     const client = initSupabase();
     if (!client) return res.status(500).json({ error: 'Database not configured' });
 
-    const { email, name, company, campaign_name, mailbox } = req.body;
+    const { email, name, company, campaign_name, mailbox, source } = req.body;
 
     if (!email) {
       return res.status(400).json({ error: 'Email is required' });
     }
 
+    // Route by source: inbound -> crm_imman_inbound, everything else -> crm_imman_outbound
+    const isInbound = (source || '').toLowerCase() === 'inbound';
+    const targetTable = isInbound ? 'crm_imman_inbound' : 'crm_imman_outbound';
+
     // Check for existing entry (deduplication by email)
     const { data: existing } = await client
-      .from('crm_imman_outbound')
+      .from(targetTable)
       .select('id, email')
       .eq('email', email.toLowerCase())
       .single();
 
     if (existing) {
-      console.log(`[CRM-IMMAN] Lead already exists in CRM: ${email} (id: ${existing.id})`);
-      return res.json({ success: true, lead: existing, alreadyExists: true });
+      console.log(`[CRM-IMMAN] Lead already exists in ${targetTable}: ${email} (id: ${existing.id})`);
+      return res.json({ success: true, lead: existing, alreadyExists: true, table: targetTable });
     }
 
-    // Insert new lead into CRM Imman Outbound
+    // Try to backfill campaign_name/mailbox from Smartlead API if missing
+    let finalCampaignName = campaign_name;
+    let finalMailbox = mailbox;
+    if ((!finalCampaignName || !finalMailbox) && process.env.SMARTLEAD_API_KEY) {
+      try {
+        const lookup = await lookupSmartleadLead(email);
+        if (lookup) {
+          if (!finalCampaignName) finalCampaignName = lookup.campaign_name;
+          if (!finalMailbox) finalMailbox = lookup.mailbox;
+        }
+      } catch (e) {
+        console.warn('[CRM-IMMAN] Smartlead lookup failed:', e.message);
+      }
+    }
+
     const today = new Date();
     const dateStr = `${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}/${today.getFullYear()}`;
 
@@ -5301,33 +5319,99 @@ app.post('/api/crm-imman/auto-promote', async (req, res) => {
       name: name || null,
       email: email.toLowerCase(),
       company: company || null,
-      campaign_name: campaign_name || null,
-      mailbox: mailbox || null,
+      campaign_name: finalCampaignName || null,
+      mailbox: finalMailbox || null,
       sales_person: 'jan'
     };
 
     const { data, error } = await client
-      .from('crm_imman_outbound')
+      .from(targetTable)
       .insert([newLead])
       .select()
       .single();
 
     if (error) {
-      // Handle unique constraint violation (email already exists)
       if (error.code === '23505') {
         console.log(`[CRM-IMMAN] Duplicate email detected: ${email}`);
-        return res.json({ success: true, alreadyExists: true });
+        return res.json({ success: true, alreadyExists: true, table: targetTable });
       }
       throw error;
     }
 
-    console.log(`[CRM-IMMAN] Auto-promoted lead to CRM: ${email}`);
-    res.json({ success: true, lead: data, alreadyExists: false });
+    console.log(`[CRM-IMMAN] Auto-promoted lead to ${targetTable}: ${email}`);
+    res.json({ success: true, lead: data, alreadyExists: false, table: targetTable });
   } catch (err) {
     console.error('[CRM-IMMAN] Auto-promote error:', err);
     res.status(500).json({ error: err.message });
   }
 });
+
+// Smartlead campaigns dropdown - returns list of campaign names for CRM dropdowns
+app.get('/api/smartlead/campaigns', async (req, res) => {
+  try {
+    const campaigns = await getAllCampaigns();
+    const names = (campaigns || [])
+      .map(c => c.name)
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b));
+    res.json({ campaigns: names });
+  } catch (err) {
+    console.error('[SMARTLEAD-DROPDOWN] Campaigns error:', err);
+    res.status(500).json({ error: err.message, campaigns: [] });
+  }
+});
+
+// Smartlead mailboxes dropdown - returns list of sending email addresses
+app.get('/api/smartlead/mailboxes', async (req, res) => {
+  try {
+    const accounts = await getEmailAccounts();
+    const emails = (accounts || [])
+      .map(a => a.from_email || a.email)
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b));
+    // Remove duplicates
+    const unique = [...new Set(emails)];
+    res.json({ mailboxes: unique });
+  } catch (err) {
+    console.error('[SMARTLEAD-DROPDOWN] Mailboxes error:', err);
+    res.status(500).json({ error: err.message, mailboxes: [] });
+  }
+});
+
+// Helper: look up a lead in Smartlead API by email to find campaign + mailbox
+async function lookupSmartleadLead(email) {
+  const apiKey = process.env.SMARTLEAD_API_KEY;
+  if (!apiKey) return null;
+  const base = 'https://server.smartlead.ai/api/v1';
+
+  try {
+    const searchRes = await fetch(`${base}/leads/?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
+    if (!searchRes.ok) return null;
+    const searchData = await searchRes.json();
+    const lead = Array.isArray(searchData) ? searchData[0] : (searchData.data && searchData.data[0]);
+    if (!lead) return null;
+
+    const campaignsRes = await fetch(`${base}/leads/${lead.id}/campaigns?api_key=${apiKey}`);
+    if (!campaignsRes.ok) return { campaign_name: null, mailbox: null };
+    const campaigns = await campaignsRes.json();
+    const campaign = Array.isArray(campaigns) ? campaigns[0] : null;
+    if (!campaign) return { campaign_name: null, mailbox: null };
+
+    const msgRes = await fetch(`${base}/campaigns/${campaign.id}/leads/${lead.id}/message-history?api_key=${apiKey}`);
+    if (!msgRes.ok) return { campaign_name: campaign.name, mailbox: null };
+    const msgData = await msgRes.json();
+    const history = msgData.history || [];
+    const sentMsg = history.find(m => m.type === 'SENT');
+
+    return {
+      campaign_name: campaign.name || null,
+      mailbox: sentMsg?.from || null
+    };
+  } catch (e) {
+    console.warn('[SMARTLEAD-LOOKUP] Error:', e.message);
+    return null;
+  }
+}
 
 // IL-002: Restore existing lead (make visible/update status)
 app.post('/api/curated-leads/:id/restore', async (req, res) => {
@@ -7257,17 +7341,17 @@ app.put('/api/crm-imman/:id', async (req, res) => {
     const { initSupabase } = require('./lib/supabase');
     const supabase = initSupabase();
     if (!supabase) throw new Error('Supabase not initialized');
-    
+
     const { id } = req.params;
     const updates = { ...req.body, updated_at: new Date().toISOString() };
-    
+
     const { data, error } = await supabase
       .from('crm_imman_outbound')
       .update(updates)
       .eq('id', id)
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json({ lead: data });
   } catch (error) {
@@ -7348,17 +7432,17 @@ app.put('/api/crm-imman-inbound/:id', async (req, res) => {
     const { initSupabase } = require('./lib/supabase');
     const supabase = initSupabase();
     if (!supabase) throw new Error('Supabase not initialized');
-    
+
     const { id } = req.params;
     const updates = { ...req.body, updated_at: new Date().toISOString() };
-    
+
     const { data, error } = await supabase
       .from('crm_imman_inbound')
       .update(updates)
       .eq('id', id)
       .select()
       .single();
-    
+
     if (error) throw error;
     res.json({ lead: data });
   } catch (error) {

@@ -8957,12 +8957,14 @@
                   name: lead.name || null,
                   company: lead.company || null,
                   campaign_name: lead.campaign_name || null,
-                  mailbox: lead.mailbox || null
+                  mailbox: lead.mailbox || null,
+                  source: lead.source || null
                 })
               });
               const promoteResult = await promoteRes.json();
               if (promoteResult.success && !promoteResult.alreadyExists) {
-                showToast('Lead added to CRM Imman', 'success');
+                const tableLabel = promoteResult.table === 'crm_imman_inbound' ? 'Inbound' : 'Outbound';
+                showToast('Lead added to CRM Imman (' + tableLabel + ')', 'success');
               } else if (promoteResult.alreadyExists) {
                 showToast('Lead already in CRM Imman', 'info');
               }
@@ -11496,7 +11498,30 @@
     let crmInboundHiddenColumns = JSON.parse(localStorage.getItem('crmInboundHiddenColumns') || '[]');
     let crmInboundHiddenRows = JSON.parse(localStorage.getItem('crmInboundHiddenRows') || '[]');
     let crmInboundActiveFilter = null;
-    
+
+    // Smartlead dropdown options (loaded once, cached in memory)
+    let smartleadCampaignOptions = [];
+    let smartleadMailboxOptions = [];
+    let smartleadOptionsLoaded = false;
+
+    async function loadSmartleadDropdownOptions() {
+      if (smartleadOptionsLoaded) return;
+      try {
+        const [campRes, boxRes] = await Promise.all([
+          fetch('/api/smartlead/campaigns'),
+          fetch('/api/smartlead/mailboxes')
+        ]);
+        const campData = await campRes.json();
+        const boxData = await boxRes.json();
+        smartleadCampaignOptions = campData.campaigns || [];
+        smartleadMailboxOptions = boxData.mailboxes || [];
+        smartleadOptionsLoaded = true;
+      } catch (err) {
+        console.error('[SMARTLEAD-DROPDOWNS] Failed to load options:', err);
+      }
+    }
+
+
     // Column definitions with info tooltips
     const CRM_COLUMNS = {
       'date_first_response': { header: '1ST RESP', info: 'Date the lead first responded to us (MM/DD/YYYY)', width: 85 },
@@ -11913,16 +11938,19 @@
       `;
       
       try {
+        // Fire-and-forget load Smartlead dropdown options (non-blocking)
+        loadSmartleadDropdownOptions();
+
         const res = await fetch('/api/crm-imman');
-        
+
         if (!res.ok) {
           throw new Error('Server returned ' + res.status + ': ' + res.statusText);
         }
-        
+
         const data = await res.json();
-        
+
         if (data.error) throw new Error(data.error);
-        
+
         crmImmanData = data.leads || [];
         renderCrmImmanTable();
       } catch (err) {
@@ -12059,6 +12087,11 @@
       const textCell = (leadId, field, value, maxWidth) => {
         const style = maxWidth ? `max-width: ${maxWidth}px; overflow: hidden; text-overflow: ellipsis;` : '';
         return `<span class="imman-editable" style="${style} cursor: pointer;" onclick="crmEditText(event, ${leadId}, '${field}', '${crmEscape(value)}')" title="${crmEscape(value)}">${crmEscape(value) || '-'}</span>`;
+      };
+
+      const selectCell = (leadId, field, value, optionsKey, maxWidth) => {
+        const style = maxWidth ? `max-width: ${maxWidth}px; overflow: hidden; text-overflow: ellipsis;` : '';
+        return `<span class="imman-editable" style="${style} cursor: pointer;" onclick="crmEditSelect(event, ${leadId}, '${field}', '${crmEscape(value)}', '${optionsKey}')" title="${crmEscape(value)}">${crmEscape(value) || '-'}</span>`;
       };
       
       const moneyCell = (leadId, field, value) => {
@@ -12673,8 +12706,9 @@
                   <th style="width: 130px;" onclick="sortCrmBy('name')">NAME ${sortIcon('name')}</th>
                   <th style="width: 170px;" onclick="sortCrmBy('email')">EMAIL ${sortIcon('email')}</th>
                   <th style="width: 110px;" onclick="sortCrmBy('company')">COMPANY ${sortIcon('company')}</th>
-                  <th style="width: 140px;" onclick="sortCrmBy('campaign_name')">CAMPAIGN <span class="crm-info-icon" title="Smartlead campaign the lead came from">ⓘ</span> ${sortIcon('campaign_name')}</th>
-                  <th style="width: 160px;" onclick="sortCrmBy('mailbox')">MAILBOX <span class="crm-info-icon" title="Sending email that contacted the lead">ⓘ</span> ${sortIcon('mailbox')}</th>
+                  <th style="width: 140px;" onclick="sortCrmBy('campaign_name')">CAMPAIGN <span class="crm-info-icon" title="Smartlead campaign the lead came from (dropdown)">ⓘ</span> ${sortIcon('campaign_name')}</th>
+                  <th style="width: 160px;" onclick="sortCrmBy('mailbox')">MAILBOX <span class="crm-info-icon" title="Sending email that contacted the lead (dropdown)">ⓘ</span> ${sortIcon('mailbox')}</th>
+                  <th style="width: 70px;" onclick="sortCrmBy('hot_lead')">🔥 HOT <span class="crm-info-icon" title="Mark Yes to send Slack follow-up notification">ⓘ</span> ${sortIcon('hot_lead')}</th>
                   <th style="width: 55px;" onclick="sortCrmBy('first_call_show_up')">SHOW <span class="crm-info-icon" title="Did lead show up for first call? (Yes/No)">ⓘ</span> ${sortIcon('first_call_show_up')}</th>
                   <th style="width: 65px;" onclick="sortCrmBy('financially_qualified')">FinQual <span class="crm-info-icon" title="Financially Qualified - Can afford services? (Yes/No)">ⓘ</span> ${sortIcon('financially_qualified')}</th>
                   <th style="width: 65px;" onclick="sortCrmBy('first_call_qualified')">MQual <span class="crm-info-icon" title="Marketing Qualified - Good fit? (Yes/No)">ⓘ</span> ${sortIcon('first_call_qualified')}</th>
@@ -12697,8 +12731,19 @@
                   <td><input type="text" class="imman-new-input" id="newCrmName" placeholder="Name *"></td>
                   <td><input type="email" class="imman-new-input" id="newCrmEmail" placeholder="Email *"></td>
                   <td><input type="text" class="imman-new-input" id="newCrmCompany" placeholder="Company"></td>
-                  <td><input type="text" class="imman-new-input" id="newCrmCampaign" placeholder="Campaign"></td>
-                  <td><input type="text" class="imman-new-input" id="newCrmMailbox" placeholder="Mailbox email"></td>
+                  <td>
+                    <select class="imman-new-input" id="newCrmCampaign">
+                      <option value="">-</option>
+                      ${smartleadCampaignOptions.map(c => `<option value="${crmEscape(c)}">${crmEscape(c)}</option>`).join('')}
+                    </select>
+                  </td>
+                  <td>
+                    <select class="imman-new-input" id="newCrmMailbox">
+                      <option value="">-</option>
+                      ${smartleadMailboxOptions.map(m => `<option value="${crmEscape(m)}">${crmEscape(m)}</option>`).join('')}
+                    </select>
+                  </td>
+                  <td><select class="imman-new-input" id="newCrmHot"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                   <td><select class="imman-new-input" id="newCrmShow"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                   <td><select class="imman-new-input" id="newCrmFQ"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                   <td><select class="imman-new-input" id="newCrmQual"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
@@ -12726,8 +12771,9 @@
                     <td style="font-weight: 500;">${textCell(l.id, 'name', l.name)}</td>
                     <td>${textCell(l.id, 'email', l.email)}</td>
                     <td>${textCell(l.id, 'company', l.company)}</td>
-                    <td>${textCell(l.id, 'campaign_name', l.campaign_name)}</td>
-                    <td>${textCell(l.id, 'mailbox', l.mailbox)}</td>
+                    <td>${selectCell(l.id, 'campaign_name', l.campaign_name, 'campaigns', 140)}</td>
+                    <td>${selectCell(l.id, 'mailbox', l.mailbox, 'mailboxes', 160)}</td>
+                    <td>${yesNoCell(l.id, 'hot_lead', l.hot_lead)}</td>
                     <td>${yesNoCell(l.id, 'first_call_show_up', l.first_call_show_up)}</td>
                     <td>${yesNoCell(l.id, 'financially_qualified', l.financially_qualified)}</td>
                     <td>${yesNoCell(l.id, 'first_call_qualified', l.first_call_qualified)}</td>
@@ -13136,6 +13182,7 @@
         company: document.getElementById('newCrmCompany')?.value || null,
         campaign_name: document.getElementById('newCrmCampaign')?.value || null,
         mailbox: document.getElementById('newCrmMailbox')?.value || null,
+        hot_lead: document.getElementById('newCrmHot')?.value || null,
         first_call_show_up: document.getElementById('newCrmShow')?.value || null,
         financially_qualified: document.getElementById('newCrmFQ')?.value || null,
         first_call_qualified: document.getElementById('newCrmQual')?.value || null,
@@ -13249,27 +13296,26 @@
         cell = cell.closest('.imman-editable');
       }
       if (!cell) return;
-      
+
       const lead = crmImmanData.find(l => l.id === leadId);
       if (!lead) return;
-      
+
       // Normalize currentValue - handle null, undefined, empty string
       const normalizedCurrent = currentValue && currentValue !== 'null' && currentValue !== 'undefined' ? currentValue : '';
-      
+
       const select = document.createElement('select');
       select.className = 'imman-select';
       select.innerHTML = '<option value="">-</option><option value="Yes">Yes</option><option value="No">No</option>';
       select.value = normalizedCurrent;
-      
+
       let saved = false;
       const save = async () => {
         if (saved) return; // Prevent double-save
         saved = true;
-        
+
         const newValue = select.value || null;
         const oldValue = normalizedCurrent || null;
-        
-        // Always update even if same (to handle edge cases)
+
         try {
           const res = await fetch('/api/crm-imman/' + leadId, {
             method: 'PUT',
@@ -13278,10 +13324,10 @@
           });
           const result = await res.json();
           if (result.error) throw new Error(result.error);
-          
+
           // Update local data
           lead[field] = newValue;
-          
+
           if (newValue !== oldValue) {
             crmUndoStack.push({ type: 'edit', leadId, field, oldValue, newValue });
             crmRedoStack = [];
@@ -13291,29 +13337,100 @@
         }
         renderCrmImmanTable();
       };
-      
-      select.onchange = () => {
-        save();
-      };
+
+      // Primary save path: user picked an option (most reliable)
+      select.onchange = () => save();
+
+      // Blur is delayed because the native <select> dropdown temporarily
+      // steals focus from the element when opened in some browsers; an
+      // immediate save on blur destroys the select before the user can click.
+      // Wait 250ms so a pending click/change event can fire first.
       select.onblur = () => {
-        if (!saved) save();
+        setTimeout(() => { if (!saved) save(); }, 250);
       };
+
       select.onkeydown = (ev) => {
-        if (ev.key === 'Escape') { 
+        if (ev.key === 'Escape') {
           saved = true;
-          renderCrmImmanTable(); 
+          renderCrmImmanTable();
         }
-        if (ev.key === 'Tab') { 
-          ev.preventDefault(); 
+        if (ev.key === 'Tab') {
+          ev.preventDefault();
           save();
         }
       };
-      
+
       cell.innerHTML = '';
       cell.appendChild(select);
-      select.focus();
+      // Defer focus to next animation frame so the originating click has
+      // fully resolved before focus is applied (avoids immediate blur).
+      requestAnimationFrame(() => select.focus());
     }
-    
+
+    function crmEditSelect(e, leadId, field, currentValue, optionsKey) {
+      e.stopPropagation();
+      let cell = e.target;
+      if (!cell.classList.contains('imman-editable')) {
+        cell = cell.closest('.imman-editable');
+      }
+      if (!cell) return;
+
+      const lead = crmImmanData.find(l => l.id === leadId);
+      if (!lead) return;
+
+      const normalizedCurrent = currentValue && currentValue !== 'null' && currentValue !== 'undefined' ? currentValue : '';
+      const options = optionsKey === 'campaigns' ? smartleadCampaignOptions : smartleadMailboxOptions;
+
+      const select = document.createElement('select');
+      select.className = 'imman-select';
+      let optionsHtml = '<option value="">-</option>';
+      // Include current value if not in options list (so it's preserved)
+      if (normalizedCurrent && !options.includes(normalizedCurrent)) {
+        optionsHtml += `<option value="${crmEscape(normalizedCurrent)}" selected>${crmEscape(normalizedCurrent)}</option>`;
+      }
+      optionsHtml += options.map(opt =>
+        `<option value="${crmEscape(opt)}" ${opt === normalizedCurrent ? 'selected' : ''}>${crmEscape(opt)}</option>`
+      ).join('');
+      select.innerHTML = optionsHtml;
+
+      let saved = false;
+      const save = async () => {
+        if (saved) return;
+        saved = true;
+        const newValue = select.value || null;
+        const oldValue = normalizedCurrent || null;
+        try {
+          const res = await fetch('/api/crm-imman/' + leadId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ [field]: newValue })
+          });
+          const result = await res.json();
+          if (result.error) throw new Error(result.error);
+          lead[field] = newValue;
+          if (newValue !== oldValue) {
+            crmUndoStack.push({ type: 'edit', leadId, field, oldValue, newValue });
+            crmRedoStack = [];
+          }
+        } catch (err) {
+          showToast('Error saving: ' + err.message, 'error');
+        }
+        renderCrmImmanTable();
+      };
+
+      select.onchange = save;
+      // Delay blur-triggered save (see crmEditYesNo for why)
+      select.onblur = () => { setTimeout(() => { if (!saved) save(); }, 250); };
+      select.onkeydown = (ev) => {
+        if (ev.key === 'Escape') { saved = true; renderCrmImmanTable(); }
+        if (ev.key === 'Tab') { ev.preventDefault(); save(); }
+      };
+
+      cell.innerHTML = '';
+      cell.appendChild(select);
+      requestAnimationFrame(() => select.focus());
+    }
+
     function crmNavigateToNextCell(currentCell, reverse) {
       const row = currentCell.closest('tr');
       const cells = Array.from(row.querySelectorAll('td .imman-editable'));
@@ -13451,6 +13568,11 @@
         const style = maxWidth ? 'max-width: ' + maxWidth + 'px; overflow: hidden; text-overflow: ellipsis;' : '';
         return '<span class="imman-editable" style="' + style + ' cursor: pointer;" onclick="crmInboundEditText(event, ' + leadId + ', \'' + field + '\', \'' + crmEscape(value || '') + '\')" title="' + crmEscape(value || '') + '">' + (crmEscape(value) || '-') + '</span>';
       };
+
+      const makeSelectCell = (leadId, field, value, optionsKey, maxWidth) => {
+        const style = maxWidth ? 'max-width: ' + maxWidth + 'px; overflow: hidden; text-overflow: ellipsis;' : '';
+        return '<span class="imman-editable" style="' + style + ' cursor: pointer;" onclick="crmInboundEditSelect(event, ' + leadId + ', \'' + field + '\', \'' + crmEscape(value || '') + '\', \'' + optionsKey + '\')" title="' + crmEscape(value || '') + '">' + (crmEscape(value) || '-') + '</span>';
+      };
       
       const makeMoneyCell = (leadId, field, value) => {
         const display = crmFormatMoney(value);
@@ -13557,6 +13679,9 @@
                 <th style="width: 130px;" onclick="sortCrmInboundBy('name')">NAME ${sortIcon('name')}</th>
                 <th style="width: 170px;" onclick="sortCrmInboundBy('email')">EMAIL ${sortIcon('email')}</th>
                 <th style="width: 110px;" onclick="sortCrmInboundBy('company')">COMPANY ${sortIcon('company')}</th>
+                <th style="width: 140px;" onclick="sortCrmInboundBy('campaign_name')">CAMPAIGN ${sortIcon('campaign_name')}</th>
+                <th style="width: 160px;" onclick="sortCrmInboundBy('mailbox')">MAILBOX ${sortIcon('mailbox')}</th>
+                <th style="width: 70px;" onclick="sortCrmInboundBy('hot_lead')">🔥 HOT ${sortIcon('hot_lead')}</th>
                 <th style="width: 55px;" onclick="sortCrmInboundBy('first_call_show_up')">SHOW ${sortIcon('first_call_show_up')}</th>
                 <th style="width: 65px;" onclick="sortCrmInboundBy('financially_qualified')">FinQual ${sortIcon('financially_qualified')}</th>
                 <th style="width: 60px;" onclick="sortCrmInboundBy('first_call_qualified')">MQual ${sortIcon('first_call_qualified')}</th>
@@ -13580,6 +13705,19 @@
                 <td><input type="text" class="imman-new-input" id="newInboundName" placeholder="Name"></td>
                 <td><input type="text" class="imman-new-input" id="newInboundEmail" placeholder="Email"></td>
                 <td><input type="text" class="imman-new-input" id="newInboundCompany" placeholder="Company"></td>
+                <td>
+                  <select class="imman-select" id="newInboundCampaign">
+                    <option value="">-</option>
+                    ${smartleadCampaignOptions.map(c => `<option value="${crmEscape(c)}">${crmEscape(c)}</option>`).join('')}
+                  </select>
+                </td>
+                <td>
+                  <select class="imman-select" id="newInboundMailbox">
+                    <option value="">-</option>
+                    ${smartleadMailboxOptions.map(m => `<option value="${crmEscape(m)}">${crmEscape(m)}</option>`).join('')}
+                  </select>
+                </td>
+                <td><select class="imman-select" id="newInboundHot"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                 <td><select class="imman-select" id="newInboundShowUp"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                 <td><select class="imman-select" id="newInboundFinQual"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
                 <td><select class="imman-select" id="newInboundMQual"><option value="">-</option><option value="Yes">Yes</option><option value="No">No</option></select></td>
@@ -13605,6 +13743,9 @@
                 <td>${makeTextCell(lead.id, 'name', lead.name, 130)}</td>
                 <td>${makeTextCell(lead.id, 'email', lead.email, 170)}</td>
                 <td>${makeTextCell(lead.id, 'company', lead.company, 110)}</td>
+                <td>${makeSelectCell(lead.id, 'campaign_name', lead.campaign_name, 'campaigns', 140)}</td>
+                <td>${makeSelectCell(lead.id, 'mailbox', lead.mailbox, 'mailboxes', 160)}</td>
+                <td>${makeYesNoCell(lead.id, 'hot_lead', lead.hot_lead)}</td>
                 <td>${makeYesNoCell(lead.id, 'first_call_show_up', lead.first_call_show_up)}</td>
                 <td>${makeYesNoCell(lead.id, 'financially_qualified', lead.financially_qualified)}</td>
                 <td>${makeYesNoCell(lead.id, 'first_call_qualified', lead.first_call_qualified)}</td>
@@ -13659,6 +13800,9 @@
         name: document.getElementById('newInboundName')?.value || '',
         email: document.getElementById('newInboundEmail')?.value || '',
         company: document.getElementById('newInboundCompany')?.value || '',
+        campaign_name: document.getElementById('newInboundCampaign')?.value || '',
+        mailbox: document.getElementById('newInboundMailbox')?.value || '',
+        hot_lead: document.getElementById('newInboundHot')?.value || '',
         first_call_show_up: document.getElementById('newInboundShowUp')?.value || '',
         financially_qualified: document.getElementById('newInboundFinQual')?.value || '',
         first_call_qualified: document.getElementById('newInboundMQual')?.value || '',
@@ -13760,7 +13904,10 @@
       select.innerHTML = '<option value="">-</option><option value="Yes">Yes</option><option value="No">No</option>';
       select.value = currentValue || '';
       
+      let saved = false;
       const save = async () => {
+        if (saved) return;
+        saved = true;
         const newValue = select.value;
         if (newValue !== currentValue) {
           try {
@@ -13783,14 +13930,69 @@
           renderCrmImmanTable();
         }
       };
-      
+
       select.addEventListener('change', save);
-      select.addEventListener('blur', save);
-      
+      // Delayed blur so native dropdown click registers first
+      select.addEventListener('blur', () => {
+        setTimeout(() => { if (!saved) save(); }, 250);
+      });
+
       span.replaceWith(select);
-      select.focus();
+      requestAnimationFrame(() => select.focus());
     }
-    
+
+    function crmInboundEditSelect(event, leadId, field, currentValue, optionsKey) {
+      event.stopPropagation();
+      const span = event.target;
+      const options = optionsKey === 'campaigns' ? smartleadCampaignOptions : smartleadMailboxOptions;
+      const select = document.createElement('select');
+      select.className = 'imman-select';
+      let optionsHtml = '<option value="">-</option>';
+      const normalized = currentValue || '';
+      if (normalized && !options.includes(normalized)) {
+        optionsHtml += `<option value="${crmEscape(normalized)}" selected>${crmEscape(normalized)}</option>`;
+      }
+      optionsHtml += options.map(opt =>
+        `<option value="${crmEscape(opt)}" ${opt === normalized ? 'selected' : ''}>${crmEscape(opt)}</option>`
+      ).join('');
+      select.innerHTML = optionsHtml;
+
+      let saved = false;
+      const save = async () => {
+        if (saved) return;
+        saved = true;
+        const newValue = select.value;
+        if (newValue !== currentValue) {
+          try {
+            await fetch('/api/crm-imman-inbound/' + leadId, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ [field]: newValue })
+            });
+            const lead = crmInboundData.find(l => l.id === leadId);
+            if (lead) {
+              crmInboundUndoStack.push({ type: 'edit', leadId, field, oldValue: currentValue, newValue });
+              lead[field] = newValue;
+            }
+            renderCrmImmanTable();
+          } catch (err) {
+            showToast('Failed to save: ' + err.message, 'error');
+            renderCrmImmanTable();
+          }
+        } else {
+          renderCrmImmanTable();
+        }
+      };
+
+      select.addEventListener('change', save);
+      select.addEventListener('blur', () => {
+        setTimeout(() => { if (!saved) save(); }, 250);
+      });
+
+      span.replaceWith(select);
+      requestAnimationFrame(() => select.focus());
+    }
+
     // Inbound undo
     async function crmInboundUndo() {
       if (crmInboundUndoStack.length === 0) {

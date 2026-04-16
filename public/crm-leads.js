@@ -650,12 +650,14 @@ CRM.saveCell = async function(td, leadId, field, newValue, oldValue, originalHtm
             name: lead.name || null,
             company: lead.company || null,
             campaign_name: lead.campaign_name || null,
-            mailbox: lead.mailbox || null
+            mailbox: lead.mailbox || null,
+            source: lead.source || null
           })
         });
         const promoteResult = await promoteRes.json();
         if (promoteResult.success && !promoteResult.alreadyExists) {
-          showToast('Lead added to CRM Imman', 'success');
+          const tableLabel = promoteResult.table === 'crm_imman_inbound' ? 'Inbound' : 'Outbound';
+          showToast('Lead added to CRM Imman (' + tableLabel + ')', 'success');
         } else if (promoteResult.alreadyExists) {
           showToast('Lead already in CRM Imman', 'info');
         }
@@ -755,36 +757,81 @@ CRM.showNewLeadRow = function() {
     document.getElementById('newLeadEmail')?.focus();
     return;
   }
-  
+
   const tbody = document.getElementById('crmTableBody');
   const nowET = new Date().toLocaleString('sv-SE', { timeZone: 'America/New_York' }).slice(0, 16).replace(' ', 'T');
-  
+
+  // Render as a full-width form panel spanning all columns so inputs aren't
+  // cramped into narrow table cells. This gives each field room to breathe.
+  const colCount = document.querySelectorAll('#crmTable thead th').length || 11;
+
   const row = document.createElement('tr');
   row.id = 'crmNewLeadRow';
   row.className = 'crm-new-row';
   row.innerHTML = `
-    <td style="text-align: center;">${this.leads.length + 1}</td>
-    <td><input type="email" class="crm-new-input" id="newLeadEmail" placeholder="email@company.com"></td>
-    <td><input type="text" class="crm-new-input" id="newLeadCompany" placeholder="Company"></td>
-    <td><input type="text" class="crm-new-input" id="newLeadName" placeholder="Name"></td>
-    <td>
-      <select class="crm-new-input" id="newLeadStatus">
-        <option value="">—</option>
-        <option value="Booked">Booked</option>
-        <option value="Scheduling" selected>Scheduling</option>
-        <option value="Not booked">Not booked</option>
-      </select>
-    </td>
-    <td><input type="datetime-local" class="crm-new-input crm-datetime" id="newLeadResponse" value="${nowET}"></td>
-    <td><input type="text" class="crm-new-input" id="newLeadNotes" placeholder="Notes"></td>
-    <td style="text-align: center;">
-      <button class="crm-save-btn" onclick="CRM.saveNewLead()">Save</button>
-      <button class="crm-cancel-btn" onclick="CRM.cancelNewLead()">×</button>
+    <td colspan="${colCount}" style="padding: 18px 20px; background: rgba(249, 115, 22, 0.08); border-top: 2px solid var(--accent, #f97316);">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 18px; max-width: 1100px;">
+        <div class="crm-form-field">
+          <label class="crm-form-label">Email <span style="color:#ef4444;">*</span></label>
+          <input type="email" class="crm-new-input" id="newLeadEmail" placeholder="email@company.com" autocomplete="off">
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Company</label>
+          <input type="text" class="crm-new-input" id="newLeadCompany" placeholder="Company" autocomplete="off">
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Name</label>
+          <input type="text" class="crm-new-input" id="newLeadName" placeholder="Full name" autocomplete="off">
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Status</label>
+          <select class="crm-new-input" id="newLeadStatus">
+            <option value="">—</option>
+            <option value="Booked">Booked</option>
+            <option value="Scheduling" selected>Scheduling</option>
+            <option value="Not booked">Not booked</option>
+          </select>
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Category</label>
+          <select class="crm-new-input" id="newLeadCategory">
+            <option value="Interested" selected>Interested</option>
+            <option value="Meeting Request">Meeting Request</option>
+            <option value="Information Request">Information Request</option>
+            <option value="Meeting Booked">Meeting Booked</option>
+          </select>
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Source</label>
+          <select class="crm-new-input" id="newLeadSource">
+            <option value="outbound" selected>outbound</option>
+            <option value="inbound">inbound</option>
+            <option value="cold_email">cold_email</option>
+            <option value="reactivation">reactivation</option>
+          </select>
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Lead Reply (date & time)</label>
+          <input type="datetime-local" class="crm-new-input" id="newLeadResponse" value="${nowET}">
+        </div>
+        <div class="crm-form-field">
+          <label class="crm-form-label">Our Reply (date & time)</label>
+          <input type="datetime-local" class="crm-new-input" id="newLeadOurReply" value="${nowET}">
+        </div>
+        <div class="crm-form-field" style="grid-column: span 3;">
+          <label class="crm-form-label">Notes</label>
+          <input type="text" class="crm-new-input" id="newLeadNotes" placeholder="Notes (optional)" autocomplete="off">
+        </div>
+        <div style="grid-column: span 3; display: flex; gap: 10px; justify-content: flex-end; margin-top: 4px;">
+          <button class="crm-cancel-btn" onclick="CRM.cancelNewLead()">Cancel</button>
+          <button class="crm-save-btn" onclick="CRM.saveNewLead()">Save Lead</button>
+        </div>
+      </div>
     </td>
   `;
-  
+
   tbody.appendChild(row);
-  
+
   const emailInput = document.getElementById('newLeadEmail');
   const companyInput = document.getElementById('newLeadCompany');
   emailInput.focus();
@@ -827,7 +874,10 @@ CRM.saveNewLead = async function() {
   const company = document.getElementById('newLeadCompany')?.value?.trim();
   const name = document.getElementById('newLeadName')?.value?.trim();
   const status = document.getElementById('newLeadStatus')?.value;
+  const category = document.getElementById('newLeadCategory')?.value || 'Interested';
+  const source = document.getElementById('newLeadSource')?.value || 'outbound';
   const leadResponse = document.getElementById('newLeadResponse')?.value;
+  const ourReply = document.getElementById('newLeadOurReply')?.value;
   const notes = document.getElementById('newLeadNotes')?.value?.trim();
   
   if (!email || !email.includes('@')) {
@@ -886,10 +936,11 @@ CRM.saveNewLead = async function() {
       domain,
       name: name || null,
       status: status || 'Scheduling',
-      category: 'Interested',
+      category: category || 'Interested',
       lead_response: leadResponse ? new Date(leadResponse).toISOString() : null,
+      response_time: ourReply ? new Date(ourReply).toISOString() : null,
       notes: notes || null,
-      source: 'outbound'
+      source: source || 'outbound'
     };
     
     const res = await fetch('/api/curated-leads', {
@@ -1153,10 +1204,14 @@ CRM.render = function() {
       .crm-edit-select { background: var(--bg-card); border: 1px solid var(--accent); color: var(--text);
         padding: 4px 6px; font-size: 12px; border-radius: 3px; outline: none; }
       .crm-datetime { width: 170px; }
-      .crm-new-row { background: rgba(249, 115, 22, 0.1) !important; }
+      .crm-new-row { background: rgba(249, 115, 22, 0.08) !important; }
       .crm-new-input { background: var(--bg-card); border: 1px solid var(--border); color: var(--text);
-        padding: 6px 8px; font-size: 12px; width: 100%; border-radius: 4px; }
-      .crm-new-input:focus { border-color: var(--accent); outline: none; }
+        padding: 10px 12px; font-size: 14px; line-height: 1.4; width: 100%; border-radius: 6px;
+        box-sizing: border-box; min-height: 40px; }
+      .crm-new-input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15); }
+      .crm-form-field { display: flex; flex-direction: column; gap: 6px; }
+      .crm-form-label { font-size: 12px; font-weight: 600; color: var(--text-muted, #9ca3af);
+        text-transform: uppercase; letter-spacing: 0.5px; }
       .crm-save-btn { background: var(--green); color: #000; border: none; padding: 6px 12px;
         border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; }
       .crm-cancel-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border);
