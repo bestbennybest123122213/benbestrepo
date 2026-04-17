@@ -322,10 +322,13 @@ function getDateRanges() {
 // API request helper with retry
 async function apiRequest(endpoint, retries = 3) {
   const url = `${BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}`;
-  
+
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      const res = await fetch(url);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
       if (res.status === 502 || res.status === 503 || res.status === 429) {
         console.log(`API ${res.status}, retry ${attempt}/${retries}...`);
         await new Promise(r => setTimeout(r, 2000 * attempt));
