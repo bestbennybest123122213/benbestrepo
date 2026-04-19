@@ -25,6 +25,8 @@ const app = express();
 const PORT = process.env.PORT || 3456;
 const BIND_HOST = process.env.BIND_HOST || '127.0.0.1'; // Security: default to localhost only
 const DASHBOARD_API_KEY = process.env.DASHBOARD_API_KEY; // Optional API key protection
+const DASHBOARD_PASSWORD = process.env.DASHBOARD_PASSWORD; // Optional Basic Auth password
+const DASHBOARD_USERNAME = process.env.DASHBOARD_USERNAME || 'admin';
 const API_KEY = process.env.SMARTLEAD_API_KEY;
 const BASE_URL = 'https://server.smartlead.ai/api/v1';
 const {
@@ -177,6 +179,40 @@ setInterval(() => {
     if (now > rateLimit[ip].resetAt) delete rateLimit[ip];
   }
 }, 5 * 60 * 1000);
+
+// Basic Auth password protection for the entire dashboard (set DASHBOARD_PASSWORD to enable)
+const crypto = require('crypto');
+const safeEqual = (a, b) => {
+  const ab = Buffer.from(a);
+  const bb = Buffer.from(b);
+  if (ab.length !== bb.length) return false;
+  return crypto.timingSafeEqual(ab, bb);
+};
+const basicAuthMiddleware = (req, res, next) => {
+  if (!DASHBOARD_PASSWORD) return next();
+  if (req.path === '/api/health') return next(); // allow Railway health checks
+
+  const header = req.headers.authorization || '';
+  if (header.startsWith('Basic ')) {
+    const decoded = Buffer.from(header.slice(6), 'base64').toString('utf8');
+    const idx = decoded.indexOf(':');
+    if (idx !== -1) {
+      const user = decoded.slice(0, idx);
+      const pass = decoded.slice(idx + 1);
+      if (safeEqual(user, DASHBOARD_USERNAME) && safeEqual(pass, DASHBOARD_PASSWORD)) {
+        return next();
+      }
+    }
+  }
+  res.set('WWW-Authenticate', 'Basic realm="Bull OS Dashboard", charset="UTF-8"');
+  return res.status(401).send('Authentication required');
+};
+if (!DASHBOARD_PASSWORD) {
+  console.log('[AUTH] DASHBOARD_PASSWORD not set - dashboard is publicly accessible');
+} else {
+  console.log(`[AUTH] Basic Auth enabled (user: ${DASHBOARD_USERNAME})`);
+}
+app.use(basicAuthMiddleware);
 
 app.use(require('./request-logger'));
 app.use(express.json());
