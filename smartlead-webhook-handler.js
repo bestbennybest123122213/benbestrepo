@@ -286,51 +286,101 @@ async function getAvailableSlots() {
   }
 }
 
+// Extract deterministic ET wall-clock components from a UTC Date. Used for
+// every slot comparison and render path so that ET is the single source of
+// truth -- no getUTCHours, no toISOString day keys, no local-tz accidents.
+var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function etComponents(date) {
+  if (!(date instanceof Date) || isNaN(date.getTime())) return null;
+  // sv-SE locale gives a deterministic "YYYY-MM-DD HH:mm:ss" string
+  var isoLike = date.toLocaleString('sv-SE', {
+    timeZone: 'America/New_York',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+  });
+  var parts = isoLike.split(' ');
+  if (parts.length !== 2) return null;
+  var dateBits = parts[0].split('-').map(Number);
+  var timeBits = parts[1].split(':').map(Number);
+  if (dateBits.length !== 3 || timeBits.length < 2) return null;
+  var weekday = date.toLocaleDateString('en-US', { timeZone: 'America/New_York', weekday: 'long' });
+  return {
+    year: dateBits[0],
+    month: dateBits[1],
+    day: dateBits[2],
+    hour: timeBits[0],
+    minute: timeBits[1],
+    weekday: weekday,
+    monthName: MONTH_NAMES[dateBits[1] - 1],
+    dayKey: parts[0]  // YYYY-MM-DD in ET
+  };
+}
+
 function formatTimeSlots(availableTimes) {
   if (!availableTimes || availableTimes.length === 0) return null;
-  var slots = [];
+
+  // Every slot must be bucketed, filtered, and formatted using ET wall-clock
+  // ONLY -- never UTC. Previous versions used getUTCHours / toISOString date
+  // keys, which silently shifted late-evening or early-morning ET slots across
+  // a day boundary and caused Mon-Fri filters to accept Sunday-ET slots that
+  // happened to cross midnight into Monday-UTC.
+  var etSlots = [];
   for (var s = 0; s < availableTimes.length; s++) {
     var d = new Date(availableTimes[s].start_time);
-    if (d.getDay() >= 1 && d.getDay() <= 5) slots.push(d);
+    if (isNaN(d.getTime())) continue;
+    var et = etComponents(d);
+    if (!et) continue;
+    // Mon-Fri ET only
+    if (et.weekday === 'Saturday' || et.weekday === 'Sunday') continue;
+    etSlots.push({ date: d, et: et });
   }
-  if (slots.length < 2) return null;
+  if (etSlots.length < 2) return null;
 
   var byDay = {};
-  for (var i = 0; i < slots.length; i++) {
-    var dayKey = slots[i].toISOString().split('T')[0];
-    if (!byDay[dayKey]) byDay[dayKey] = [];
-    byDay[dayKey].push(slots[i]);
+  for (var i = 0; i < etSlots.length; i++) {
+    var key = etSlots[i].et.dayKey;
+    if (!byDay[key]) byDay[key] = [];
+    byDay[key].push(etSlots[i]);
   }
   var days = Object.keys(byDay).sort();
   if (days.length < 2) return null;
 
   var day1 = days[0];
-  var day2 = null;
-  for (var j = 1; j < days.length; j++) {
-    if (days[j] !== day1) { day2 = days[j]; break; }
-  }
-  if (!day2) day2 = days[1];
+  var day2 = days[1];
 
   function pickTimes(daySlots) {
-    var morning = null;
-    var afternoon = null;
+    daySlots.sort(function(a, b) { return (a.et.hour - b.et.hour) || (a.et.minute - b.et.minute); });
+    if (daySlots.length === 1) return [daySlots[0], daySlots[0]];
+    var morning = null, afternoon = null;
     for (var k = 0; k < daySlots.length; k++) {
-      if (!morning && daySlots[k].getUTCHours() >= 15 && daySlots[k].getUTCHours() <= 17) morning = daySlots[k];
-      if (!afternoon && daySlots[k].getUTCHours() >= 18 && daySlots[k].getUTCHours() <= 21) afternoon = daySlots[k];
+      if (!morning && daySlots[k].et.hour >= 9 && daySlots[k].et.hour < 12) morning = daySlots[k];
     }
-    return [morning || daySlots[0], afternoon || daySlots[daySlots.length - 1]];
+    for (var m = daySlots.length - 1; m >= 0; m--) {
+      if (!afternoon && daySlots[m].et.hour >= 13 && daySlots[m].et.hour <= 17) afternoon = daySlots[m];
+    }
+    if (!morning) morning = daySlots[0];
+    if (!afternoon) afternoon = daySlots[daySlots.length - 1];
+    if (morning === afternoon) return [daySlots[0], daySlots[daySlots.length - 1]];
+    return [morning, afternoon];
   }
 
   var times1 = pickTimes(byDay[day1]);
   var times2 = pickTimes(byDay[day2]);
 
-  function formatEST(date) {
-    return date.toLocaleString('en-US', {
-      weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', hour12: true, timeZone: 'America/New_York'
-    }).replace(',', '');
+  function hourLabel(et) {
+    var hr12 = et.hour === 0 ? 12 : et.hour > 12 ? et.hour - 12 : et.hour;
+    var ampm = et.hour >= 12 ? 'pm' : 'am';
+    var min = et.minute > 0 ? ':' + String(et.minute).padStart(2, '0') : '';
+    return hr12 + min + ampm;
   }
 
-  return "I'm free " + formatEST(times1[0]) + " or " + formatEST(times1[1]) + " and " + formatEST(times2[0]) + " or " + formatEST(times2[1]) + " EST, either works?";
+  var d1 = times1[0].et;
+  var d2 = times2[0].et;
+  return "I'm free " + d1.weekday + ' ' + d1.monthName + ' ' + d1.day + ' at ' +
+    hourLabel(times1[0].et) + ' or ' + hourLabel(times1[1].et) + ' EST and ' +
+    d2.weekday + ' ' + d2.monthName + ' ' + d2.day + ' at ' +
+    hourLabel(times2[0].et) + ' or ' + hourLabel(times2[1].et) + ' EST -- either works?';
 }
 
 // ============================================================
@@ -343,25 +393,28 @@ function formatTimeSlots(availableTimes) {
 
 function computeFallbackMeetingSlots() {
   var MIN_DAYS_OUT = 2;
-  // "Now" in ET — reconstruct a Date from ET wall-clock so getDay/getDate match ET
-  var etNowStr = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
-  var start = new Date(etNowStr);
-  start.setDate(start.getDate() + MIN_DAYS_OUT);
-  start.setHours(0, 0, 0, 0);
+  var nowET = etComponents(new Date());
+  if (!nowET) return null;
 
-  function nextWeekday(target, from) {
+  // Anchor at ET midnight, represented as Date.UTC so setUTCDate/getUTCDay
+  // arithmetic is deterministic regardless of the server's local timezone.
+  var start = new Date(Date.UTC(nowET.year, nowET.month - 1, nowET.day));
+  start.setUTCDate(start.getUTCDate() + MIN_DAYS_OUT);
+
+  function nextWeekday(targetDay, from) {
     var d = new Date(from);
-    var diff = (target - d.getDay() + 7) % 7;
-    d.setDate(d.getDate() + diff);
+    var diff = (targetDay - d.getUTCDay() + 7) % 7;
+    d.setUTCDate(d.getUTCDate() + diff);
     return d;
   }
 
-  var wed = nextWeekday(3, start);       // 3 = Wednesday
-  var fri = nextWeekday(5, wed);         // 5 = Friday, must be after wed
-  if (fri.getTime() <= wed.getTime()) fri.setDate(fri.getDate() + 7);
+  var wed = nextWeekday(3, start);     // 3 = Wednesday
+  var fri = nextWeekday(5, wed);       // 5 = Friday, must be after wed
+  if (fri.getTime() <= wed.getTime()) fri.setUTCDate(fri.getUTCDate() + 7);
 
+  var WEEKDAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   function fmt(d) {
-    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    return WEEKDAY_NAMES[d.getUTCDay()] + ' ' + MONTH_NAMES[d.getUTCMonth()] + ' ' + d.getUTCDate();
   }
 
   return {
@@ -395,6 +448,8 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
 
     var userPrompt = 'You are Bull Bro. Process this SmartLead email reply.\n\n';
     userPrompt += 'TODAY IS: ' + todayStr + ' (EST)\n\n';
+    userPrompt += 'TIMEZONE RULE -- SINGLE SOURCE OF TRUTH:\n';
+    userPrompt += 'Every date and time in every reply you draft MUST be expressed in America/New_York (Eastern Time, always labelled "EST"). This is non-negotiable. Do NOT translate times into the lead\'s timezone even if you can infer it. Do NOT mention "your time", "local time", or "UTC". Do NOT use the lead\'s timezone reference to compute an alternate slot. If a lead is in a far timezone and the EST slots below genuinely will not work, output ESCALATE instead of proposing converted times. The ONLY authoritative source for availability is the Calendly-derived or server-computed block below -- never invent your own.\n\n';
     userPrompt += 'LEAD INFO:\n';
     userPrompt += '- Name: ' + (leadName || 'Unknown') + '\n';
     userPrompt += '- Company: ' + (leadCompany || 'Unknown') + '\n';
@@ -402,14 +457,19 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '- Mailbox: ' + (isJanMailbox ? 'Jan' : 'Imman') + '\n\n';
 
     if (availableSlots) {
-      userPrompt += 'AVAILABLE TIME SLOTS (from Calendly - real availability - USE THESE EXACT TIMES):\n' + availableSlots + '\n\n';
+      userPrompt += 'AVAILABLE TIME SLOTS (from Calendly, already converted to EST -- USE THESE EXACT STRINGS):\n' + availableSlots + '\n\n';
+      userPrompt += 'Copy the weekday + date + time strings above verbatim. Do NOT recompute. Do NOT re-format. Do NOT convert. EST is the only timezone that appears in the outgoing email.\n\n';
     } else {
       // Hard-inject pre-computed Wed + Fri slots so the model never has to
       // compute weekday-from-date (it gets this wrong ~every time).
       var fallback = computeFallbackMeetingSlots();
-      userPrompt += 'PROPOSAL SLOTS -- COMPUTED SERVER-SIDE FROM TODAY\'S DATE:\n';
-      userPrompt += '- ' + fallback.block.join('\n- ') + '\n\n';
-      userPrompt += 'When proposing a meeting, use EXACTLY the dates and day names above. Do NOT recalculate weekdays. Do NOT change the dates. Do NOT substitute other days. The format is fixed: "' + fallback.wed + ' at 11am or 3pm EST and ' + fallback.fri + ' at 1pm or 4pm EST -- either works?" Pick the exact weekday+date strings above (e.g. "' + fallback.wed + '") verbatim. If the lead is in a far timezone and those times don\'t work, ESCALATE instead of guessing.\n\n';
+      if (fallback) {
+        userPrompt += 'PROPOSAL SLOTS -- COMPUTED SERVER-SIDE IN EST (Calendly unavailable):\n';
+        userPrompt += '- ' + fallback.block.join('\n- ') + '\n\n';
+        userPrompt += 'Use EXACTLY these dates and day names. Do NOT recalculate weekdays. Do NOT change the dates. Do NOT substitute other days. The format is fixed: "' + fallback.wed + ' at 11am or 3pm EST and ' + fallback.fri + ' at 1pm or 4pm EST -- either works?" Pick the exact weekday+date strings above (e.g. "' + fallback.wed + '") verbatim. EST only -- never infer or convert to the lead\'s timezone. If those EST times do not work for the lead, ESCALATE instead of guessing.\n\n';
+      } else {
+        userPrompt += 'PROPOSAL SLOTS: unable to compute slot block -- ESCALATE any meeting-scheduling reply instead of proposing times.\n\n';
+      }
     }
 
     if (fullThread) {
@@ -457,7 +517,7 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     userPrompt += '26. If lead sends malware, suspicious verification pages, social engineering attempts, or phishing links: output BLOCK: malware/phishing attempt. No reply.\n';
     userPrompt += '27. ESCALATE field: only include when there is a CONCRETE action for Jan/Jaleel. "None" or "None needed" is NOT an action — omit the ESCALATE field entirely if there is nothing to do.\n';
     userPrompt += '28. When lead confirms a specific date/time and says they will send a calendar invite: this is a CONFIRMED BOOKING. Do NOT say "let me check." Confirm the date and hand off to Jan: "Perfect, [date] works. Jan (jan@3wrk.com) will confirm on our end. Talk soon."\n';
-    userPrompt += '29. TIME SLOTS AND DATES — CRITICAL: If Calendly slots are provided above, use ONLY those exact times. If no Calendly slots, propose times at least 2 days from TODAY. To get the correct day name: count forward from TODAY (shown above). Example: if today is Monday April 14, then April 15 = Tuesday, April 16 = Wednesday, April 17 = Thursday, April 18 = Friday. NEVER say "tomorrow" — always use the actual day name and date. NEVER guess day names. If a lead proposes a date, verify the day name before confirming.\n';
+    userPrompt += '29. TIME SLOTS AND DATES — CRITICAL: Use ONLY the slot block above (Calendly or server-computed). Every date and time you write is in EST. Never recalculate weekdays, never convert to another timezone, never infer the lead\'s local time. Never say "tomorrow" — always use the exact weekday + date string shown above. If the lead proposes a specific date, verify the weekday matches the calendar (count from TODAY shown above) before confirming; if unsure, ESCALATE rather than guess.\n';
     userPrompt += '30. Output format — use ONE of these:\n';
     userPrompt += '\n';
     userPrompt += 'IF SENDING A REPLY:\n';
