@@ -334,6 +334,49 @@ function formatTimeSlots(availableTimes) {
 }
 
 // ============================================================
+// FALLBACK MEETING SLOT COMPUTATION
+// ============================================================
+// Compute the next Wed + Fri (at least 2 days from today, in ET) so the model
+// never has to do calendar math. Models routinely miscount weekdays; a hard
+// pre-computed string eliminates the whole class of "Monday April 21 is
+// actually Tuesday" bugs.
+
+function computeFallbackMeetingSlots() {
+  var MIN_DAYS_OUT = 2;
+  // "Now" in ET — reconstruct a Date from ET wall-clock so getDay/getDate match ET
+  var etNowStr = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+  var start = new Date(etNowStr);
+  start.setDate(start.getDate() + MIN_DAYS_OUT);
+  start.setHours(0, 0, 0, 0);
+
+  function nextWeekday(target, from) {
+    var d = new Date(from);
+    var diff = (target - d.getDay() + 7) % 7;
+    d.setDate(d.getDate() + diff);
+    return d;
+  }
+
+  var wed = nextWeekday(3, start);       // 3 = Wednesday
+  var fri = nextWeekday(5, wed);         // 5 = Friday, must be after wed
+  if (fri.getTime() <= wed.getTime()) fri.setDate(fri.getDate() + 7);
+
+  function fmt(d) {
+    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  }
+
+  return {
+    wed: fmt(wed),
+    fri: fmt(fri),
+    block: [
+      fmt(wed) + ' at 11am EST',
+      fmt(wed) + ' at 3pm EST',
+      fmt(fri) + ' at 1pm EST',
+      fmt(fri) + ' at 4pm EST'
+    ]
+  };
+}
+
+// ============================================================
 // SONNET API - Generate Bull Bro response
 // ============================================================
 
@@ -361,7 +404,12 @@ async function generateResponse(leadName, leadCompany, leadEmail, fromEmail, rep
     if (availableSlots) {
       userPrompt += 'AVAILABLE TIME SLOTS (from Calendly - real availability - USE THESE EXACT TIMES):\n' + availableSlots + '\n\n';
     } else {
-      userPrompt += 'CALENDLY: No slots available. When proposing times, use actual dates at least 2 days from TODAY with correct day names (check the date above). NEVER guess day names — verify the day matches the date.\n\n';
+      // Hard-inject pre-computed Wed + Fri slots so the model never has to
+      // compute weekday-from-date (it gets this wrong ~every time).
+      var fallback = computeFallbackMeetingSlots();
+      userPrompt += 'PROPOSAL SLOTS -- COMPUTED SERVER-SIDE FROM TODAY\'S DATE:\n';
+      userPrompt += '- ' + fallback.block.join('\n- ') + '\n\n';
+      userPrompt += 'When proposing a meeting, use EXACTLY the dates and day names above. Do NOT recalculate weekdays. Do NOT change the dates. Do NOT substitute other days. The format is fixed: "' + fallback.wed + ' at 11am or 3pm EST and ' + fallback.fri + ' at 1pm or 4pm EST -- either works?" Pick the exact weekday+date strings above (e.g. "' + fallback.wed + '") verbatim. If the lead is in a far timezone and those times don\'t work, ESCALATE instead of guessing.\n\n';
     }
 
     if (fullThread) {
@@ -844,17 +892,37 @@ async function processAutoReply(task) {
         responseLower.indexOf('jan will') >= 0 && responseLower.indexOf('book') >= 0 ||
         responseLower.indexOf('jan (jan@3wrk.com)') >= 0;
 
-      if (hasTimeSlots && (aiResult.category === 'Interested' || aiResult.category === 'Information Request')) {
-        console.log('[PROCESS] Response contains time slots/call push -- upgrading category from ' + aiResult.category + ' to Meeting Request');
+      // If the outgoing reply proposes a meeting (time slots, call/chat push,
+      // or hands off to Jan for booking), the lead's Smartlead category MUST be
+      // Meeting Request so the subsequence automation fires. This runs
+      // regardless of what the AI initially classified -- the moment we push
+      // for a meeting, the category follows suit. Previously this only fired
+      // when the AI classified as Interested/Information Request, which meant
+      // Booked / Not Interested / Unknown classifications silently skipped
+      // the upgrade and the subsequence never triggered.
+      if (hasTimeSlots && aiResult.category !== 'Not Interested' && aiResult.category !== 'Do Not Contact' && aiResult.category !== 'Wrong Person' && aiResult.category !== 'Out of Office') {
+        if (aiResult.category !== 'Meeting Request') {
+          console.log('[PROCESS] Response contains time slots/call push -- upgrading category from "' + aiResult.category + '" to Meeting Request');
+        }
         aiResult.category = 'Meeting Request';
         aiResult.smartleadStatus = 'Meeting Request';
       }
 
       // Force category update to SmartLead immediately for Meeting Request
       // This triggers subsequence automation — don't wait for the normal flow
-      if (aiResult.category === 'Meeting Request' && campaignId && leadId) {
-        console.log('[PROCESS] Forcing immediate category update to Meeting Request for subsequence trigger');
-        await updateLeadCategory(campaignId, leadId, 'Meeting Request');
+      if (aiResult.category === 'Meeting Request') {
+        if (campaignId && leadId) {
+          console.log('[PROCESS] Forcing immediate category update to Meeting Request for subsequence trigger');
+          await updateLeadCategory(campaignId, leadId, 'Meeting Request');
+        } else {
+          console.error('[PROCESS] Cannot set Meeting Request category -- missing campaignId (' + campaignId + ') or leadId (' + leadId + ')');
+          await sendEscalation(
+            '⚠️ MEETING REQUEST CATEGORY NOT SET: ' + leadName + ' (' + leadCompany + ')\n' +
+            'Email: ' + leadEmail + '\n' +
+            'Campaign: ' + campaignName + '\n' +
+            'Bull Bro proposed time slots but could not update Smartlead category (webhook payload missing campaign_id or lead_id). Please manually set the lead to Meeting Request so the subsequence fires.'
+          );
+        }
       }
 
       // Process escalation note — handle CC, Replace Lead, and notify Slack
