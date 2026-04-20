@@ -1377,12 +1377,25 @@ async function handleWebhook(req, res) {
 }
 
 async function handleTest(req, res) {
+  // Railway injects these env vars on every deploy. Fall back to local
+  // git-less runs showing "unknown".
+  var commitSha = process.env.RAILWAY_GIT_COMMIT_SHA || process.env.COMMIT_SHA || process.env.SOURCE_COMMIT || 'unknown';
+  var commitShort = commitSha !== 'unknown' ? commitSha.substring(0, 7) : 'unknown';
+  var branch = process.env.RAILWAY_GIT_BRANCH || 'unknown';
+  var deployedAt = process.env.RAILWAY_DEPLOYMENT_CREATED_AT || null;
+
   res.json({
     status: 'ok',
     message: 'Bull Bro Auto-Reply is active',
     mode: AUTO_SEND_ENABLED ? 'AUTO-SEND (live)' : 'DRAFT (review only)',
     brainLoaded: SYSTEM_PROMPT.length > 0,
     brainSize: (SYSTEM_PROMPT.length / 1024).toFixed(1) + 'KB',
+    brainHasGenreBan: SYSTEM_PROMPT.indexOf('HARD BAN') >= 0,
+    hasFallbackSlotHelper: typeof computeFallbackMeetingSlots === 'function',
+    hasEtComponentsHelper: typeof etComponents === 'function',
+    commit: commitShort,
+    branch: branch,
+    deployedAt: deployedAt,
     queueLength: responseQueue.length,
     timestamp: new Date().toISOString()
   });
