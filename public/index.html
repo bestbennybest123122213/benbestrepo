@@ -8688,13 +8688,44 @@
             border-radius: 3px; cursor: pointer; font-size: 11px; font-weight: 600; }
           .cancel-lead-btn { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); 
             padding: 4px 10px; border-radius: 3px; cursor: pointer; font-size: 11px; margin-left: 6px; }
-          .datetime-input { font-size: 12px !important; width: 180px; background: var(--bg-card); border: 1px solid var(--border); 
+          .datetime-input { font-size: 12px !important; width: 180px; background: var(--bg-card); border: 1px solid var(--border);
             color: var(--text); padding: 6px 8px; border-radius: 3px; }
           .datetime-input:focus { border-color: var(--accent); outline: none; }
           input[type="datetime-local"]::-webkit-calendar-picker-indicator { display: none !important; }
           input[type="datetime-local"]::-webkit-inner-spin-button { display: none; }
           .delete-btn { background: none; border: none; cursor: pointer; opacity: 0.4; font-size: 12px; padding: 2px; }
           .delete-btn:hover { opacity: 1; }
+          /* Redesigned Add Lead form — full-width grid panel with labels and paste boxes */
+          .lead-form-panel { background: rgba(249, 115, 22, 0.08); padding: 18px 20px !important;
+            border-top: 2px solid var(--accent); }
+          .lead-form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 18px; max-width: 1100px; }
+          .lead-form-field { display: flex; flex-direction: column; gap: 4px; }
+          .lead-form-label { font-size: 11px; text-transform: uppercase; color: var(--text-dim);
+            font-weight: 600; letter-spacing: 0.4px; }
+          .lead-form-input { background: var(--bg-card); border: 1px solid var(--border); color: var(--text);
+            padding: 8px 10px; font-size: 14px; border-radius: 4px; width: 100%; box-sizing: border-box;
+            font-family: inherit; }
+          .lead-form-input:focus { border-color: var(--accent); outline: none; }
+          .lead-form-input.required-empty { border-color: var(--red) !important; background: rgba(239, 68, 68, 0.1); }
+          .lead-form-paste { background: var(--bg); border: 1px dashed var(--border); color: var(--text-muted);
+            padding: 7px 10px; font-size: 12px; border-radius: 4px; width: 100%; box-sizing: border-box;
+            margin-top: 4px; font-family: inherit; transition: border-color 0.15s, color 0.15s, background 0.15s; }
+          .lead-form-paste:focus { border-style: solid; border-color: var(--accent); color: var(--text); outline: none; }
+          .lead-form-paste.parse-error { border-color: var(--red); color: var(--red); background: rgba(239, 68, 68, 0.08); }
+          .lead-form-paste.parse-ok { border-color: var(--green); color: var(--green); background: rgba(34, 197, 94, 0.08); }
+          .lead-form-footer { grid-column: span 3; display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+          .lead-form-btn { border: none; padding: 9px 22px; border-radius: 4px; cursor: pointer;
+            font-size: 13px; font-weight: 600; font-family: inherit; }
+          .lead-form-btn-save { background: var(--green); color: #000; }
+          .lead-form-btn-cancel { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); }
+          .lead-form-btn-cancel:hover { color: var(--text); }
+          /* Companion paste box for inline datetime edits */
+          .editable-paste-input { display: block; margin-top: 4px; font-size: 11px; padding: 4px 6px;
+            width: 100%; box-sizing: border-box; background: var(--bg); border: 1px dashed var(--border);
+            color: var(--text-muted); border-radius: 3px; font-family: inherit; }
+          .editable-paste-input:focus { border-style: solid; border-color: var(--accent); color: var(--text); outline: none; }
+          .editable-paste-input.parse-error { border-color: var(--red); color: var(--red); }
+          .editable-paste-input.parse-ok { border-color: var(--green); color: var(--green); }
           .add-row-btn { display: block; width: 100%; padding: 8px; background: var(--bg-card); border: 1px dashed var(--border); 
             color: var(--text-muted); cursor: pointer; font-size: 12px; margin-top: 4px; border-radius: 4px; }
           .add-row-btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -9022,10 +9053,51 @@
       }
       
       td.classList.add('editing');
-      td.innerHTML = '<input type="datetime-local" class="editable-input" value="' + inputValue + '" style="font-size: 13px; width: 185px; padding: 6px 8px;">';
-      
-      const input = td.querySelector('input');
+      td.innerHTML = '<input type="datetime-local" class="editable-input" value="' + inputValue + '" style="font-size: 13px; width: 185px; padding: 6px 8px;">' +
+        '<input type="text" class="editable-paste-input" placeholder="or paste any date…" autocomplete="off" spellcheck="false" style="width: 185px;">';
+
+      const input = td.querySelector('input[type="datetime-local"]');
+      const pasteBox = td.querySelector('input.editable-paste-input');
       input.focus();
+
+      // Direct paste on the datetime picker: parse and prevent browser default
+      input.addEventListener('paste', (e) => {
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        if (!text) return;
+        const parsed = parsePastedDateToLocal(text);
+        if (parsed) { e.preventDefault(); input.value = parsed; }
+      });
+
+      // Companion paste box — accepts any format, normalizes into the picker
+      let pasteSaveGuard = false; // suppress blur->save while paste box is focused
+      const applyPaste = () => {
+        const raw = pasteBox.value.trim();
+        if (!raw) { pasteBox.classList.remove('parse-error', 'parse-ok'); return; }
+        const parsed = parsePastedDateToLocal(raw);
+        if (parsed) {
+          input.value = parsed;
+          pasteBox.classList.add('parse-ok');
+          pasteBox.classList.remove('parse-error');
+          setTimeout(() => { pasteBox.value = ''; pasteBox.classList.remove('parse-ok'); }, 900);
+        } else {
+          pasteBox.classList.add('parse-error');
+          pasteBox.classList.remove('parse-ok');
+        }
+      };
+      pasteBox.addEventListener('focus', () => { pasteSaveGuard = true; });
+      pasteBox.addEventListener('paste', () => setTimeout(applyPaste, 0));
+      pasteBox.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); applyPaste(); input.focus(); }
+        if (e.key === 'Escape') { pasteBox.value = ''; pasteBox.classList.remove('parse-error', 'parse-ok'); td.innerHTML = originalHtml; td.classList.remove('editing'); saved = true; }
+      });
+      pasteBox.addEventListener('blur', () => {
+        applyPaste();
+        pasteSaveGuard = false;
+        // If focus moved outside the cell entirely, commit the save
+        setTimeout(() => {
+          if (!td.contains(document.activeElement)) saveValue();
+        }, 50);
+      });
       
       let saved = false; // Prevent double-save
       const originalValue = currentValue; // Store for comparison
@@ -9110,12 +9182,19 @@
         }
       };
       
-      input.addEventListener('blur', saveValue);
+      // Defer save on blur so focus can move to the paste box without committing
+      input.addEventListener('blur', (e) => {
+        if (pasteSaveGuard || (e.relatedTarget && e.relatedTarget === pasteBox)) return;
+        setTimeout(() => {
+          if (!td.contains(document.activeElement)) saveValue();
+        }, 0);
+      });
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { input.blur(); }
         if (e.key === 'Escape') { td.innerHTML = originalHtml; td.classList.remove('editing'); saved = true; }
         if (e.key === 'Tab') {
           e.preventDefault();
+          if (!e.shiftKey) { pasteBox.focus(); return; }
           input.blur();
           setTimeout(() => navigateToNextCell(td, e.shiftKey), 50);
         }
@@ -9124,19 +9203,77 @@
     
     // Show new lead row
     let newLeadRowVisible = false;
-    
+
     // Reset form state (called on page load to fix any stuck states)
     function resetLeadFormState() {
       const existingRow = document.getElementById('newLeadRow');
       if (existingRow) existingRow.remove();
       newLeadRowVisible = false;
     }
-    
+
     // Reset on page load
     if (typeof window !== 'undefined') {
       window.addEventListener('load', resetLeadFormState);
     }
-    
+
+    // Parse a pasted date string (various formats) into the YYYY-MM-DDTHH:MM
+    // value that <input type="datetime-local"> expects. Dates without an
+    // explicit UTC offset are interpreted as America/New_York wall-clock so
+    // the saved format stays consistent with the rest of the app.
+    function parsePastedDateToLocal(raw) {
+      if (!raw) return null;
+      let s = String(raw).trim();
+      if (!s) return null;
+      // Date() can't parse trailing US tz abbreviations like "ET" — strip them
+      s = s.replace(/\s+(ET|EST|EDT|CT|CST|CDT|MT|MST|MDT|PT|PST|PDT|UTC|GMT)\s*$/i, '').trim();
+      const hasOffset = /([+-]\d{2}:?\d{2}|Z)$/.test(s);
+      const d = new Date(s);
+      if (isNaN(d.getTime())) return null;
+      const pad = n => String(n).padStart(2, '0');
+      if (hasOffset) {
+        const et = d.toLocaleString('sv-SE', { timeZone: 'America/New_York' });
+        return et.slice(0, 16).replace(' ', 'T');
+      }
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    // Wire a companion paste-text-box + direct-paste handler to a datetime-local
+    // picker. pasteId is optional (pass null/undefined to only enable direct paste).
+    function wirePasteDateHelper(pickerId, pasteId) {
+      const picker = document.getElementById(pickerId);
+      const paste = pasteId ? document.getElementById(pasteId) : null;
+      if (!picker) return;
+
+      picker.addEventListener('paste', (e) => {
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        if (!text) return;
+        const parsed = parsePastedDateToLocal(text);
+        if (parsed) { e.preventDefault(); picker.value = parsed; }
+      });
+
+      if (!paste) return;
+      const apply = () => {
+        const raw = paste.value.trim();
+        if (!raw) { paste.classList.remove('parse-error', 'parse-ok'); return; }
+        const parsed = parsePastedDateToLocal(raw);
+        if (parsed) {
+          picker.value = parsed;
+          paste.classList.add('parse-ok');
+          paste.classList.remove('parse-error');
+          setTimeout(() => { paste.value = ''; paste.classList.remove('parse-ok'); }, 900);
+        } else {
+          paste.classList.add('parse-error');
+          paste.classList.remove('parse-ok');
+        }
+      };
+      paste.addEventListener('paste', () => setTimeout(apply, 0));
+      paste.addEventListener('blur', apply);
+      paste.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); apply(); picker.focus(); }
+        if (e.key === 'Escape') { paste.value = ''; paste.classList.remove('parse-error', 'parse-ok'); picker.focus(); }
+      });
+    }
+
     function showNewLeadRow() {
       recordLeadsActivity();
       // If form already exists, just focus it
@@ -9146,78 +9283,103 @@
         if (emailInput) emailInput.focus();
         return;
       }
-      if (newLeadRowVisible) {
-        // State mismatch - reset it
-        newLeadRowVisible = false;
-      }
+      if (newLeadRowVisible) newLeadRowVisible = false;
       newLeadRowVisible = true;
-      
+
       const tbody = document.getElementById('leadsTableBody');
-      const rowNum = tbody.querySelectorAll('tr').length + 1;
-      
+      const colCount = document.querySelectorAll('#leadsTable thead th').length || 14;
+      const nowET = new Date().toLocaleString('sv-SE', { timeZone: 'America/New_York' }).slice(0, 16).replace(' ', 'T');
+
       const newRow = document.createElement('tr');
       newRow.className = 'new-lead-row';
       newRow.id = 'newLeadRow';
-      // Get current Eastern time for auto-fill
-      const nowET = new Date().toLocaleString('sv-SE', { timeZone: 'America/New_York' }).slice(0, 16).replace(' ', 'T');
-      
       newRow.innerHTML = `
-        <td></td>
-        <td style="text-align: center; color: var(--accent); font-weight: bold;">${rowNum}</td>
-        <td><input type="email" class="new-lead-input" id="newLeadEmail" placeholder="email@company.com" required></td>
-        <td><input type="text" class="new-lead-input" id="newLeadCompany" placeholder="Company"></td>
-        <td><input type="text" class="new-lead-input" id="newLeadDomain" placeholder="domain.com" style="width: 80px;"></td>
-        <td><input type="text" class="new-lead-input" id="newLeadName" placeholder="Name"></td>
-        <td>
-          <select class="new-lead-input" id="newLeadStatus" style="padding: 3px 4px;">
-            <option value="">-</option>
-            <option value="Booked">Booked</option>
-            <option value="Scheduling" selected>Scheduling</option>
-            <option value="Not booked">Not booked</option>
-          </select>
+        <td colspan="${colCount}" class="lead-form-panel">
+          <div class="lead-form-grid">
+            <div class="lead-form-field">
+              <label class="lead-form-label">Email <span style="color: var(--red)">*</span></label>
+              <input type="email" class="lead-form-input" id="newLeadEmail" placeholder="email@company.com" required autocomplete="off">
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Company</label>
+              <input type="text" class="lead-form-input" id="newLeadCompany" placeholder="Company" autocomplete="off">
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Domain</label>
+              <input type="text" class="lead-form-input" id="newLeadDomain" placeholder="domain.com" autocomplete="off">
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Name</label>
+              <input type="text" class="lead-form-input" id="newLeadName" placeholder="Full name" autocomplete="off">
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Status</label>
+              <select class="lead-form-input" id="newLeadStatus">
+                <option value="">—</option>
+                <option value="Booked">Booked</option>
+                <option value="Scheduling" selected>Scheduling</option>
+                <option value="Not booked">Not booked</option>
+              </select>
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Category</label>
+              <select class="lead-form-input" id="newLeadCategory">
+                <option value="Interested" selected>Interested</option>
+                <option value="Meeting Request">Meeting Request</option>
+                <option value="Information Request">Information Request</option>
+                <option value="Meeting Booked">Meeting Booked</option>
+              </select>
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Source</label>
+              <select class="lead-form-input" id="newLeadSource">
+                <option value="outbound" selected>outbound</option>
+                <option value="inbound">inbound</option>
+                <option value="cold_email">cold_email</option>
+                <option value="reactivation">reactivation</option>
+              </select>
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Lead Reply <span style="color:var(--text-dim); font-weight:400; text-transform:none; letter-spacing:0;">(ET)</span></label>
+              <input type="datetime-local" class="lead-form-input" id="newLeadResponse" value="${nowET}">
+              <input type="text" class="lead-form-paste" id="newLeadResponsePaste" placeholder="paste any date format…" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="lead-form-field">
+              <label class="lead-form-label">Our Reply <span style="color:var(--text-dim); font-weight:400; text-transform:none; letter-spacing:0;">(ET)</span></label>
+              <input type="datetime-local" class="lead-form-input" id="newLeadOurReply" value="${nowET}">
+              <input type="text" class="lead-form-paste" id="newLeadOurReplyPaste" placeholder="paste any date format…" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="lead-form-field" style="grid-column: span 3;">
+              <label class="lead-form-label">Notes</label>
+              <input type="text" class="lead-form-input" id="newLeadNotes" placeholder="Notes (optional)" autocomplete="off">
+            </div>
+            <div class="lead-form-footer">
+              <button class="lead-form-btn lead-form-btn-cancel" onclick="cancelNewLead()">Cancel</button>
+              <button class="lead-form-btn lead-form-btn-save save-lead-btn" onclick="saveNewLead()">Save Lead</button>
+            </div>
+          </div>
         </td>
-        <td>
-          <select class="new-lead-input" id="newLeadCategory" style="padding: 3px 4px;">
-            <option value="Interested">Interested</option>
-            <option value="Meeting Request">Meeting Request</option>
-            <option value="Information Request">Information Request</option>
-          </select>
-        </td>
-        <td style="color: var(--text-dim); font-size: 11px;">auto</td>
-        <td><input type="datetime-local" class="new-lead-input datetime-input" id="newLeadResponse" value="${nowET}"> <span style="font-size:9px;color:var(--text-dim)">ET</span></td>
-        <td><input type="datetime-local" class="new-lead-input datetime-input" id="newLeadOurReply" value="${nowET}"> <span style="font-size:9px;color:var(--text-dim)">ET</span></td>
-        <td style="color: var(--text-dim);">outbound</td>
-        <td>
-          <button class="save-lead-btn" onclick="saveNewLead()">Save</button>
-          <button class="cancel-lead-btn" onclick="cancelNewLead()">Cancel</button>
-        </td>
-        <td></td>
       `;
       tbody.appendChild(newRow);
-      
+
       // Auto-extract name, company, domain from email
       const emailInput = document.getElementById('newLeadEmail');
       const nameInput = document.getElementById('newLeadName');
       const companyInput = document.getElementById('newLeadCompany');
       const domainInput = document.getElementById('newLeadDomain');
       emailInput.focus();
-      
-      // Auto-fill function - extract name, company, domain from email
+
       const autoFillFromEmail = () => {
         const email = emailInput.value.trim();
         if (email.includes('@')) {
           const [localPart, domain] = email.split('@');
-          // Auto-fill name from local part (only if not manually edited)
           if (localPart && !nameInput.dataset.userEdited) {
             const name = localPart.replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
             nameInput.value = name;
           }
-          // Auto-fill domain ALWAYS when we have something after @
           if (domain) {
             domainInput.value = domain;
-            // Auto-fill company from domain (without TLD, only if not manually edited)
             if (!companyInput.dataset.userEdited) {
-              // Handle domains with or without dots
               const companyPart = domain.includes('.') ? domain.split('.')[0] : domain;
               const companyName = companyPart.replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
               companyInput.value = companyName;
@@ -9225,24 +9387,26 @@
           }
         }
       };
-      
-      // Trigger auto-fill on input, blur, and paste
+
       emailInput.addEventListener('input', autoFillFromEmail);
       emailInput.addEventListener('blur', autoFillFromEmail);
       emailInput.addEventListener('paste', () => setTimeout(autoFillFromEmail, 0));
-      
-      // Track if user manually edited name/company
       nameInput.addEventListener('input', () => nameInput.dataset.userEdited = 'true');
       companyInput.addEventListener('input', () => companyInput.dataset.userEdited = 'true');
-      
-      // Enter key saves the lead
+
+      // Wire paste-date companion boxes for both datetime fields
+      wirePasteDateHelper('newLeadResponse', 'newLeadResponsePaste');
+      wirePasteDateHelper('newLeadOurReply', 'newLeadOurReplyPaste');
+
+      // Enter saves, except when focus is on the paste helper (Enter triggers parse there)
       newRow.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
+          if (e.target && e.target.classList && e.target.classList.contains('lead-form-paste')) return;
           e.preventDefault();
           saveNewLead();
         }
       });
-      
+
       // Scroll to bottom
       const tableContainer = tbody.closest('div');
       tableContainer.scrollTop = tableContainer.scrollHeight;
@@ -9517,6 +9681,8 @@
       const name = document.getElementById('newLeadName').value.trim();
       const status = document.getElementById('newLeadStatus').value;
       const category = document.getElementById('newLeadCategory').value;
+      const source = document.getElementById('newLeadSource')?.value || 'outbound';
+      const notes = document.getElementById('newLeadNotes')?.value?.trim();
       const leadResponse = document.getElementById('newLeadResponse').value;
       const ourReply = document.getElementById('newLeadOurReply').value;
       
@@ -9556,7 +9722,8 @@
             category: category || 'Interested',
             lead_response: leadResponse ? new Date(leadResponse).toISOString() : null,
             response_time: ourReply ? new Date(ourReply).toISOString() : null,
-            source: 'outbound'
+            source: source || 'outbound',
+            notes: notes || null
           })
         });
         
@@ -9566,7 +9733,7 @@
         if (res.status === 409 && result.canRestore && result.existingLead) {
           const existingLead = result.existingLead;
           showDuplicateLeadModal(existingLead, {
-            email, company, domain, name, status, category, leadResponse, ourReply
+            email, company, domain, name, status, category, source, notes, leadResponse, ourReply
           });
           // Reset button state
           saveBtn.textContent = 'Save';
