@@ -208,22 +208,88 @@ async function replaceLead(campaignId, leadId, newEmail, firstName, lastName, co
   }
 }
 
-async function updateLeadCategory(campaignId, leadId, category) {
+// Map Bull Bro category names -> Smartlead numeric lead_category_id.
+// Derived from extract-all-threads.js. The /campaigns/:id/leads endpoint
+// expects lead_category_id (integer), not a status string -- using the
+// string label against the wrong endpoint is what caused every category
+// update to 404 silently for months.
+var SMARTLEAD_CATEGORY_IDS = {
+  'interested': 1,
+  'meeting request': 2,
+  'not interested': 3,
+  'do not contact': 4,
+  'information request': 5,
+  'out of office': 6,
+  'wrong person': 7,
+  'uncategorizable': 8,
+  'bounce': 9
+};
+
+function mapCategoryToId(category) {
+  if (!category) return null;
+  var key = String(category).trim().toLowerCase();
+  if (key in SMARTLEAD_CATEGORY_IDS) return SMARTLEAD_CATEGORY_IDS[key];
+  // Common aliases the AI or brain files sometimes emit
+  if (key === 'meeting booked' || key === 'booked') return 2;  // treat as Meeting Request
+  if (key === 'dnc' || key === 'block') return 4;
+  return null;
+}
+
+async function updateLeadCategory(campaignId, leadId, category, leadEmail) {
+  if (!leadEmail) {
+    console.error('[SMARTLEAD] Category update skipped -- leadEmail required for /campaigns/:id/leads endpoint');
+    return { ok: false, status: 0, error: 'missing leadEmail' };
+  }
+  var categoryId = mapCategoryToId(category);
+  if (categoryId === null) {
+    console.error('[SMARTLEAD] Category update skipped -- unknown category "' + category + '"');
+    return { ok: false, status: 0, error: 'unknown category: ' + category };
+  }
   try {
-    var url = SMARTLEAD_BASE_URL + '/campaigns/' + campaignId + '/leads/' + leadId + '/status?api_key=' + SMARTLEAD_API_KEY;
+    // Correct endpoint per smartlead-actions.js -- the previous
+    // /campaigns/:id/leads/:leadId/status URL does not exist and was 404ing.
+    var url = SMARTLEAD_BASE_URL + '/campaigns/' + campaignId + '/leads?api_key=' + SMARTLEAD_API_KEY;
     var response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: category })
+      body: JSON.stringify({ lead_email: leadEmail, lead_category_id: categoryId })
     });
+    var bodyText = await response.text();
     if (!response.ok) {
-      var errText = await response.text();
-      console.error('[SMARTLEAD] Category update failed:', response.status, errText);
-    } else {
-      console.log('[SMARTLEAD] Category updated to: ' + category + ' for lead ' + leadId);
+      console.error('[SMARTLEAD] Category update failed: ' + response.status + ' ' + bodyText.substring(0, 300));
+      return { ok: false, status: response.status, error: bodyText.substring(0, 300) };
     }
+    console.log('[SMARTLEAD] Category updated to "' + category + '" (id=' + categoryId + ') for ' + leadEmail + ' in campaign ' + campaignId);
+    return { ok: true, status: response.status };
   } catch (err) {
     console.error('[SMARTLEAD] Category update error:', err.message);
+    return { ok: false, status: 0, error: err.message };
+  }
+}
+
+// Add a lead to Smartlead's GLOBAL blocklist -- the only way to actually
+// stop future campaign emails. Category = "Do Not Contact" is just a label;
+// the blocklist endpoint is what enforces the block.
+async function blockLeadGlobal(leadEmail) {
+  if (!leadEmail) {
+    return { ok: false, status: 0, error: 'missing leadEmail' };
+  }
+  try {
+    var url = SMARTLEAD_BASE_URL + '/leads/' + encodeURIComponent(leadEmail) + '/block?api_key=' + SMARTLEAD_API_KEY;
+    var response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    var bodyText = await response.text();
+    if (!response.ok) {
+      console.error('[SMARTLEAD] Blocklist add failed: ' + response.status + ' ' + bodyText.substring(0, 300));
+      return { ok: false, status: response.status, error: bodyText.substring(0, 300) };
+    }
+    console.log('[SMARTLEAD] Blocklist add succeeded for ' + leadEmail);
+    return { ok: true, status: response.status };
+  } catch (err) {
+    console.error('[SMARTLEAD] Blocklist add error:', err.message);
+    return { ok: false, status: 0, error: err.message };
   }
 }
 
@@ -891,22 +957,35 @@ async function processAutoReply(task) {
 
     case 'BLOCK':
       console.log('[PROCESS] BLOCKING: ' + leadEmail);
-      await sendEscalation(
-        '🚫 BLOCKED: ' + leadName + ' (' + leadCompany + ')\n' +
-        'Email: ' + leadEmail + '\n' +
-        'Reason: ' + aiResult.reason
-      );
-      if (campaignId && leadId) {
-        console.log('[PROCESS] Setting lead to Do Not Contact: campaign=' + campaignId + ' lead=' + leadId);
-        await updateLeadCategory(campaignId, leadId, 'Do Not Contact');
+
+      // Run the two Smartlead operations in parallel:
+      //   1. Global blocklist add -- actually stops future campaign emails.
+      //   2. Category = Do Not Contact -- labels the lead for reporting.
+      // The prior implementation only attempted (2), against a URL that 404s,
+      // so BLOCKED Slack alerts were cosmetic and the lead stayed active.
+      var blocklistResult = await blockLeadGlobal(leadEmail);
+      var categoryResult = (campaignId && leadId)
+        ? await updateLeadCategory(campaignId, leadId, 'Do Not Contact', leadEmail)
+        : { ok: false, status: 0, error: 'missing campaignId (' + campaignId + ') or leadId (' + leadId + ')' };
+
+      var blockStatusLines = [
+        'Email: ' + leadEmail,
+        'Reason: ' + aiResult.reason,
+        'Blocklist add: ' + (blocklistResult.ok ? '✅ ok' : '❌ FAILED (' + blocklistResult.status + ' ' + blocklistResult.error + ')'),
+        'Category -> Do Not Contact: ' + (categoryResult.ok ? '✅ ok' : '❌ FAILED (' + categoryResult.status + ' ' + categoryResult.error + ')')
+      ];
+
+      if (blocklistResult.ok && categoryResult.ok) {
+        await sendEscalation('✅ BLOCKED: ' + leadName + ' (' + leadCompany + ')\n' + blockStatusLines.join('\n'));
       } else {
-        console.error('[PROCESS] Cannot block lead in SmartLead — missing campaignId (' + campaignId + ') or leadId (' + leadId + ')');
         await sendEscalation(
-          '⚠️ BLOCK INCOMPLETE: ' + leadName + ' (' + leadEmail + ')\n' +
-          'Bull Bro blocked this lead but could not update SmartLead category. Please manually set to Do Not Contact.\n' +
-          'Campaign: ' + campaignName
+          '⚠️ BLOCK INCOMPLETE -- manual action required: ' + leadName + ' (' + leadCompany + ')\n' +
+          blockStatusLines.join('\n') + '\n' +
+          'Campaign: ' + campaignName + '\n' +
+          'Please manually verify Smartlead state for this lead.'
         );
       }
+
       await updateDraftStatus(payload, aiResult, 'blocked');
       break;
 
@@ -973,7 +1052,16 @@ async function processAutoReply(task) {
       if (aiResult.category === 'Meeting Request') {
         if (campaignId && leadId) {
           console.log('[PROCESS] Forcing immediate category update to Meeting Request for subsequence trigger');
-          await updateLeadCategory(campaignId, leadId, 'Meeting Request');
+          var mrResult = await updateLeadCategory(campaignId, leadId, 'Meeting Request', leadEmail);
+          if (!mrResult.ok) {
+            await sendEscalation(
+              '⚠️ MEETING REQUEST CATEGORY UPDATE FAILED: ' + leadName + ' (' + leadCompany + ')\n' +
+              'Email: ' + leadEmail + '\n' +
+              'Campaign: ' + campaignName + '\n' +
+              'Smartlead API error: ' + mrResult.status + ' ' + mrResult.error + '\n' +
+              'The subsequence will NOT fire. Please manually set the lead to Meeting Request.'
+            );
+          }
         } else {
           console.error('[PROCESS] Cannot set Meeting Request category -- missing campaignId (' + campaignId + ') or leadId (' + leadId + ')');
           await sendEscalation(
@@ -1085,7 +1173,16 @@ async function processAutoReply(task) {
           if (sent) {
             console.log('[PROCESS] Reply sent to ' + leadEmail);
             if (aiResult.smartleadStatus && campaignId && leadId) {
-              await updateLeadCategory(campaignId, leadId, aiResult.smartleadStatus);
+              var catResult = await updateLeadCategory(campaignId, leadId, aiResult.smartleadStatus, leadEmail);
+              if (!catResult.ok) {
+                await sendEscalation(
+                  '⚠️ CATEGORY UPDATE FAILED post-reply: ' + leadName + ' (' + leadCompany + ')\n' +
+                  'Email: ' + leadEmail + '\n' +
+                  'Target category: ' + aiResult.smartleadStatus + '\n' +
+                  'Smartlead API error: ' + catResult.status + ' ' + catResult.error + '\n' +
+                  'Reply was sent but the lead category was NOT updated in Smartlead.'
+                );
+              }
             }
             var positiveCategories = ['Interested', 'Information Request', 'Meeting Request', 'Booked'];
             if (positiveCategories.indexOf(aiResult.category) >= 0) {
@@ -1393,6 +1490,8 @@ async function handleTest(req, res) {
     brainHasGenreBan: SYSTEM_PROMPT.indexOf('HARD BAN') >= 0,
     hasFallbackSlotHelper: typeof computeFallbackMeetingSlots === 'function',
     hasEtComponentsHelper: typeof etComponents === 'function',
+    hasBlockLeadGlobal: typeof blockLeadGlobal === 'function',
+    hasCategoryIdMap: typeof mapCategoryToId === 'function' && mapCategoryToId('Do Not Contact') === 4,
     commit: commitShort,
     branch: branch,
     deployedAt: deployedAt,
