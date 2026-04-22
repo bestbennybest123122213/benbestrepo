@@ -286,9 +286,9 @@ function mapCategoryToId(category) {
 }
 
 async function updateLeadCategory(campaignId, leadId, category, leadEmail) {
-  if (!leadEmail) {
-    console.error('[SMARTLEAD] Category update skipped -- leadEmail required for /campaigns/:id/leads endpoint');
-    return { ok: false, status: 0, error: 'missing leadEmail' };
+  if (!campaignId || !leadId) {
+    console.error('[SMARTLEAD] Category update skipped -- campaignId (' + campaignId + ') and leadId (' + leadId + ') both required for /category endpoint');
+    return { ok: false, status: 0, error: 'missing campaignId or leadId' };
   }
   var categoryId = mapCategoryToId(category);
   if (categoryId === null) {
@@ -296,20 +296,23 @@ async function updateLeadCategory(campaignId, leadId, category, leadEmail) {
     return { ok: false, status: 0, error: 'unknown category: ' + category };
   }
   try {
-    // Correct endpoint per smartlead-actions.js -- the previous
-    // /campaigns/:id/leads/:leadId/status URL does not exist and was 404ing.
-    var url = SMARTLEAD_BASE_URL + '/campaigns/' + campaignId + '/leads?api_key=' + SMARTLEAD_API_KEY;
+    // Smartlead's documented "Update a lead's category based on their campaign" endpoint:
+    //   POST /api/v1/campaigns/{campaign_id}/leads/{lead_id}/category?api_key=...
+    //   Body: { category_id: <int> }
+    // Previous attempts hit /leads/:id/status (404) and /campaigns/:id/leads
+    // (rejected as bulk-add: "lead_list is required"). This is the right one.
+    var url = SMARTLEAD_BASE_URL + '/campaigns/' + campaignId + '/leads/' + leadId + '/category?api_key=' + SMARTLEAD_API_KEY;
     var response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lead_email: leadEmail, lead_category_id: categoryId })
+      body: JSON.stringify({ category_id: categoryId })
     });
     var bodyText = await response.text();
     if (!response.ok) {
       console.error('[SMARTLEAD] Category update failed: ' + response.status + ' ' + bodyText.substring(0, 300));
       return { ok: false, status: response.status, error: bodyText.substring(0, 300) };
     }
-    console.log('[SMARTLEAD] Category updated to "' + category + '" (id=' + categoryId + ') for ' + leadEmail + ' in campaign ' + campaignId);
+    console.log('[SMARTLEAD] Category updated to "' + category + '" (id=' + categoryId + ') for lead ' + leadId + ' (' + (leadEmail || 'no email') + ') in campaign ' + campaignId);
     return { ok: true, status: response.status };
   } catch (err) {
     console.error('[SMARTLEAD] Category update error:', err.message);
