@@ -51,6 +51,56 @@ function loadBrainFiles() {
 loadBrainFiles();
 
 // ============================================================
+// LOAD VIP DOMAIN LIST (critical clients handled manually)
+// ============================================================
+// Leads from any domain in this list skip the full Bull Bro pipeline.
+// The handler posts a "VIP HANDOFF" Slack escalation with the reply +
+// context so a human can answer. This runs BEFORE the Sonnet call, so
+// VIP replies cost zero Anthropic tokens.
+var VIP_DOMAINS = new Set();
+
+function loadVipDomains() {
+  try {
+    var vipFile = path.join(__dirname, 'bull-bro-brain', 'vip_domains.txt');
+    if (!fs.existsSync(vipFile)) {
+      console.warn('[BULL BRO] vip_domains.txt not found -- VIP handoff disabled');
+      return;
+    }
+    var raw = fs.readFileSync(vipFile, 'utf8');
+    var lines = raw.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim().toLowerCase();
+      if (!line || line.charAt(0) === '#') continue;
+      VIP_DOMAINS.add(line);
+    }
+    console.log('[BULL BRO] Loaded ' + VIP_DOMAINS.size + ' VIP domains');
+  } catch (err) {
+    console.error('[BULL BRO] Failed to load vip_domains.txt:', err.message);
+    // Non-fatal: empty VIP set means no handoffs fire, bot runs normally
+  }
+}
+
+loadVipDomains();
+
+// Return the matching VIP parent domain if the lead's email belongs to a
+// VIP-listed company (exact match OR any parent subdomain); null otherwise.
+function matchVipDomain(email) {
+  if (!email || typeof email !== 'string') return null;
+  var at = email.lastIndexOf('@');
+  if (at < 0) return null;
+  var domain = email.substring(at + 1).toLowerCase().trim();
+  if (!domain) return null;
+  if (VIP_DOMAINS.has(domain)) return domain;
+  // Subdomain match: user@eng.openai.com -> match "openai.com"
+  var parts = domain.split('.');
+  for (var j = 1; j < parts.length - 1; j++) {
+    var parent = parts.slice(j).join('.');
+    if (VIP_DOMAINS.has(parent)) return parent;
+  }
+  return null;
+}
+
+// ============================================================
 // DEDUPLICATION
 // ============================================================
 var processedMessages = new Map();
@@ -848,6 +898,29 @@ async function processAutoReply(task) {
   }
 
   // ============================================================
+  // VIP HANDOFF: skip Bull Bro entirely for critical-client domains
+  // (see bull-bro-brain/vip_domains.txt). Handler escalates to Slack
+  // for manual handling and returns BEFORE the Sonnet call, so these
+  // replies cost zero Anthropic tokens.
+  // ============================================================
+  var vipMatch = matchVipDomain(leadEmail);
+  if (vipMatch) {
+    console.log('[PROCESS] VIP domain match: ' + vipMatch + ' -- handing off to human');
+    var vipPreview = replyBody.substring(0, 400);
+    if (replyBody.length > 400) vipPreview += '…';
+    await sendEscalation(
+      '👤 VIP HANDOFF -- DO NOT auto-reply: ' + leadName + ' (' + leadCompany + ')\n' +
+      'Email: ' + leadEmail + '\n' +
+      'VIP match: ' + vipMatch + '\n' +
+      'Campaign: ' + campaignName + '\n' +
+      'Lead said:\n' + vipPreview + '\n\n' +
+      'Bull Bro did NOT generate or send a reply. Please handle this thread manually from Smartlead.'
+    );
+    await updateDraftStatus(payload, { type: 'VIP_HANDOFF', reason: 'VIP domain: ' + vipMatch }, 'vip_handoff');
+    return;
+  }
+
+  // ============================================================
   // PRE-FLIGHT CHECK: Is this lead already in the pipeline?
   // Check curated_leads for existing Booked/Scheduling status
   // If so, escalate instead of auto-replying — lead is already being handled
@@ -1492,6 +1565,7 @@ async function handleTest(req, res) {
     hasEtComponentsHelper: typeof etComponents === 'function',
     hasBlockLeadGlobal: typeof blockLeadGlobal === 'function',
     hasCategoryIdMap: typeof mapCategoryToId === 'function' && mapCategoryToId('Do Not Contact') === 4,
+    vipDomainsLoaded: VIP_DOMAINS.size,
     commit: commitShort,
     branch: branch,
     deployedAt: deployedAt,
