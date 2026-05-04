@@ -901,23 +901,43 @@ async function processAutoReply(task) {
   }
 
   // ============================================================
-  // VIP HANDOFF: skip Bull Bro entirely for critical-client domains
-  // (see bull-bro-brain/vip_domains.txt). Handler escalates to Slack
-  // for manual handling and returns BEFORE the Sonnet call, so these
-  // replies cost zero Anthropic tokens.
+  // VIP HANDOFF: skip auto-send for critical-client domains
+  // (see bull-bro-brain/vip_domains.txt). Handler drafts a suggested
+  // reply via Sonnet and includes it in the Slack notification for the
+  // human to copy/edit, but NEVER sends anything to the lead.
   // ============================================================
   var vipMatch = matchVipDomain(leadEmail);
   if (vipMatch) {
     console.log('[PROCESS] VIP domain match: ' + vipMatch + ' -- handing off to human');
     var vipPreview = replyBody.substring(0, 400);
     if (replyBody.length > 400) vipPreview += '…';
+
+    var suggestedReplyBlock = '';
+    try {
+      var vipThread = await getFullThread(campaignId, leadId);
+      var vipSlots = await getAvailableSlots();
+      var vipDraft = await generateResponse(
+        leadName, leadCompany, leadEmail, fromEmail,
+        replyBody, vipThread, vipSlots
+      );
+      if (vipDraft && vipDraft.type === 'REPLY' && vipDraft.response) {
+        suggestedReplyBlock = '\n\n💡 Suggested Reply (NOT sent -- copy/edit before sending):\n' + vipDraft.response;
+      } else if (vipDraft && vipDraft.type) {
+        suggestedReplyBlock = '\n\n💡 Suggested Reply: none -- Bull Bro returned ' + vipDraft.type + (vipDraft.reason ? ' (' + vipDraft.reason + ')' : '');
+      }
+    } catch (vipDraftErr) {
+      console.error('[PROCESS] VIP suggested-reply draft failed:', vipDraftErr.message);
+      suggestedReplyBlock = '\n\n💡 Suggested Reply: unavailable (draft error: ' + vipDraftErr.message + ')';
+    }
+
     await sendEscalation(
       '👤 VIP HANDOFF -- DO NOT auto-reply: ' + leadName + ' (' + leadCompany + ')\n' +
       'Email: ' + leadEmail + '\n' +
       'VIP match: ' + vipMatch + '\n' +
       'Campaign: ' + campaignName + '\n' +
       'Lead said:\n' + vipPreview + '\n\n' +
-      'Bull Bro did NOT generate or send a reply. Please handle this thread manually from Smartlead.'
+      'Bull Bro did NOT generate or send a reply. Please handle this thread manually from Smartlead.' +
+      suggestedReplyBlock
     );
     await updateDraftStatus(payload, { type: 'VIP_HANDOFF', reason: 'VIP domain: ' + vipMatch }, 'vip_handoff');
     return;
